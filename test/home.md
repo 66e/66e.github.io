@@ -1,3 +1,15 @@
+<script type="text/javascript">   
+loopy()   
+function loopy() {   
+var sWord =""  
+while (sWord != "123") {//设置密码
+sWord = prompt("输入正确密码才能登陆!")   
+}   
+alert("欢迎访问")   
+}   
+</script> 
+<!--下面添加你要显示的内容或者代码-->
+
 ![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
 
 ![Branching](https://guides.github.com/activities/hello-world/branching.png)
