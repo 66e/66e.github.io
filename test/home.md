@@ -1,3 +1,10 @@
+<details><summary>慎入🔞NSFW</summary>
+
+Not Safe For Work
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Biohazard_Symbol_Specification.png/210px-Biohazard_Symbol_Specification.png">
+
+<details><summary><b>风险自理Use At Your Own Risk🈲</summary>
+
 ![](https://static2.hentai-cosplays.com/upload/20201010/181/185048/1.jpg)
 ![](https://static2.hentai-cosplays.com/upload/20201010/181/185048/2.jpg)
 ![](https://static2.hentai-cosplays.com/upload/20201010/181/185048/3.jpg)
@@ -52,3 +59,6 @@
 ![](https://static2.hentai-cosplays.com/upload/20201010/181/185048/52.gif)
 ![](https://static2.hentai-cosplays.com/upload/20201010/181/185048/53.gif)
 ![](https://static2.hentai-cosplays.com/upload/20201010/181/185048/54.gif)
+
+</details>
+</details>
