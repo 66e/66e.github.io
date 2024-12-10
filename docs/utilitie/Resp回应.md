@@ -1,5 +1,5 @@
 ---
-title: Respons
+title: Respons回
 parent: Utilitie
 ---
 
@@ -7,13 +7,16 @@ parent: Utilitie
 
 Just the Docs spacing works in conjunction with a variety of modifiers that allow you to target specific screen sizes responsively. Use these in conjunction with spacing and display prefix and suffix classes.
 
-<p>“You're late!”</p>
+<div class="code-example">
+<button type="button" name="button" class="btn">Button element</button>
+  <p>“You're late!”</p>
 <del>
   <p>“I apologize for the delay.”</p>
 </del>
 <ins cite="../howtobeawizard.html" datetime="2018-05">
   <p>“A wizard is never late …”</p>
 </ins>
+</div>
 
 | Modifier  | Screen size                          |
 |:----------|:-------------------------------------|
