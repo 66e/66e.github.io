@@ -1,11 +1,19 @@
 ---
-title: Responsive Modifiers
-parent: Utilities
+title: Respons
+parent: Utilitie
 ---
 
 # Responsive modifiers
 
 Just the Docs spacing works in conjunction with a variety of modifiers that allow you to target specific screen sizes responsively. Use these in conjunction with spacing and display prefix and suffix classes.
+
+<p>“You're late!”</p>
+<del>
+  <p>“I apologize for the delay.”</p>
+</del>
+<ins cite="../howtobeawizard.html" datetime="2018-05">
+  <p>“A wizard is never late …”</p>
+</ins>
 
 | Modifier  | Screen size                          |
 |:----------|:-------------------------------------|
