@@ -1,5 +1,5 @@
 ---
-title: 艮
+title: 57-巽
 nav_order: 4
 ---
 
