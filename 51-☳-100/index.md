@@ -1,6 +1,6 @@
 ---
 title: kitchen sink
-nav_order: 6.5
+parent: 51-震
 ---
 title: kitchen sink
 nav_order: 5
