@@ -3,7 +3,6 @@ title: Layout
 layout: 30-離
 nav_order: 5.5
 ---
-
 >　　　　　　　　6//?r=⭐　&d=2024/12/17 09:44:58　&b=m4rsx2ql
 ## 卧龙、凤雏得一可安天下，刘备二者皆有却为何败了？庞统死后刘备一句话道出真相
 https://www.msn.cn/zh-cn/news/other/%E5%8D%A7%E9%BE%99-%E5%87%A4%E9%9B%8F%E5%BE%97%E4%B8%80%E5%8F%AF%E5%AE%89%E5%A4%A9%E4%B8%8B-%E5%88%98%E5%A4%87%E4%BA%8C%E8%80%85%E7%9A%86%E6%9C%89%E5%8D%B4%E4%B8%BA%E4%BD%95%E8%B4%A5%E4%BA%86-%E5%BA%9E%E7%BB%9F%E6%AD%BB%E5%90%8E%E5%88%98%E5%A4%87%E4%B8%80%E5%8F%A5%E8%AF%9D%E9%81%93%E5%87%BA%E7%9C%9F%E7%9B%B8/ar-AA1vWpMz?ocid=msedgdhp&pc=U531&cvid=6760d28866cc4a29a44973bbce156a8c&ei=7
