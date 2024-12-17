@@ -1,6 +1,6 @@
 ---
 title: 艮山
-nav_order: 2
+nav_order: 6
 ---
 001|☶|52|Mountain\index.md
 

@@ -30,3 +30,47 @@ https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1vW1RO.img?w=534&h=406
 耳廓狐：
 与《小王子》中提到的狐狸形象非常贴切。
 https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1vW1RV.img?w=534&h=356&m=6
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/17 13:42:54　&b=m4s1f1wk
+## darkyzhou/cloudflare-docker-proxy: A docker registry proxy run on cloudflare worker.
+https://github.com/darkyzhou/cloudflare-docker-proxy
+|
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/17 14:20:58　&b=m4s2s0jp
+## 如何在 JavaScript 中优雅地创建并初始化数组 · Darky's Blog
+https://darkyzhou.net/articles/js-array-creation/#%E8%83%8C%E6%99%AF
+|
+```js
+[...Array(N).keys()].map((i) => i); // 1
+
+Array(N).fill(null); // 2
+
+Array(N)
+  .fill(null)
+  .map((i) => i); // 3
+
+Array.from(Array(N), (_, i) => i); // 4
+
+Array.from({ length: N }, (_, i) => i); // 5
+```
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/17 14:29:54　&b=m4s33hxv
+## darkyzhou/pasty: 使用 Rocket 和 RocksDB 实现的最简单的 Pastebin/短链接 服务
+https://github.com/darkyzhou/pasty
+|
+
+docker run -d --restart=unless-stopped -p 8000:8000 darkyzhou/pasty
+
+docker run -d --restart=unless-stopped -v ./Rocket.toml:/Rocket.toml -p 8000:8000 darkyzhou/pasty
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/17 14:30:53　&b=m4s34r7g
+## darkyzhou/junjun-transfer: 基于 WebRTC 技术的浏览器点对点文件传输工具
+https://github.com/darkyzhou/junjun-transfer
+|
+
+docker run -d -p 80:8080 --mount type=bind,source=(ice-servers.json的绝对目录),target=/app/config/ice-servers.json --restart unless-stopped darkyzhou/junjun-transfer
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/17 14:27:44　&b=m4s30pp7
+## giscus
+https://giscus.app/zh-CN
+|
