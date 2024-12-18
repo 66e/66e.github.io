@@ -1,4 +1,4 @@
 ---
 title: you
-parent: Code
+parent: 29坎💦
 ---
