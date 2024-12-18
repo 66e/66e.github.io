@@ -1,5 +1,5 @@
 ---
-title: 30🔥離
+title: 🔥離30
 nav_order: 4
 ---
 30-離\index.md

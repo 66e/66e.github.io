@@ -1,5 +1,5 @@
 ---
-title: 02🌏坤
+title: 🌏坤02
 nav_order: 2
 ---
 \02-坤\index.md

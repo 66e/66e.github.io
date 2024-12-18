@@ -267,3 +267,24 @@ https://github.com/FunAudioLLM/CosyVoice
 https://funaudiollm.github.io/cosyvoice2/
 |
 休息很重要，但也不能太放松警惕。
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/18 15:39:08　&b=m4tl0e64
+## 解读诡异的量子世界，在那里一切皆有可能，甚至不存在因果律！
+https://www.msn.cn/zh-cn/news/other/%E8%A7%A3%E8%AF%BB%E8%AF%A1%E5%BC%82%E7%9A%84%E9%87%8F%E5%AD%90%E4%B8%96%E7%95%8C-%E5%9C%A8%E9%82%A3%E9%87%8C%E4%B8%80%E5%88%87%E7%9A%86%E6%9C%89%E5%8F%AF%E8%83%BD-%E7%94%9A%E8%87%B3%E4%B8%8D%E5%AD%98%E5%9C%A8%E5%9B%A0%E6%9E%9C%E5%BE%8B/ar-AA1w07GI?ocid=msedgntp&pc=U531&cvid=676275b13a634052881f5f3708db34f4&ei=13
+|
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/18 15:40:21　&b=m4tl1y36
+## 占地1平方米的应急安全舱走入家庭
+https://www.msn.cn/zh-cn/news/other/%E5%8D%A0%E5%9C%B01%E5%B9%B3%E6%96%B9%E7%B1%B3%E7%9A%84%E5%BA%94%E6%80%A5%E5%AE%89%E5%85%A8%E8%88%B1%E8%B5%B0%E5%85%A5%E5%AE%B6%E5%BA%AD/ar-AA1w2RIS?ocid=msedgntp&pc=U531&cvid=676275b13a634052881f5f3708db34f4&ei=16
+|
+
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1w2RIR.img?w=534&h=401&m=6
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/18 15:41:05　&b=m4tl2vya
+## 为什么会说宇宙本质是量子纠缠，有什么说法吗
+https://www.msn.cn/zh-cn/news/other/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E8%AF%B4%E5%AE%87%E5%AE%99%E6%9C%AC%E8%B4%A8%E6%98%AF%E9%87%8F%E5%AD%90%E7%BA%A0%E7%BC%A0-%E6%9C%89%E4%BB%80%E4%B9%88%E8%AF%B4%E6%B3%95%E5%90%97/ar-AA1uM6SL?ocid=msedgntp&pc=U531&cvid=676275b13a634052881f5f3708db34f4&ei=39
+|
+
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1uM91i.img?w=500&h=300&m=6
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1uM91l.img?w=500&h=330&m=6
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1uMbuL.img?w=500&h=253&m=6
