@@ -3,6 +3,53 @@ title: allouts
 parent: 30-離
 nav_order: 7
 ---
+>　　　　　　　　6//?r=⭐　&d=2024/12/16 17:21:33　&b=m4qtse2x
+## 可以折叠的“无头骑士”？这键盘主机比笔记本还香，连独显都省了
+https://www.msn.cn/zh-cn/news/other/%E5%8F%AF%E4%BB%A5%E6%8A%98%E5%8F%A0%E7%9A%84-%E6%97%A0%E5%A4%B4%E9%AA%91%E5%A3%AB-%E8%BF%99%E9%94%AE%E7%9B%98%E4%B8%BB%E6%9C%BA%E6%AF%94%E7%AC%94%E8%AE%B0%E6%9C%AC%E8%BF%98%E9%A6%99-%E8%BF%9E%E7%8B%AC%E6%98%BE%E9%83%BD%E7%9C%81%E4%BA%86/ar-AA1vVQ6h?ocid=msedgntp&pc=U531&cvid=675fedf94e2940699aac29c199427724&ei=50
+|
+
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1vVQ4H.img?w=534&h=356&m=6
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/18 10:59:29　&b=m4tb0qwl
+## 可以折叠的“无头骑士”？这键盘主机比笔记本还香，连独显都省了
+https://www.msn.cn/zh-cn/news/other/%E5%8F%AF%E4%BB%A5%E6%8A%98%E5%8F%A0%E7%9A%84-%E6%97%A0%E5%A4%B4%E9%AA%91%E5%A3%AB-%E8%BF%99%E9%94%AE%E7%9B%98%E4%B8%BB%E6%9C%BA%E6%AF%94%E7%AC%94%E8%AE%B0%E6%9C%AC%E8%BF%98%E9%A6%99-%E8%BF%9E%E7%8B%AC%E6%98%BE%E9%83%BD%E7%9C%81%E4%BA%86/ar-AA1w1lIL?ocid=msedgntp&pc=U531&cvid=67622d6375ae4e92ad5bec33acb2e4fd&ei=44
+|
+
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1w1nT1.img?w=534&h=356&m=6
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/16 21:23:44　&b=m4r2fu3a
+## 马斯克玩《流放之路2》被封号 短时间内执行太多操作
+https://www.msn.cn/zh-cn/gaming/other/%E9%A9%AC%E6%96%AF%E5%85%8B%E7%8E%A9-%E6%B5%81%E6%94%BE%E4%B9%8B%E8%B7%AF2-%E8%A2%AB%E5%B0%81%E5%8F%B7-%E7%9F%AD%E6%97%B6%E9%97%B4%E5%86%85%E6%89%A7%E8%A1%8C%E5%A4%AA%E5%A4%9A%E6%93%8D%E4%BD%9C/ar-AA1vW3ed?ocid=msedgntp&pc=U531&cvid=675ff7e0845a4eecb7c5be2e82c02e5f&ei=10
+|
+马斯克凭借其高超的游戏技巧，操作速度极快，竟达到了类似宏的效果，结果不幸被系统误判为作弊并遭封停。
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/17 10:33:02　&b=m4rumwa4
+## 科普：科学家见证了悲惨而神秘的大象埋葬仪式
+https://www.msn.cn/zh-cn/news/other/%E7%A7%91%E6%99%AE-%E7%A7%91%E5%AD%A6%E5%AE%B6%E8%A7%81%E8%AF%81%E4%BA%86%E6%82%B2%E6%83%A8%E8%80%8C%E7%A5%9E%E7%A7%98%E7%9A%84%E5%A4%A7%E8%B1%A1%E5%9F%8B%E8%91%AC%E4%BB%AA%E5%BC%8F/ar-AA1vWgiI?ocid=msedgntp&pc=U531&cvid=6760d344bc6443a39b0f66c05b992dce&ei=37#
+
+亚洲象会大声哀悼并埋葬死去的幼崽，
+让人不禁联想起人类的葬礼仪式。
+
+象群都会牵着死去小象躯干和腿，然后将其腿朝上埋葬在土地里。
+
+作者写道，在一个例子中，象群围绕着被埋葬的小象大声咆哮和吼叫。
+
+只有小象会被运走埋葬，因为由其他象群运送较重的成年象是“不可行的”。
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1vWl1E.img?w=534&h=403&m=6
+
+大象以其社会和合作行为而闻名，但此前只对非洲象的幼崽埋葬进行了“短暂研究”，
+
+非洲和亚洲的野象会在不同的分解阶段造访尸体，
+
+在所有五个案例中，象群“在埋葬后40分钟内逃离了现场”，后来避免返回该地点，而是沿着不同的平行路线迁徙。
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/17 11:44:18　&b=m4rx6jnd
+## algolia/docsearch: :blue_book: The easiest way to add search to your documentation.
+https://github.com/algolia/docsearch
+|
+
+docsearch
+
 >　　　　　　　　6//?r=⭐　&d=2024/12/17 16:14:52　&b=m4s6uheo
 ## 魏延是被冤枉的吗？且看刘禅给他的评价，咱们就知道答案！
 https://www.msn.cn/zh-cn/news/other/%E9%AD%8F%E5%BB%B6%E6%98%AF%E8%A2%AB%E5%86%A4%E6%9E%89%E7%9A%84%E5%90%97-%E4%B8%94%E7%9C%8B%E5%88%98%E7%A6%85%E7%BB%99%E4%BB%96%E7%9A%84%E8%AF%84%E4%BB%B7-%E5%92%B1%E4%BB%AC%E5%B0%B1%E7%9F%A5%E9%81%93%E7%AD%94%E6%A1%88/ar-AA1vZtrU?ocid=msedgntp&pc=U531&cvid=6761325deb004f88a001a73ffdd5a75b&ei=52
@@ -124,6 +171,29 @@ https://www.msn.cn/zh-cn/news/other/%E7%BD%91%E7%BB%9C-%E7%BF%BB%E5%A2%99-%E4%B8
 绕开我g互联网防火q的监管，
 不得非法访问境外网站，
 
+>　　　　　　　　6//?r=⭐　&d=2024/12/18 11:38:22　&b=m4tcer2m
+## 私自篡改数据“解锁”新能源汽车电池，兄弟俩双双获刑
+https://www.msn.cn/zh-cn/news/other/%E7%A7%81%E8%87%AA%E7%AF%A1%E6%94%B9%E6%95%B0%E6%8D%AE-%E8%A7%A3%E9%94%81-%E6%96%B0%E8%83%BD%E6%BA%90%E6%B1%BD%E8%BD%A6%E7%94%B5%E6%B1%A0-%E5%85%84%E5%BC%9F%E4%BF%A9%E5%8F%8C%E5%8F%8C%E8%8E%B7%E5%88%91/ar-AA1w10bU?ocid=msedgntp&pc=U531&cvid=676241d1bb884a9fbab3a1db025d478e&ei=44
+|
+一、《zhrmg和g刑法》
+
+第二百八十六条
+对计算机信息系统功能进行删除、修改、增加、干扰，造成计算机信息系统不能正常运行，后果严重的，处五年以下有期徒刑或者拘役；后果特别严重的，处五年以上有期徒刑。
+
+对计算机信息系统中存储、处理或者传输的数据和应用程序进行删除、修改、增加的操作，
+依照前款的规定处罚。
+
+故意制作、传播计算机病毒等破坏性程序，影响计算机系统正常运行，
+依照第一款的规定处罚。
+
+单位犯前三款罪的，对单位判处罚金，并对其直接负责的主管人员和其他直接责任人员，依照第一款的规定处罚。
+
+二、《最高人m法院、最高人m检察院关于办理危害计算机信息系统安全刑事案件应用法律若干问题的解释》
+
+第四条
+
+（四）造成为一百台以上计算机信息系统提供域名解析、身份认证、计费等基础服务或者为一万以上用户提供服务的计算机信息系统不能正常运行累计一小时以上的；
+
 >　　　　　　　　6//?r=⭐　&d=2024/12/18 11:00:50　&b=m4tb2hjp
 ## Xfce 4.20 桌面环境发布：实验性支持 Wayland、改进Thunar等
 https://www.msn.cn/zh-cn/news/other/xfce-4-20-%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%E5%8F%91%E5%B8%83-%E5%AE%9E%E9%AA%8C%E6%80%A7%E6%94%AF%E6%8C%81-wayland-%E6%94%B9%E8%BF%9Bthunar%E7%AD%89/ar-AA1vZt51?ocid=msedgntp&pc=U531&cvid=67622d6375ae4e92ad5bec33acb2e4fd&ei=58
@@ -138,3 +208,62 @@ https://www.msn.cn/zh-cn/news/other/%E5%8F%AF%E8%A7%82%E6%B5%8B%E5%AE%87%E5%AE%9
 
 https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1w0lEq.img?w=534&h=385&m=6
 https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1w0nm9.img?w=534&h=358&m=6
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/18 11:30:12　&b=m4tc48v3
+## Lemorele G98共享切换器：一触即达，双主机单显共享的神奇利器！
+https://www.msn.cn/zh-cn/news/other/lemorele-g98%E5%85%B1%E4%BA%AB%E5%88%87%E6%8D%A2%E5%99%A8-%E4%B8%80%E8%A7%A6%E5%8D%B3%E8%BE%BE-%E5%8F%8C%E4%B8%BB%E6%9C%BA%E5%8D%95%E6%98%BE%E5%85%B1%E4%BA%AB%E7%9A%84%E7%A5%9E%E5%A5%87%E5%88%A9%E5%99%A8/ar-AA1w0JED?ocid=msedgntp&pc=U531&cvid=6762401c504c49a68ed2b7e3a7835ec3&ei=9
+|
+
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1w0r32.img?w=534&h=534&m=6
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/18 11:33:08　&b=m4tc816u
+## MMO赛道疯狂内卷，这款手游凭什么成为“武侠白月光”？
+https://www.msn.cn/zh-cn/gaming/other/mmo%E8%B5%9B%E9%81%93%E7%96%AF%E7%8B%82%E5%86%85%E5%8D%B7-%E8%BF%99%E6%AC%BE%E6%89%8B%E6%B8%B8%E5%87%AD%E4%BB%80%E4%B9%88%E6%88%90%E4%B8%BA-%E6%AD%A6%E4%BE%A0%E7%99%BD%E6%9C%88%E5%85%89/ar-AA1vt3IV?ocid=msedgntp&pc=U531&cvid=676241d1bb884a9fbab3a1db025d478e&ei=31
+|
+“逆转时光，重逢最初的江湖”
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1vsXbo.img?w=534&h=301&m=6
+
+回溯
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/18 11:46:16　&b=m4tcowp9
+## 同是合作游戏差距咋这么大？《双人成行》越热闹，这款游戏越难受
+https://www.msn.cn/zh-cn/news/other/%E5%90%8C%E6%98%AF%E5%90%88%E4%BD%9C%E6%B8%B8%E6%88%8F%E5%B7%AE%E8%B7%9D%E5%92%8B%E8%BF%99%E4%B9%88%E5%A4%A7-%E5%8F%8C%E4%BA%BA%E6%88%90%E8%A1%8C-%E8%B6%8A%E7%83%AD%E9%97%B9-%E8%BF%99%E6%AC%BE%E6%B8%B8%E6%88%8F%E8%B6%8A%E9%9A%BE%E5%8F%97/ar-AA1vHXsO?ocid=msedgntp&pc=U531&cvid=676241d1bb884a9fbab3a1db025d478e&ei=52
+|
+
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1vI0dr.img?w=534&h=299&m=6
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1vHVaj.img?w=534&h=387&m=6
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/18 14:10:00　&b=m4thtref
+## 张绣投降曹操背后的诡异布局：纳婶娘只是反叛的导火索？
+https://www.msn.cn/zh-cn/news/other/%E5%BC%A0%E7%BB%A3%E6%8A%95%E9%99%8D%E6%9B%B9%E6%93%8D%E8%83%8C%E5%90%8E%E7%9A%84%E8%AF%A1%E5%BC%82%E5%B8%83%E5%B1%80-%E7%BA%B3%E5%A9%B6%E5%A8%98%E5%8F%AA%E6%98%AF%E5%8F%8D%E5%8F%9B%E7%9A%84%E5%AF%BC%E7%81%AB%E7%B4%A2/ar-AA1w3Veq?ocid=msedgdhp&pc=U531&cvid=67626471f5654b489bd833f9f6702eb1&ei=60
+|
+汝妻子我养之，汝勿虑也。
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1w3Vej.img?w=534&h=377&m=6&x=313&y=213&s=303&d=303
+
+此城中可有妓女？
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1w3OKE.img?w=534&h=382&m=6&x=1047&y=309&s=103&d=103
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/18 14:24:58　&b=m4ticzwg
+## 因为肉质鲜美被人类吃到灭绝，从50亿只到1只不剩，仅用了100多年
+https://www.msn.cn/zh-cn/news/other/%E5%9B%A0%E4%B8%BA%E8%82%89%E8%B4%A8%E9%B2%9C%E7%BE%8E%E8%A2%AB%E4%BA%BA%E7%B1%BB%E5%90%83%E5%88%B0%E7%81%AD%E7%BB%9D-%E4%BB%8E50%E4%BA%BF%E5%8F%AA%E5%88%B01%E5%8F%AA%E4%B8%8D%E5%89%A9-%E4%BB%85%E7%94%A8%E4%BA%86100%E5%A4%9A%E5%B9%B4/ar-AA1w0Wxd?ocid=msedgntp&pc=U531&cvid=676269fd29594224808921c37330375b&ei=15
+|
+
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1w0Pxz.img?w=534&h=712&m=6
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/18 14:30:46　&b=m4tikgnu
+## 易经与量子力学的神秘关联：它们到底是玄学还是科学
+https://www.msn.cn/zh-cn/news/other/%E6%98%93%E7%BB%8F%E4%B8%8E%E9%87%8F%E5%AD%90%E5%8A%9B%E5%AD%A6%E7%9A%84%E7%A5%9E%E7%A7%98%E5%85%B3%E8%81%94-%E5%AE%83%E4%BB%AC%E5%88%B0%E5%BA%95%E6%98%AF%E7%8E%84%E5%AD%A6%E8%BF%98%E6%98%AF%E7%A7%91%E5%AD%A6/ar-AA1w3BJI?ocid=msedgntp&pc=U531&cvid=676269fd29594224808921c37330375b&ei=38
+|
+序卦
+描述了宇宙的统一自然场框架。这些框架象征着不同的事物，它们之间的关系和变化，正是由于场的内在逻辑关系。这与量子场论的观点是十分相似的。在量子场论中，物质是一组场。这些场服从狭义相对论和量子论原则，相互作用以量子本身作为媒介。在八卦卦象中，宇宙也是一个由物质构成的统一自然场。尤其是《易经·序卦》中说明的“盈天地间者唯万物”，说明了物质是场的核心。宇宙中的光、气、时都是不同性质的物质，它们融洽在一起可以成为新的物质。这种时空统一的自然场观念，也符合相对论的理论。在这个时空场中，空间是多维的、弯曲的、重叠变化的；时间也是相对的、可逆的、交叉变化的。八卦中的各卦之间不仅与相邻卦有联系，还可以与外界产生微妙的联系。这说明《易经》的宇宙时空观是弯曲、重叠与变化的。这种观念不仅反映了物质差异所出现的时空统一，也反映了事物无限的时空统一，它们都可以在物质运动中体现出来。
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/18 15:01:50　&b=m4tjoezm
+## FunAudioLLM/CosyVoice: Multi-lingual large voice generation model, providing inference, training and deployment full-stack ability.
+https://github.com/FunAudioLLM/CosyVoice
+|
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/18 15:06:47　&b=m4tjus39
+## CosyVoice2.0
+https://funaudiollm.github.io/cosyvoice2/
+|
+休息很重要，但也不能太放松警惕。
