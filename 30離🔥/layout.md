@@ -1,7 +1,6 @@
 ---
 title: 30-離
-layout: default
-nav_order: 15.5
+parent: Utilities
 ---
 >　　　　　　　　6//?r=⭐　&d=2024/12/17 09:44:58　&b=m4rsx2ql
 ## 卧龙、凤雏得一可安天下，刘备二者皆有却为何败了？庞统死后刘备一句话道出真相
