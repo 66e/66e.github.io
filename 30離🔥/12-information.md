@@ -337,5 +337,12 @@ https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1w7Wsb.img?w=534&h=294
 https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1w81ys.img?w=534&h=334&m=6
 https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1w84Yw.img?w=534&h=300&m=6
 
+>　　　　　　　　6//?r=⭐　&d=2024/12/19 15:27:12　&b=m4v00wb3
+## NVIDIA迷你机来袭：巴掌大小配自家CPU+GPU，仅需1810元
+https://www.msn.cn/zh-cn/news/other/nvidia%E8%BF%B7%E4%BD%A0%E6%9C%BA%E6%9D%A5%E8%A2%AD-%E5%B7%B4%E6%8E%8C%E5%A4%A7%E5%B0%8F%E9%85%8D%E8%87%AA%E5%AE%B6cpu-gpu-%E4%BB%85%E9%9C%801810%E5%85%83/ar-AA1w4KeQ?ocid=msedgntp&pc=U531&cvid=cedbd7ff61ce4c9e959eb7cce8a425b2&ei=17
+|
+
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1w4HUO.img?w=534&h=295&m=6
+
 雏得
 豹以
