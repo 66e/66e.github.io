@@ -321,3 +321,13 @@ https://www.msn.cn/zh-cn/news/other/%E6%B2%A1%E6%9C%89%E6%9C%A8%E6%98%9F%E4%BA%B
 |
 https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1w4ceg.img?w=534&h=334&m=6
 https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1w4eKA.img?w=534&h=300&m=6
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/19 14:22:12　&b=m4uxpb62
+## 莫言坦言：为百万奖金决定领奖
+https://www.msn.cn/zh-cn/news/other/%E8%8E%AB%E8%A8%80%E5%9D%A6%E8%A8%80-%E4%B8%BA%E7%99%BE%E4%B8%87%E5%A5%96%E9%87%91%E5%86%B3%E5%AE%9A%E9%A2%86%E5%A5%96/ar-AA1w4INu?ocid=msedgntp&pc=U531&cvid=6763b5a81ff546bd8c2bd8c36ca78254&ei=45
+|
+莫言表示：“他们告诉我说有19万美元的奖金，我一听眼睛都亮了，
+这19万美元大概可以兑换130万人民币，按照我们这几年救助先心病患儿的平均用款数额来算，这笔钱可以用来救治60名先天性心脏病儿童。”
+
+雏得
+豹以
