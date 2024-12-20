@@ -1,6 +1,6 @@
 ---
-title: Responsive Modifiers
-parent: 🔥離30
+title: 30離
+parent: 5🔥
 ---
 # Utilities
 {: .no_toc }

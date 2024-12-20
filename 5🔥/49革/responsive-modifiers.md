@@ -1,6 +1,6 @@
 ---
 title: Responsive Modifiers
-parent: 🔥離30
+parent: 49革
 ---
 　6//sp1it=1　6//?r=⭐　&d=2024/2/1
 ## 五月天

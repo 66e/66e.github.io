@@ -1,5 +1,5 @@
 ---
-title: Responsive Modifiers
+title: 49革
 parent: 🔥離30
 ---
 title: ䷰-革49
