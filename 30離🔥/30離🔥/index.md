@@ -1,8 +1,7 @@
 ---
-title: Utilities
-nav_order: 24
+title: Responsive Modifiers
+parent: 🔥離30
 ---
-
 # Utilities
 {: .no_toc }
 
