@@ -833,3 +833,40 @@ https://www.msn.cn/zh-cn/news/other/%E8%A5%BF%E6%B8%B8%E4%B8%AD-%E5%94%AF%E4%B8%
 
 polyglot多语
 https://www.brando.dev/zh-hans/img/everydayonecat_swim_reduced.gif
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/21 14:15:40　&b=m4xsclmd
+## 科学家将人类的“高智慧基因”转给了猴子，最后不得不终止了实验
+https://www.msn.cn/zh-cn/news/other/%E7%A7%91%E5%AD%A6%E5%AE%B6%E5%B0%86%E4%BA%BA%E7%B1%BB%E7%9A%84-%E9%AB%98%E6%99%BA%E6%85%A7%E5%9F%BA%E5%9B%A0-%E8%BD%AC%E7%BB%99%E4%BA%86%E7%8C%B4%E5%AD%90-%E6%9C%80%E5%90%8E%E4%B8%8D%E5%BE%97%E4%B8%8D%E7%BB%88%E6%AD%A2%E4%BA%86%E5%AE%9E%E9%AA%8C/ar-AA1wd7R2?ocid=msedgntp&pc=U531&cvid=74f1f4a324774f8dd2b2eeb0dbfe009f&ei=20
+|
+人类的“ARHGAP11B”基因其实是来自于一次偶然的基因突变，此次基因突变造成了该基因的mRNA失去了55个核苷酸，并因此产生了47个具有关键功能的氨基酸序列，从而使人类进化的方向因此而彻底改变。
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/21 14:13:10　&b=m4xs9dud
+## 《亮剑》李云龙的进步速度有多慢？赵刚都去中央了，他还是临时工
+https://www.msn.cn/zh-cn/news/other/%E4%BA%AE%E5%89%91-%E6%9D%8E%E4%BA%91%E9%BE%99%E7%9A%84%E8%BF%9B%E6%AD%A5%E9%80%9F%E5%BA%A6%E6%9C%89%E5%A4%9A%E6%85%A2-%E8%B5%B5%E5%88%9A%E9%83%BD%E5%8E%BB%E4%B8%AD%E5%A4%AE%E4%BA%86-%E4%BB%96%E8%BF%98%E6%98%AF%E4%B8%B4%E6%97%B6%E5%B7%A5/ar-AA1wd5k8?ocid=msedgntp&pc=U531&cvid=74f1f4a324774f8dd2b2eeb0dbfe009f&ei=43
+|
+李云龙最开始是团长，而且还是红军时期的团长，这样的人，
+结果就是自己硬生生把自己的位子给作没了，
+最开始在红军时期因为纵兵抢粮被一撸到底成伙夫，后面因为杀俘虏降为营长，后来因为伤重住院，错了发展的黄金期。
+
+剧版的李云龙可以说，只是拍了人家的高光时刻，如果把剧情后半段拍出来，
+前半段也只是一个起步而已，李云龙的至暗时刻才是最为唏嘘的，
+和自己的妻子田雨一起走向了自杀的命运，
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/21 15:33:01　&b=m4xv42t4
+## 我们的宇宙只是遥远宇宙的全息投影，到底什么才是真实？
+https://www.msn.cn/zh-cn/news/other/%E6%88%91%E4%BB%AC%E7%9A%84%E5%AE%87%E5%AE%99%E5%8F%AA%E6%98%AF%E9%81%A5%E8%BF%9C%E5%AE%87%E5%AE%99%E7%9A%84%E5%85%A8%E6%81%AF%E6%8A%95%E5%BD%B1-%E5%88%B0%E5%BA%95%E4%BB%80%E4%B9%88%E6%89%8D%E6%98%AF%E7%9C%9F%E5%AE%9E/ar-AA1wcSyb?ocid=msedgntp&pc=U531&cvid=67666ee4077f4edfbfbc7c49061750d8&ei=21
+|
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1wcIhn.img?w=534&h=401&m=6
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1wcSxQ.img?w=534&h=334&m=6
+https://img-s-msn-com.akamaized.net/tenant/amp/entityid/AA1wcNnm.img?w=534&h=300&m=6
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/21 15:37:09　&b=m4xv9e6w
+## 11.6寸办公笔记本，二手仅138元！成功帮我戒掉了网瘾！
+https://www.msn.cn/zh-cn/news/other/11-6%E5%AF%B8%E5%8A%9E%E5%85%AC%E7%AC%94%E8%AE%B0%E6%9C%AC-%E4%BA%8C%E6%89%8B%E4%BB%85138%E5%85%83-%E6%88%90%E5%8A%9F%E5%B8%AE%E6%88%91%E6%88%92%E6%8E%89%E4%BA%86%E7%BD%91%E7%98%BE/ar-AA1wfNeq?ocid=msedgntp&pc=U531&cvid=67666f49ae684907ae0e26ad4445a761&ei=10
+|
+我用它的时候，除了办公打字、学习、敲代码，再就是用它来挣钱，别的啥也干不了。
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/21 15:43:44　&b=m4xvhui0
+## jekyll 使用中文路径 | 小决的专栏
+https://jueee.github.io/2020/07/2020-07-08-jekyll%E4%BD%BF%E7%94%A8%E4%B8%AD%E6%96%87%E8%B7%AF%E5%BE%84/
+|
