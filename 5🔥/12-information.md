@@ -16,6 +16,59 @@ https://github.com/just-the-docs/just-the-docs
 
 assets
 
+>　　　　　　　　6//?r=⭐　&d=2024/12/21 10:59:53　&b=m4xlctjm
+## 深入解析Just the Docs：打造专业级文档的Jekyll主题-易源AI资讯 | 万维易源
+https://www.showapi.com/news/article/66b737f64ddd79f11a094b82
+|
+_config.yml
+languages: [en, zh]
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/21 11:09:14　&b=m4xlourj
+## jekyll-multiple-languages-plugin/example at master · kurtsson/jekyll-multiple-languages-plugin
+https://github.com/kurtsson/jekyll-multiple-languages-plugin/tree/master/example
+|
+_config.yml
+languages: ["it", "en", "es"]
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/21 11:10:47　&b=m4xlquj8
+## Language Support : Lunr
+https://lunrjs.com/guides/language_support.html
+|
+
+Japanese
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/21 11:11:04　&b=m4xlr71a
+## kurtsson/jekyll-multiple-languages-plugin: I18n support for Jekyll and Octopress
+https://github.com/kurtsson/jekyll-multiple-languages-plugin/tree/master
+|
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/21 11:12:20　&b=m4xlsttj
+## Jekyll多语言插件(Jekyll Multiple Languages Plugin)安装及使用指南-CSDN博客
+https://blog.csdn.net/gitblog_00185/article/details/141076613
+|
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/21 10:39:11　&b=m4xkm78g
+## In-Page Navigation | Just the Docs
+https://just-the-docs.com/docs/navigation/in-page/#generating-table-of-contents
+|
+
+In-Page Navigation
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/21 10:39:22　&b=m4xkmfvf
+## 导航结构 | Just the Docs
+https://docs.rubyist.cn/just-the-docs/docs/navigation-structure/#%E5%B8%A6%E5%AD%90%E9%A1%B5%E9%9D%A2%E7%9A%84%E9%A1%B5%E9%9D%A2
+|
+
+导航结构
+m4kryhqp
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/21 10:13:01　&b=m4xjojrn
+## weixsong/lunr-languages: A collection of languages stemmers and stopwords for Lunr Javascript library
+https://github.com/weixsong/lunr-languages
+|
+lunr-languages
+m4o7whh1
+
 >　　　　　　　　6//?r=⭐　&d=2024/12/16 21:49:02　&b=m4r3cdk2
 ## lunr language "ja" doesn't work (#45) · 议题 · Antora / Antora Lunr Extension · GitLab
 https://gitlab.com/antora/antora-lunr-extension/-/issues/45
@@ -753,3 +806,30 @@ https://www.msn.cn/zh-cn/gaming/other/%E9%BB%91%E7%A5%9E%E8%AF%9D%E5%BC%80%E6%8C
 ## 把翘臀还回来！《绝区零》深夜发布1.4版本修复说明
 https://www.msn.cn/zh-cn/gaming/other/%E6%8A%8A%E7%BF%98%E8%87%80%E8%BF%98%E5%9B%9E%E6%9D%A5-%E7%BB%9D%E5%8C%BA%E9%9B%B6-%E6%B7%B1%E5%A4%9C%E5%8F%91%E5%B8%831-4%E7%89%88%E6%9C%AC%E4%BF%AE%E5%A4%8D%E8%AF%B4%E6%98%8E/ar-AA1w7TJm?ocid=msedgntp&pc=U531&cvid=341feea44b6c41788564670cf38fac49&ei=17
 |
+
+>　　　　　　　　6//?r=⭐　&d=2024/12/21 10:15:04　&b=m4xjr74b
+## 西游中，唯一不怕主人的坐骑是谁？为何他可以和主人平等交往？
+https://www.msn.cn/zh-cn/news/other/%E8%A5%BF%E6%B8%B8%E4%B8%AD-%E5%94%AF%E4%B8%80%E4%B8%8D%E6%80%95%E4%B8%BB%E4%BA%BA%E7%9A%84%E5%9D%90%E9%AA%91%E6%98%AF%E8%B0%81-%E4%B8%BA%E4%BD%95%E4%BB%96%E5%8F%AF%E4%BB%A5%E5%92%8C%E4%B8%BB%E4%BA%BA%E5%B9%B3%E7%AD%89%E4%BA%A4%E5%BE%80/ar-AA1wdgGF?ocid=msedgdhp&pc=U531&cvid=676621d1e3aa4593bf67fc1632a34b4f&ei=36
+|
+西游世界是个等级森严的礼制社会，
+神仙是主子，而坐骑只是奴仆。主子对奴仆具有等级压制，
+
+九灵元圣使出一招九口擒拿术，
+瞬间便将孙悟空生擒。
+
+九灵元圣见主人到了，顿时吓得面无人色。
+跟随太乙救苦天尊返回妙严宫。
+
+青牛精当初下界为妖，太上老君降服他时，他居然用金刚琢攻击太上老君，
+
+而谛听面对地藏王菩萨，也保有相当的自主性。
+
+地藏王菩萨让谛听分辨真假悟空，谛听分辨出真假后，却并没有听从地藏王菩萨的建议说出真相，反而建议地藏王菩萨真假悟空前往灵山辨别真假。而地藏王菩萨也采纳了谛听的建议。
+
+地藏王菩萨是一位非常谦逊的大神。
+他早已具备成佛的资格，
+婉拒了如来对他的加封。
+主动申请到地府工作，超度亡灵。
+
+polyglot多语
+https://www.brando.dev/zh-hans/img/everydayonecat_swim_reduced.gif
