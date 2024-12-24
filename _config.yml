@@ -21,9 +21,21 @@ repository: just-the-docs/just-the-docs # for github-metadata
 
 permalink: pretty
 
+collections_dir: collections
+
+collections:
+  color:
+    output: true
+
+just_the_docs:
+  collections:
+    color:
+      name: Color
+      nav_fold: true
+
 defaults:
   - scope:
-      path: "docs" # an empty string here means all files in the project
+      path: "collections/*" # an empty string here means all files in the project
       type: "pages"
     values:
       layout: "default"
