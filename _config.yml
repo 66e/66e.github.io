@@ -36,7 +36,6 @@ just_the_docs:
 defaults:
   - scope:
       path: "collections/*" # an empty string here means all files in the project
-      type: "pages"
     values:
       layout: "default"
 
