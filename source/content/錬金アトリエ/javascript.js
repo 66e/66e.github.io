@@ -1,5 +1,4 @@
-<script>
-var documents = [{
+let documents = [{
   "name": "Lunr",
   "text": "Like Solr, but much smaller, and not as bright."
 }, {
@@ -10,7 +9,7 @@ var documents = [{
   "text": "A modern JavaScript utility library delivering modularity, performance & extras."
 }]
 
-var idx = lunr(function () {
+let idx = lunr(function () {
   this.ref('name')
   this.field('text')
 
@@ -18,6 +17,7 @@ var idx = lunr(function () {
     this.add(doc)
   }, this)
 })
+
 console.log(idx.search("bright"));
+
 alert("Hello World!");
-</script>
