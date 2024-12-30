@@ -100,7 +100,7 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
     const plausibleHost = cfg.analytics.host ?? "https://plausible.io"
     componentResources.afterDOMLoaded.push(`
       const plausibleScript = document.createElement("script")
-      plausibleScript.src = "https://unpkg.com/lunr/lunr.js"
+      plausibleScript.src = "${plausibleHost}/js/script.manual.js"
       plausibleScript.setAttribute("data-domain", location.hostname)
       plausibleScript.defer = true
       document.head.appendChild(plausibleScript)
@@ -162,6 +162,15 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
       document.head.appendChild(clarityScript)
     `)
   }
+
+  const plausibleH = cfg.analytics.host ?? "https://plausible.io"
+    componentResources.afterDOMLoaded.push(`
+      const plausibleS = document.createElement("script")
+      plausibleS.src = "https://unpkg.com/lunr/lunr.js"
+      plausibleS.setAttribute("data-domain", location.hostname)
+      plausibleS.defer = true
+      document.head.appendChild(plausibleS)
+    `)
 
   if (cfg.enableSPA) {
     componentResources.afterDOMLoaded.push(spaRouterScript)
