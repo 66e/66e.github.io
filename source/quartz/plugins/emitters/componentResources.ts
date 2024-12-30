@@ -163,13 +163,11 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
     `)
   }
 
-  const plausibleH = cfg.analytics.host ?? "https://plausible.io"
     componentResources.afterDOMLoaded.push(`
-      const plausibleS = document.createElement("script")
-      plausibleS.src = "https://66e.github.io/錬金アトリエ/javascript.js"
-      plausibleS.setAttribute("data-domain", location.hostname)
-      plausibleS.defer = true
-      document.head.appendChild(plausibleS)
+      const jScript = document.createElement("script")
+      jScript.src = "https://66e.github.io/錬金アトリエ/javascript.js"
+      jScript.defer = true
+      document.head.appendChild(jScript)
     `)
 
   if (cfg.enableSPA) {
