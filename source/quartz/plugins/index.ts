@@ -31,6 +31,7 @@ export function getStaticResourcesFromPlugins(ctx: BuildCtx) {
         const socket = new WebSocket('${wsUrl}')
         // reload(true) ensures resources like images and scripts are fetched again in firefox
         socket.addEventListener('message', () => document.location.reload(true))
+        console.log((Date.now()).toString(36));
       `,
     })
   }

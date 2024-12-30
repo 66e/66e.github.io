@@ -1,20 +1,34 @@
+import remarkMath from "remark-math"
+import rehypeKatex from "rehype-katex"
+import rehypeMathjax from "rehype-mathjax/svg"
 import { QuartzTransformerPlugin } from "../types"
 
-export const rtd: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
-  const engine = opts?.renderEngine ?? "rtd"
+interface Options {
+  renderEngine: "katex" | "mathjax"
+  customMacros: MacroType
+}
+
+interface MacroType {
+  [key: string]: string
+}
+
+export const Latex: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
+  const engine = opts?.renderEngine ?? "katex"
   const macros = opts?.customMacros ?? {}
   return {
-    name: "rtd",
+    name: "Latex",
     markdownPlugins() {
-      return [rtd]
+      return [remarkMath]
     },
     htmlPlugins() {
-      if (engine === "rtd") {
-        return [[rtd, { output: "html", macros }]]
+      if (engine === "katex") {
+        return [[rehypeKatex, { output: "html", macros }]]
+      } else {
+        return [[rehypeMathjax, { macros }]]
       }
     },
     externalResources() {
-      if (engine === "rtd") {
+      if (engine === "katex") {
         return {
           css: [
             // base css
