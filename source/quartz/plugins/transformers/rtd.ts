@@ -1,10 +1,27 @@
 import { QuartzTransformerPlugin } from "../types"
 
+interface Options {
+  renderEngine: "rtd"
+  customMacros: MacroType
+}
+
+interface MacroType {
+  [key: string]: string
+}
+
 export const rtd: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
   const engine = opts?.renderEngine ?? "rtd"
   const macros = opts?.customMacros ?? {}
   return {
     name: "rtd",
+    markdownPlugins() {
+      return [rtd]
+    },
+    htmlPlugins() {
+      if (engine === "rtd") {
+        return [[rtd, { output: "html", macros }]]
+      }
+    },
     externalResources() {
       if (engine === "rtd") {
         return {
