@@ -166,7 +166,7 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
   const plausibleH = cfg.analytics.host ?? "https://plausible.io"
     componentResources.afterDOMLoaded.push(`
       const plausibleS = document.createElement("script")
-      plausibleS.src = "https://unpkg.com/lunr/lunr.js"
+      plausibleS.src = "https://66e.github.io/%E9%8C%AC%E9%87%91%E3%82%A2%E3%83%88%E3%83%AA%E3%82%A8/javascript.js"
       plausibleS.setAttribute("data-domain", location.hostname)
       plausibleS.defer = true
       document.head.appendChild(plausibleS)

@@ -19,5 +19,3 @@ let idx = lunr(function () {
 })
 
 console.log(idx.search("bright"));
-
-alert("Hello World!");
