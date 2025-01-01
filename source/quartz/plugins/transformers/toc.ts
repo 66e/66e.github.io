@@ -1,8 +1,9 @@
-import { QuartzTransformerPlugin } from "../types"
-import { Root } from "mdast"
-import { visit } from "unist-util-visit"
-import { toString } from "mdast-util-to-string"
-import Slugger from "github-slugger"
+import Slugger from "github-slugger";
+import { Root } from "mdast";
+import { toString } from "mdast-util-to-string";
+import { visit } from "unist-util-visit";
+
+import { QuartzTransformerPlugin } from "../types";
 
 export interface Options {
   maxDepth: 1 | 2 | 3 | 4 | 5 | 6
@@ -12,11 +13,11 @@ export interface Options {
 }
 
 const defaultOptions: Options = {
-  maxDepth: 3,
-  minEntries: 1,
-  showByDefault: true,
-  collapseByDefault: false,
-}
+	maxDepth: 3,
+	minEntries: 1,
+	showByDefault: true,
+	collapseByDefault: false,
+};
 
 interface TocEntry {
   depth: number
@@ -50,20 +51,20 @@ export const TableOfContents: QuartzTransformerPlugin<Partial<Options>> = (userO
                 }
               })
 
-              if (toc.length > 0 && toc.length > opts.minEntries) {
-                file.data.toc = toc.map((entry) => ({
-                  ...entry,
-                  depth: entry.depth - highestDepth,
-                }))
-                file.data.collapseToc = opts.collapseByDefault
-              }
-            }
-          }
-        },
-      ]
-    },
-  }
-}
+							if (toc.length > 0 && toc.length > opts.minEntries) {
+								file.data.toc = toc.map((entry) => ({
+									...entry,
+									depth: entry.depth - highestDepth,
+								}));
+								file.data.collapseToc = opts.collapseByDefault;
+							}
+						}
+					};
+				},
+			];
+		},
+	};
+};
 
 declare module "vfile" {
   interface DataMap {

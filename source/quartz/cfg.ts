@@ -1,8 +1,8 @@
-import { ValidDateType } from "./components/Date"
-import { QuartzComponent } from "./components/types"
-import { ValidLocale } from "./i18n"
-import { PluginTypes } from "./plugins/types"
-import { Theme } from "./util/theme"
+import { ValidDateType } from "./components/Date";
+import { QuartzComponent } from "./components/types";
+import { ValidLocale } from "./i18n";
+import { PluginTypes } from "./plugins/types";
+import { Theme } from "./util/theme";
 
 export type Analytics =
   | null
@@ -38,14 +38,9 @@ export type Analytics =
       provider: "cabin"
       host?: string
     }
-  | {
-      provider: "clarity"
-      projectId?: string
-    }
 
 export interface GlobalConfiguration {
   pageTitle: string
-  pageTitleSuffix?: string
   /** Whether to enable single-page-app style rendering. this prevents flashes of unstyled content and improves smoothness of Quartz */
   enableSPA: boolean
   /** Whether to display Wikipedia-style popovers when hovering over links */
@@ -60,6 +55,11 @@ export interface GlobalConfiguration {
    *   Quartz will avoid using this as much as possible and use relative URLs most of the time
    */
   baseUrl?: string
+  /**
+   * Folder where the og-image is located. If not set, Quartz will use the default og-image.png
+   * baseUrl will be happenend as follow: `https://${baseUrl}/${ogImageDir}/${image}`
+   */
+  ogImageDir?: string
   theme: Theme
   /**
    * Allow to translate the date in the language of your choice.
