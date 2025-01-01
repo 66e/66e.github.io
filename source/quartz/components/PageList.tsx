@@ -1,12 +1,12 @@
-import { FullSlug, resolveRelative } from "../util/path"
+import { GlobalConfiguration } from "../cfg"
 import { QuartzPluginData } from "../plugins/vfile"
+import { FullSlug, resolveRelative } from "../util/path"
 import { Date, getDate } from "./Date"
 import { QuartzComponent, QuartzComponentProps } from "./types"
-import { GlobalConfiguration } from "../cfg"
-
 export type SortFn = (f1: QuartzPluginData, f2: QuartzPluginData) => number
-
-export function byDateAndAlphabetical(cfg: GlobalConfiguration): SortFn {
+export function byDateAndAlphabetical(
+  cfg: GlobalConfiguration,
+): (f1: QuartzPluginData, f2: QuartzPluginData) => number {
   return (f1, f2) => {
     if (f1.dates && f2.dates) {
       // sort descending
@@ -19,8 +19,8 @@ export function byDateAndAlphabetical(cfg: GlobalConfiguration): SortFn {
     }
 
     // otherwise, sort lexographically by title
-    const f1Title = f1.frontmatter?.title.toLowerCase() ?? ""
-    const f2Title = f2.frontmatter?.title.toLowerCase() ?? ""
+    const f1Title = f1.frontmatter?.title?.toLowerCase() ?? ""
+    const f2Title = f2.frontmatter?.title?.toLowerCase() ?? ""
     return f1Title.localeCompare(f2Title)
   }
 }
@@ -30,9 +30,8 @@ type Props = {
   sort?: SortFn
 } & QuartzComponentProps
 
-export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort }: Props) => {
-  const sorter = sort ?? byDateAndAlphabetical(cfg)
-  let list = allFiles.sort(sorter)
+export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit }: Props) => {
+  let list = allFiles.sort(byDateAndAlphabetical(cfg))
   if (limit) {
     list = list.slice(0, limit)
   }
@@ -46,13 +45,11 @@ export const PageList: QuartzComponent = ({ cfg, fileData, allFiles, limit, sort
         return (
           <li class="section-li">
             <div class="section">
-              <div>
-                {page.dates && (
-                  <p class="meta">
-                    <Date date={getDate(cfg, page)!} locale={cfg.locale} />
-                  </p>
-                )}
-              </div>
+              {page.dates && (
+                <p class="meta">
+                  <Date date={getDate(cfg, page)!} locale={cfg.locale} />
+                </p>
+              )}
               <div class="desc">
                 <h3>
                   <a href={resolveRelative(fileData.slug!, page.slug!)} class="internal">
@@ -87,5 +84,21 @@ PageList.css = `
 
 .section > .tags {
   margin: 0;
+}
+
+.section {
+	border: 1px solid var(--lightgray);
+	border-radius: 5px;
+	padding: 1rem;
+	position: relative;
+	transition: left 0.3s ease;
+	left: 0;
+}
+
+.section:hover {
+	background-color: var(--lightgray);
+	position: relative;
+	left: -15px !important;
+	transition: left 0.3s ease;
 }
 `
