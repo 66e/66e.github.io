@@ -19,6 +19,7 @@ import pt from "./locales/pt-BR"
 import hu from "./locales/hu-HU"
 import fa from "./locales/fa-IR"
 import pl from "./locales/pl-PL"
+import cs from "./locales/cs-CZ"
 
 export const TRANSLATIONS = {
   "en-US": enUs,
@@ -62,9 +63,10 @@ export const TRANSLATIONS = {
   "hu-HU": hu,
   "fa-IR": fa,
   "pl-PL": pl,
+  "cs-CZ": cs,
 } as const
 
-export const defaultTranslation = "en-US";
-export const i18n = (locale: ValidLocale): Translation => TRANSLATIONS[locale ?? defaultTranslation];
+export const defaultTranslation = "en-US"
+export const i18n = (locale: ValidLocale): Translation => TRANSLATIONS[locale ?? defaultTranslation]
 export type ValidLocale = keyof typeof TRANSLATIONS
 export type ValidCallout = keyof CalloutTranslation
