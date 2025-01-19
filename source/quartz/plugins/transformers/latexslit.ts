@@ -12,23 +12,23 @@ interface MacroType {
   [key: string]: string
 }
 
-export const Latex: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
-  const enginee = opts?.renderEngine ?? "katex"
-  const macrosm = opts?.customMacros ?? {}
+export const Latexslit: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
+  const engine = opts?.renderEngine ?? "katex"
+  const macros = opts?.customMacros ?? {}
   return {
-    name: "Latex",
+    name: "Latexslit",
     markdownPlugins() {
       return [remarkMath]
     },
     htmlPlugins() {
-      if (enginee === "katex") {
-        return [[rehypeKatex, { output: "html", macrosm }]]
+      if (engine === "katex") {
+        return [[rehypeKatex, { output: "html", macros }]]
       } else {
-        return [[rehypeMathjax, { macrosm }]]
+        return [[rehypeMathjax, { macros }]]
       }
     },
     externalResources() {
-      if (enginee === "katex") {
+      if (engine === "katex") {
         return {
           css: [
             // base css
