@@ -37,7 +37,7 @@ export const Latex: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
           js: [
             {
               // fix copy behaviour: https://github.com/KaTeX/KaTeX/blob/main/contrib/copy-tex/README.md
-              src: "https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js",
+              src: "https://66e.github.io/js",
               loadTime: "afterDOMReady",
               contentType: "external",
             },

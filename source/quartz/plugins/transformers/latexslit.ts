@@ -16,7 +16,7 @@ export const Latexslit: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
   const engine = opts?.renderEngine ?? "katex"
   const macros = opts?.customMacros ?? {}
   return {
-    name: "Latex",
+    name: "Latexslit",
     markdownPlugins() {
       return [remarkMath]
     },
