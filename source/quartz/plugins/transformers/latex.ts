@@ -21,27 +21,31 @@ export const Latex: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
       return [remarkMath]
     },
     htmlPlugins() {
-
+      if (engine === "katex") {
         return [[rehypeKatex, { output: "html", macros }]]
-
+      } else {
+        return [[rehypeMathjax, { macros }]]
+      }
     },
     externalResources() {
-
+      if (engine === "katex") {
         return {
           css: [
             // base css
-            "https://interactive-examples.mdn.mozilla.net/media/examples/link-element-example.css",
+            "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css",
           ],
           js: [
             {
               // fix copy behaviour: https://github.com/KaTeX/KaTeX/blob/main/contrib/copy-tex/README.md
-              src: "https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js",
+              src: "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/copy-tex.min.js",
               loadTime: "afterDOMReady",
               contentType: "external",
             },
           ],
         }
-
+      } else {
+        return {}
+      }
     },
   }
 }

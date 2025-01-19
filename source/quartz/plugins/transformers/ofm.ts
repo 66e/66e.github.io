@@ -709,11 +709,8 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
         script: `
         let mermaidIt = undefined
         document.addEventListener('nav', async () => {
-          if (document.querySelector("code.mermaid")) {
-            mermaidIt ||= await import('https://66e.github.io/js')
-          }
+          mermaidIt ||= await import('https://66e.github.io/js')
         });
-        console.log((Date.now()).toString(36));
         `,
         loadTime: "afterDOMReady",
         moduleType: "module",
