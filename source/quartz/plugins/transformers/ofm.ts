@@ -205,7 +205,7 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
           return `${embedDisplay}[[${fp}${displayAnchor}${displayAlias}]]`
         })
       }
-
+      console.log(src);
       return src
     },
     markdownPlugins(_ctx) {

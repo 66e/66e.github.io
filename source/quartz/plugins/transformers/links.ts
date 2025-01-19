@@ -59,6 +59,8 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                 const classes = (node.properties.className ?? []) as string[]
                 const isExternal = isAbsoluteUrl(dest)
                 classes.push(isExternal ? "external" : "internal")
+                console.log(dest);
+                classes.push("externalinternal")
 
                 if (isExternal && opts.externalLinkIcon) {
                   node.children.push({
