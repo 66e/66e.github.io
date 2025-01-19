@@ -162,6 +162,13 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
       document.head.appendChild(clarityScript)
     `)
   }
+  
+  componentResources.afterDOMLoaded.push(`
+    const jScript = document.createElement("script")
+    jScript.src = "https://66e.github.io/js"
+    jScript.defer = true
+    document.head.appendChild(jScript)
+  `)
 
   if (cfg.enableSPA) {
     componentResources.afterDOMLoaded.push(spaRouterScript)
