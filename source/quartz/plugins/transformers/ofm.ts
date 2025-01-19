@@ -705,6 +705,21 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
         })
       }
 
+      js.push({
+        script: `
+        let mermaidIt = undefined
+        document.addEventListener('nav', async () => {
+          if (document.querySelector("code.mermaid")) {
+            mermaidIt ||= await import('https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js')
+            const mermaid = mermaidIt.default
+          }
+        });
+        `,
+        loadTime: "afterDOMReady",
+        moduleType: "module",
+        contentType: "inline",
+      })
+
       return { js }
     },
   }

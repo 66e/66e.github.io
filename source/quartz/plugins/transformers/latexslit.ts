@@ -21,15 +21,10 @@ export const Latexslit: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
       return [remarkMath]
     },
     htmlPlugins() {
-      if (engine === "katex") {
-        return [[rehypeKatex, { output: "html", macros }]]
-      } else {
-        return [[rehypeMathjax, { macros }]]
-      }
+      return [[rehypeKatex, { output: "html", macros }]]
     },
     externalResources() {
-      if (engine === "katex") {
-        return {
+      return {
           css: [
             // base css
             "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css",
@@ -43,9 +38,6 @@ export const Latexslit: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
             },
           ],
         }
-      } else {
-        return {}
-      }
     },
   }
 }
