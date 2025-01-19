@@ -4,7 +4,7 @@ export default ((component?: QuartzComponent) => {
   if (component) {
     const Component = component
     const DesktopOnly: QuartzComponent = (props: QuartzComponentProps) => {
-      return <Component displayClass="mobile-only" {...props} />
+      return <Component displayClass="desktop-only" {...props} />
     }
 
     DesktopOnly.displayName = component.displayName
