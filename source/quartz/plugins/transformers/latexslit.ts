@@ -13,22 +13,22 @@ interface MacroType {
 }
 
 export const Latexslit: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
-  const engine = opts?.renderEngine ?? "katex"
-  const macros = opts?.customMacros ?? {}
+  const engines = opts?.renderEngine ?? "katex"
+  const macross = opts?.customMacros ?? {}
   return {
     name: "Latexslit",
     markdownPlugins() {
       return [remarkMath]
     },
     htmlPlugins() {
-      if (engine === "katex") {
+      if (engines === "katex") {
         return [[rehypeKatex, { output: "html", macros }]]
       } else {
-        return [[rehypeMathjax, { macros }]]
+        return [[rehypeMathjax, { macross }]]
       }
     },
     externalResources() {
-      if (engine === "katex") {
+      if (engines === "katex") {
         return {
           css: [
             // base css
