@@ -705,18 +705,6 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
         })
       }
 
-      js.push({
-        script: `
-        let mermaidIt = undefined
-        document.addEventListener('nav', async () => {
-          mermaidIt ||= await import('https://66e.github.io/js')
-        });
-        `,
-        loadTime: "afterDOMReady",
-        moduleType: "module",
-        contentType: "inline",
-      })
-
       return { js }
     },
   }

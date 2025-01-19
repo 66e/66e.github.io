@@ -13,22 +13,22 @@ interface MacroType {
 }
 
 export const Latex: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
-  const engine = opts?.renderEngine ?? "katex"
-  const macros = opts?.customMacros ?? {}
+  const enginee = opts?.renderEngine ?? "katex"
+  const macrosm = opts?.customMacros ?? {}
   return {
     name: "Latex",
     markdownPlugins() {
       return [remarkMath]
     },
     htmlPlugins() {
-      if (engine === "katex") {
-        return [[rehypeKatex, { output: "html", macros }]]
+      if (enginee === "katex") {
+        return [[rehypeKatex, { output: "html", macrosm }]]
       } else {
-        return [[rehypeMathjax, { macros }]]
+        return [[rehypeMathjax, { macrosm }]]
       }
     },
     externalResources() {
-      if (engine === "katex") {
+      if (enginee === "katex") {
         return {
           css: [
             // base css
