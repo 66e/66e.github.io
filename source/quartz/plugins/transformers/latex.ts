@@ -21,14 +21,12 @@ export const Latex: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
       return [remarkMath]
     },
     htmlPlugins() {
-      if (engine === "katex") {
+
         return [[rehypeKatex, { output: "html", macros }]]
-      } else {
-        return [[rehypeMathjax, { macros }]]
-      }
+
     },
     externalResources() {
-      if (engine === "katex") {
+
         return {
           css: [
             // base css
@@ -43,9 +41,7 @@ export const Latex: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
             },
           ],
         }
-      } else {
-        return {}
-      }
+
     },
   }
 }

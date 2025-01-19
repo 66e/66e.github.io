@@ -12,19 +12,24 @@ interface MacroType {
   [key: string]: string
 }
 
-export const Latexslit: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
+export const Latex: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
   const engine = opts?.renderEngine ?? "katex"
   const macros = opts?.customMacros ?? {}
   return {
-    name: "Latexslit",
+    name: "Latex",
     markdownPlugins() {
       return [remarkMath]
     },
     htmlPlugins() {
-      return [[rehypeKatex, { output: "html", macros }]]
+      if (engine === "katex") {
+        return [[rehypeKatex, { output: "html", macros }]]
+      } else {
+        return [[rehypeMathjax, { macros }]]
+      }
     },
     externalResources() {
-      return {
+      if (engine === "katex") {
+        return {
           css: [
             // base css
             "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css",
@@ -38,6 +43,9 @@ export const Latexslit: QuartzTransformerPlugin<Partial<Options>> = (opts) => {
             },
           ],
         }
+      } else {
+        return {}
+      }
     },
   }
 }
