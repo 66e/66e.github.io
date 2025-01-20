@@ -83,6 +83,27 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                   })
                 }
 
+                node.children.push({
+                  type: "element",
+                  tagName: "a",
+                  properties: {
+                    "aria-hidden": "true",
+                    class: "external-icon",
+                    style: "max-width:0.8em;max-height:0.8em",
+                    viewBox: "0 0 512 512",
+                  },
+                  children: [
+                    {
+                      type: "element",
+                      tagName: "img",
+                      properties: {
+                        d: "M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z",
+                      },
+                      children: [],
+                    },
+                  ],
+                })
+
                 // Check if the link has alias text
                 if (
                   node.children.length === 1 &&
@@ -133,11 +154,6 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                 ) {
                   node.children[0].value = path.basename(node.children[0].value)
                 }
-
-                const buttonI = document.createElement('button');
-                buttonI.textContent = 'insertBeforePM';
-                node.parentNode.insertBefore(buttonI, node)
-
               }
 
               // transform all other resources that may use links
