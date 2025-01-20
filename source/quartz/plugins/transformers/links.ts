@@ -135,8 +135,8 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                 }
 
                 const buttonI = document.createElement('button');
-                buttonI.textContent = 'insertBeforeParentEleME';
-                node.parentElement.insertBefore(buttonI, node)
+                buttonI.textContent = 'insertBeforePM';
+                node.parentNode.insertBefore(buttonI, node)
 
               }
 
