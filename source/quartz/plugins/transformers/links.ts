@@ -80,9 +80,7 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                         children: [],
                       },
                     ],
-                  })
 
-                  node.children.push({
                     type: "element",
                     tagName: "a",
                     properties: {
