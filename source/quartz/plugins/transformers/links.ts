@@ -62,24 +62,6 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
 
                 if (isExternal && opts.externalLinkIcon) {
                   node.children.push({
-                    type: "element",
-                    tagName: "svg",
-                    properties: {
-                      "aria-hidden": "true",
-                      class: "external-icon",
-                      style: "max-width:0.8em;max-height:0.8em",
-                      viewBox: "0 0 512 512",
-                    },
-                    children: [
-                      {
-                        type: "element",
-                        tagName: "path",
-                        properties: {
-                          d: "M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z",
-                        },
-                        children: [],
-                      },
-                    ],
 
                     type: "element",
                     tagName: "a",
@@ -93,6 +75,25 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                       {
                         type: "element",
                         tagName: "img",
+                        properties: {
+                          d: "M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z",
+                        },
+                        children: [],
+                      },
+                    ],
+
+                    type: "element",
+                    tagName: "svg",
+                    properties: {
+                      "aria-hidden": "true",
+                      class: "external-icon",
+                      style: "max-width:0.8em;max-height:0.8em",
+                      viewBox: "0 0 512 512",
+                    },
+                    children: [
+                      {
+                        type: "element",
+                        tagName: "path",
                         properties: {
                           d: "M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z",
                         },
@@ -119,7 +120,7 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
 
                 // don't process external links or intra-document anchors
                 const isInternal = !(isAbsoluteUrl(dest) || dest.startsWith("#"))
-                if (isInternal) {
+                //if (isInternal) {
                   dest = node.properties.href = transformLink(
                     file.data.slug!,
                     dest,
@@ -140,7 +141,7 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                   const simple = simplifySlug(full)
                   outgoing.add(simple)
                   node.properties["data-slug"] = full
-                }
+                //}
 
                 // rewrite link internals if prettylinks is on
                 if (
