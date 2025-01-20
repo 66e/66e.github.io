@@ -59,8 +59,6 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                 const classes = (node.properties.className ?? []) as string[]
                 const isExternal = isAbsoluteUrl(dest)
                 classes.push(isExternal ? "external" : "internal")
-                console.log(dest);
-                classes.push("externalinternal")
 
                 if (isExternal && opts.externalLinkIcon) {
                   node.children.push({
@@ -135,6 +133,11 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                 ) {
                   node.children[0].value = path.basename(node.children[0].value)
                 }
+
+                const buttonI = document.createElement('button');
+                buttonI.textContent = 'insertBeforeParentEleME';
+                node.parentElement.insertBefore(buttonI, node)
+
               }
 
               // transform all other resources that may use links
