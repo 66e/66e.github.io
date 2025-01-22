@@ -26,19 +26,101 @@ const matchHref = () => {
 const bundleLinkS = (selectRule) => {
     const retrievedElemS = document.querySelectorAll(selectRule);
     const hrefArr = [];
-
     for (const element of retrievedElemS) {
-        const bUtterance = document.createElement('button');
-        bUtterance.textContent = 'utterance';
+        const fancySuit = getImageItem(element.href);
         const br = document.createElement('br');
-        element.parentElement.insertBefore(bUtterance, element);
+        element.parentElement.insertBefore(fancySuit, element);
         element.parentElement.insertBefore(br, element);
+        element.remove();
         hrefArr.push(element.href);
     }
     return hrefArr;
 };
 
+const appendRefer = (urlFile) => {
+    const fileExtension = urlFile.match(/\.[^/.]+$/);
+    const referElem = createByExtens(urlFile, fileExtension[0]);
+    const fileName = urlFile.match(/[^\/=\b]+(?=\.[^\/.]*$)/)[0];
+    referElem.id = fileName.replace(/\./g,'_')
+    + fileExtension[0].replace(/\./g,'_');
+    document.documentElement.appendChild(referElem);
+};
+
+const createByExtens = (urlFile, fileExtens) => {
+    const fancyJs = 'https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.min.js';
+    switch (fileExtens) {
+        case '.js':
+        const scriptRefer = document.createElement('script');
+        scriptRefer.src = urlFile;
+        scriptRefer.defer = true;
+        if (urlFile === fancyJs) {
+            scriptRefer.addEventListener('load', () => {
+                Fancybox.bind("[data-fancybox]", {
+                    // Your custom options
+                });
+            });
+        }
+        return scriptRefer;
+        case '.css':
+        const linkRefer = document.createElement('link');
+        linkRefer.href = urlFile;
+        linkRefer.setAttribute('rel', 'stylesheet');
+        return linkRefer;
+        default:
+        console.log(fileExtens);
+        break;
+    }
+};
+
+const getImageItem = (imgUrl) => {
+  const img = new Image();
+  const start_time = Date.now();
+  img.style.maxHeight = '72px';
+  img.style.maxWidth = '144px';
+  img.style.borderRadius = '5px';
+  img.src = imgUrl;
+  const anchorTag = document.createElement('a');
+
+  const check = function(){
+    const diff = Date.now() - start_time;
+    let voidBoolean = '';
+    if(img.naturalWidth>0 || img.naturalHeight>0){
+    }
+    else{
+      voidBoolean = '❌';
+      img.alt = imgUrl;
+    }
+    clearInterval(set);
+    const imgResp = voidBoolean + '🏳‍🌈' + img.naturalWidth
+     + '📶' + img.naturalHeight + '⌛' + diff;
+     anchorTag.setAttribute('data-caption', imgResp);
+  };
+  const set = setInterval(check,40);
+
+  const liTag = document.createElement('li');
+  liTag.className = 'is-loading';
+  liTag.style.float = 'left';
+  liTag.style.listStyle = 'none';
+  liTag.style.margin = '0 4px 0px 0';
+  liTag.style.backgroundPosition = 'center center';
+  liTag.style.backgroundRepeat = 'no-repeat';
+  liTag.style.backgroundColor = 'rgba(241,241,241,.9)';
+  liTag.style.backgroundImage = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/loading.gif';
+  liTag.appendChild(img);
+  anchorTag.setAttribute('data-fancybox', 'gallery');
+  anchorTag.href = imgUrl;
+  anchorTag.appendChild(liTag);
+  return anchorTag;
+};
+
 if ( matchHref() === 'githubPage') {
+    const imgLoad = 'https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/5.0.0/imagesloaded.pkgd.min.js';
+    appendRefer(imgLoad);
+    const fancyCss = 'https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.min.css';
+    appendRefer(fancyCss);
+    const fancyJs = 'https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.31/fancybox/fancybox.umd.min.js';
+    appendRefer(fancyJs);
+
     const querySelPath = 
     '#quartz-body > div.center > article.popover-hint > p > a.external';
     const linkS = bundleLinkS(querySelPath);
