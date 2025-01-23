@@ -165,8 +165,7 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
   
   componentResources.afterDOMLoaded.push(`
     const jScript = document.createElement("script")
-    jScript.src = "https://66e.github.io/js"
-    jScript.defer = true
+    jScript.src = "https://66e.github.io/q.js"
     document.head.appendChild(jScript)
   `)
 
