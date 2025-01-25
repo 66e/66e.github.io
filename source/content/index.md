@@ -13,3 +13,11 @@ https://www.msn.cn/zh-cn/news/other/%E5%86%9C%E5%A4%AB%E5%B1%B1%E6%B3%89%E5%88%9
 [[https://p9.itc.cn/q_70/images03/20231020/9cd0763bccfa49efb2a532e685250581.png]]
 
 [[AA1xrpf6.png]]
+
+<a href=".." class="internal internal alias" data-slug="index">9cd0763<div class="popover" style="left: 82.6302px; top: 25.6875px;"><div class="popover-inner" data-content-type="text/html"><div class="popover-hint"><h1 class="article-title">My GitHub Pages Notebook!</h1><p show-comma="true" class="content-meta"><span>Jan 23, 2025</span><span>1 min read</span></p></div><article class="popover-hint"><p>Hello world!</p>
+<p>Write some words here!</p>
+<blockquote>
+<p>　　　　　　　　6//?r=⭐　&amp;d=2025/1/19 11:09:56　&amp;b=m631hgiw</p>
+</blockquote>
+<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></p>
+<p><a href="/AA1xrpf6.png" class="internal" data-slug="AA1xrpf6.png">AA1xrpf6.png</a></p></article></div></div></a>
