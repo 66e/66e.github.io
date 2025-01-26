@@ -7,7 +7,7 @@
 // @match        *://*/*
 // ==/UserScript==
 
-(function() {
+(() => {
     'use strict';
 
 const matchHref = () => {
@@ -22,7 +22,7 @@ const matchHref = () => {
         default:
             return '';
     }
-};
+}
 
 const parseLinkS = (selectRule) => {
     const retrievedElemS = document.querySelectorAll(selectRule);
@@ -40,7 +40,7 @@ const parseLinkS = (selectRule) => {
         hrefArr.push(elem.href);
     }
     return hrefArr;
-};
+}
 
 const appendRefer = (urlFile) => {
     const fileExtension = urlFile.match(/\.[^/.]+$/);
@@ -49,7 +49,7 @@ const appendRefer = (urlFile) => {
     referElem.id = fileName.replace(/\./g,'_')
     + fileExtension[0].replace(/\./g,'_');
     document.documentElement.appendChild(referElem);
-};
+}
 
 const createByExtens = (urlFile, fileExtens) => {
     switch (fileExtens) {
@@ -76,7 +76,7 @@ const createByExtens = (urlFile, fileExtens) => {
             console.log(fileExtens);
             break;
     }
-};
+}
 
 const filterUrl = (funcParam, queryUrl) => {
     const sixComment = /\d\S\S\S\w+\S.*\s\S\w+\S\d{2,4}\S\d{1,2}\S\d{1,2}\s\d{1,2}\S\d{1,2}\S\d{1,2}.*/i;
@@ -134,11 +134,11 @@ const getImageItem = (imgUrl) => {
   
     const check = function(){
         const diff = Date.now() - start_time;
-        const voidBoolean = '';
         if(img.naturalWidth>0 || img.naturalHeight>0){
+            const voidBoolean = '';
         }
         else{
-            voidBoolean = '❌';
+            const voidBoolean = '❌';
             img.alt = imgUrl;
         }
         clearInterval(set);
@@ -161,7 +161,7 @@ const getImageItem = (imgUrl) => {
     anchorTag.href = imgUrl;
     anchorTag.appendChild(liTag);
     return anchorTag;
-};
+}
 
 if ( matchHref() === 'githubPage' ) {
     const style = document.createElement('style');

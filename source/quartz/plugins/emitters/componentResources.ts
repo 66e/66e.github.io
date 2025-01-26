@@ -164,9 +164,10 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
   }
   
   componentResources.afterDOMLoaded.push(`
-    const jScript = document.createElement("script")
-    jScript.src = "https://66e.github.io/m.js"
-    document.head.appendChild(jScript)
+    const js0 = document.createElement('script')
+    js0.src = 'https://66e.github.io/js0.js'
+    js0.defer = true
+    document.head.appendChild(js0)
   `)
 
   if (cfg.enableSPA) {
