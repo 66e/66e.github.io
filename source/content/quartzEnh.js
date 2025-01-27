@@ -134,11 +134,12 @@ const getImageItem = (imgUrl) => {
   
     const check = function(){
         const diff = Date.now() - start_time;
+        let voidBoolean = '';
         if(img.naturalWidth>0 || img.naturalHeight>0){
-            const voidBoolean = '';
+
         }
         else{
-            const voidBoolean = '❌';
+            voidBoolean = '❌';
             img.alt = imgUrl;
         }
         clearInterval(set);
