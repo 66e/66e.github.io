@@ -59,9 +59,9 @@ const preprocessPrecast = () => {
   bar.appendChild(button);
 
   const referUrl = [
-      'https://66e.github.io/hexaMenu.js',
       'https://66e.github.io/quartzEnh.js',
-      'https://66e.github.io/crossPad.js',
+      'https://66e.github.io/hexagraMenu.js',
+      'https://66e.github.io/playSequence.js',
   ];
   const checkbox = [];
   const referElem = [];

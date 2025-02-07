@@ -165,7 +165,7 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
   
   componentResources.afterDOMLoaded.push(`
     const js0 = document.createElement('script')
-    js0.src = 'https://66e.github.io/referHub.js'
+    js0.src = 'https://66e.github.io/0_referHub.js'
     js0.defer = true
     document.head.appendChild(js0)
   `)
