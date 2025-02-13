@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         hexagraMenu
 // @namespace    https://bbs.tampermonkey.net.cn/
-// @version      0.8.125
+// @version      0.8.213
 // @description  try to take over the world!
 // @author       You
 // @match        *://*/*
@@ -10,13 +10,7 @@
 (() => {
     'use strict';
 
-const uniqueLauncher = () => {
-    const triggerExist = document.querySelector('div#triggerField');
-    triggerExist === null ? preprocessPrecast() : console.log(
-        'already entity');
-}
-
-const preprocessPrecast = () => {
+const precastProcess = () => {
     const strUrl = 'https://6cc.github.io/r4/2024/hexagram.md';
     createTrigger();
     createNavBar();
@@ -171,13 +165,7 @@ const articuExpress = (text, vol) => {
     window.speechSynthesis.speak(msg);
 }
 
-if ( document.body ) {
-    uniqueLauncher();
-} else {
-    document.addEventListener("DOMContentLoaded", () => {
-        uniqueLauncher();
-    });
-}
+precastProcess();
 
     // Your code here...
 })();

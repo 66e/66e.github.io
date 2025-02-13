@@ -61,7 +61,7 @@ const preprocessPrecast = () => {
   const referUrl = [
       'https://66e.github.io/quartzEnh.js',
       'https://66e.github.io/hexagraMenu.js',
-      'https://66e.github.io/playSequence.js',
+      'https://66e.github.io/utTeRAnCE.js',
   ];
   const checkbox = [];
   const referElem = [];
