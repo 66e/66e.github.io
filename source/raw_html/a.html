@@ -12,7 +12,7 @@ const ap = new APlayer({
         artist: 'Zwei',
         url: 'https://oss.mojidict.com/article/audio/dd16f7f0-8367-4d49-830a-3a66d0489982.mp3',
         cover: 'https://zweima.com/wp/wp-content/uploads/b2b99ccc4fe2b7d9e69f2b14b16b7a2e-1024x1024.jpg',
-        lrc: 'https://66e.github.io/o/6/%E3%83%A9%E3%82%A4%E3%82%A2.txt',
+        lrc: 'https://66e.github.io/6/%E3%83%A9%E3%82%A4%E3%82%A2.txt',
     }]
 });
 
