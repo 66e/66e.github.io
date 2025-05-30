@@ -1,3 +1,5 @@
+<script src="https://66e.github.io/6/f.js"></script>
+
 [digital gardens](https://jzhao.xyz/posts/networked-thought)
 
 [root/a](https://66e.github.io/a)

@@ -1,3 +1,4 @@
+<script src="https://66e.github.io/f.js"></script>
 <audio id="player" controls="">
     <source src="https://oss.mojidict.com/article/audio/dd16f7f0-8367-4d49-830a-3a66d0489982.mp3" type="audio/mpeg">
 </audio>
