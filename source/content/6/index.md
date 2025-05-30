@@ -1,4 +1,4 @@
-<script src="https://66e.github.io/6/f.js"></script>
+<script src="https://66e.github.io/6/jsp.js"></script>
 
 [digital gardens](https://jzhao.xyz/posts/networked-thought)
 
@@ -10,4 +10,4 @@
 
 [root/w](https://66e.github.io/w)
 
-[root/wHtm](https://66e.github.io/w.htm)
+[root/wHtm](https://66e.github.io/raw-html-test.html)
