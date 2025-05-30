@@ -50,7 +50,7 @@ const loadAsyncJ = () => {
 	const jsFrame = new JSFrame();
 	const frame = jsFrame.create({
     title: 'Window',
-    left: 220, top: 320, width: 320, height: 220,
+    left: 400, top: 500, width: 320, height: 220,
     html: '<div id="aplayer"></div>'
 	});
 	frame.show();
@@ -65,7 +65,7 @@ const loadAsyncA = () => {
         artist: 'Zwei',
         url: 'https://oss.mojidict.com/article/audio/dd16f7f0-8367-4d49-830a-3a66d0489982.mp3',
         cover: 'https://zweima.com/wp/wp-content/uploads/b2b99ccc4fe2b7d9e69f2b14b16b7a2e-1024x1024.jpg',
-        lrc: 'https://66e.github.io/6/%E3%83%A9%E3%82%A4%E3%82%A2.lrc'
+        lrc: 'https://66e.github.io/%E3%83%A9%E3%82%A4%E3%82%A2.md'
     }]
 });
 }
