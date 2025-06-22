@@ -301,8 +301,8 @@ const createImgLoad = (url) => {
     img.style.transition = "opacity 0.4s";
     img.addEventListener("click", (e) => {
         const crrntTrgt = e.currentTarget;
-        const crrntGrnd = e.currentTarget.parentNode.parentNode.parentNode;
-        const matches = document.querySelectorAll("li > img");
+        const trgtContainer = document.querySelector("div#containErNT");
+        const matches = trgtContainer.querySelectorAll("div > div > div > div > div > li > img");
         const objS = new Array();
         matches.forEach((el) => {
             objS.push({ src: el.src });
