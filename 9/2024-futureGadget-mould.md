@@ -50,12 +50,18 @@ const func2 = (x, y) => {
     return false;
 }
 
+async
+
 let newDiv = document.createElement("div");
 newDiv.textContent = "This text is different!";
 
 my_element.addEventListener("click", () => {
     
 });
+
+mouseover
+
+mouseout
 
 switch (foo) {
   case -1:

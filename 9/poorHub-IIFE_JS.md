@@ -101,9 +101,6 @@ const preprocessPrecast = () => {
     trggrFld.addEventListener("mouseover", () => {
         emergeElem(menuButt);
     });
-    trggrFld.addEventListener("mouseout", () => {
-        hideElem(menuButt);
-    });
 
     const menuField = createMould({
         localName : "div", 
@@ -117,6 +114,9 @@ const preprocessPrecast = () => {
         right : "24px",
         width : "240px",
         height : "400px",
+    });
+    menuField.addEventListener("mouseout", () => {
+      emergeElem(menuField);
     });
 
     const menuButt = createMould({
@@ -136,7 +136,7 @@ const preprocessPrecast = () => {
         emergeElem(menuField);
     });
     menuButt.addEventListener("mouseout", () => {
-        hideElem(menuField);
+        hideElem(menuButt);
     });
     menuButt.appendChild(menuField);
     trggrFld.appendChild(menuButt);
