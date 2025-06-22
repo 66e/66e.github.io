@@ -2,179 +2,168 @@
 ```js
 */
 
-(function(){
-  // ==================== CSS 注入 ====================
-  const style = document.createElement('style');
-  style.textContent = `
-:root {
-  --bgColor: #869cff;
-  --txtColor: #ffffff;
-  --borderColor: #cccccc;
-}
-body {
-  font-family: sans-serif;
-  margin: 0;
-}
-.sec_btn {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  background: var(--bgColor);
-  color: var(--txtColor);
-  border: none;
-  border-radius: 4px;
-  padding: 10px 16px;
-  cursor: pointer;
-}
-.sec_btn:hover {
-  background: #6279e7;
-}
-.selectWrapper {
-  position: fixed;
-  right: 20px;
-  bottom: 60px;
-  min-width: 220px;
-  max-width: 300px;
-  background: #fff;
-  border: 1px solid var(--borderColor);
-  border-radius: 4px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s;
-  overflow: hidden;
-}
-.scrollContainer {
-  display: flex;
-  width: 100%;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-}
-.multiSelect {
-  flex: 0 0 100%;
-  box-sizing: border-box;
-  background: #fff;
-}
-.multiSelect div {
-  padding: 8px 12px;
-  cursor: pointer;
-}
-.multiSelect div:hover {
-  background: #f0f0f0;
-}
-.bottomBorder { border-bottom: 1px solid var(--borderColor); }
-.topBorder { border-top: 1px solid var(--borderColor); }
-.iconDiv {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-`;
-  document.head.appendChild(style);
+// ==UserScript==
+// @name         adaptSituatS_011
+// @namespace    https://bbs.tampermonkey.net.cn/
+// @version      0.1.1
+// @description  try to take over the world!
+// @author       You
+// @match        *://*/*
+// ==/UserScript==
 
-// 创建按钮
-  const button = document.createElement('button');
-  button.className = 'sec_btn';
-  button.innerText = 'Add to feature vector';
-  button.onclick = toggleMenu;
-  document.body.appendChild(button);
+(() => {
+    'use strict';
 
-  // 创建菜单容器
-  const wrapper = document.createElement('div');
-  wrapper.className = 'selectWrapper';
-  wrapper.id = 'menuWrapper';
+const createNavButt = () => {
+    
+}
 
-  // 创建滚动容器
-  const scrollContainer = document.createElement('div');
-  scrollContainer.className = 'scrollContainer';
-  scrollContainer.id = 'scrollContainer';
-  wrapper.appendChild(scrollContainer);
+const createMould = ({
 
-  document.body.appendChild(wrapper);
-
-  // 定义菜单数据
-  const menus = [
-    [
-      { type: 'text', text: 'New feature vector', class: 'bottomBorder' },
-      { type: 'item', text: 'Vector_01' },
-      { type: 'item', text: 'myVector' },
-      { type: 'item', text: 'featureVector' },
-      { type: 'nav', text: 'Other projects', target: 1 }
-    ],
-    [
-      { type: 'text', text: 'Search', class: 'bottomBorder' },
-      { type: 'nav', text: 'Project Example', target: 2 },
-      { type: 'nav', text: 'David’s project', target: 2 },
-      { type: 'nav', text: 'Project Idan', target: 2 },
-      { type: 'nav', text: 'Manhattan', target: 2 },
-      { type: 'back', text: '◀ Back', target: 0 }
-    ],
-    [
-      { type: 'text', text: 'Project Idan', class: 'bottomBorder' },
-      { type: 'item', text: 'Idan Vector' },
-      { type: 'item', text: 'Testings' },
-      { type: 'item', text: 'Features_120' },
-      { type: 'item', text: 'Aggregators' },
-      { type: 'back', text: '◀ Back', target: 1 }
-    ]
-  ];
-
-  // 生成菜单层
-  menus.forEach((menuItems, index) => {
-    const menuDiv = document.createElement('div');
-    menuDiv.className = 'multiSelect';
-    menuDiv.id = `menu-${index}`;
-    menuItems.forEach(item => {
-      const div = document.createElement('div');
-      div.innerText = item.text;
-      if (item.class) div.className = item.class;
-      if (item.type === 'item') {
-        div.onclick = () => selectItem(item.text);
-      } else if (item.type === 'nav') {
-        div.className = (div.className ? div.className + ' ' : '') + 'iconDiv topBorder';
-        div.onclick = () => goToMenu(item.target);
-      } else if (item.type === 'back') {
-        div.className = (div.className ? div.className + ' ' : '') + 'topBorder';
-        div.onclick = () => goToMenu(item.target);
-      }
-      menuDiv.appendChild(div);
-    });
-    scrollContainer.appendChild(menuDiv);
-  });
-
-  // 切换菜单
-  function toggleMenu() {
-    if (wrapper.style.opacity === '1') {
-      wrapper.style.opacity = '0';
-      wrapper.style.pointerEvents = 'none';
-      goToMenu(0);
+    localName, body,
+    backgroundColor,
+    border,
+    bottom,
+    className,
+    addEventListener,
+    height,
+    href,
+    id,
+    left,
+    position,
+    right,
+    src,
+    textContent,
+    top,
+    width,
+    
+}) => {
+    const tag = document.createElement(localName);
+    switch ( true ) {
+        case className !== undefined:
+            tag.className = className;
+        case addEventListener !== undefined:
+            tag.addEventListener(addEventListener || "click", () => {
+                switch ( true ) {
+                    case id === "triggerField" && addEventListener === "click":
+                        createNavButt();
+                        break;
+                    default:
+                        console.log("default");
+                }
+            });
+        case href !== undefined:
+            tag.href = href;
+        case id !== undefined:
+            tag.id = id;
+        case textContent !== undefined:
+            tag.textContent = textContent;
+        case src !== undefined:
+            tag.src = src;
+        case backgroundColor !== undefined:
+            tag.style.backgroundColor = backgroundColor;
+        case border !== undefined:
+            tag.style.border = border;
+        case bottom !== undefined:
+            tag.style.bottom = bottom;
+        case height !== undefined:
+            tag.style.height = height;
+        case left !== undefined:
+            tag.style.left = left;
+        case position !== undefined:
+            tag.style.position = position;
+        case right !== undefined:
+            tag.style.right = right;
+        case top !== undefined:
+            tag.style.top = top;
+        case width !== undefined:
+            tag.style.width = width;
+    }
+    if ( body ) {
+        document.body.appendChild(tag);
     } else {
-      wrapper.style.opacity = '1';
-      wrapper.style.pointerEvents = 'all';
+        return tag;
     }
-  }
+}
 
-  function goToMenu(index) {
-    const width = scrollContainer.clientWidth;
-    scrollContainer.scrollTo({
-      left: width * index,
-      behavior: 'smooth'
+const squeezeTrigger = () => {
+    console.log('it works!');
+}
+
+const preprocessPrecast = () => {
+    createMould({
+        localName : "div", body : "body",
+        addEventListener : "click",
+        id : "triggerField",
+        position : "fixed",
+        border : "1px dashed #ff00ff",
+        bottom : "0px",
+        right : "0px",
+        width : "24px",
+        height : "24px",
     });
-  }
 
-  function selectItem(name) {
-    alert(`Selected: ${name}`);
-    toggleMenu();
-  }
+    const menuField = createMould({
+        localName : "div", 
+        addEventListener : "click",
+        className : "nav-field",
+        id : "nav-field",
+        position : "fixed",
+        border : "1px dashed #ff00ff",
+        bottom : "24px",
+        right : "24px",
+        width : "240px",
+        height : "400px",
+    });
 
-  // 点击外部关闭菜单
-  document.addEventListener('click', (e) => {
-    if (!wrapper.contains(e.target) && e.target !== button) {
-      wrapper.style.opacity = '0';
-      wrapper.style.pointerEvents = 'none';
-      goToMenu(0);
+    const menuButt = createMould({
+        localName : "div", 
+        addEventListener : "click",
+        className : "nav-button",
+        id : "nav-button",
+        position : "fixed",
+        border : "1px dashed #ff00ff",
+        bottom : "24px",
+        right : "24px",
+        width : "240px",
+        height : "24px",
+    });
+    menuButt.appendChild(menuField);
+    const trggrFld = document.querySelector("div#triggerField");
+    trggrFld.appendChild(menuButt);
+
+    const item = [];
+    for (let i = 0; i < 16; i++) {
+      item[i] = createMould({
+        localName : "div",
+        textContent : "textContent " + i,
+      });
+    menuField.appendChild(item[i]);
     }
-  });
+}
+
+const adaptSituatS = (container) => {
+    const uniqueLauncher = () => {
+        const trgrEntity = document.querySelector("div#triggerField");
+        if ( !trgrEntity ) {
+            preprocessPrecast();
+        } else {
+            console.log("already entity");
+        }
+    }
+
+    if ( container ) {
+        uniqueLauncher();
+    } else {
+        document.addEventListener("DOMContentLoaded", () => {
+            uniqueLauncher();
+        });
+    }
+}
+
+adaptSituatS(document.body);
+
+    // Your code here...
 })();
 
 /*

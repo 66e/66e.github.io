@@ -24,6 +24,10 @@ arraySparse.forEach((element) => {
   console.log({ element });
 });
 
+for (let i = 0; i < 9; i++) {
+  str = str + i;
+}
+
 node.parentNode
 
 console.log(typeof undeclaredVariable);
