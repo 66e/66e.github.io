@@ -14,18 +14,23 @@
 (() => {
     'use strict';
 
-const createNavButt = () => {
-    
+const emergeElem = (elem) => {
+    elem.style.display = "block";
+}
+
+const hideElem = (elem) => {
+    elem.style.display = "none";
 }
 
 const createMould = ({
 
     localName, body,
+    addEventListener,
     backgroundColor,
     border,
     bottom,
     className,
-    addEventListener,
+    display,
     height,
     href,
     id,
@@ -42,16 +47,6 @@ const createMould = ({
     switch ( true ) {
         case className !== undefined:
             tag.className = className;
-        case addEventListener !== undefined:
-            tag.addEventListener(addEventListener || "click", () => {
-                switch ( true ) {
-                    case id === "triggerField" && addEventListener === "click":
-                        createNavButt();
-                        break;
-                    default:
-                        console.log("default");
-                }
-            });
         case href !== undefined:
             tag.href = href;
         case id !== undefined:
@@ -66,6 +61,8 @@ const createMould = ({
             tag.style.border = border;
         case bottom !== undefined:
             tag.style.bottom = bottom;
+        case display !== undefined:
+            tag.style.display = display;
         case height !== undefined:
             tag.style.height = height;
         case left !== undefined:
@@ -81,9 +78,8 @@ const createMould = ({
     }
     if ( body ) {
         document.body.appendChild(tag);
-    } else {
-        return tag;
     }
+        return tag;
 }
 
 const squeezeTrigger = () => {
@@ -91,9 +87,9 @@ const squeezeTrigger = () => {
 }
 
 const preprocessPrecast = () => {
-    createMould({
+    const trggrFld = createMould({
         localName : "div", body : "body",
-        addEventListener : "click",
+        addEventListener : "mouseover",
         id : "triggerField",
         position : "fixed",
         border : "1px dashed #ff00ff",
@@ -102,12 +98,19 @@ const preprocessPrecast = () => {
         width : "24px",
         height : "24px",
     });
+    trggrFld.addEventListener("mouseover", () => {
+        emergeElem(menuButt);
+    });
+    trggrFld.addEventListener("mouseout", () => {
+        hideElem(menuButt);
+    });
 
     const menuField = createMould({
         localName : "div", 
         addEventListener : "click",
         className : "nav-field",
-        id : "nav-field",
+        id : "menu-field",
+        display : "none",
         position : "fixed",
         border : "1px dashed #ff00ff",
         bottom : "24px",
@@ -118,9 +121,10 @@ const preprocessPrecast = () => {
 
     const menuButt = createMould({
         localName : "div", 
-        addEventListener : "click",
+        addEventListener : "mouseover",
         className : "nav-button",
-        id : "nav-button",
+        id : "menu-button",
+        display : "none",
         position : "fixed",
         border : "1px dashed #ff00ff",
         bottom : "24px",
@@ -128,8 +132,13 @@ const preprocessPrecast = () => {
         width : "240px",
         height : "24px",
     });
+    menuButt.addEventListener("mouseover", () => {
+        emergeElem(menuField);
+    });
+    menuButt.addEventListener("mouseout", () => {
+        hideElem(menuField);
+    });
     menuButt.appendChild(menuField);
-    const trggrFld = document.querySelector("div#triggerField");
     trggrFld.appendChild(menuButt);
 
     const item = [];
