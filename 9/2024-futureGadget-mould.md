@@ -6,6 +6,8 @@ console.log('it works!');
 ```
 */
 
+
+// ---
 /*
 ```js
 */
@@ -60,6 +62,8 @@ my_element.addEventListener("click", () => {
 });
 
 mouseover
+
+mouseleave
 
 mouseout
 
