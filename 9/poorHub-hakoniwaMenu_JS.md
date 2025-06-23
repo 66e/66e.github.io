@@ -87,22 +87,6 @@ const arrSpliter = ( txtIn, strInt ) => {
     return arrOutput;
 }
 
-const stuffMenu = ( arrIn, target ) => {
-    const item = new Array();
-    for (let i = 0; i < arrIn.length; i++) {
-        item[i] = createMould({
-            localName : "div",
-            textContent : arrIn[i][0][3],
-        });
-        item[i].addEventListener("click", () => {
-            for (let j = 1; j < arrIn.length + 1; j++) {
-                console.log(arrIn[i][j][3]);
-            }
-        });
-        target.appendChild(item[i]);
-    }
-}
-
 const resolveTxt = (txtIn) => {
     const paraS_a = arrSpliter(txtIn, ">　　　　　　　　");
     const nArrParaS = new Array();
@@ -118,13 +102,34 @@ const resolveTxt = (txtIn) => {
     return nArrParaS;
 }
 
+const stuffMenu = ( arrIn, menuLv ) => {
+    const menu = createMould({
+        localName : 'div',
+        id : 'menu_' + menuLv,
+    });
+    const item = new Array();
+    for (let i = 0; i < 8; i++) {
+        item[i] = createMould({
+            localName : "div",
+            textContent : arrIn[i][8][3],
+        });
+        item[i].addEventListener("click", () => {
+            for (let j = 0; j < 8; j++) {
+                console.log(arrIn[i][j][3]);
+            }
+        });
+        menu.appendChild(item[i]);
+    }
+    return menu;
+}
+
 const fetchCors = async ( url, targetElm ) => {
     const respons = await fetch(url);
     const docData = await respons.text();
-    const parsed = resolveTxt(docData);
-    const firstElem = parsed.shift();
+    const parsedArr = resolveTxt(docData);
     const menuField = document.querySelector("div#menu-field");
-    stuffMenu(parsed, menuField);
+    const menu_0 = stuffMenu(parsedArr, 0);
+    menuField.appendChild(menu_0);
 }
 
 const preprocessPrecast = () => {
