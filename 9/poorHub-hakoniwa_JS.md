@@ -102,15 +102,20 @@ const resolveTxt = (txtIn) => {
     return nArrParaS;
 }
 
-const stuffMenu = (arrIn, target) => {
+const stuffMenu = ( arrIn, target ) => {
     const item = new Array();
-    arrIn.forEach((el) => {
-        el = createMould({
-        localName : "div",
-        textContent : el[0][3],
-      });
-    target.appendChild(el);
-    });
+    for (let i = 0; i < arrIn.length; i++) {
+        item[i] = createMould({
+            localName : "div",
+            textContent : arrIn[i][0][3],
+        });
+        item[i].addEventListener("click", () => {
+            for (let j = 1; j < arrIn.length + 1; j++) {
+                console.log(arrIn[i][j][3]);
+            }
+        });
+        target.appendChild(item[i]);
+    }
 }
 
 const fetchCors = async ( url, targetElm ) => {
