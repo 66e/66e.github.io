@@ -102,7 +102,11 @@ const resolveTxt = (txtIn) => {
     return nArrParaS;
 }
 
-const stuffMenu = ( arrIn, target ) => {
+const stuffMenu = ( arrIn, menuLv ) => {
+    const jointer = createMould({
+        localName : 'div',
+        id : 'menu_' + menuLv,
+    });
     const item = new Array();
     for (let i = 0; i < 8; i++) {
         item[i] = createMould({
@@ -114,22 +118,18 @@ const stuffMenu = ( arrIn, target ) => {
                 console.log(arrIn[i][j][3]);
             }
         });
-        const jointer = createMould({
-            localName : 'div',
-            id : 'menu-0',
-        });
         jointer.appendChild(item[i]);
-        target.appendChild(jointer);
     }
+    return jointer;
 }
 
 const fetchCors = async ( url, targetElm ) => {
     const respons = await fetch(url);
     const docData = await respons.text();
-    const parsed = resolveTxt(docData);
-    const firstElement = parsed.shift();
+    const parsedArr = resolveTxt(docData);
     const menuField = document.querySelector("div#menu-field");
-    stuffMenu(parsed, menuField);
+    const menu_0 = stuffMenu(parsedArr, 0);
+    menuField.appendChild(menu_0);
 }
 
 const preprocessPrecast = () => {
@@ -190,10 +190,6 @@ const preprocessPrecast = () => {
     menuButt.appendChild(menuField);
     trggrFld.appendChild(menuButt);
 
-    const item = [];
-    for (let i = 0; i < 16; i++) {
-      
-    }
 }
 
 const adaptSituatS = (container) => {
