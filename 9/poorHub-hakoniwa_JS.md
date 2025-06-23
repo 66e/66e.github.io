@@ -104,17 +104,22 @@ const resolveTxt = (txtIn) => {
 
 const stuffMenu = ( arrIn, target ) => {
     const item = new Array();
-    for (let i = 0; i < arrIn.length; i++) {
+    for (let i = 0; i < 8; i++) {
         item[i] = createMould({
             localName : "div",
-            textContent : arrIn[i][0][3],
+            textContent : arrIn[i][8][3],
         });
         item[i].addEventListener("click", () => {
-            for (let j = 1; j < arrIn.length + 1; j++) {
+            for (let j = 0; j < 8; j++) {
                 console.log(arrIn[i][j][3]);
             }
         });
-        target.appendChild(item[i]);
+        const jointer = createMould({
+            localName : 'div',
+            id : 'menu-0',
+        });
+        jointer.appendChild(item[i]);
+        target.appendChild(jointer);
     }
 }
 
@@ -128,7 +133,7 @@ const fetchCors = async ( url, targetElm ) => {
 }
 
 const preprocessPrecast = () => {
-    const url = "https://6cc.github.io/r4/2024/hexagram.md";
+    const url = "https://66e.github.io/9/hexagram.md";
     fetchCors(url);
     
     const trggrFld = createMould({
