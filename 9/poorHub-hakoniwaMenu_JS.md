@@ -82,8 +82,8 @@ const createMould = ({
         return tag;
 }
 
-const arrSpliter = ( txtIn, strInt ) => {
-    const arrOutput = txtIn.trim().split(strInt);
+const arrSpliter = ( txtIn, strIn ) => {
+    const arrOutput = txtIn.trim().split(strIn);
     return arrOutput;
 }
 
@@ -103,7 +103,7 @@ const resolveTxt = (txtIn) => {
 }
 
 const stuffMenu = ( arrIn, menuLv ) => {
-    const menu = createMould({
+    const jointer = createMould({
         localName : 'div',
         id : 'menu_' + menuLv,
     });
@@ -118,15 +118,25 @@ const stuffMenu = ( arrIn, menuLv ) => {
                 console.log(arrIn[i][j][3]);
             }
         });
-        menu.appendChild(item[i]);
+        jointer.appendChild(item[i]);
     }
-    return menu;
+    return jointer;
+}
+
+const strNavig = (arrIn) => {
+    const arrOut = new Array();
+    arrIn.forEach((elem) => {
+        arrOut.push(elem[8][3]);
+    });
+    return arrOut;
 }
 
 const fetchCors = async ( url, targetElm ) => {
     const respons = await fetch(url);
     const docData = await respons.text();
     const parsedArr = resolveTxt(docData);
+    const strNav = strNavig(parsedArr);
+    console.log(strNav);
     const menuField = document.querySelector("div#menu-field");
     const menu_0 = stuffMenu(parsedArr, 0);
     menuField.appendChild(menu_0);
@@ -164,7 +174,7 @@ const preprocessPrecast = () => {
         width : "240px",
         height : "400px",
     });
-    menuField.addEventListener("mouseleave", () => {
+    menuField.addEventListener("mouseout", () => {
       emergeElem(menuField);
     });
 
@@ -184,7 +194,7 @@ const preprocessPrecast = () => {
     menuButt.addEventListener("mouseover", () => {
         emergeElem(menuField);
     });
-    menuButt.addEventListener("mouseleave", () => {
+    menuButt.addEventListener("mouseout", () => {
         hideElem(menuButt);
     });
     menuButt.appendChild(menuField);
