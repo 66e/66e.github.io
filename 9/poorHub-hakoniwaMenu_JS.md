@@ -2,6 +2,15 @@
 ```js
 */
 
+// ==UserScript==
+// @name         adaptSituatS_011
+// @namespace    https://bbs.tampermonkey.net.cn/
+// @version      0.1.1
+// @description  try to take over the world!
+// @author       You
+// @match        *://*/*
+// ==/UserScript==
+
 (() => {
     'use strict';
 
@@ -73,11 +82,37 @@ const createMould = ({
         return tag;
 }
 
-const squeezeTrigger = () => {
-    console.log('it works!');
+const arrSpliter = ( txtIn, chrSplt ) => {
+    const arrOutput = txtIn.trim().split(chrSplt);
+    return arrOutput;
+}
+
+const resolveTxt = (txtIn) => {
+    const paraS_a = arrSpliter(txtIn, ">　　　　　　　　");
+    const nArrParaS = new Array();
+    paraS_a.forEach((para) => {
+        const arrLines = arrSpliter(para, "\n");
+        const nArrStrS = new Array();
+        arrLines.forEach((line) => {
+            const aStrS = arrSpliter(line, "|");
+            nArrStrS.push(aStrS);
+        });
+        nArrParaS.push(nArrStrS);
+    });
+    return nArrParaS;
+}
+
+const fetchCors = async ( url, targetElm ) => {
+    const respons = await fetch(url);
+    const docData = await respons.text();
+    const parsed = resolveTxt(docData);
+    console.log(parsed);
 }
 
 const preprocessPrecast = () => {
+    const url = "https://6cc.github.io/r4/2024/hexagram.md";
+    fetchCors(url);
+
     const trggrFld = createMould({
         localName : "div", body : "body",
         addEventListener : "mouseover",

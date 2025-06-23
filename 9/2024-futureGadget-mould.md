@@ -23,7 +23,7 @@ const fruits = [];
 const arrayEmpty = new Array();
 
 arraySparse.forEach((element) => {
-  console.log({ element });
+  const count = animals.push("cows");
 });
 
 for (let i = 0; i < 9; i++) {
