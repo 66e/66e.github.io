@@ -26,6 +26,10 @@ arraySparse.forEach((element) => {
   const count = animals.push("cows");
 });
 
+clothing.length
+
+const firstElement = array1.shift();
+
 for (let i = 0; i < 9; i++) {
   str = str + i;
 }

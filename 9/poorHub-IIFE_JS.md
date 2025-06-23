@@ -82,11 +82,50 @@ const createMould = ({
         return tag;
 }
 
-const squeezeTrigger = () => {
-    console.log('it works!');
+const arrSpliter = ( txtIn, strIn ) => {
+    const arrOutput = txtIn.trim().split(strIn);
+    return arrOutput;
+}
+
+const resolveTxt = (txtIn) => {
+    const paraS_a = arrSpliter(txtIn, ">　　　　　　　　");
+    const nArrParaS = new Array();
+    paraS_a.forEach((para) => {
+        const arrLines = arrSpliter(para, "\n");
+        const nArrStrS = new Array();
+        arrLines.forEach((line) => {
+            const aStrS = arrSpliter(line, "|");
+            nArrStrS.push(aStrS);
+        });
+        nArrParaS.push(nArrStrS);
+    });
+    return nArrParaS;
+}
+
+const stuffMenu = (arrIn, target) => {
+    const item = new Array();
+    arrIn.forEach((el) => {
+        el = createMould({
+        localName : "div",
+        textContent : el[0][3],
+      });
+    target.appendChild(el);
+    });
+}
+
+const fetchCors = async ( url, targetElm ) => {
+    const respons = await fetch(url);
+    const docData = await respons.text();
+    const parsed = resolveTxt(docData);
+    const firstElement = parsed.shift();
+    const menuField = document.querySelector("div#menu-field");
+    stuffMenu(parsed, menuField);
 }
 
 const preprocessPrecast = () => {
+    const url = "https://6cc.github.io/r4/2024/hexagram.md";
+    fetchCors(url);
+    
     const trggrFld = createMould({
         localName : "div", body : "body",
         addEventListener : "mouseover",
@@ -143,11 +182,7 @@ const preprocessPrecast = () => {
 
     const item = [];
     for (let i = 0; i < 16; i++) {
-      item[i] = createMould({
-        localName : "div",
-        textContent : "textContent " + i,
-      });
-    menuField.appendChild(item[i]);
+      
     }
 }
 
