@@ -82,9 +82,25 @@ const createMould = ({
         return tag;
 }
 
-const arrSpliter = ( txtIn, chrSplt ) => {
-    const arrOutput = txtIn.trim().split(chrSplt);
+const arrSpliter = ( txtIn, strInt ) => {
+    const arrOutput = txtIn.trim().split(strInt);
     return arrOutput;
+}
+
+const stuffMenu = ( arrIn, target ) => {
+    const item = new Array();
+    for (let i = 0; i < arrIn.length; i++) {
+        item[i] = createMould({
+            localName : "div",
+            textContent : arrIn[i][0][3],
+        });
+        item[i].addEventListener("click", () => {
+            for (let j = 1; j < arrIn.length + 1; j++) {
+                console.log(arrIn[i][j][3]);
+            }
+        });
+        target.appendChild(item[i]);
+    }
 }
 
 const resolveTxt = (txtIn) => {
@@ -106,11 +122,13 @@ const fetchCors = async ( url, targetElm ) => {
     const respons = await fetch(url);
     const docData = await respons.text();
     const parsed = resolveTxt(docData);
-    console.log(parsed);
+    const firstElem = parsed.shift();
+    const menuField = document.querySelector("div#menu-field");
+    stuffMenu(parsed, menuField);
 }
 
 const preprocessPrecast = () => {
-    const url = "https://6cc.github.io/r4/2024/hexagram.md";
+    const url = "https://66e.github.io/9/hexagram.md";
     fetchCors(url);
 
     const trggrFld = createMould({
@@ -167,14 +185,6 @@ const preprocessPrecast = () => {
     menuButt.appendChild(menuField);
     trggrFld.appendChild(menuButt);
 
-    const item = [];
-    for (let i = 0; i < 16; i++) {
-      item[i] = createMould({
-        localName : "div",
-        textContent : "textContent " + i,
-      });
-    menuField.appendChild(item[i]);
-    }
 }
 
 const adaptSituatS = (container) => {
