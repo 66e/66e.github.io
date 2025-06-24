@@ -102,6 +102,19 @@ const resolveTxt = (txtIn) => {
     return nArrParaS;
 }
 
+const concentRate = (arrIn) => {
+    const trigramS = new Array();
+    arrIn.forEach((trgrm) => {
+        const hexagramS = new Array();
+        trgrm.forEach((hxgrm) => {
+            hexagramS.push(hxgrm[3]);
+        });
+        hexagramS.pop();
+        trigramS.push([trgrm[8][3], hexagramS]);
+    });
+    return trigramS;
+}
+
 const stuffMenu = ( arrIn, menuLv ) => {
     const jointer = createMould({
         localName : 'div',
@@ -127,6 +140,8 @@ const fetchCors = async ( url, targetElm ) => {
     const respons = await fetch(url);
     const docData = await respons.text();
     const parsedArr = resolveTxt(docData);
+    const menuArr = concentRate(parsedArr);
+    console.log(menuArr);
     const menuField = document.querySelector("div#menu-field");
     const menu_0 = stuffMenu(parsedArr, 0);
     menuField.appendChild(menu_0);
