@@ -107,7 +107,7 @@ const concentRate = (arrIn) => {
     arrIn.forEach((trgrm) => {
         const hexagramS = new Array();
         trgrm.forEach((hxgrm) => {
-            hexagramS.push(hxgrm[3]);
+            hexagramS.push([hxgrm[3], ["1", "2", "3", "4", "5", "6"]]);
         });
         hexagramS.pop();
         trigramS.push([trgrm[8][3], hexagramS]);
@@ -120,13 +120,23 @@ const stuffMenu = ( arrIn, menuLv ) => {
         localName : 'div',
         id : 'menu_' + menuLv,
     });
-    arrIn.forEach((elem) => {
+    if ( Array.isArray(arrIn) ) {
+        arrIn.forEach((elem) => {
         const item = createMould({
             localName : 'div',
             textContent : elem[0],
         });
+        item.addEventListener("click", () => {
+            if ( menuLv < 2 ) {
+                 const menuNext = stuffMenu(elem[1], menuLv + 1);
+                 const menuField = document.querySelector("div#menu-field");
+                 menuField.firstChild.remove();
+                 menuField.appendChild(menuNext);
+            }
+        });
         jointer.appendChild(item);
     });
+    }
     return jointer;
 }
 
