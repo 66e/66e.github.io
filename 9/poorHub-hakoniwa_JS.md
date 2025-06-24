@@ -120,19 +120,19 @@ const stuffMenu = ( arrIn, menuLv ) => {
         localName : 'div',
         id : 'menu_' + menuLv,
     });
-    const item = new Array();
-    for (let i = 0; i < 8; i++) {
-        item[i] = createMould({
-            localName : "div",
-            textContent : arrIn[i][8][3],
+    arrIn.forEach((elem) => {
+        const item = createMould({
+            localName : 'div',
+            textContent : elem[0],
         });
-        item[i].addEventListener("click", () => {
-            for (let j = 0; j < 8; j++) {
-                console.log(arrIn[i][j][3]);
-            }
+        item.addEventListener("click", () => {
+            const menu_1 = stuffMenu(elem[1], 1);
+            const menuField = document.querySelector("div#menu-field");
+            menuField.firstChild.remove();
+            menuField.appendChild(menu_1);
         });
-        jointer.appendChild(item[i]);
-    }
+        jointer.appendChild(item);
+    });
     return jointer;
 }
 
@@ -143,7 +143,7 @@ const fetchCors = async ( url, targetElm ) => {
     const menuArr = concentRate(parsedArr);
     console.log(menuArr);
     const menuField = document.querySelector("div#menu-field");
-    const menu_0 = stuffMenu(parsedArr, 0);
+    const menu_0 = stuffMenu(menuArr, 0);
     menuField.appendChild(menu_0);
 }
 
