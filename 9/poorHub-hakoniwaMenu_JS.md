@@ -102,43 +102,41 @@ const resolveTxt = (txtIn) => {
     return nArrParaS;
 }
 
+const concentRate = (arrIn) => {
+    const trigramS = new Array();
+    arrIn.forEach((trgrm) => {
+        const hexagramS = new Array();
+        trgrm.forEach((hxgrm) => {
+            hexagramS.push(hxgrm[3]);
+        });
+        hexagramS.pop();
+        trigramS.push([trgrm[8][3], hexagramS]);
+    });
+    return trigramS;
+}
+
 const stuffMenu = ( arrIn, menuLv ) => {
     const jointer = createMould({
         localName : 'div',
         id : 'menu_' + menuLv,
     });
-    const item = new Array();
-    for (let i = 0; i < 8; i++) {
-        item[i] = createMould({
-            localName : "div",
-            textContent : arrIn[i][8][3],
-        });
-        item[i].addEventListener("click", () => {
-            for (let j = 0; j < 8; j++) {
-                console.log(arrIn[i][j][3]);
-            }
-        });
-        jointer.appendChild(item[i]);
-    }
-    return jointer;
-}
-
-const strNavig = (arrIn) => {
-    const arrOut = new Array();
     arrIn.forEach((elem) => {
-        arrOut.push(elem[8][3]);
+        const item = createMould({
+            localName : 'div',
+            textContent : elem[0],
+        });
+        jointer.appendChild(item);
     });
-    return arrOut;
+    return jointer;
 }
 
 const fetchCors = async ( url, targetElm ) => {
     const respons = await fetch(url);
     const docData = await respons.text();
     const parsedArr = resolveTxt(docData);
-    const strNav = strNavig(parsedArr);
-    console.log(strNav);
+    const menuArr = concentRate(parsedArr);
     const menuField = document.querySelector("div#menu-field");
-    const menu_0 = stuffMenu(parsedArr, 0);
+    const menu_0 = stuffMenu(menuArr, 0);
     menuField.appendChild(menu_0);
 }
 
