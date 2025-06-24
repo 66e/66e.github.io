@@ -128,10 +128,10 @@ const stuffMenu = ( arrIn, menuLv ) => {
         });
         item.addEventListener("click", () => {
             if ( menuLv < 2 ) {
-                 const menuNext = stuffMenu(elem[1], menuLv + 1);
-                 const menuField = document.querySelector("div#menu-field");
-                 menuField.firstChild.remove();
-                 menuField.appendChild(menuNext);
+                const menuNext = stuffMenu(elem[1], menuLv + 1);
+                const menuField = document.querySelector("div#menu-field");
+                hideElem(menuField.childNodes[menuLv]);
+                menuField.appendChild(menuNext);
             }
         });
         jointer.appendChild(item);
