@@ -25,12 +25,12 @@ const hideElem = (elem) => {
 const createMould = ({
 
     localName, body,
-    addEventListener,
     backgroundColor,
     border,
     bottom,
     className,
     display,
+    fontSize,
     height,
     href,
     id,
@@ -63,6 +63,8 @@ const createMould = ({
             tag.style.bottom = bottom;
         case display !== undefined:
             tag.style.display = display;
+        case fontSize !== undefined:
+            tag.style.fontSize = fontSize;
         case height !== undefined:
             tag.style.height = height;
         case left !== undefined:
@@ -124,6 +126,7 @@ const stuffMenu = ( arrIn, menuLv ) => {
         arrIn.forEach((elem) => {
         const item = createMould({
             localName : 'div',
+            fontSize : '24',
             textContent : elem[0],
         });
         item.addEventListener("click", () => {
@@ -168,7 +171,7 @@ const preprocessPrecast = () => {
         height : "24px",
     });
     trggrFld.addEventListener("mouseover", () => {
-        emergeElem(menuButt);
+        emergeElem(menuBar);
     });
 
     const menuField = createMould({
@@ -179,7 +182,7 @@ const preprocessPrecast = () => {
         display : "none",
         position : "fixed",
         border : "1px dashed #ff00ff",
-        bottom : "24px",
+        bottom : "32px",
         right : "24px",
         width : "240px",
         height : "400px",
@@ -188,7 +191,21 @@ const preprocessPrecast = () => {
       emergeElem(menuField);
     });
 
-    const menuButt = createMould({
+    const menuPrevious = createMould({
+        localName : "div", 
+        addEventListener : "click",
+        className : "nav-field",
+        id : "menu-previous",
+        display : "block",
+        position : "fixed",
+        border : "1px dashed #ff00ff",
+        bottom : "32px",
+        right : "264px",
+        width : "240px",
+        height : "400px",
+    });
+
+    const menuBar = createMould({
         localName : "div", 
         addEventListener : "mouseover",
         className : "nav-button",
@@ -196,19 +213,20 @@ const preprocessPrecast = () => {
         display : "none",
         position : "fixed",
         border : "1px dashed #ff00ff",
-        bottom : "24px",
+        bottom : "16px",
         right : "24px",
         width : "240px",
-        height : "24px",
+        height : "16px",
     });
-    menuButt.addEventListener("mouseover", () => {
+    menuBar.addEventListener("mouseover", () => {
         emergeElem(menuField);
     });
-    menuButt.addEventListener("mouseout", () => {
-        hideElem(menuButt);
+    menuBar.addEventListener("mouseout", () => {
+        hideElem(menuBar);
     });
-    menuButt.appendChild(menuField);
-    trggrFld.appendChild(menuButt);
+    menuField.appendChild(menuPrevious);
+    document.body.appendChild(menuField);
+    trggrFld.appendChild(menuBar);
 
 }
 
