@@ -1,0 +1,3 @@
+# vectorSelection
+
+source: `{{ page.path }}`
