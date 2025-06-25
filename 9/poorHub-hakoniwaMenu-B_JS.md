@@ -14,7 +14,7 @@
 (() => {
     'use strict';
 
-const emergeElem = (elem) => {
+const showElem = (elem) => {
     elem.style.display = "block";
 }
 
@@ -161,7 +161,6 @@ const preprocessPrecast = () => {
     
     const trggrFld = createMould({
         localName : "div", body : "body",
-        addEventListener : "mouseover",
         id : "triggerField",
         position : "fixed",
         border : "1px dashed #ff00ff",
@@ -171,62 +170,50 @@ const preprocessPrecast = () => {
         height : "24px",
     });
     trggrFld.addEventListener("mouseover", () => {
-        emergeElem(menuBar);
+        showElem(menuField);
     });
 
     const menuField = createMould({
         localName : "div", 
-        addEventListener : "click",
-        className : "nav-field",
         id : "menu-field",
         display : "none",
         position : "fixed",
         border : "1px dashed #ff00ff",
-        bottom : "32px",
-        right : "24px",
+        bottom : "16px",
+        right : "16px",
         width : "240px",
         height : "400px",
     });
-    menuField.addEventListener("mouseout", () => {
-      emergeElem(menuField);
+    menuField.addEventListener("mouseleave", () => {
+      hideElem(menuField);
     });
 
     const menuPrevious = createMould({
         localName : "div", 
-        addEventListener : "click",
-        className : "nav-field",
         id : "menu-previous",
         display : "block",
         position : "fixed",
         border : "1px dashed #ff00ff",
-        bottom : "32px",
-        right : "264px",
+        bottom : "16px",
+        right : "256px",
         width : "240px",
         height : "400px",
     });
 
-    const menuBar = createMould({
+    const backButton = createMould({
         localName : "div", 
-        addEventListener : "mouseover",
-        className : "nav-button",
         id : "menu-button",
-        display : "none",
         position : "fixed",
         border : "1px dashed #ff00ff",
         bottom : "16px",
-        right : "24px",
+        right : "16px",
         width : "240px",
         height : "16px",
     });
-    menuBar.addEventListener("mouseover", () => {
-        emergeElem(menuField);
-    });
-    menuBar.addEventListener("mouseout", () => {
-        hideElem(menuBar);
-    });
+
+    menuField.appendChild(backButton);
     menuField.appendChild(menuPrevious);
     document.body.appendChild(menuField);
-    trggrFld.appendChild(menuBar);
 
 }
 
