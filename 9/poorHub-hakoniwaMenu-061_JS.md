@@ -131,10 +131,12 @@ const stuffMenu = ( arrIn, menuLv ) => {
         });
         item.addEventListener("click", () => {
             if ( menuLv < 2 ) {
-                const menuNext = stuffMenu(elem[1], menuLv + 1);
+                const nextMenu = stuffMenu(elem[1], menuLv + 1);
+                const menuPrev = document.querySelector("div#menu-previous");
                 const menuField = document.querySelector("div#menu-field");
-                menuField.firstChild.remove();
-                menuField.appendChild(menuNext);
+                const lastMenu = menuField.lastChild;
+                menuPrev.appendChild(lastMenu);
+                menuField.appendChild(nextMenu);
             }
             
         });
@@ -170,6 +172,7 @@ const preprocessPrecast = () => {
         height : "24px",
     });
     trggrFld.addEventListener("mouseover", () => {
+        showElem(backButton);
         showElem(menuField);
     });
 
@@ -179,7 +182,7 @@ const preprocessPrecast = () => {
         display : "none",
         position : "fixed",
         border : "1px dashed #ff00ff",
-        bottom : "16px",
+        bottom : "40px",
         right : "16px",
         width : "240px",
         height : "400px",
@@ -194,7 +197,7 @@ const preprocessPrecast = () => {
         display : "block",
         position : "fixed",
         border : "1px dashed #ff00ff",
-        bottom : "16px",
+        bottom : "40px",
         right : "256px",
         width : "240px",
         height : "400px",
@@ -203,18 +206,27 @@ const preprocessPrecast = () => {
     const backButton = createMould({
         localName : "div", 
         id : "menu-button",
+        display : "none",
         position : "fixed",
         border : "1px dashed #ff00ff",
         bottom : "16px",
-        right : "16px",
-        width : "240px",
-        height : "16px",
+        right : "40px",
+        width : "200px",
+        height : "24px",
+    });
+    backButton.addEventListener("click", () => {
+        const menuPrev = document.querySelector("div#menu-previous");
+        const lengthSuffice = menuPrev.childElementCount > 0;
+        if ( lengthSuffice ) {
+            const menuField = document.querySelector("div#menu-field");
+            menuField.lastChild.remove();
+            menuField.appendChild(menuPrev.lastChild);
+        }
     });
 
-    menuField.appendChild(backButton);
-    menuField.appendChild(menuPrevious);
+    trggrFld.appendChild(backButton);
+    document.body.appendChild(menuPrevious);
     document.body.appendChild(menuField);
-
 }
 
 const adaptSituatS = (container) => {
