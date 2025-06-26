@@ -1,167 +1,32 @@
-<nav class="slide-menu" id="test-menu-right" style="left: auto; right: 0px; display: block; transform: translateX(0%);">
-      <div class="controls">
-        <button type="button" class="btn slide-menu__control" data-action="back">Back</button>
-        <button type="button" class="btn slide-menu__control" data-action="close">Close</button>
-      </div>
-      <div class="slide-menu__slider" style=""><ul>
-        <li>
-          <a href="http://google.de">News<span class="slide-menu__decorator"><span style="margin-left: 1em; font-size: 85%;">⮞</span></span></a>
-          <ul><li><a class="slide-menu__backlink slide-menu__control" data-action="back"><span style="margin-right: 1em; font-size: 85%;">⮜</span>News</a></li>
-            <li>
-              <a href="#">News 1.1</a>
-            </li>
-            <li>
-              <a href="http://google.de">News 1.2<span class="slide-menu__decorator"><span style="margin-left: 1em; font-size: 85%;">⮞</span></span></a>
-              <ul><li><a class="slide-menu__backlink slide-menu__control" data-action="back"><span style="margin-right: 1em; font-size: 85%;">⮜</span>News 1.2</a></li>
-                <li>
-                  <a href="http://google.de">News 1.2.1</a>
-                </li>
-                <li>
-                  <a href="#" id="special-link-1">News 1.2.2 – I'm special (1)!</a>
-                </li>
-                <li>
-                  <a href="#">News 1.2.2</a>
-                </li>
-                <li>
-                  <a href="#">News 1.2.3<span class="slide-menu__decorator"><span style="margin-left: 1em; font-size: 85%;">⮞</span></span></a>
-                  <ul><li><a class="slide-menu__backlink slide-menu__control" data-action="back"><span style="margin-right: 1em; font-size: 85%;">⮜</span>News 1.2.3</a></li>
-                    <li>
-                      <a href="#">News 1.2.3.1</a>
-                    </li>
-                    <li>
-                      <a href="#">News 1.2.3.2</a>
-                    </li>
-                    <li>
-                      <a href="#">News 1.2.3.3</a>
-                    </li>
-                    <li id="special-link-2">
-                      <a href="#">News 1.2.3.4 - I'm special (2)!</a>
-                    </li>
-                    <li>
-                      <a href="#">News 1.2.3.5</a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="#">News 1.2.4</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">News 1.3</a>
-            </li>
-            <li>
-              <a href="#">News 1.3</a>
-            </li>
-            <li>
-              <a href="#">News 1.4</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="#" id="special-link-3">Blog</a>
-        </li>
-        <li>
-          <a href="#">About<span class="slide-menu__decorator"><span style="margin-left: 1em; font-size: 85%;">⮞</span></span></a>
-          <ul><li><a class="slide-menu__backlink slide-menu__control" data-action="back"><span style="margin-right: 1em; font-size: 85%;">⮜</span>About</a></li>
-            <li>
-              <a href="#">About 1.1</a>
-            </li>
-            <li>
-              <a href="#">About 1.2<span class="slide-menu__decorator"><span style="margin-left: 1em; font-size: 85%;">⮞</span></span></a>
-              <ul><li><a class="slide-menu__backlink slide-menu__control" data-action="back"><span style="margin-right: 1em; font-size: 85%;">⮜</span>About 1.2</a></li>
-                <li>
-                  <a href="#">About 1.2.1</a>
-                </li>
-                <li>
-                  <a href="#">About 1.2.2</a>
-                </li>
-                <li>
-                  <a href="#">About 1.2.3</a>
-                </li>
-                <li>
-                  <a href="#">About 1.2.4</a>
-                </li>
-                <li>
-                  <a href="#">About 1.2.5</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">About 1.3</a>
-            </li>
-            <li>
-              <a href="#">About 1.4</a>
-            </li>
-            <li>
-              <a href="#">About 1.5</a>
-            </li>
-          </ul>
-        </li>
-      </ul></div>
-    </nav>
-
-<ul id="events"></ul>
-
-<nav class="slide-menu" id="test-menu-left" style="left: 0px; right: auto; transform: translateX(0%); display: block;">
-      <div class="controls">
-        <button type="button" class="btn slide-menu__control" data-action="close">Close</button>
-      </div>
-
-      <p>
-        <em>Slide Menu</em> can also be used for other content different from traditional menus.
-      </p>
-    </nav>
+<nav class="slide-menu" id="example-menu">
+  <ul>
+    <li>
+      <a href="#">Home</a>
+      <ul>
+        <li><a href="#">Submenu entry 1</a></li>
+        <li><a href="#">Submenu entry 2</a></li>
+        <li><a href="#">Submenu entry 3</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="/blog">Blog</a>
+    </li>
+    <li>
+      <a href="/about">About</a>
+    </li>
+  </ul>
+</nav>
 
 <script>
-function logEvent(id, event) {
-        const events = document.getElementById('events');
-        const li = document.createElement('li');
-        const time = parseInt(event.timeStamp);
-
-        // html-webpack-plugin does not work with ES6 template strings =/
-        li.appendChild(document.createTextNode(id + ': ' + time + ' - ' + event.type));
-        events.appendChild(li);
-      }
-
-      document.addEventListener('DOMContentLoaded', function() {
-        const menuLeftElem = document.getElementById('test-menu-left');
-        const menuRightElem = document.getElementById('test-menu-right');
-
-        const allEvents = [
-          'sm.back',
-          'sm.back-after',
-          'sm.close',
-          'sm.close-after',
-          'sm.forward',
-          'sm.forward-after',
-          'sm.navigate',
-          'sm.navigate-after',
-          'sm.open',
-          'sm.open-after',
-        ];
-
-        allEvents.forEach(eventName => {
-          menuLeftElem.addEventListener(eventName, event => logEvent('Menu left', event));
-          menuRightElem.addEventListener(eventName, event => logEvent('Menu right', event));
-        });
-
-        const menuLeft = new SlideMenu(menuLeftElem, {
-          position: 'left',
-          submenuLinkAfter: ' ⮞',
-          backLinkBefore: '⮜ ',
-        });
-
-        const menuRight = new SlideMenu(menuRightElem, {
-          keyClose: 'Escape',
-          submenuLinkAfter: '<span style="margin-left: 1em; font-size: 85%;">⮞</span>',
-          backLinkBefore: '<span style="margin-right: 1em; font-size: 85%;">⮜</span>',
-        });
-
-        if (window.innerWidth > 767) {
-          menuRight.open(false);
-        }
-      });
+document.addEventListener("DOMContentLoaded", function () {
+  const menuElement = document.getElementById('example-menu');
+  const menu = new SlideMenu(menuElement, {
+    keyClose: 'Escape',
+    submenuLinkAfter: '<span style="margin-left: 1em; font-size: 85%;">⮞</span>',
+    backLinkBefore: '<span style="margin-right: 1em; font-size: 85%;">⮜</span>',
+  });
+  menu.open();
+});
 </script>
 
 <link href="https://grubersjoe.github.io/slide-menu/slide-menu.css" rel="stylesheet" />
