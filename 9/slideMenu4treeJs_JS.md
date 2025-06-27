@@ -34,18 +34,21 @@ const rEFerfUse = (elemIn) => {
         initMenu ( elemIn );
     } else {
         const referS = [
+          "https://grubersjoe.github.io/slide-menu/slide-menu.js",
           "https://grubersjoe.github.io/slide-menu/slide-menu.css",
           "https://grubersjoe.github.io/slide-menu/demo.css",
         ];
         referS.forEach((refer) => {
-            const css = appendRefer(refer);
-            document.documentElement.appendChild(css);
+            const tag = appendRefer(refer);
+            document.documentElement.appendChild(tag);
+            switch ( tag.id ) {
+              case "slide-menu_js":
+                tag.addEventListener("load", () => {
+                  initMenu ( elemIn );
+                });
+                break;
+            }
         });
-        const slideMenu_JS = appendRefer("https://grubersjoe.github.io/slide-menu/slide-menu.js");
-        slideMenu_JS.addEventListener("load", () => {
-            initMenu ( elemIn );
-        });
-        document.documentElement.appendChild(slideMenu_JS);
     }
 }
 
@@ -58,14 +61,29 @@ const initMenu = (targetElem) => {
     menu.open();
 }
 
-document.addEventListener("DOMContentLoaded", (event) => {
-    const menuElement = document.createElement("nav");
-    menuElement.className = "slide-menu";
-    const treeUnit = buildTree(treeData, 0);
-    menuElement.appendChild(treeUnit);
-    document.body.appendChild(menuElement);
-    rEFerfUse ( menuElement );
-});
+const treeData = [
+  {
+    id: '0',
+    text: 'node-0',
+    children: [
+      {
+        id: '0-0',
+        text: 'node-0-0',
+        children: [
+          {id: '0-0-0', text: 'node-0-0-0'},
+          {id: '0-0-1', text: 'node-0-0-1'},
+          {id: '0-0-2', text: 'node-0-0-2'},
+        ],
+      },
+      {id: '0-1', text: 'node-0-1'},
+    ],
+  },
+  {
+    id: '1',
+    text: 'node-1',
+    children: [{id: '1-0', text: 'node-1-0'}, {id: '1-1', text: 'node-1-1'}],
+  },
+];
 
 function buildTree(nodes, depth) {
   const _this2 = this;
@@ -119,29 +137,35 @@ function createLiEle(node, closed) {
   return li;
 }
 
-const treeData = [
-  {
-    id: '0',
-    text: 'node-0',
-    children: [
-      {
-        id: '0-0',
-        text: 'node-0-0',
-        children: [
-          {id: '0-0-0', text: 'node-0-0-0'},
-          {id: '0-0-1', text: 'node-0-0-1'},
-          {id: '0-0-2', text: 'node-0-0-2'},
-        ],
-      },
-      {id: '0-1', text: 'node-0-1'},
-    ],
-  },
-  {
-    id: '1',
-    text: 'node-1',
-    children: [{id: '1-0', text: 'node-1-0'}, {id: '1-1', text: 'node-1-1'}],
-  },
-];
+const preprocessPrecast = () => {
+    const menuElement = document.createElement("nav");
+    menuElement.className = "slide-menu";
+    const treeUnit = buildTree(treeData, 0);
+    menuElement.appendChild(treeUnit);
+    document.body.appendChild(menuElement);
+    rEFerfUse ( menuElement );
+}
+
+const adaptSituatS = (container) => {
+    const uniqueLauncher = () => {
+        const trgrEntity = document.querySelector("nav.slide-menu");
+        if ( !trgrEntity ) {
+            preprocessPrecast();
+        } else {
+            console.log("already entity");
+        }
+    }
+
+    if ( container ) {
+        uniqueLauncher();
+    } else {
+        document.addEventListener("DOMContentLoaded", () => {
+            uniqueLauncher();
+        });
+    }
+}
+
+adaptSituatS(document.body);
 
 /*
 ```
