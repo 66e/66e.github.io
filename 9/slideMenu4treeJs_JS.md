@@ -2,18 +2,69 @@
 ```js
 */
 
+const appendRefer = ( urlFile ) => {
+    const fileExtension = urlFile.match(/\.[^/.]+$/);
+    const referElem = createByExtens(urlFile, fileExtension[0]);
+    const fileName = urlFile.match(/[^\/=\b]+(?=\.[^\/.]*$)/)[0];
+    referElem.id = fileName.replace(/\./g,'_')
+    + fileExtension[0].replace(/\./g,'_');
+    return referElem;
+}
+
+const createByExtens = ( urlFile, fileExtens ) => {
+    switch (fileExtens) {
+        case '.css':
+            const linkRefer = document.createElement('link');
+            linkRefer.href = urlFile;
+            linkRefer.setAttribute('rel', 'stylesheet');
+            return linkRefer;
+        case '.js':
+        case '.md':
+            const scriptRefer = document.createElement('script');
+            scriptRefer.src = urlFile;
+            return scriptRefer;
+        default:
+            console.log(fileExtens);
+            break;
+    }
+}
+
+const rEFerfUse = (elemIn) => {
+    if (typeof SlideMenu === "function") {
+        initMenu ( elemIn );
+    } else {
+        const referS = [
+          "https://grubersjoe.github.io/slide-menu/slide-menu.css",
+          "https://grubersjoe.github.io/slide-menu/demo.css",
+        ];
+        referS.forEach((refer) => {
+            const css = appendRefer(refer);
+            document.documentElement.appendChild(css);
+        });
+        const slideMenu_JS = appendRefer("https://grubersjoe.github.io/slide-menu/slide-menu.js");
+        slideMenu_JS.addEventListener("load", () => {
+            initMenu ( elemIn );
+        });
+        document.documentElement.appendChild(slideMenu_JS);
+    }
+}
+
+const initMenu = (targetElem) => {
+    const menu = new SlideMenu(targetElem, {
+        keyClose: 'Escape',
+        submenuLinkAfter: '<span style="margin-left: 1em; font-size: 85%;">⮞</span>',
+        backLinkBefore: '<span style="margin-right: 1em; font-size: 85%;">⮜</span>',
+    });
+    menu.open();
+}
+
 document.addEventListener("DOMContentLoaded", (event) => {
     const menuElement = document.createElement("nav");
     menuElement.className = "slide-menu";
     const treeUnit = buildTree(treeData, 0);
     menuElement.appendChild(treeUnit);
     document.body.appendChild(menuElement);
-    const menu = new SlideMenu(menuElement, {
-        keyClose: 'Escape',
-        submenuLinkAfter: '<span style="margin-left: 1em; font-size: 85%;">⮞</span>',
-        backLinkBefore: '<span style="margin-right: 1em; font-size: 85%;">⮜</span>',
-    });
-    menu.open();
+    rEFerfUse ( menuElement );
 });
 
 function buildTree(nodes, depth) {
