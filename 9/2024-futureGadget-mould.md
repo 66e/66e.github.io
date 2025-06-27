@@ -7,6 +7,7 @@ console.log('it works!');
 */
 
 
+
 // ---
 /*
 ```js
@@ -58,7 +59,7 @@ const func2 = (x, y) => {
 
 async
 
-let newDiv = document.createElement("div");
+const newDiv = document.createElement("div");
 newDiv.textContent = "This text is different!";
 
 my_element.addEventListener("click", () => {
