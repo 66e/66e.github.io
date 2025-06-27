@@ -137,6 +137,17 @@ function createLiEle(node, closed) {
   return li;
 }
 
+const createTrigger = () => {
+    const div = document.createElement("div");
+    div.id = "triggerField";
+    div.style = "border: 1px dashed rgb(255, 0, 255); bottom: 0px; height: 24px; position: fixed; right: 0px; width: 24px;";
+    div.addEventListener("mouseover", () => {
+        const trgrEntity = document.querySelector("nav.slide-menu");
+        trgrEntity._slideMenu.toggle();
+    });
+    document.body.appendChild(div);
+}
+
 const preprocessPrecast = () => {
     const menuElement = document.createElement("nav");
     menuElement.className = "slide-menu";
@@ -144,6 +155,10 @@ const preprocessPrecast = () => {
     menuElement.appendChild(treeUnit);
     document.body.appendChild(menuElement);
     rEFerfUse ( menuElement );
+    createTrigger ();
+    const trgrEntity = document.querySelector("nav.slide-menu");
+    trgrEntity.style.bottom = "24px";
+    trgrEntity.style.height = "90%";
 }
 
 const adaptSituatS = (container) => {
