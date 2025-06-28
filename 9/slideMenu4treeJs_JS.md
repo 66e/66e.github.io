@@ -34,22 +34,79 @@ const rEFerfUse = (elemIn) => {
         initMenu ( elemIn );
     } else {
         const referS = [
-          "https://grubersjoe.github.io/slide-menu/slide-menu.js",
-          "https://grubersjoe.github.io/slide-menu/slide-menu.css",
-          "https://grubersjoe.github.io/slide-menu/demo.css",
+            "https://grubersjoe.github.io/slide-menu/slide-menu.js",
+            "https://grubersjoe.github.io/slide-menu/slide-menu.css",
+            "https://grubersjoe.github.io/slide-menu/demo.css",
         ];
         referS.forEach((refer) => {
             const tag = appendRefer(refer);
             document.documentElement.appendChild(tag);
             switch ( tag.id ) {
-              case "slide-menu_js":
-                tag.addEventListener("load", () => {
-                  initMenu ( elemIn );
-                });
+                case "slide-menu_js":
+                    tag.addEventListener("load", () => {
+                        initMenu ( elemIn );
+                    });
                 break;
             }
         });
     }
+}
+
+const arrSpliter = (txtInpt, chrSplt) => {
+    const arrOutput = txtInpt.trim().split(chrSplt);
+    return arrOutput;
+}
+
+const sixLineMethod = [
+    {id: '0', text: '初'},
+    {id: '1', text: '二'},
+    {id: '2', text: '三'},
+    {id: '3', text: '四'},
+    {id: '4', text: '五'},
+    {id: '5', text: '上'},
+];
+
+const resolveTxt = (txtIn) => {
+    const paraS_a = arrSpliter(txtIn, ">　　　　　　　　");
+    const nArrParaS = new Array();
+    paraS_a.forEach((para) => {
+        const arrLines = arrSpliter(para, "\n");
+        const nArrStrS = new Array();
+        arrLines.forEach((line) => {
+            const aStrS = arrSpliter(line, "|");
+            const nObjStrS = new Object();
+            nObjStrS.id = aStrS[0];
+            nObjStrS.text = aStrS[3];
+            nObjStrS.children = sixLineMethod;
+            nArrStrS.push(nObjStrS);
+        });
+        const nObjParaS = new Object();
+        nObjParaS.id = nArrStrS[8].id;
+        nObjParaS.text = nArrStrS[8].text;
+        nArrStrS.pop();
+        nObjParaS.children = nArrStrS;
+        nArrParaS.push(nObjParaS);
+    });
+    console.log(nArrParaS);
+    return nArrParaS;
+}
+
+const visualizMenu = (obj) => {
+    const menuElement = document.createElement("nav");
+    menuElement.className = "slide-menu";
+    const treeUnit = buildTree(obj, 0);
+    menuElement.appendChild(treeUnit);
+    rEFerfUse ( menuElement );
+    menuElement.style.bottom = "24px";
+    menuElement.style.height = "95%";
+    document.body.appendChild(menuElement);
+}
+
+const fetchCors = async ( url ) => {
+    const respons = await fetch(url);
+    const docData = await respons.text();
+    const parsedArr = resolveTxt(docData);
+    visualizMenu ( parsedArr );
 }
 
 const initMenu = (targetElem) => {
@@ -58,32 +115,9 @@ const initMenu = (targetElem) => {
         submenuLinkAfter: '<span style="margin-left: 1em; font-size: 85%;">⮞</span>',
         backLinkBefore: '<span style="margin-right: 1em; font-size: 85%;">⮜</span>',
     });
+    targetElem.style.right = '24px';
     menu.open();
 }
-
-const treeData = [
-  {
-    id: '0',
-    text: 'node-0',
-    children: [
-      {
-        id: '0-0',
-        text: 'node-0-0',
-        children: [
-          {id: '0-0-0', text: 'node-0-0-0'},
-          {id: '0-0-1', text: 'node-0-0-1'},
-          {id: '0-0-2', text: 'node-0-0-2'},
-        ],
-      },
-      {id: '0-1', text: 'node-0-1'},
-    ],
-  },
-  {
-    id: '1',
-    text: 'node-1',
-    children: [{id: '1-0', text: 'node-1-0'}, {id: '1-1', text: 'node-1-1'}],
-  },
-];
 
 function buildTree(nodes, depth) {
   const _this2 = this;
@@ -140,30 +174,23 @@ function createLiEle(node, closed) {
 const createTrigger = () => {
     const div = document.createElement("div");
     div.id = "triggerField";
-    div.style = "border: 1px dashed rgb(255, 0, 255); bottom: 0px; height: 24px; position: fixed; right: 0px; width: 24px;";
-    div.addEventListener("mouseover", () => {
+    div.addEventListener("click", () => {
         const trgrEntity = document.querySelector("nav.slide-menu");
         trgrEntity._slideMenu.toggle();
     });
+    div.style = "border: 1px dashed rgb(255, 0, 255); bottom: 0px; height: 24px; position: fixed; right: 0px; width: 24px;";
     document.body.appendChild(div);
 }
 
 const preprocessPrecast = () => {
-    const menuElement = document.createElement("nav");
-    menuElement.className = "slide-menu";
-    const treeUnit = buildTree(treeData, 0);
-    menuElement.appendChild(treeUnit);
-    document.body.appendChild(menuElement);
-    rEFerfUse ( menuElement );
+    const url = "https://66e.github.io/9/hexagram.md";
+    fetchCors(url);
     createTrigger ();
-    const trgrEntity = document.querySelector("nav.slide-menu");
-    trgrEntity.style.bottom = "24px";
-    trgrEntity.style.height = "90%";
 }
 
 const adaptSituatS = (container) => {
     const uniqueLauncher = () => {
-        const trgrEntity = document.querySelector("nav.slide-menu");
+        const trgrEntity = document.querySelector("div#triggerField");
         if ( !trgrEntity ) {
             preprocessPrecast();
         } else {
