@@ -85,6 +85,7 @@ const resolveTxt = (txtIn) => {
         const nObjParaS = new Object();
         nObjParaS.id = nArrStrS[8].id;
         nObjParaS.text = nArrStrS[8].text;
+        nArrStrS.pop();
         nObjParaS.children = nArrStrS;
         nArrParaS.push(nObjParaS);
     });
@@ -117,30 +118,6 @@ const initMenu = (targetElem) => {
     });
     menu.open();
 }
-
-const treeData = [
-  {
-    id: '0',
-    text: 'node-0',
-    children: [
-      {
-        id: '0-0',
-        text: 'node-0-0',
-        children: [
-          {id: '0-0-0', text: 'node-0-0-0'},
-          {id: '0-0-1', text: 'node-0-0-1'},
-          {id: '0-0-2', text: 'node-0-0-2'},
-        ],
-      },
-      {id: '0-1', text: 'node-0-1'},
-    ],
-  },
-  {
-    id: '1',
-    text: 'node-1',
-    children: [{id: '1-0', text: 'node-1-0'}, {id: '1-1', text: 'node-1-1'}],
-  },
-];
 
 function buildTree(nodes, depth) {
   const _this2 = this;
