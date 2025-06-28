@@ -54,6 +54,61 @@ const rEFerfUse = (elemIn) => {
     }
 }
 
+const arrSpliter = ( txtIn, strIn ) => {
+    const arrOutput = txtIn.trim().split(strIn);
+    return arrOutput;
+}
+
+const six = [
+          {id: '0', text: '初'},
+          {id: '1', text: '二'},
+          {id: '2', text: '三'},
+          {id: '3', text: '四'},
+          {id: '4', text: '五'},
+          {id: '5', text: '上'},
+        ];
+
+const resolveTxt = (txtIn) => {
+    const paraS_a = arrSpliter(txtIn, ">　　　　　　　　");
+    const nArrParaS = new Array();
+    paraS_a.forEach((para) => {
+        const arrLines = arrSpliter(para, "\n");
+        const nArrStrS = new Array();
+        arrLines.forEach((line) => {
+            const aStrS = arrSpliter(line, "|");
+            const nObjStrS = new Object();
+            nObjStrS.id = aStrS[0];
+            nObjStrS.text = aStrS[3];
+            nObjStrS.children = six;
+            nArrStrS.push(nObjStrS);
+        });
+        const nObjParaS = new Object();
+        nObjParaS.id = nArrStrS[8].id;
+        nObjParaS.text = nArrStrS[8].text;
+        nObjParaS.children = nArrStrS;
+        nArrParaS.push(nObjParaS);
+    });
+    console.log(nArrParaS);
+    return nArrParaS;
+}
+
+const fetchCors = async ( url, targetElm ) => {
+    const respons = await fetch(url);
+    const docData = await respons.text();
+    const parsedArr = resolveTxt(docData);
+
+    const menuElement = document.createElement("nav");
+    menuElement.className = "slide-menu";
+    const treeUnit = buildTree(parsedArr, 0);
+    menuElement.appendChild(treeUnit);
+    rEFerfUse ( menuElement );
+    const layerContainer = document.createElement("div");
+    layerContainer.appendChild(menuElement);
+    document.body.appendChild(layerContainer);
+    menuElement.style.bottom = "24px";
+    menuElement.style.height = "95%";
+}
+
 const initMenu = (targetElem) => {
     const menu = new SlideMenu(targetElem, {
         keyClose: 'Escape',
@@ -86,15 +141,6 @@ const treeData = [
     children: [{id: '1-0', text: 'node-1-0'}, {id: '1-1', text: 'node-1-1'}],
   },
 ];
-
-document.addEventListener("DOMContentLoaded", (event) => {
-    const menuElement = document.createElement("nav");
-    menuElement.className = "slide-menu";
-    const treeUnit = buildTree(treeData, 0);
-    menuElement.appendChild(treeUnit);
-    document.body.appendChild(menuElement);
-    rEFerfUse ( menuElement );
-});
 
 function buildTree(nodes, depth) {
   const _this2 = this;
@@ -147,6 +193,44 @@ function createLiEle(node, closed) {
   li.nodeId = node.id;
   return li;
 }
+
+const createTrigger = () => {
+    const trggrFld = document.createElement("div");
+    trggrFld.addEventListener("click", () => {
+        const slideMenu = document.querySelector("nav.slide-menu");
+        slideMenu._slideMenu.toggle();
+    });
+    trggrFld.id = "triggerField";
+    trggrFld.style = "border: 1px dashed rgb(255, 0, 255); bottom: 0px; height: 24px; position: fixed; right: 0px; width: 24px;";
+    document.body.appendChild(trggrFld);
+}
+
+const preprocessPrecast = () => {
+    const url = "https://66e.github.io/9/hexagram.md";
+    fetchCors ( url );
+    createTrigger ();
+}
+
+const adaptSituatS = (container) => {
+    const uniqueLauncher = () => {
+        const trgrEntity = document.querySelector("div#triggerField");
+        if ( !trgrEntity ) {
+            preprocessPrecast();
+        } else {
+            console.log("already entity");
+        }
+    }
+
+    if ( container ) {
+        uniqueLauncher();
+    } else {
+        document.addEventListener("DOMContentLoaded", () => {
+            uniqueLauncher();
+        });
+    }
+}
+
+adaptSituatS(document.body);
 
 /*
 ```
