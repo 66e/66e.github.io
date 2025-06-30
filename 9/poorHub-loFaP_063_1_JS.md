@@ -3,11 +3,11 @@
 */
 
 // ==UserScript==
-// @name        New script 
+// @name        loFaP_0630
 // @namespace   Violentmonkey Scripts
 // @match       *://*/*
 // @grant       none
-// @version     0.6.0
+// @version     0.6.1
 // @author      -
 // @description 2025/6/30 13:45:42
 // ==/UserScript==
@@ -51,6 +51,7 @@ const createByExtens = ( urlFile, fileExtens ) => {
 const generateUnit = (arrIn) => {
     const trgtContainer = document.querySelector("div#containErNT");
     const unit = loadFan(arrIn);
+    createIlLi ( unit );
     if (trgtContainer) {
         trgtContainer.appendChild(unit);
     } else {
@@ -96,7 +97,7 @@ const resolveTxt = (txtIn) => {
         objS.push(innerObj);
         div.appendChild(innerDiv);
     });
-    imgLoadProgress ( div );
+    createIlLi ( div );
     return [div, objS];
 }
 
