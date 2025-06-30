@@ -97,7 +97,6 @@ const resolveTxt = (txtIn) => {
         objS.push(innerObj);
         div.appendChild(innerDiv);
     });
-    createIlLi ( div );
     return [div, objS];
 }
 
@@ -106,6 +105,7 @@ const fetchCors = async (url, targetElm) => {
     const docData = await respons.text();
     targetElm.value = docData;
     const hybirdUnit = resolveTxt ( docData );
+    ilProgress ( hybirdUnit[0] );
     const trgtContainer = document.querySelector("div#containErNT");
     trgtContainer.appendChild(hybirdUnit[0]);
 }
