@@ -7,13 +7,10 @@
 // @namespace   Violentmonkey Scripts
 // @match       *://*/*
 // @grant       none
-// @version     0.1
+// @version     1.0
 // @author      -
-// @description 2025/6/29 16:56:39
+// @description 2025/6/30 13:45:42
 // ==/UserScript==
-
-(() => {
-    'use strict';
 
 (() => {
     'use strict';
@@ -24,7 +21,7 @@ const uniqueLauncher = () => {
     console.log('already entity');
 }
 
-const appendRefer = ( urlFile ) => {
+const appendRefer = (urlFile) => {
     const fileExtension = urlFile.match(/\.[^/.]+$/);
     const referElem = createByExtens(urlFile, fileExtension[0]);
     const fileName = urlFile.match(/[^\/=\b]+(?=\.[^\/.]*$)/)[0];
@@ -33,7 +30,7 @@ const appendRefer = ( urlFile ) => {
     return referElem;
 }
 
-const createByExtens = ( urlFile, fileExtens ) => {
+const createByExtens = (urlFile, fileExtens) => {
     switch (fileExtens) {
         case '.css':
             const linkRefer = document.createElement('link');
@@ -70,9 +67,6 @@ const geNEWin = (elem) => {
         callback: (panel) => {
             panel.content.appendChild(div);
         },
-        contentSize: '400 250',
-        opacity: 0.9,
-        position: 'right-top -10 125',
         theme: 'primary',
     });
 }
@@ -82,34 +76,11 @@ const genGFormT = (txt) => {
     generateUnit(urlSArr);
 }
 
-const resolveTxt = ( txtIn ) => {
-    const paras = arrSpliter(txtIn, ">　　　　　　　　");
-    const objS = [];
-    const div = document.createElement("div");
-    paras.forEach((elem) => {
-        const lines = arrSpliter(elem, "\n");
-        const innerObj = [];
-        const innerDiv = document.createElement("div");
-        lines.forEach((el) => {
-            const identify = parseURL(el);
-            const iter = filterString(el);
-            imgLoadProgress ( iter );
-            innerObj.push(identify);
-            innerDiv.appendChild(iter);
-        });
-        objS.push(innerObj);
-        div.appendChild(innerDiv);
-    });
-    return false;
-}
-
 const fetchCors = async (url, targetElm) => {
     const respons = await fetch(url);
     const docData = await respons.text();
     targetElm.value = docData;
-    const unitHybird = resolveTxt(docData);
-    const trgtContainer = document.querySelector("div#containErNT");
-    trgtContainer.appendChild(unitHybird[0]);
+    genGFormT(docData);
 }
 
 const extractUrls = ( input ) => {
@@ -126,9 +97,9 @@ const loadFan = (arrIn) => {
     return unit;
 }
 
-const arrSpliter = ( txtIn, SpliTR ) => {
-    const arrOut = txtIn.trim().split(SpliTR);
-    return arrOut;
+const arrSpliter = (txtInpt, chrSplt) => {
+    const arrOutput = txtInpt.trim().split(chrSplt);
+    return arrOutput;
 }
 
 const jspanel_OL = () => {
@@ -179,7 +150,6 @@ const jspanel_OL = () => {
         btnMsn.addEventListener("click", () => {
             const lngt = retrieveMsn();
             generateUnit ( lngt );
-            rEFerfUse();
         });
         btnMsn.textContent = "Msn";
         btnMsn.id = "btnMsn";
@@ -200,9 +170,12 @@ const jspanel_OL = () => {
             const unit = visualizeComponentS();
             panel.content.appendChild(unit);
         },
-        contentSize: '450 250',
+        contentSize: '500 300',
+        dragit: {
+            snap: true,
+        },
         headerTitle: 'dashboard',
-        position: 'right-bottom -10 -10',
+        position: 'left-top',
         theme: 'dark',
     });
 }
@@ -219,27 +192,10 @@ const imagesloaded_OL = () => {
 
 const filterString = (strIn) => {
     const currentStr = parseURL(strIn);
-    switch (currentStr) {
-        case "a":
-            const aTag = document.createElement("a");
-            aTag.textContent = strIn;
-            return aTag;
-            break;
-        case "img":
-            const imgL = createImgLoad(strIn);
-            return imgL;
-        case "p":
-            const pTag = document.createElement("p");
-            pTag.textContent = strIn;
-            return pTag;
-            break;
-        case "pRompt6Exe":
-            const div = document.createElement("div");
-            div.textContent = strIn;
-            return div;
-            break;
-        default:
-        console.log("default");
+    if (currentStr === "img") {
+        return parseURL(strIn, 1);
+    } else {
+        return strIn;
     }
 }
 
@@ -271,7 +227,14 @@ const parseURL = ($string, param) => {
     }
 }
 
-const createILLi = ( url ) => {
+const processElem = (urlS) => {
+    const objS = [];
+    const div = document.createElement("div");
+
+urlS.forEach((url) => {
+    const srcTrim = filterString(url);
+    objS.push({ src: srcTrim });
+
     const li = document.createElement("li");
     li.style.backgroundColor = "#000";
     li.style.backgroundImage = "url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/loading.gif')";
@@ -284,7 +247,7 @@ const createILLi = ( url ) => {
     li.style.margin = "2px 2px 2px 2px";
 
     const img = new Image();
-    img.src = url;
+    img.src = srcTrim;
     img.style.borderRadius = "4px";
     img.style.opacity = 0;
     img.style.maxHeight = "70px";
@@ -305,18 +268,6 @@ const createILLi = ( url ) => {
 
     li.appendChild(img);
     div.appendChild(li);
-    return li;
-}
-
-const processElem = ( urlS ) => {
-    const objS = [];
-    const div = document.createElement("div");
-
-urlS.forEach((url) => {
-    const srcTrim = filterString(url);
-    objS.push({ src: srcTrim });
-
-    
 });
 
 const imgLoad = imagesLoaded( div );
