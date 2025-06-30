@@ -7,7 +7,7 @@
 // @namespace   Violentmonkey Scripts
 // @match       *://*/*
 // @grant       none
-// @version     1.0
+// @version     0.6.0
 // @author      -
 // @description 2025/6/30 13:45:42
 // ==/UserScript==
@@ -21,7 +21,7 @@ const uniqueLauncher = () => {
     console.log('already entity');
 }
 
-const appendRefer = (urlFile) => {
+const appendRefer = ( urlFile ) => {
     const fileExtension = urlFile.match(/\.[^/.]+$/);
     const referElem = createByExtens(urlFile, fileExtension[0]);
     const fileName = urlFile.match(/[^\/=\b]+(?=\.[^\/.]*$)/)[0];
@@ -30,7 +30,7 @@ const appendRefer = (urlFile) => {
     return referElem;
 }
 
-const createByExtens = (urlFile, fileExtens) => {
+const createByExtens = ( urlFile, fileExtens ) => {
     switch (fileExtens) {
         case '.css':
             const linkRefer = document.createElement('link');
@@ -67,6 +67,9 @@ const geNEWin = (elem) => {
         callback: (panel) => {
             panel.content.appendChild(div);
         },
+        contentSize: '400 250',
+        opacity: 0.9,
+        position: 'right-top -10 125',
         theme: 'primary',
     });
 }
@@ -76,11 +79,34 @@ const genGFormT = (txt) => {
     generateUnit(urlSArr);
 }
 
+const resolveTxt = (txtIn) => {
+    const paras = arrSpliter(txtIn, ">　　　　　　　　");
+    const objS = [];
+    const div = document.createElement("div");
+    paras.forEach((elem) => {
+        const lines = arrSpliter(elem, "\n");
+        const innerObj = [];
+        const innerDiv = document.createElement("div");
+        lines.forEach((el) => {
+            const identify = parseURL(el);
+            const iter = filterString(el);
+            imgLoadProgress ( iter );
+            innerObj.push(identify);
+            innerDiv.appendChild(iter);
+        });
+        objS.push(innerObj);
+        div.appendChild(innerDiv);
+    });
+    return [div, objS];
+}
+
 const fetchCors = async (url, targetElm) => {
     const respons = await fetch(url);
     const docData = await respons.text();
     targetElm.value = docData;
-    genGFormT(docData);
+    const hybirdUnit = resolveTxt ( docData );
+    const trgtContainer = document.querySelector("div#containErNT");
+    trgtContainer.appendChild(hybirdUnit[0]);
 }
 
 const extractUrls = ( input ) => {
@@ -97,9 +123,23 @@ const loadFan = (arrIn) => {
     return unit;
 }
 
-const arrSpliter = (txtInpt, chrSplt) => {
-    const arrOutput = txtInpt.trim().split(chrSplt);
-    return arrOutput;
+const arrSpliter = ( txtIn, SpliTeR) => {
+    const arrOut = txtIn.trim().split(SpliTeR);
+    return arrOut;
+}
+
+const referMechan = () => {
+    if (typeof retrieveMsn === "function") {
+        const arrMsn = retrieveMsn();
+        generateUnit ( arrMsn );
+    } else {
+        const msn_JS = appendRefer("https://66e.github.io/j/msn_JS.md");
+        msn_JS.addEventListener("load", () => {
+            const arrMsn = retrieveMsn();
+            generateUnit ( arrMsn );
+        });
+        document.documentElement.appendChild(msn_JS);
+    }
 }
 
 const jspanel_OL = () => {
@@ -148,6 +188,7 @@ const jspanel_OL = () => {
         });
         const btnMsn = document.createElement("button");
         btnMsn.addEventListener("click", () => {
+            referMechan ( );
             const lngt = retrieveMsn();
             generateUnit ( lngt );
         });
@@ -170,12 +211,9 @@ const jspanel_OL = () => {
             const unit = visualizeComponentS();
             panel.content.appendChild(unit);
         },
-        contentSize: '500 300',
-        dragit: {
-            snap: true,
-        },
+        contentSize: '450 250',
         headerTitle: 'dashboard',
-        position: 'left-top',
+        position: 'right-bottom -10 -10',
         theme: 'dark',
     });
 }
@@ -192,10 +230,27 @@ const imagesloaded_OL = () => {
 
 const filterString = (strIn) => {
     const currentStr = parseURL(strIn);
-    if (currentStr === "img") {
-        return parseURL(strIn, 1);
-    } else {
-        return strIn;
+    switch (currentStr) {
+        case "a":
+            const aTag = document.createElement("a");
+            aTag.textContent = strIn;
+            return aTag;
+            break;
+        case "img":
+            const imgL = createImgLoad(strIn);
+            return imgL;
+        case "p":
+            const pTag = document.createElement("p");
+            pTag.textContent = strIn;
+            return pTag;
+            break;
+        case "pRompt6Exe":
+            const div = document.createElement("div");
+            div.textContent = strIn;
+            return div;
+            break;
+        default:
+        console.log("default");
     }
 }
 
@@ -227,14 +282,7 @@ const parseURL = ($string, param) => {
     }
 }
 
-const processElem = (urlS) => {
-    const objS = [];
-    const div = document.createElement("div");
-
-urlS.forEach((url) => {
-    const srcTrim = filterString(url);
-    objS.push({ src: srcTrim });
-
+const createIlLi = (url) => {
     const li = document.createElement("li");
     li.style.backgroundColor = "#000";
     li.style.backgroundImage = "url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/loading.gif')";
@@ -254,8 +302,14 @@ urlS.forEach((url) => {
     img.style.minWidth = "25px";
     img.style.transition = "opacity 0.4s";
     img.addEventListener("click", (e) => {
-        const crrntPrnt = e.currentTarget.parentNode;
-        const galIdx = [].indexOf.call(crrntPrnt.parentNode.childNodes, crrntPrnt);
+        const trgtContainer = document.querySelector("div#containErNT");
+        const divLiImgS = container.querySelectorAll("div > div > div > div > div > li > img");
+        const arrFancy = new Array();
+        arraySparse.forEach((img) => {
+            arrFancy.push({ src: img.src });
+        });
+        const clickTarget = e.currentTarget;
+        const galIdx = [].indexOf.call( divLiImgS, clickTarget );
         new Fancybox(
             // Array containing gallery items
             objS,
@@ -267,15 +321,16 @@ urlS.forEach((url) => {
     });
 
     li.appendChild(img);
-    div.appendChild(li);
-});
+    return li;
+}
 
-const imgLoad = imagesLoaded( div );
+const ilProgress = ( elem ) => {
+    const imgLoad = imagesLoaded( div );
 imgLoad.on( 'always', ( instance ) => {
   console.log( imgLoad.images.length + ' in total' );
 });
 imgLoad.on( 'done', ( instance ) => {
-  console.log('DONE  - all succes');
+  console.log('DONE  - all success');
 });
 imgLoad.on( 'fail', ( instance ) => {
   console.log('FAIL - loaded, one mORe broken');
@@ -289,6 +344,18 @@ imgLoad.on( 'progress', ( instance, image ) => {
     }
     const result = image.isLoaded ? 'loaded' : 'broken';
     console.log('[' + result + '] ' + image.img.src);
+});
+
+}
+
+const processElem = ( urlS ) => {
+    const objS = [];
+    const div = document.createElement("div");
+
+urlS.forEach(( url ) => {
+    objS.push({ src: url });
+    const liImg = createIlLi( url );
+    div.appendChild(liImg);
 });
 
 div.className = "cntInner";
@@ -317,7 +384,6 @@ const preprocessPrecast = () => {
         "https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js",
         "https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css",
         "https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js",
-        "https://66e.github.io/j/msn_JS.md",
     ];
     const checkbox = [];
     const referElem = [];
@@ -328,13 +394,13 @@ const preprocessPrecast = () => {
 		const elemId = referElem[iterator].id;
 		referElem[iterator].addEventListener("load", () => {
 			switch (elemId) {
-			case 'jspanel_min_js':
-				jspanel_OL ();
+                case 'jspanel_min_js':
+                    jspanel_OL ();
 				break;
-            case 'imagesloaded_pkgd_min_js':
-				imagesloaded_OL ();
+                case 'imagesloaded_pkgd_min_js':
+                    imagesloaded_OL ();
 				break;
-			default:
+                default:
 			}
 		});
 		document.documentElement.appendChild(referElem[iterator]);
