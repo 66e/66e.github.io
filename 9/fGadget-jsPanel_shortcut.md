@@ -1,1 +1,0 @@
-<script src="https://66e.github.io/9/fGadget-loFaP_05186_JS.md"></script>

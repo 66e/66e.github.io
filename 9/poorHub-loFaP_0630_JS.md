@@ -90,13 +90,13 @@ const resolveTxt = (txtIn) => {
         lines.forEach((el) => {
             const identify = parseURL(el);
             const iter = filterString(el);
-            imgLoadProgress ( iter );
             innerObj.push(identify);
             innerDiv.appendChild(iter);
         });
         objS.push(innerObj);
         div.appendChild(innerDiv);
     });
+    imgLoadProgress ( div );
     return [div, objS];
 }
 
@@ -237,7 +237,7 @@ const filterString = (strIn) => {
             return aTag;
             break;
         case "img":
-            const imgL = createImgLoad(strIn);
+            const imgL = createIlLi( strIn );
             return imgL;
         case "p":
             const pTag = document.createElement("p");
@@ -282,7 +282,7 @@ const parseURL = ($string, param) => {
     }
 }
 
-const createIlLi = (url) => {
+const createIlLi = ( url ) => {
     const li = document.createElement("li");
     li.style.backgroundColor = "#000";
     li.style.backgroundImage = "url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/loading.gif')";
@@ -295,7 +295,7 @@ const createIlLi = (url) => {
     li.style.margin = "2px 2px 2px 2px";
 
     const img = new Image();
-    img.src = srcTrim;
+    img.src = url;
     img.style.borderRadius = "4px";
     img.style.opacity = 0;
     img.style.maxHeight = "70px";
@@ -303,17 +303,15 @@ const createIlLi = (url) => {
     img.style.transition = "opacity 0.4s";
     img.addEventListener("click", (e) => {
         const trgtContainer = document.querySelector("div#containErNT");
-        const divLiImgS = container.querySelectorAll("div > div > div > div > div > li > img");
+        const divLiImgS = trgtContainer.querySelectorAll("div > div > div > div > div > li > img");
         const arrFancy = new Array();
-        arraySparse.forEach((img) => {
+        divLiImgS.forEach((img) => {
             arrFancy.push({ src: img.src });
         });
         const clickTarget = e.currentTarget;
         const galIdx = [].indexOf.call( divLiImgS, clickTarget );
         new Fancybox(
-            // Array containing gallery items
-            objS,
-            // Gallery options
+            arrFancy,
             {
                 startIndex: galIdx,
             }
@@ -325,7 +323,7 @@ const createIlLi = (url) => {
 }
 
 const ilProgress = ( elem ) => {
-    const imgLoad = imagesLoaded( div );
+    const imgLoad = imagesLoaded( elem );
 imgLoad.on( 'always', ( instance ) => {
   console.log( imgLoad.images.length + ' in total' );
 });
