@@ -3,12 +3,13 @@
 */
 
 // ==UserScript==
-// @name         loFaP_0461-bO
-// @namespace    https://bbs.tampermonkey.net.cn/
-// @version      0.1.0
-// @description  try to take over the world!
-// @author       You
-// @match        *://*/*
+// @name        loFaP_070
+// @namespace   Violentmonkey Scripts
+// @match       *://*/*
+// @grant       none
+// @version     0.7.0
+// @author      -
+// @description 2025/7/1 14:06:06
 // ==/UserScript==
 
 (() => {
@@ -20,7 +21,7 @@ const uniqueLauncher = () => {
     console.log('already entity');
 }
 
-const appendRefer = (urlFile) => {
+const appendRefer = ( urlFile ) => {
     const fileExtension = urlFile.match(/\.[^/.]+$/);
     const referElem = createByExtens(urlFile, fileExtension[0]);
     const fileName = urlFile.match(/[^\/=\b]+(?=\.[^\/.]*$)/)[0];
@@ -29,7 +30,7 @@ const appendRefer = (urlFile) => {
     return referElem;
 }
 
-const createByExtens = (urlFile, fileExtens) => {
+const createByExtens = ( urlFile, fileExtens ) => {
     switch (fileExtens) {
         case '.css':
             const linkRefer = document.createElement('link');
@@ -49,7 +50,8 @@ const createByExtens = (urlFile, fileExtens) => {
 
 const generateUnit = (arrIn) => {
     const trgtContainer = document.querySelector("div#containErNT");
-    const unit = loadFan(arrIn);
+    const unit = processElem ( arrIn );
+    ilProgress ( unit );
     if (trgtContainer) {
         trgtContainer.appendChild(unit);
     } else {
@@ -78,35 +80,6 @@ const genGFormT = (txt) => {
     generateUnit(urlSArr);
 }
 
-const createMould = ({
-    className,
-    click,
-    href,
-    id,
-    localName,
-    textContent,
-    src,
-}) => {
-    const tag = document.createElement(localName);
-    switch (true) {
-        case click !== undefined:
-            tag.addEventListener(click || "click", () => {
-                
-            });
-        case className !== undefined:
-            tag.className = className;
-        case href !== undefined:
-            tag.href = href;
-        case id !== undefined:
-            tag.id = id;
-        case textContent !== undefined:
-            tag.textContent = textContent;
-        case src !== undefined:
-            tag.src = src;
-    }
-    return tag;
-}
-
 const resolveTxt = (txtInpt) => {
     const paras = arrSpliter(txtInpt, ">　　　　　　　　");
     const div = document.createElement("div");
@@ -131,13 +104,13 @@ const fetchCors = async (url, targetElm) => {
     const respons = await fetch(url);
     const docData = await respons.text();
     targetElm.value = docData;
-    const unit = resolveTxt(docData);
+    const hybirdUnit = resolveTxt ( docData );
+    ilProgress ( hybirdUnit[0] );
     const trgtContainer = document.querySelector("div#containErNT");
-    trgtContainer.appendChild(unit[0]);
-    console.log(unit[1]);
+    trgtContainer.appendChild(hybirdUnit[0]);
 }
 
-const extractUrls = (input) => {
+const extractUrls = ( input ) => {
     // Search the input text for URLs (the regular expression pattern is taken from the excellent
     // "Regular Expressions Cookbook" by Jan Goyvaerts and Steven Levithan)
     const match = input.match(/\b((https?|ftp|file):\/\/|(www|ftp)\.)[-A-Z0-9+&@#\/%?=~_|$!:,.;]*[A-Z0-9+&@#\/%=~_|$]/ig);
@@ -151,12 +124,12 @@ const loadFan = (arrIn) => {
     return unit;
 }
 
-const arrSpliter = (txtInpt, chrSplt) => {
-    const arrOutput = txtInpt.trim().split(chrSplt);
-    return arrOutput;
+const arrSpliter = (txtIn, SpliTeR) => {
+    const arrOut = txtIn.trim().split(SpliTeR);
+    return arrOut;
 }
 
-const rEFerfUse = () => {
+const secureRefer = () => {
     if (typeof retrieveMsn === "function") {
         const arrMsn = retrieveMsn();
         generateUnit ( arrMsn );
@@ -201,7 +174,7 @@ const jspanel_OL = () => {
         });
         textarea.addEventListener("paste", () => {
             setTimeout(() => {
-                genGFormT ( textarea.value );
+                generateUnit ( textarea.value );
             }, 1);
         });
         textarea.id = "textarea";
@@ -210,13 +183,13 @@ const jspanel_OL = () => {
         textarea.style.overflow = "auto";
         const btnRslv = document.createElement("button");
         btnRslv.addEventListener("click", () => {
-            genGFormT ( textarea.value );
+            generateUnit ( textarea.value );
         });
         btnRslv.id = "btnRslv";
         btnRslv.textContent = "resolve";
         const btnMsn = document.createElement("button");
         btnMsn.addEventListener("click", () => {
-            rEFerfUse ();
+            secureRefer ();
         });
         btnMsn.id = "btnMsn";
         btnMsn.textContent = "Msn";
@@ -244,7 +217,70 @@ const jspanel_OL = () => {
     });
 }
 
-const imagesloaded_OL = () => {
+const createIlLi = ( url ) => {
+    const urlTrimmed = parseURL ( url, "trim" );
+    const li = document.createElement("li");
+    li.style.backgroundColor = "#000";
+    li.style.backgroundImage = "url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/loading.gif')";
+    li.style.backgroundPosition = "center center";
+    li.style.backgroundRepeat = "no-repeat";
+    li.style.borderRadius = "4px";
+    li.style.display = "block";
+    li.style.float = "left";
+    li.style.height = "70px";
+    li.style.margin = "2px 2px 2px 2px";
+
+    const img = new Image();
+    img.src = urlTrimmed;
+    img.style.borderRadius = "4px";
+    img.style.opacity = 0;
+    img.style.maxHeight = "70px";
+    img.style.minWidth = "25px";
+    img.style.transition = "opacity 0.4s";
+    img.addEventListener("click", (e) => {
+        const trgtContainer = document.querySelector("div#containErNT");
+        const arrImgS = trgtContainer.querySelectorAll("div > div > div > div > li > img");
+        const arrFB = new Array();
+        arrImgS.forEach((elemImg) => {
+            arrFB.push({ src: elemImg.src });
+        });
+        const eventTarget = e.currentTarget;
+        const galIdx = [].indexOf.call( arrImgS, eventTarget );
+        new Fancybox(
+            // Array containing gallery items
+            arrFB,
+            // Gallery options
+            {
+                startIndex: galIdx,
+            }
+        );
+    });
+
+    li.appendChild(img);
+    return li;
+}
+
+const ilProgress = ( elem ) => {
+    const imgLoad = imagesLoaded( elem );
+imgLoad.on( 'always', ( instance ) => {
+  console.log( imgLoad.images.length + ' in total' );
+});
+imgLoad.on( 'done', ( instance ) => {
+  console.log('DONE  - all success');
+});
+imgLoad.on( 'fail', ( instance ) => {
+  console.log('FAIL - loaded, one mORe broken');
+});
+imgLoad.on( 'progress', ( instance, image ) => {
+    if ( image.isLoaded ) {
+        image.img.style.opacity = 1;
+    } else {
+        image.img.parentNode.style.backgroundColor = "#DCDCDC";
+        image.img.parentNode.style.backgroundImage = "url('https://fastly.jsdelivr.net/gh/microsoft/fluentui-system-icons/assets/Image%20Prohibited/SVG/ic_fluent_image_prohibited_24_filled.svg')";
+    }
+    const result = image.isLoaded ? 'loaded' : 'broken';
+    console.log('[' + result + '] ' + image.img.src);
+});
 
 }
 
@@ -257,9 +293,8 @@ const filterString = (strIn) => {
             return aTag;
             break;
         case "img":
-            const img = new Image();
-            img.src = parseURL(strIn, 1);
-            return img;
+            const liImg = createIlLi ( strIn );
+            return liImg;
         case "p":
             const pTag = document.createElement("p");
             pTag.textContent = strIn;
@@ -282,11 +317,11 @@ const parseURL = ($string, param) => {
     const imgRegex = new RegExp(__imgR, "i");
     const imgWURegex = new RegExp(__urlR + __imgR, "i");
     const pRompt6Exe = /^\#6\/p\/\w+$/i;
-    const regTestStr = urlRegex.test($string);
-    if (regTestStr) {
-        switch (true) {
+    const strIsUrl = urlRegex.test($string);
+    if (strIsUrl) {
+        switch ( true ) {
             case imgRegex.test($string):
-                if (param) {
+                if ( param ) {
                     const trimmed = $string.match(imgWURegex)[0];
                     return trimmed;
                 }
@@ -304,68 +339,15 @@ const parseURL = ($string, param) => {
 }
 
 const processElem = (urlS) => {
-    const objS = [];
+    const objS = new Array();
     const div = document.createElement("div");
 
 urlS.forEach((url) => {
-    const srcTrim = filterString(url);
-    objS.push({ src: srcTrim });
-    
-    const li = document.createElement("li");
-    li.style.backgroundColor = "#000";
-    li.style.backgroundImage = "url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/loading.gif')";
-    li.style.backgroundPosition = "center center";
-    li.style.backgroundRepeat = "no-repeat";
-    li.style.borderRadius = "4px";
-    li.style.display = "block";
-    li.style.float = "left";
-    li.style.height = "70px";
-    li.style.margin = "2px 2px 2px 2px";
-
-    const img = new Image();
-    img.src = srcTrim;
-    img.style.borderRadius = "4px";
-    img.style.opacity = 0;
-    img.style.maxHeight = "70px";
-    img.style.minWidth = "25px";
-    img.style.transition = "opacity 0.4s";
-    img.addEventListener("click", (e) => {
-        const crrntPrnt = e.currentTarget.parentNode;
-        const galIdx = [].indexOf.call(crrntPrnt.parentNode.childNodes, crrntPrnt);
-        new Fancybox(
-            // Array containing gallery items
-            objS,
-            // Gallery options
-            {
-                startIndex: galIdx,
-            }
-        );
-    });
-
-    li.appendChild(img);
-    div.appendChild(li);
+    objS.push({ src: url });
+    const liImg = createIlLi ( url );
+    div.appendChild(liImg);
 });
 
-const imgLoad = imagesLoaded( div );
-imgLoad.on( 'always', ( instance ) => {
-  console.log( imgLoad.images.length + ' in total' );
-});
-imgLoad.on( 'done', ( instance ) => {
-  console.log('DONE  - all success');
-});
-imgLoad.on( 'fail', ( instance ) => {
-  console.log('FAIL - loaded, one mORe broken');
-});
-imgLoad.on( 'progress', ( instance, image ) => {
-    if ( image.isLoaded ) {
-        image.img.style.opacity = 1;
-    } else {
-        image.img.parentNode.style.backgroundColor = "#DCDCDC";
-        image.img.parentNode.style.backgroundImage = "url('https://fastly.jsdelivr.net/gh/microsoft/fluentui-system-icons/assets/Image%20Prohibited/SVG/ic_fluent_image_prohibited_24_filled.svg')";
-    }
-    const result = image.isLoaded ? 'loaded' : 'broken';
-    console.log('[' + result + '] ' + image.img.src);
-});
 
 div.className = "cntInner";
 return div;
@@ -405,10 +387,7 @@ const preprocessPrecast = () => {
 			switch (elemId) {
                 case 'jspanel_min_js':
                     jspanel_OL();
-                    break;
-                case 'imagesloaded_pkgd_min_js':
-                    imagesloaded_OL();
-                    break;
+                break;
                 default:
 			}
 		});
