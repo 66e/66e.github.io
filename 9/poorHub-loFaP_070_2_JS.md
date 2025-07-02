@@ -3,13 +3,13 @@
 */
 
 // ==UserScript==
-// @name        loFaP_0630
+// @name        loFaP_0702
 // @namespace   Violentmonkey Scripts
 // @match       *://*/*
 // @grant       none
-// @version     0.6.1
+// @version     0.7.0
 // @author      -
-// @description 2025/6/30 13:45:42
+// @description 2025/7/2 13:45:42
 // ==/UserScript==
 
 (() => {
@@ -50,7 +50,7 @@ const createByExtens = ( urlFile, fileExtens ) => {
 
 const generateUnit = (arrIn) => {
     const trgtContainer = document.querySelector("div#containErNT");
-    const unit = loadFan(arrIn);
+    const unit = processElem ( arrIn );
     createIlLi ( unit );
     if (trgtContainer) {
         trgtContainer.appendChild(unit);
@@ -124,12 +124,12 @@ const loadFan = (arrIn) => {
     return unit;
 }
 
-const arrSpliter = ( txtIn, SpliTeR) => {
+const arrSpliter = ( txtIn, SpliTeR ) => {
     const arrOut = txtIn.trim().split(SpliTeR);
     return arrOut;
 }
 
-const referMechan = () => {
+const secureFerShell_msn = () => {
     if (typeof retrieveMsn === "function") {
         const arrMsn = retrieveMsn();
         generateUnit ( arrMsn );
@@ -185,13 +185,11 @@ const jspanel_OL = () => {
         btnRslv.textContent = "resolve";
         btnRslv.id = "btnRslv";
         btnRslv.addEventListener("click", () => {
-            generateUnit (textarea.value);
+            genGFormT (textarea.value);
         });
         const btnMsn = document.createElement("button");
         btnMsn.addEventListener("click", () => {
-            referMechan ( );
-            const lngt = retrieveMsn();
-            generateUnit ( lngt );
+            secureFerShell_msn ( );
         });
         btnMsn.textContent = "Msn";
         btnMsn.id = "btnMsn";
@@ -214,19 +212,10 @@ const jspanel_OL = () => {
         },
         contentSize: '450 250',
         headerTitle: 'dashboard',
+        opacity: 0.9,
         position: 'right-bottom -10 -10',
         theme: 'dark',
     });
-}
-
-const imagesloaded_OL = () => {
-    const urlSArr = [
-        "https://7ed.net/bing/api?rand=true&size=1024x768", 
-        "https://picsum.photos/v2/list", 
-        "https://api.7ed.net/bing/api", 
-        "https://picsum.photos/536/354"
-    ];
-    generateUnit (urlSArr);
 }
 
 const filterString = (strIn) => {
@@ -284,6 +273,7 @@ const parseURL = ($string, param) => {
 }
 
 const createIlLi = ( url ) => {
+    const urlTrimmed = parseURL ( url, "trim" );
     const li = document.createElement("li");
     li.style.backgroundColor = "#000";
     li.style.backgroundImage = "url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/loading.gif')";
@@ -296,7 +286,7 @@ const createIlLi = ( url ) => {
     li.style.margin = "2px 2px 2px 2px";
 
     const img = new Image();
-    img.src = url;
+    img.src = urlTrimmed;
     img.style.borderRadius = "4px";
     img.style.opacity = 0;
     img.style.maxHeight = "70px";
@@ -304,15 +294,15 @@ const createIlLi = ( url ) => {
     img.style.transition = "opacity 0.4s";
     img.addEventListener("click", (e) => {
         const trgtContainer = document.querySelector("div#containErNT");
-        const divLiImgS = trgtContainer.querySelectorAll("div > div > div > div > div > li > img");
-        const arrFancy = new Array();
-        divLiImgS.forEach((img) => {
-            arrFancy.push({ src: img.src });
+        const arrImgS = trgtContainer.querySelectorAll("div > div > div > div > li > img");
+        const arrForFB = new Array();
+        arrImgS.forEach((elemImg) => {
+            arrForFB.push({ src: elemImg.src });
         });
         const clickTarget = e.currentTarget;
-        const galIdx = [].indexOf.call( divLiImgS, clickTarget );
+        const galIdx = [].indexOf.call( arrImgS, clickTarget );
         new Fancybox(
-            arrFancy,
+            arrForFB,
             {
                 startIndex: galIdx,
             }
@@ -348,7 +338,7 @@ imgLoad.on( 'progress', ( instance, image ) => {
 }
 
 const processElem = ( urlS ) => {
-    const objS = [];
+    const objS = new Array();
     const div = document.createElement("div");
 
 urlS.forEach(( url ) => {
@@ -397,7 +387,7 @@ const preprocessPrecast = () => {
                     jspanel_OL ();
 				break;
                 case 'imagesloaded_pkgd_min_js':
-                    imagesloaded_OL ();
+
 				break;
                 default:
 			}
