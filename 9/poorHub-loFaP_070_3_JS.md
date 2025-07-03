@@ -72,7 +72,7 @@ const rO_jspanel = {
 };
 
 const rO_retrieveMsn = {
-    exist: typeof imagesLoaded,
+    exist: typeof retrieveMsn,
     schedule: "function",
     referS: [
         "https://66e.github.io/j/msn_JS.md",
@@ -85,14 +85,14 @@ const rO_retrieveMsn = {
 
 const secuReFerShell = ( obj, elemIn ) => {
     if ( obj.exist === obj.schedule ) {
-        obj.method( elem );
+        obj.method( elemIn );
     } else {
         const urlS = obj.referS;
         urlS.forEach(( url ) => {
             const tag = appendRefer ( url );
             document.body.appendChild(tag);
-            tag.addEventListener("click", () => {
-                obj.method( elem );
+            tag.addEventListener("load", () => {
+                obj.method( elemIn );
             });
         });
     }
@@ -101,7 +101,7 @@ const secuReFerShell = ( obj, elemIn ) => {
 const generateUnit = (arrIn) => {
     const trgtContainer = document.querySelector("div#containErNT");
     const unit = processElem ( arrIn );
-    ilProgress ( unit );
+    secuReFerShell ( rO_imagesLoaded, unit );
     if (trgtContainer) {
         trgtContainer.appendChild(unit);
     } else {
@@ -155,7 +155,7 @@ const fetchCors = async (url, targetElm) => {
     const docData = await respons.text();
     targetElm.value = docData;
     const hybirdUnit = resolveTxt ( docData );
-    ilProgress ( hybirdUnit[0] );
+    secuReFerShell ( rO_imagesLoaded, hybirdUnit[0] );
     const trgtContainer = document.querySelector("div#containErNT");
     trgtContainer.appendChild(hybirdUnit[0]);
 }
@@ -177,20 +177,6 @@ const loadFan = (arrIn) => {
 const arrSpliter = (txtIn, SpliTeR) => {
     const arrOut = txtIn.trim().split(SpliTeR);
     return arrOut;
-}
-
-const secureRefer = () => {
-    if (typeof retrieveMsn === "function") {
-        const arrMsn = retrieveMsn();
-        generateUnit ( arrMsn );
-    } else {
-        const msn_JS = appendRefer("https://66e.github.io/j/msn_JS.md");
-        msn_JS.addEventListener("load", () => {
-            const arrMsn = retrieveMsn();
-            generateUnit ( arrMsn );
-        });
-        document.documentElement.appendChild(msn_JS);
-    }
 }
 
 const jspanel_OL = () => {
@@ -239,7 +225,7 @@ const jspanel_OL = () => {
         btnRslv.textContent = "resolve";
         const btnMsn = document.createElement("button");
         btnMsn.addEventListener("click", () => {
-            secureRefer ();
+            secuReFerShell ( rO_retrieveMsn );
         });
         btnMsn.id = "btnMsn";
         btnMsn.textContent = "Msn";
@@ -420,9 +406,6 @@ const preprocessPrecast = () => {
     bar.appendChild(button);
 
     const referUrl = [
-        "https://jspanel.de/jspanel/dist/jspanel.min.css",
-        "https://jspanel.de/jspanel/dist/jspanel.min.js",
-        "https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js",
         "https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css",
         "https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js",
     ];
@@ -512,6 +495,8 @@ if (document.body) {
         uniqueLauncher();
     });
 }
+
+secuReFerShell ( rO_jspanel );
 
     // Your code here...
 })();
