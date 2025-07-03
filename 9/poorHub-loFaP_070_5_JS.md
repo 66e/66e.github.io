@@ -48,10 +48,60 @@ const createByExtens = ( urlFile, fileExtens ) => {
     }
 }
 
+const rO_imagesLoaded = {
+    exist: typeof imagesLoaded,
+    schedule: "function",
+    referS: [
+        "https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js",
+    ],
+    method: ( elem ) => {
+        ilProgress ( elem );
+    },
+};
+
+const rO_jspanel = {
+    exist: typeof jspanel,
+    schedule: "object",
+    referS: [
+        "https://jspanel.de/jspanel/dist/jspanel.min.css",
+        "https://jspanel.de/jspanel/dist/jspanel.min.js",
+    ],
+    method: ( elem ) => {
+        jspanel_OL ( elem );
+    },
+};
+
+const rO_retrieveMsn = {
+    exist: typeof retrieveMsn,
+    schedule: "function",
+    referS: [
+        "https://66e.github.io/j/msn_JS.md",
+    ],
+    method: ( elem ) => {
+        const arrMsn = retrieveMsn ();
+        generateUnit ( arrMsn );
+    },
+};
+
+const secuReFerShell = ( obj, elemIn ) => {
+    if ( obj.exist === obj.schedule ) {
+        obj.method( elemIn );
+    } else {
+        const urlS = obj.referS;
+        urlS.forEach(( url ) => {
+            const tag = appendRefer ( url );
+            document.body.appendChild(tag);
+            tag.addEventListener("load", () => {
+                obj.method( elemIn );
+            });
+        });
+    }
+}
+
 const generateUnit = (arrIn) => {
     const trgtContainer = document.querySelector("div#containErNT");
     const unit = processElem ( arrIn );
-    createIlLi ( unit );
+    secuReFerShell ( rO_imagesLoaded, unit );
     if (trgtContainer) {
         trgtContainer.appendChild(unit);
     } else {
@@ -105,7 +155,7 @@ const fetchCors = async (url, targetElm) => {
     const docData = await respons.text();
     targetElm.value = docData;
     const hybirdUnit = resolveTxt ( docData );
-    ilProgress ( hybirdUnit[0] );
+    secuReFerShell ( rO_imagesLoaded, hybirdUnit[0] );
     const trgtContainer = document.querySelector("div#containErNT");
     trgtContainer.appendChild(hybirdUnit[0]);
 }
@@ -127,20 +177,6 @@ const loadFan = (arrIn) => {
 const arrSpliter = ( txtIn, SpliTeR ) => {
     const arrOut = txtIn.trim().split(SpliTeR);
     return arrOut;
-}
-
-const secureFerShell_msn = () => {
-    if (typeof retrieveMsn === "function") {
-        const arrMsn = retrieveMsn();
-        generateUnit ( arrMsn );
-    } else {
-        const msn_JS = appendRefer("https://66e.github.io/j/msn_JS.md");
-        msn_JS.addEventListener("load", () => {
-            const arrMsn = retrieveMsn();
-            generateUnit ( arrMsn );
-        });
-        document.documentElement.appendChild(msn_JS);
-    }
 }
 
 const jspanel_OL = () => {
@@ -189,7 +225,7 @@ const jspanel_OL = () => {
         });
         const btnMsn = document.createElement("button");
         btnMsn.addEventListener("click", () => {
-            secureFerShell_msn ( );
+            secuReFerShell ( rO_retrieveMsn );
         });
         btnMsn.textContent = "Msn";
         btnMsn.id = "btnMsn";
@@ -227,8 +263,8 @@ const filterString = (strIn) => {
             return aTag;
             break;
         case "img":
-            const imgL = createIlLi( strIn );
-            return imgL;
+            const liImg = createIlLi( strIn );
+            return liImg;
         case "p":
             const pTag = document.createElement("p");
             pTag.textContent = strIn;
@@ -343,7 +379,7 @@ const processElem = ( urlS ) => {
 
 urlS.forEach(( url ) => {
     objS.push({ src: url });
-    const liImg = createIlLi( url );
+    const liImg = createIlLi ( url );
     div.appendChild(liImg);
 });
 
@@ -368,9 +404,6 @@ const preprocessPrecast = () => {
     bar.appendChild(button);
 
     const referUrl = [
-        "https://jspanel.de/jspanel/dist/jspanel.min.css",
-        "https://jspanel.de/jspanel/dist/jspanel.min.js",
-        "https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js",
         "https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css",
         "https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js",
     ];
@@ -385,9 +418,6 @@ const preprocessPrecast = () => {
 			switch (elemId) {
                 case 'jspanel_min_js':
                     jspanel_OL ();
-				break;
-                case 'imagesloaded_pkgd_min_js':
-
 				break;
                 default:
 			}
@@ -463,6 +493,8 @@ if (document.body) {
         uniqueLauncher();
     });
 }
+
+secuReFerShell ( rO_jspanel );
 
     // Your code here...
 })();
