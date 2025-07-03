@@ -48,6 +48,56 @@ const createByExtens = ( urlFile, fileExtens ) => {
     }
 }
 
+const rO_imagesLoaded = {
+    exist: typeof imagesLoaded,
+    schedule: "function",
+    referS: [
+        "https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js",
+    ],
+    method: ( elem ) => {
+        ilProgress ( elem );
+    },
+};
+
+const rO_jspanel = {
+    exist: typeof jspanel,
+    schedule: "object",
+    referS: [
+        "https://jspanel.de/jspanel/dist/jspanel.min.css",
+        "https://jspanel.de/jspanel/dist/jspanel.min.js",
+    ],
+    method: ( elem ) => {
+        jspanel_OL ( elem );
+    },
+};
+
+const rO_retrieveMsn = {
+    exist: typeof imagesLoaded,
+    schedule: "function",
+    referS: [
+        "https://66e.github.io/j/msn_JS.md",
+    ],
+    method: ( elem ) => {
+        const arrMsn = retrieveMsn ();
+        generateUnit ( arrMsn );
+    },
+};
+
+const secuReFerShell = ( obj, elemIn ) => {
+    if ( obj.exist === obj.schedule ) {
+        obj.method( elem );
+    } else {
+        const urlS = obj.referS;
+        urlS.forEach(( url ) => {
+            const tag = appendRefer ( url );
+            document.body.appendChild(tag);
+            tag.addEventListener("click", () => {
+                obj.method( elem );
+            });
+        });
+    }
+}
+
 const generateUnit = (arrIn) => {
     const trgtContainer = document.querySelector("div#containErNT");
     const unit = processElem ( arrIn );
