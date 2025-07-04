@@ -83,9 +83,11 @@ const createWindow = ( elem, param ) => {
     switch ( param ) {
         case 1:
             const dashBoard = Object.assign(basicCB, winObj.attach);
+            dashBoard.id = "dashBoard";
             jsPanel.create(dashBoard);
             break;
         default:
+            basicCB.id = "";
             jsPanel.create( basicCB );
     }
 }
@@ -97,8 +99,8 @@ const rO_jspanel = {
         "https://jspanel.de/jspanel/dist/jspanel.min.css",
         "https://jspanel.de/jspanel/dist/jspanel.min.js",
     ],
-    method: ( elem ) => {
-        createWindow ( elem, 1 );
+    method: ( elem, param ) => {
+        createWindow ( elem, param );
     },
 };
 
@@ -114,17 +116,17 @@ const rO_retrieveMsn = {
     },
 };
 
-const secuReFerShell = ( obj, elemIn ) => {
-    if ( obj.exist === obj.schedule ) {
-        obj.method( elemIn );
+const secuReFerShell = ({ referObj, targetElem, param }) => {
+    if ( referObj.exist === referObj.schedule ) {
+        referObj.method( targetElem, param );
     } else {
-        const urlS = obj.referS;
+        const urlS = referObj.referS;
         const exeCuTable = /(_JS\.md|\.js)$/;
         urlS.forEach(( url ) => {
             const tag = appendRefer ( url );
             if ( exeCuTable.test(url) ) {
                 tag.addEventListener("load", () => {
-                    obj.method( elemIn );
+                    referObj.method( targetElem, param );
                 });
             }
             document.body.appendChild(tag);
@@ -135,7 +137,10 @@ const secuReFerShell = ( obj, elemIn ) => {
 const generateUnit = (arrIn) => {
     const trgtContainer = document.querySelector("div#containErNT");
     const unit = processElem ( arrIn );
-    secuReFerShell ( rO_imagesLoaded, unit );
+    secuReFerShell ({
+        referObj: rO_imagesLoaded, 
+        targetElem: unit,
+    });
     if (trgtContainer) {
         trgtContainer.appendChild(unit);
     } else {
@@ -159,7 +164,10 @@ const geNEWin = ( elem ) => {
     const div = document.createElement("div");
     div.id = "containErNT";
     div.appendChild( elem );
-    jsPCreate( div );
+    secuReFerShell ({
+        referObj : rO_jspanel,
+        targetElem : div,
+    });
 }
 
 const genGFormT = (txt) => {
@@ -192,7 +200,10 @@ const fetchCors = async (url, targetElm) => {
     const docData = await respons.text();
     targetElm.value = docData;
     const hybirdUnit = resolveTxt ( docData );
-    secuReFerShell ( rO_imagesLoaded, hybirdUnit[0] );
+    secuReFerShell ({
+        referObj: rO_imagesLoaded,
+        targetElem: hybirdUnit[0],
+    });
     const trgtContainer = document.querySelector("div#containErNT");
     trgtContainer.appendChild(hybirdUnit[0]);
 }
@@ -269,7 +280,9 @@ const visualizeComponentS = (x, y) => {
         btnRslv.textContent = "resolve";
         const btnMsn = document.createElement("button");
         btnMsn.addEventListener("click", () => {
-            secuReFerShell ( rO_retrieveMsn );
+            secuReFerShell ({
+                referObj : rO_retrieveMsn,
+            });
         });
         btnMsn.id = "btnMsn";
         btnMsn.textContent = "Msn";
@@ -542,7 +555,11 @@ if (document.body) {
 }
 
 const unit = visualizeComponentS ();
-secuReFerShell ( rO_jspanel, unit );
+secuReFerShell ({
+    referObj : rO_jspanel,
+    targetElem : unit,
+    param : 1,
+});
 
     // Your code here...
 })();
