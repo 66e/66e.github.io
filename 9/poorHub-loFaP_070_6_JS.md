@@ -67,7 +67,7 @@ const rO_jspanel = {
         "https://jspanel.de/jspanel/dist/jspanel.min.js",
     ],
     method: ( elem ) => {
-        jspanel_OL ( elem );
+        createDashboard();
     },
 };
 
@@ -88,12 +88,15 @@ const secuReFerShell = ( obj, elemIn ) => {
         obj.method( elemIn );
     } else {
         const urlS = obj.referS;
+        const exeCuTable = /(_JS\.md|\.js)$/;
         urlS.forEach(( url ) => {
             const tag = appendRefer ( url );
+            if ( exeCuTable.test(url) ) {
+                tag.addEventListener("load", () => {
+                    obj.method( elemIn );
+                });
+            }
             document.body.appendChild(tag);
-            tag.addEventListener("load", () => {
-                obj.method( elemIn );
-            });
         });
     }
 }
@@ -109,20 +112,23 @@ const generateUnit = (arrIn) => {
     }
 }
 
-const geNEWin = (elem) => {
-    const div = document.createElement("div");
-    div.id = "containErNT";
-    div.appendChild(elem);
-
+const jsPCreate = ( elemIn ) => {
     jsPanel.create({
         callback: (panel) => {
-            panel.content.appendChild(div);
+            panel.content.appendChild( elemIn );
         },
         contentSize: '400 250',
         opacity: 0.9,
         position: 'right-top -10 125',
         theme: 'primary',
     });
+}
+
+const geNEWin = ( elem ) => {
+    const div = document.createElement("div");
+    div.id = "containErNT";
+    div.appendChild( elem );
+    jsPCreate( div );
 }
 
 const genGFormT = (txt) => {
@@ -181,7 +187,14 @@ const arrSpliter = (txtIn, SpliTeR) => {
 
 const jspanel_OL = () => {
     const visualizeComponentS = () => {
-        const input = document.createElement("input");
+        
+        return div;
+    }
+
+}
+
+const visualizeComponentS = (x, y) => {
+    const input = document.createElement("input");
         input.addEventListener("dblclick", () => {
             input.value = '';
         });
@@ -210,7 +223,7 @@ const jspanel_OL = () => {
         });
         textarea.addEventListener("paste", () => {
             setTimeout(() => {
-                generateUnit ( textarea.value );
+                genGFormT ( textarea.value );
             }, 1);
         });
         textarea.id = "textarea";
@@ -219,7 +232,7 @@ const jspanel_OL = () => {
         textarea.style.overflow = "auto";
         const btnRslv = document.createElement("button");
         btnRslv.addEventListener("click", () => {
-            generateUnit ( textarea.value );
+            genGFormT ( textarea.value );
         });
         btnRslv.id = "btnRslv";
         btnRslv.textContent = "resolve";
@@ -237,16 +250,17 @@ const jspanel_OL = () => {
         div.appendChild(textarea);
         div.appendChild(btnRslv);
         div.appendChild(btnMsn);
-        return div;
-    }
+    return div;
+}
 
+const createDashboard = () => {
     jsPanel.create({
         callback: (panel) => {
             const unit = visualizeComponentS();
             panel.content.appendChild(unit);
         },
         contentSize: '450 250',
-        headerTitle: 'dashboard',
+        headerTitle: 'dashBoard',
         opacity: 0.9,
         position: 'right-bottom -10 -10',
         theme: 'dark',
