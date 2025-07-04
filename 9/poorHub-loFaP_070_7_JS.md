@@ -59,6 +59,37 @@ const rO_imagesLoaded = {
     },
 };
 
+const winObj = {
+    basic: {
+        contentSize: '400 250',
+        opacity: 0.9,
+        position: 'right-top -10 125',
+        theme: 'primary',
+    },
+    attach: {
+        contentSize: '450 250',
+        headerTitle: 'dashBoard',
+        position: 'right-bottom -10 -10',
+    },
+};
+
+const createWindow = ( elem, param ) => {
+    const funcCB = {
+        callback: (panel) => {
+            panel.content.appendChild( elem );
+        },
+    };
+    const basicCB = Object.assign(funcCB, winObj.basic);
+    switch ( param ) {
+        case 1:
+            const dashBoard = Object.assign(basicCB, winObj.attach);
+            jsPanel.create(dashBoard);
+            break;
+        default:
+            jsPanel.create( basicCB );
+    }
+}
+
 const rO_jspanel = {
     exist: typeof jspanel,
     schedule: "object",
@@ -67,7 +98,7 @@ const rO_jspanel = {
         "https://jspanel.de/jspanel/dist/jspanel.min.js",
     ],
     method: ( elem ) => {
-        createDashboard();
+        createWindow ( elem, 1 );
     },
 };
 
@@ -510,7 +541,8 @@ if (document.body) {
     });
 }
 
-secuReFerShell ( rO_jspanel );
+const unit = visualizeComponentS ();
+secuReFerShell ( rO_jspanel, unit );
 
     // Your code here...
 })();
