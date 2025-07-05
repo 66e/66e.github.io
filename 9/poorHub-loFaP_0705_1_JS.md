@@ -59,6 +59,30 @@ const rO_imagesLoaded = {
     },
 };
 
+const createWindow = ( elem, param ) => {
+    const oWin = new Object();
+    oWin.callback = (panel) => {
+        panel.content.appendChild( elem );
+    };
+    oWin.opacity = .9;
+    oWin.theme = "primary";
+    
+    switch ( param ) {
+        case undefined:
+            oWin.contentSize = "400 250";
+            oWin.position = "right-top -10 125";
+            break;
+        case "dashBoard":
+            oWin.contentSize = "450 250";
+            oWin.headerTitle = param;
+            oWin.id = param;
+            oWin.position = "right-bottom -10 -10";
+            break;
+    }
+
+    jsPanel.create( oWin );
+}
+
 const rO_jspanel = {
     exist: typeof jspanel,
     schedule: "object",
@@ -66,8 +90,8 @@ const rO_jspanel = {
         "https://jspanel.de/jspanel/dist/jspanel.min.css",
         "https://jspanel.de/jspanel/dist/jspanel.min.js",
     ],
-    method: ( elem ) => {
-        jspanel_OL ( elem );
+    method: ( elem, param ) => {
+        createWindow ( elem, param );
     },
 };
 
@@ -83,71 +107,71 @@ const rO_retrieveMsn = {
     },
 };
 
-const secuReFerShell = ( obj, elemIn ) => {
-    if ( obj.exist === obj.schedule ) {
-        obj.method( elemIn );
+const secuReFerShell = ({ referObj, targetElem, param }) => {
+    if ( referObj.exist === referObj.schedule ) {
+        referObj.method( targetElem, param );
     } else {
-        const urlS = obj.referS;
+        const urlS = referObj.referS;
+        const exeCuTable = /(_JS\.md|\.js)$/i;
         urlS.forEach(( url ) => {
             const tag = appendRefer ( url );
+            if ( exeCuTable.test(url) ) {
+                tag.addEventListener("load", () => {
+                    referObj.method( targetElem, param );
+                });
+            }
             document.body.appendChild(tag);
-            tag.addEventListener("load", () => {
-                obj.method( elemIn );
-            });
         });
     }
 }
 
-const generateUnit = (arrIn) => {
+const generateUnit = ( arrIn ) => {
     const trgtContainer = document.querySelector("div#containErNT");
     const unit = processElem ( arrIn );
-    secuReFerShell ( rO_imagesLoaded, unit );
+    secuReFerShell ({
+        referObj: rO_imagesLoaded, 
+        targetElem: unit,
+    });
     if (trgtContainer) {
-        trgtContainer.appendChild(unit);
+        trgtContainer.appendChild( unit );
     } else {
         geNEWin(unit);
     }
 }
 
-const geNEWin = (elem) => {
+const geNEWin = ( elem ) => {
     const div = document.createElement("div");
     div.id = "containErNT";
-    div.appendChild(elem);
-
-    jsPanel.create({
-        callback: (panel) => {
-            panel.content.appendChild(div);
-        },
-        contentSize: '400 250',
-        opacity: 0.9,
-        position: 'right-top -10 125',
-        theme: 'primary',
+    div.appendChild( elem );
+    secuReFerShell ({
+        referObj : rO_jspanel,
+        targetElem : div,
     });
 }
 
-const genGFormT = (txt) => {
-    const urlSArr = extractUrls(txt);
-    generateUnit(urlSArr);
+const genGFormT = ( txt ) => {
+    const urlSArr = extractUrls ( txt );
+    generateUnit ( urlSArr );
 }
 
-const resolveTxt = (txtIn) => {
-    const paras = arrSpliter(txtIn, ">　　　　　　　　");
+const resolveTxt = ( txtIn ) => {
+    const paras = arrSpliter( txtIn, ">　　　　　　　　" );
     const objS = [];
     const div = document.createElement("div");
-    paras.forEach((elem) => {
-        const lines = arrSpliter(elem, "\n");
+    paras.forEach(( elem ) => {
+        const lines = arrSpliter( elem, "\n" );
         const innerObj = [];
         const innerDiv = document.createElement("div");
-        lines.forEach((el) => {
-            const identify = parseURL(el);
-            const iter = filterString(el);
-            innerObj.push(identify);
-            innerDiv.appendChild(iter);
+        lines.forEach(( el ) => {
+            const identify = parseURL( el );
+            const iter = filterString( el );
+            innerObj.push( identify );
+            innerDiv.appendChild( iter );
         });
-        objS.push(innerObj);
-        div.appendChild(innerDiv);
+        objS.push( innerObj );
+        div.appendChild( innerDiv );
     });
-    return [div, objS];
+    return [ div, objS ];
 }
 
 const fetchCors = async (url, targetElm) => {
@@ -155,7 +179,10 @@ const fetchCors = async (url, targetElm) => {
     const docData = await respons.text();
     targetElm.value = docData;
     const hybirdUnit = resolveTxt ( docData );
-    secuReFerShell ( rO_imagesLoaded, hybirdUnit[0] );
+    secuReFerShell ({
+        referObj: rO_imagesLoaded,
+        targetElem: hybirdUnit[0],
+    });
     const trgtContainer = document.querySelector("div#containErNT");
     trgtContainer.appendChild(hybirdUnit[0]);
 }
@@ -169,89 +196,9 @@ const extractUrls = ( input ) => {
     return match ? match : "No URLs found";
 }
 
-const loadFan = (arrIn) => {
-    const unit = processElem(arrIn);
-    return unit;
-}
-
 const arrSpliter = ( txtIn, SpliTeR ) => {
     const arrOut = txtIn.trim().split(SpliTeR);
     return arrOut;
-}
-
-const jspanel_OL = () => {
-    const visualizeComponentS = () => {
-        const input = document.createElement("input");
-        input.addEventListener("dblclick", () => {
-            input.value = '';
-        });
-        input.addEventListener("paste", (e) => {
-            setTimeout(() => {
-                fetchCors(e.target.value, textarea);
-            }, 1);
-        });
-        input.id = "input";
-        input.size = 40;
-        const docUrl = "https://66e.github.io/9/2025-06-08-y.md";
-        input.value = docUrl;
-        const btnRtrv = document.createElement("button");
-        btnRtrv.addEventListener("click", () => {
-            fetchCors(input.value, textarea);
-        });
-        btnRtrv.id = "btnRtrv";
-        btnRtrv.textContent = "retrieve";
-        const checkbox = document.createElement("input");
-        checkbox.textContent = "checkbox";
-        checkbox.id = "checkbox";
-        checkbox.type = "checkbox";
-        const textarea = document.createElement("textarea");
-        textarea.addEventListener("dblclick", () => {
-            textarea.value = "";
-        });
-        textarea.addEventListener("paste", () => {
-            setTimeout(() => {
-                genGFormT (textarea.value);
-            }, 1);
-        });
-        textarea.cols = "50";
-        textarea.rows = "10";
-        textarea.id = "textarea";
-        textarea.style.overflow = "auto";
-        const btnRslv = document.createElement("button");
-        btnRslv.textContent = "resolve";
-        btnRslv.id = "btnRslv";
-        btnRslv.addEventListener("click", () => {
-            genGFormT (textarea.value);
-        });
-        const btnMsn = document.createElement("button");
-        btnMsn.addEventListener("click", () => {
-            secuReFerShell ( rO_retrieveMsn );
-        });
-        btnMsn.textContent = "Msn";
-        btnMsn.id = "btnMsn";
-        
-        const div = document.createElement("div");
-        div.id = "dashboard";
-        div.appendChild(input);
-        div.appendChild(btnRtrv);
-        div.appendChild(checkbox);
-        div.appendChild(textarea);
-        div.appendChild(btnRslv);
-        div.appendChild(btnMsn);
-        return div;
-    }
-
-    jsPanel.create({
-        callback: (panel) => {
-            const unit = visualizeComponentS();
-            panel.content.appendChild(unit);
-        },
-        contentSize: '450 250',
-        headerTitle: 'dashboard',
-        opacity: 0.9,
-        position: 'right-bottom -10 -10',
-        theme: 'dark',
-    });
 }
 
 const filterString = (strIn) => {
@@ -306,6 +253,69 @@ const parseURL = ($string, param) => {
     } else {
         return "p";
     }
+}
+
+const visualizeComponentS = () => {
+    const input = document.createElement("input");
+        input.addEventListener("dblclick", () => {
+            input.value = '';
+        });
+        input.addEventListener("paste", (e) => {
+            setTimeout(() => {
+                fetchCors( e.target.value, textarea );
+            }, 1);
+        });
+        input.id = "input";
+        input.size = 40;
+        const docUrl = "https://66e.github.io/9/2025-06-08-y.md";
+        input.value = docUrl;
+        const btnRtrv = document.createElement("button");
+        btnRtrv.addEventListener("click", () => {
+            fetchCors( input.value, textarea );
+        });
+        btnRtrv.id = "btnRtrv";
+        btnRtrv.textContent = "retrieve";
+        const checkbox = document.createElement("input");
+        checkbox.textContent = "checkbox";
+        checkbox.id = "checkbox";
+        checkbox.type = "checkbox";
+        const textarea = document.createElement("textarea");
+        textarea.addEventListener("dblclick", () => {
+            textarea.value = "";
+        });
+        textarea.addEventListener("paste", () => {
+            setTimeout(() => {
+                genGFormT ( textarea.value );
+            }, 1);
+        });
+        textarea.cols = "50";
+        textarea.rows = "10";
+        textarea.id = "textarea";
+        textarea.style.overflow = "auto";
+        const btnRslv = document.createElement("button");
+        btnRslv.textContent = "resolve";
+        btnRslv.id = "btnRslv";
+        btnRslv.addEventListener("click", () => {
+            genGFormT ( textarea.value );
+        });
+        const btnMsn = document.createElement("button");
+        btnMsn.addEventListener("click", () => {
+            secuReFerShell ({
+                referObj : rO_retrieveMsn,
+            });
+        });
+        btnMsn.textContent = "Msn";
+        btnMsn.id = "btnMsn";
+        
+        const div = document.createElement("div");
+        div.id = "dashboard";
+        div.appendChild(input);
+        div.appendChild(btnRtrv);
+        div.appendChild(checkbox);
+        div.appendChild(textarea);
+        div.appendChild(btnRslv);
+        div.appendChild(btnMsn);
+        return div;
 }
 
 const createIlLi = ( url ) => {
@@ -494,7 +504,12 @@ if (document.body) {
     });
 }
 
-secuReFerShell ( rO_jspanel );
+const unit = visualizeComponentS ();
+secuReFerShell ({
+    referObj : rO_jspanel,
+    targetElem : unit,
+    param : "dashBoard",
+});
 
     // Your code here...
 })();
