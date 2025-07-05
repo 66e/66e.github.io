@@ -56,6 +56,9 @@ const rO_imagesLoaded = {
     ],
     method: ( elem ) => {
         ilProgress ( elem );
+        secuReFerShell ({
+            referObj: rO.fancybox, 
+        });
     },
 };
 
@@ -115,6 +118,16 @@ const rO_retrieveMsn = {
         generateUnit ( arrMsn );
     },
 };
+
+const rO = new Object();
+rO.fancybox = new Object();
+rO.fancybox.exist = typeof Fancybox;
+rO.fancybox.schedule = "function";
+rO.fancybox.referS = [
+    "https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js",
+];
+rO.fancybox.method = () => console.log(typeof Fancybox);
 
 const secuReFerShell = ({ referObj, targetElem, param }) => {
     if ( referObj.exist === referObj.schedule ) {
@@ -425,8 +438,7 @@ const preprocessPrecast = () => {
     bar.appendChild(button);
 
     const referUrl = [
-        "https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css",
-        "https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js",
+
     ];
     const checkbox = [];
     const referElem = [];
