@@ -81,14 +81,14 @@ const createWindow = ( elem, param ) => {
     };
     const basicCB = Object.assign(funcCB, winObj.basic);
     switch ( param ) {
-        case 1:
+        case undefined:
+            jsPanel.create( basicCB );
+            break;
+        case "dashBoard":
             const dashBoard = Object.assign(basicCB, winObj.attach);
             dashBoard.id = "dashBoard";
             jsPanel.create(dashBoard);
             break;
-        default:
-            basicCB.id = "";
-            jsPanel.create( basicCB );
     }
 }
 
@@ -148,18 +148,6 @@ const generateUnit = (arrIn) => {
     }
 }
 
-const jsPCreate = ( elemIn ) => {
-    jsPanel.create({
-        callback: (panel) => {
-            panel.content.appendChild( elemIn );
-        },
-        contentSize: '400 250',
-        opacity: 0.9,
-        position: 'right-top -10 125',
-        theme: 'primary',
-    });
-}
-
 const geNEWin = ( elem ) => {
     const div = document.createElement("div");
     div.id = "containErNT";
@@ -217,25 +205,66 @@ const extractUrls = ( input ) => {
     return match ? match : "No URLs found";
 }
 
-const loadFan = (arrIn) => {
-    const unit = processElem(arrIn);
-    return unit;
-}
-
 const arrSpliter = (txtIn, SpliTeR) => {
     const arrOut = txtIn.trim().split(SpliTeR);
     return arrOut;
 }
 
-const jspanel_OL = () => {
-    const visualizeComponentS = () => {
-        
-        return div;
+const filterString = (strIn) => {
+    const currentStr = parseURL(strIn);
+    switch (currentStr) {
+        case "a":
+            const aTag = document.createElement("a");
+            aTag.textContent = strIn;
+            return aTag;
+            break;
+        case "img":
+            const liImg = createIlLi ( strIn );
+            return liImg;
+        case "p":
+            const pTag = document.createElement("p");
+            pTag.textContent = strIn;
+            return pTag;
+            break;
+        case "pRompt6Exe":
+            const div = document.createElement("div");
+            div.textContent = strIn;
+            return div;
+            break;
+        default:
+        console.log("default");
     }
-
 }
 
-const visualizeComponentS = (x, y) => {
+const parseURL = ($string, param) => {
+    const __urlR = "((https?|ftp|file):\/\/|(www|ftp)\.)[-A-Z0-9+&@#\/%?=~_|$!:,.;]*[A-Z0-9+&@#\/%=~_|$]";
+    const __imgR = "\.(?:img|jpe?g|gif|png)";
+    const urlRegex = new RegExp(__urlR, "i");
+    const imgRegex = new RegExp(__imgR, "i");
+    const imgWURegex = new RegExp(__urlR + __imgR, "i");
+    const pRompt6Exe = /^\#6\/p\/\w+$/i;
+    const strIsUrl = urlRegex.test($string);
+    if (strIsUrl) {
+        switch ( true ) {
+            case imgRegex.test($string):
+                if ( param ) {
+                    const trimmed = $string.match(imgWURegex)[0];
+                    return trimmed;
+                }
+                return "img";
+                break;
+
+            default:
+                return "a";
+        }
+    } else if (pRompt6Exe.test($string)) {
+        return "pRompt6Exe";
+    } else {
+        return "p";
+    }
+}
+
+const visualizeComponentS = () => {
     const input = document.createElement("input");
         input.addEventListener("dblclick", () => {
             input.value = '';
@@ -295,20 +324,6 @@ const visualizeComponentS = (x, y) => {
         div.appendChild(btnRslv);
         div.appendChild(btnMsn);
     return div;
-}
-
-const createDashboard = () => {
-    jsPanel.create({
-        callback: (panel) => {
-            const unit = visualizeComponentS();
-            panel.content.appendChild(unit);
-        },
-        contentSize: '450 250',
-        headerTitle: 'dashBoard',
-        opacity: 0.9,
-        position: 'right-bottom -10 -10',
-        theme: 'dark',
-    });
 }
 
 const createIlLi = ( url ) => {
@@ -376,60 +391,6 @@ imgLoad.on( 'progress', ( instance, image ) => {
     console.log('[' + result + '] ' + image.img.src);
 });
 
-}
-
-const filterString = (strIn) => {
-    const currentStr = parseURL(strIn);
-    switch (currentStr) {
-        case "a":
-            const aTag = document.createElement("a");
-            aTag.textContent = strIn;
-            return aTag;
-            break;
-        case "img":
-            const liImg = createIlLi ( strIn );
-            return liImg;
-        case "p":
-            const pTag = document.createElement("p");
-            pTag.textContent = strIn;
-            return pTag;
-            break;
-        case "pRompt6Exe":
-            const div = document.createElement("div");
-            div.textContent = strIn;
-            return div;
-            break;
-        default:
-        console.log("default");
-    }
-}
-
-const parseURL = ($string, param) => {
-    const __urlR = "((https?|ftp|file):\/\/|(www|ftp)\.)[-A-Z0-9+&@#\/%?=~_|$!:,.;]*[A-Z0-9+&@#\/%=~_|$]";
-    const __imgR = "\.(?:img|jpe?g|gif|png)";
-    const urlRegex = new RegExp(__urlR, "i");
-    const imgRegex = new RegExp(__imgR, "i");
-    const imgWURegex = new RegExp(__urlR + __imgR, "i");
-    const pRompt6Exe = /^\#6\/p\/\w+$/i;
-    const strIsUrl = urlRegex.test($string);
-    if (strIsUrl) {
-        switch ( true ) {
-            case imgRegex.test($string):
-                if ( param ) {
-                    const trimmed = $string.match(imgWURegex)[0];
-                    return trimmed;
-                }
-                return "img";
-                break;
-
-            default:
-                return "a";
-        }
-    } else if (pRompt6Exe.test($string)) {
-        return "pRompt6Exe";
-    } else {
-        return "p";
-    }
 }
 
 const processElem = (urlS) => {
@@ -558,7 +519,7 @@ const unit = visualizeComponentS ();
 secuReFerShell ({
     referObj : rO_jspanel,
     targetElem : unit,
-    param : 1,
+    param : "dashBoard",
 });
 
     // Your code here...
