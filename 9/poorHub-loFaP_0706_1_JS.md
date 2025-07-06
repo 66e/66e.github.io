@@ -126,12 +126,9 @@ const secuReFerShell = ({ referObj, targetElem, param }) => {
         urlS.forEach(( url ) => {
             const tag = appendRefer ( url );
             if ( exeCuTable.test(url) ) {
-                const el = document.querySelector( "script#" + tag.id );
-                if ( !el ) {
-                    tag.addEventListener("load", () => {
+                tag.addEventListener("load", () => {
                     referObj.method( targetElem, param );
                 });
-                }
             }
             document.body.appendChild(tag);
         });
@@ -159,6 +156,13 @@ const geNEWin = ( elem ) => {
     secuReFerShell ({
         referObj : rO_jspanel,
         targetElem : div,
+    });
+    secuReFerShell ({
+        referObj: rO_imagesLoaded, 
+        targetElem: elem,
+    });
+    secuReFerShell ({
+        referObj : rO.fancybox,
     });
 }
 
@@ -192,12 +196,7 @@ const fetchCors = async (url, targetElm) => {
     const docData = await respons.text();
     targetElm.value = docData;
     const hybirdUnit = resolveTxt ( docData );
-    secuReFerShell ({
-        referObj: rO_imagesLoaded,
-        targetElem: hybirdUnit[0],
-    });
-    const trgtContainer = document.querySelector("div#containErNT");
-    trgtContainer.appendChild(hybirdUnit[0]);
+    geNEWin( hybirdUnit[0] );
 }
 
 const extractUrls = ( input ) => {
@@ -285,9 +284,6 @@ const visualizeComponentS = () => {
         const btnRtrv = document.createElement("button");
         btnRtrv.addEventListener("click", () => {
             fetchCors( input.value, textarea );
-            secuReFerShell ({
-                referObj : rO.fancybox,
-            });
         });
         btnRtrv.id = "btnRtrv";
         btnRtrv.textContent = "retrieve";
