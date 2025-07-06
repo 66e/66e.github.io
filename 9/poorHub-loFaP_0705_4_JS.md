@@ -84,7 +84,7 @@ const createWindow = ( elem, param ) => {
 }
 
 const rO_jspanel = {
-    exist: typeof jspanel,
+    exist: typeof jsPanel,
     schedule: "object",
     referS: [
         "https://jspanel.de/jspanel/dist/jspanel.min.css",
@@ -122,7 +122,7 @@ const secuReFerShell = ({ referObj, targetElem, param }) => {
         referObj.method( targetElem, param );
     } else {
         const urlS = referObj.referS;
-        const exeCuTable = / (_JS\.md|\.js)$ /i;
+        const exeCuTable = /(_JS\.md|\.js)$/i;
         urlS.forEach(( url ) => {
             const tag = appendRefer ( url );
             if ( exeCuTable.test(url) ) {
@@ -189,6 +189,13 @@ const fetchCors = async (url, targetElm) => {
     const docData = await respons.text();
     targetElm.value = docData;
     const hybirdUnit = resolveTxt ( docData );
+    const container = document.createElement("div");
+    container.appendChild( hybirdUnit[0] );
+    container.id = "containErNT";
+    secuReFerShell ({
+        referObj : rO_jspanel,
+        targetElem : container,
+    });
     secuReFerShell ({
         referObj: rO_imagesLoaded,
         targetElem: hybirdUnit[0],
@@ -350,15 +357,15 @@ const createIlLi = ( url ) => {
     img.addEventListener("click", (e) => {
         const trgtContainer = document.querySelector("div#containErNT");
         const arrImgS = trgtContainer.querySelectorAll("div > div > div > div > li > img");
-        const arrFB = new Array();
+        const arrForFB = new Array();
         arrImgS.forEach((elemImg) => {
-            arrFB.push({ src: elemImg.src });
+            arrForFB.push({ src: elemImg.src });
         });
         const eventTarget = e.currentTarget;
         const galIdx = [].indexOf.call( arrImgS, eventTarget );
         new Fancybox(
             // Array containing gallery items
-            arrFB,
+            arrForFB,
             // Gallery options
             {
                 startIndex: galIdx,
