@@ -62,37 +62,25 @@ const rO_imagesLoaded = {
     },
 };
 
-const winObj = {
-    basic: {
-        contentSize: '400 250',
-        opacity: 0.9,
-        position: 'right-top -10 125',
-        theme: 'primary',
-    },
-    attach: {
-        contentSize: '450 250',
-        headerTitle: 'dashBoard',
-        position: 'right-bottom -10 -10',
-    },
-};
-
 const createWindow = ( elem, param ) => {
-    const funcCB = {
-        callback: (panel) => {
-            panel.content.appendChild( elem );
-        },
-    };
-    const basicCB = Object.assign(funcCB, winObj.basic);
+    const oWin = new Object();
+    oWin.callback = (panel) => panel.content.appendChild( elem );
+    oWin.opacity = .9;
+    oWin.theme = "primary";
+
     switch ( param ) {
         case undefined:
-            jsPanel.create( basicCB );
+            oWin.contentSize = "400 250";
+            oWin.position = "right-top -10 125";
             break;
         case "dashBoard":
-            const dashBoard = Object.assign(basicCB, winObj.attach);
-            dashBoard.id = "dashBoard";
-            jsPanel.create(dashBoard);
+            oWin.contentSize = "450 250";
+            oWin.headerTitle = param;
+            oWin.id = param;
+            oWin.position = "right-bottom -10 -10";
             break;
     }
+    jsPanel.create( oWin );
 }
 
 const rO_jspanel = {
@@ -134,7 +122,7 @@ const secuReFerShell = ({ referObj, targetElem, param }) => {
         referObj.method( targetElem, param );
     } else {
         const urlS = referObj.referS;
-        const exeCuTable = /(_JS\.md|\.js)$/;
+        const exeCuTable = / (_JS\.md|\.js)$ /i;
         urlS.forEach(( url ) => {
             const tag = appendRefer ( url );
             if ( exeCuTable.test(url) ) {
@@ -147,7 +135,7 @@ const secuReFerShell = ({ referObj, targetElem, param }) => {
     }
 }
 
-const generateUnit = (arrIn) => {
+const generateUnit = ( arrIn ) => {
     const trgtContainer = document.querySelector("div#containErNT");
     const unit = processElem ( arrIn );
     secuReFerShell ({
@@ -176,8 +164,8 @@ const genGFormT = (txt) => {
     generateUnit(urlSArr);
 }
 
-const resolveTxt = (txtInpt) => {
-    const paras = arrSpliter(txtInpt, ">　　　　　　　　");
+const resolveTxt = ( txtIn ) => {
+    const paras = arrSpliter( txtIn, ">　　　　　　　　");
     const div = document.createElement("div");
     const objS = [];
     paras.forEach((elem) => {
