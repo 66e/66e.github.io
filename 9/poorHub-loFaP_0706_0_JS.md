@@ -107,6 +107,16 @@ const rO_retrieveMsn = {
     },
 };
 
+const rO = new Object();
+rO.fancybox = new Object();
+rO.fancybox.exist = typeof Fancybox;
+rO.fancybox.schedule = "function";
+rO.fancybox.referS = [
+    "https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js",
+];
+rO.fancybox.method = () => console.log(typeof Fancybox);
+
 const secuReFerShell = ({ referObj, targetElem, param }) => {
     if ( referObj.exist === referObj.schedule ) {
         referObj.method( targetElem, param );
@@ -116,9 +126,12 @@ const secuReFerShell = ({ referObj, targetElem, param }) => {
         urlS.forEach(( url ) => {
             const tag = appendRefer ( url );
             if ( exeCuTable.test(url) ) {
-                tag.addEventListener("load", () => {
+                const el = document.querySelector( "script#" + tag.id );
+                if ( !el ) {
+                    tag.addEventListener("load", () => {
                     referObj.method( targetElem, param );
                 });
+                }
             }
             document.body.appendChild(tag);
         });
@@ -234,11 +247,11 @@ const parseURL = ($string, param) => {
     const imgRegex = new RegExp(__imgR, "i");
     const imgWURegex = new RegExp(__urlR + __imgR, "i");
     const pRompt6Exe = /^\#6\/p\/\w+$/i;
-    const regTestStr = urlRegex.test($string);
-    if (regTestStr) {
-        switch (true) {
+    const strIsUrl = urlRegex.test($string);
+    if ( strIsUrl ) {
+        switch ( true ) {
             case imgRegex.test($string):
-                if (param) {
+                if ( param ) {
                     const trimmed = $string.match(imgWURegex)[0];
                     return trimmed;
                 }
@@ -272,6 +285,9 @@ const visualizeComponentS = () => {
         const btnRtrv = document.createElement("button");
         btnRtrv.addEventListener("click", () => {
             fetchCors( input.value, textarea );
+            secuReFerShell ({
+                referObj : rO.fancybox,
+            });
         });
         btnRtrv.id = "btnRtrv";
         btnRtrv.textContent = "retrieve";
@@ -414,8 +430,7 @@ const preprocessPrecast = () => {
     bar.appendChild(button);
 
     const referUrl = [
-        "https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css",
-        "https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.umd.min.js",
+        
     ];
     const checkbox = [];
     const referElem = [];

@@ -29,6 +29,10 @@ arraySparse.forEach((element) => {
 
 clothing.length
 
+const o = new Object();
+o.foo = 42;
+const person = {};
+
 const firstElement = array1.shift();
 
 for (let i = 0; i < 9; i++) {
