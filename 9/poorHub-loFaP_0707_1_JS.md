@@ -56,9 +56,6 @@ const rO_imagesLoaded = {
     ],
     method: ( elem ) => {
         ilProgress ( elem );
-        secuReFerShell ({
-            referObj: rO.fancybox, 
-        });
     },
 };
 
@@ -157,6 +154,11 @@ const geNEWin = ( elem ) => {
         referObj : rO_jspanel,
         targetElem : div,
     });
+    secuReFerShell ({
+        referObj: rO_imagesLoaded,
+        targetElem: elem,
+    });
+    secuReFerShell ({ referObj: rO.fancybox, });
 }
 
 const genGFormT = (txt) => {
@@ -184,7 +186,7 @@ const resolveTxt = ( txtIn ) => {
     return [div, objS];
 }
 
-const fetchCors = async (url, targetElm) => {
+const fetchCors = async ( url, targetElm ) => {
     const respons = await fetch(url);
     const docData = await respons.text();
     targetElm.value = docData;
@@ -192,16 +194,7 @@ const fetchCors = async (url, targetElm) => {
     const container = document.createElement("div");
     container.appendChild( hybirdUnit[0] );
     container.id = "containErNT";
-    secuReFerShell ({
-        referObj : rO_jspanel,
-        targetElem : container,
-    });
-    secuReFerShell ({
-        referObj: rO_imagesLoaded,
-        targetElem: hybirdUnit[0],
-    });
-    const trgtContainer = document.querySelector("div#containErNT");
-    trgtContainer.appendChild(hybirdUnit[0]);
+    geNEWin( container );
 }
 
 const extractUrls = ( input ) => {
@@ -213,14 +206,14 @@ const extractUrls = ( input ) => {
     return match ? match : "No URLs found";
 }
 
-const arrSpliter = (txtIn, SpliTeR) => {
+const arrSpliter = ( txtIn, SpliTeR ) => {
     const arrOut = txtIn.trim().split(SpliTeR);
     return arrOut;
 }
 
-const filterString = (strIn) => {
-    const currentStr = parseURL(strIn);
-    switch (currentStr) {
+const filterString = ( strIn ) => {
+    const currentStr = parseURL( strIn );
+    switch ( currentStr ) {
         case "a":
             const aTag = document.createElement("a");
             aTag.textContent = strIn;
@@ -244,7 +237,7 @@ const filterString = (strIn) => {
     }
 }
 
-const parseURL = ($string, param) => {
+const parseURL = ( $string, param ) => {
     const __urlR = "((https?|ftp|file):\/\/|(www|ftp)\.)[-A-Z0-9+&@#\/%?=~_|$!:,.;]*[A-Z0-9+&@#\/%=~_|$]";
     const __imgR = "\.(?:img|jpe?g|gif|png)";
     const urlRegex = new RegExp(__urlR, "i");
@@ -252,7 +245,7 @@ const parseURL = ($string, param) => {
     const imgWURegex = new RegExp(__urlR + __imgR, "i");
     const pRompt6Exe = /^\#6\/p\/\w+$/i;
     const strIsUrl = urlRegex.test($string);
-    if (strIsUrl) {
+    if ( strIsUrl ) {
         switch ( true ) {
             case imgRegex.test($string):
                 if ( param ) {
@@ -279,7 +272,7 @@ const visualizeComponentS = () => {
         });
         input.addEventListener("paste", (e) => {
             setTimeout(() => {
-                fetchCors(e.target.value, textarea);
+                fetchCors( e.target.value, textarea );
             }, 1);
         });
         input.id = "input";
@@ -288,7 +281,7 @@ const visualizeComponentS = () => {
         input.value = docUrl;
         const btnRtrv = document.createElement("button");
         btnRtrv.addEventListener("click", () => {
-            fetchCors(input.value, textarea);
+            fetchCors( input.value, textarea );
         });
         btnRtrv.id = "btnRtrv";
         btnRtrv.textContent = "retrieve";
@@ -401,16 +394,15 @@ imgLoad.on( 'progress', ( instance, image ) => {
 
 }
 
-const processElem = (urlS) => {
+const processElem = ( urlS ) => {
     const objS = new Array();
     const div = document.createElement("div");
 
-urlS.forEach((url) => {
+urlS.forEach(( url ) => {
     objS.push({ src: url });
     const liImg = createIlLi ( url );
     div.appendChild(liImg);
 });
-
 
 div.className = "cntInner";
 return div;
@@ -431,49 +423,6 @@ const preprocessPrecast = () => {
         trigger.remove();
     });
     bar.appendChild(button);
-
-    const referUrl = [
-
-    ];
-    const checkbox = [];
-    const referElem = [];
-    const boolean = [];
-
-	const referReady = (iterator) => {
-		referElem[iterator] = appendRefer(referUrl[iterator]);
-		const elemId = referElem[iterator].id;
-		referElem[iterator].addEventListener("load", () => {
-			switch (elemId) {
-                case 'jspanel_min_js':
-                    jspanel_OL();
-                break;
-                default:
-			}
-		});
-		document.documentElement.appendChild(referElem[iterator]);
-		checkbox[iterator].title = referElem[iterator].id;
-	}
-
-    for (let i = 0; i < referUrl.length; i++) {
-        checkbox[i] = createCheckbox();
-        const label = document.createElement('label');
-        label.textContent = i;
-        bar.appendChild(label);
-        bar.appendChild(checkbox[i]);
-        boolean[i] = localStorage.getItem('checkbox' + i);
-        if ( boolean[i] === 'true' ) {
-			referReady(i);
-        }
-        checkbox[i].checked = boolean[i] === 'true';
-        checkbox[i].addEventListener("change", () => {
-            if (checkbox[i].checked) {
-				referReady(i);
-            } else {
-                referElem[i].remove();
-            }
-            localStorage.setItem('checkbox' + i, (checkbox[i].checked));
-        });
-    }
     document.body.appendChild(trigger);
 }
 
@@ -520,6 +469,37 @@ if (document.body) {
     document.addEventListener("DOMContentLoaded", () => {
         uniqueLauncher();
     });
+}
+
+const domainReStrict = ( dest ) => {
+    const ghPage = /\bhttps?:\/\/\S+\.github\.io/i;
+    const msnCn = /\bhttps?:\/\/www\.msn\.cn\/zh-cn\/\w+\/\w+\/[%-\w]+\/[-\w]+/i;
+    switch ( true ) {
+        case ghPage.test(dest):
+            return "ghPage";
+            break;
+        case msnCn.test(dest):
+            return "msnCn";
+            break;
+        default:
+            console.log("default");
+    }
+}
+
+const reStrict = domainReStrict ( document.URL );
+switch ( reStrict ) {
+    case "ghPage":
+        break;
+    case "msnCn":
+        const unit = visualizeComponentS ();
+        secuReFerShell ({
+            referObj : rO_jspanel,
+            targetElem : unit,
+            param : "dashBoard",
+        });
+        break;
+    default:
+        console.log("default");
 }
 
 const unit = visualizeComponentS ();
