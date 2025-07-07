@@ -3,13 +3,13 @@
 */
 
 // ==UserScript==
-// @name        loFaP_0702
+// @name        loFaP_0707
 // @namespace   Violentmonkey Scripts
 // @match       *://*/*
 // @grant       none
-// @version     0.7.0
+// @version     0.7.1
 // @author      -
-// @description 2025/7/2 13:45:42
+// @description 2025/7/7 00:00:00
 // ==/UserScript==
 
 (() => {
@@ -425,48 +425,6 @@ const preprocessPrecast = () => {
     });
     bar.appendChild(button);
 
-    const referUrl = [
-        
-    ];
-    const checkbox = [];
-    const referElem = [];
-    const boolean = [];
-
-	const referReady = (iterator) => {
-		referElem[iterator] = appendRefer(referUrl[iterator]);
-		const elemId = referElem[iterator].id;
-		referElem[iterator].addEventListener("load", () => {
-			switch (elemId) {
-                case 'jspanel_min_js':
-                    jspanel_OL ();
-				break;
-                default:
-			}
-		});
-		document.documentElement.appendChild(referElem[iterator]);
-		checkbox[iterator].title = referElem[iterator].id;
-	}
-
-    for (let i = 0; i < referUrl.length; i++) {
-        checkbox[i] = createCheckbox();
-        const label = document.createElement('label');
-        label.textContent = i;
-        bar.appendChild(label);
-        bar.appendChild(checkbox[i]);
-        boolean[i] = localStorage.getItem('checkbox' + i);
-        if ( boolean[i] === 'true' ) {
-			referReady(i);
-        }
-        checkbox[i].checked = boolean[i] === 'true';
-        checkbox[i].addEventListener("change", () => {
-            if (checkbox[i].checked) {
-				referReady(i);
-            } else {
-                referElem[i].remove();
-            }
-            localStorage.setItem('checkbox' + i, (checkbox[i].checked));
-        });
-    }
     document.body.appendChild(trigger);
 }
 
@@ -530,17 +488,37 @@ const domainReStrict = ( dest ) => {
     }
 }
 
+const msnBehaviour = ( mutateObserv ) => {
+    const observer = new MutationObserver((mutationsList, observer) => {
+    const cpArticleElement = document.querySelector( mutateObserv );
+    if ( cpArticleElement ) {
+        secuReFerShell ({
+            referObj : rO_retrieveMsn,
+        });
+        observer.disconnect();
+    }
+});
+
+// 配置观察器：监视子节点的变化和所有后代的变化
+const config = { childList: true, subtree: true };
+
+// 开始观察整个文档或特定的父元素
+// 如果你知道cp-article会出现在哪个父元素下，观察该父元素会更高效
+observer.observe(document.body, config);
+}
+
 const reStrict = domainReStrict ( document.URL );
 switch ( reStrict ) {
     case "ghPage":
-        break;
-    case "msnCn":
         const unit = visualizeComponentS ();
         secuReFerShell ({
             referObj : rO_jspanel,
             targetElem : unit,
             param : "dashBoard",
         });
+        break;
+    case "msnCn":
+        msnBehaviour ( "cp-article" );
         break;
     default:
         console.log("default");
