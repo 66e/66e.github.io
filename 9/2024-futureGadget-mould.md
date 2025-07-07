@@ -47,6 +47,8 @@ Dog.prototype.toString = function dogToString() {
   return `${this.name}`;
 };
 
+regex.test(str)
+
 undefined
 
 document.body.appendChild(p);

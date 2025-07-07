@@ -84,7 +84,7 @@ const createWindow = ( elem, param ) => {
 }
 
 const rO_jspanel = {
-    exist: typeof jspanel,
+    exist: typeof jsPanel,
     schedule: "object",
     referS: [
         "https://jspanel.de/jspanel/dist/jspanel.min.css",
@@ -515,12 +515,36 @@ if (document.body) {
     });
 }
 
-const unit = visualizeComponentS ();
-secuReFerShell ({
-    referObj : rO_jspanel,
-    targetElem : unit,
-    param : "dashBoard",
-});
+const domainReStrict = ( dest ) => {
+    const ghPage = /\bhttps?:\/\/\S+\.github\.io/i;
+    const msnCn = /\bhttps?:\/\/www\.msn\.cn\/zh-cn\/\w+\/\w+\/[%-\w]+\/[-\w]+/i;
+    switch ( true ) {
+        case ghPage.test(dest):
+            return "ghPage";
+            break;
+        case msnCn.test(dest):
+            return "msnCn";
+            break;
+        default:
+            console.log("default");
+    }
+}
+
+const reStrict = domainReStrict ( document.URL );
+switch ( reStrict ) {
+    case "ghPage":
+        break;
+    case "msnCn":
+        const unit = visualizeComponentS ();
+        secuReFerShell ({
+            referObj : rO_jspanel,
+            targetElem : unit,
+            param : "dashBoard",
+        });
+        break;
+    default:
+        console.log("default");
+}
 
     // Your code here...
 })();
