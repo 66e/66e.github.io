@@ -473,10 +473,14 @@ if (document.body) {
 
 const domainReStrict = ( dest ) => {
     const ghPage = /\bhttps?:\/\/\S+\.github\.io/i;
+    const jsitor = /\bhttps?:\/\/jsitor\.com/i;
     const msnCn = /\bhttps?:\/\/www\.msn\.cn\/zh-cn\/\w+\/\w+\/[%-\w]+\/[-\w]+/i;
     switch ( true ) {
         case ghPage.test(dest):
             return "ghPage";
+            break;
+        case jsitor.test(dest):
+            return "jsitor";
             break;
         case msnCn.test(dest):
             return "msnCn";
@@ -486,11 +490,27 @@ const domainReStrict = ( dest ) => {
     }
 }
 
+const msnBehaviour = ( mutateObserv ) => {
+    const observer = new MutationObserver((mutationsList, observer) => {
+    const cpArticleElement = document.querySelector(targetElementId);
+    if (cpArticleElement) {
+        secuReFerShell ({ referObj : rO_retrieveMsn });
+        observer.disconnect();
+    }
+});
+
+// 配置观察器：监视子节点的变化和所有后代的变化
+const config = { childList: true, subtree: true };
+
+// 开始观察整个文档或特定的父元素
+// 如果你知道cp-article会出现在哪个父元素下，观察该父元素会更高效
+observer.observe(document.body, config);
+}
+
 const reStrict = domainReStrict ( document.URL );
 switch ( reStrict ) {
-    case "ghPage":
-        break;
-    case "msnCn":
+    case "ghPage" :
+    case "jsitor" :
         const unit = visualizeComponentS ();
         secuReFerShell ({
             referObj : rO_jspanel,
@@ -498,16 +518,12 @@ switch ( reStrict ) {
             param : "dashBoard",
         });
         break;
+    case "msnCn" :
+        msnBehaviour ( "cp-article" );
+        break;
     default:
         console.log("default");
 }
-
-const unit = visualizeComponentS ();
-secuReFerShell ({
-    referObj : rO_jspanel,
-    targetElem : unit,
-    param : "dashBoard",
-});
 
     // Your code here...
 })();
