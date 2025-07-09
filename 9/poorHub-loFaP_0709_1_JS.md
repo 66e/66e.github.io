@@ -147,12 +147,9 @@ const generateUnit = ( arrIn ) => {
 }
 
 const geNEWin = ( elem ) => {
-    const div = document.createElement("div");
-    div.id = "containErNT";
-    div.appendChild( elem );
     secuReFerShell ({
         referObj : rO_jspanel,
-        targetElem : div,
+        targetElem : elem,
     });
     secuReFerShell ({
         referObj: rO_imagesLoaded,
@@ -169,11 +166,13 @@ const genGFormT = (txt) => {
 const resolveTxt = ( txtIn ) => {
     const paras = arrSpliter( txtIn, ">　　　　　　　　");
     const div = document.createElement("div");
+    div.className = "containErNT";
     const objS = [];
     paras.forEach((elem) => {
         const lines = arrSpliter(elem, "\n");
         const innerObj = [];
         const innerDiv = document.createElement("div");
+        innerDiv.className = "unitCard";
         lines.forEach((el) => {
             const identify = parseURL(el);
             const iter = filterString(el);
@@ -191,10 +190,7 @@ const fetchCors = async ( url, targetElm ) => {
     const docData = await respons.text();
     targetElm.value = docData;
     const hybirdUnit = resolveTxt ( docData );
-    const container = document.createElement("div");
-    container.appendChild( hybirdUnit[0] );
-    container.id = "containErNT";
-    geNEWin( container );
+    geNEWin( hybirdUnit[0] );
 }
 
 const extractUrls = ( input ) => {
@@ -348,8 +344,8 @@ const createIlLi = ( url ) => {
     img.style.minWidth = "25px";
     img.style.transition = "opacity 0.4s";
     img.addEventListener("click", (e) => {
-        const trgtContainer = document.querySelector("div#containErNT");
-        const arrImgS = trgtContainer.querySelectorAll("div > div > div > div > li > img");
+        const trgtContainer = document.querySelector("div.containErNT");
+        const arrImgS = trgtContainer.querySelectorAll("div > div > div.containErNT > div.unitCard > li > img");
         const arrForFB = new Array();
         arrImgS.forEach((elemImg) => {
             arrForFB.push({ src: elemImg.src });
@@ -492,7 +488,7 @@ const domainReStrict = ( dest ) => {
 
 const msnBehaviour = ( mutateObserv ) => {
     const observer = new MutationObserver((mutationsList, observer) => {
-    const cpArticleElement = document.querySelector(targetElementId);
+    const cpArticleElement = document.querySelector( mutateObserv );
     if (cpArticleElement) {
         secuReFerShell ({ referObj : rO_retrieveMsn });
         observer.disconnect();
