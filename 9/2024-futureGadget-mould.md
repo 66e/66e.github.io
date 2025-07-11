@@ -67,6 +67,7 @@ async
 
 const newDiv = document.createElement("div");
 newDiv.textContent = "This text is different!";
+const fragment = new DocumentFragment();
 
 my_element.addEventListener("click", () => {
     

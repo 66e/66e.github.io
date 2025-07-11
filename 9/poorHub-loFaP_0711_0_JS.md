@@ -61,9 +61,7 @@ const rO_imagesLoaded = {
 
 const createWindow = ( elem, param ) => {
     const oWin = new Object();
-    oWin.callback = (panel) => {
-        panel.content.appendChild( elem );
-    };
+    oWin.callback = (panel) => panel.content.appendChild( elem );
     oWin.opacity = .9;
     oWin.theme = "primary";
     
@@ -150,12 +148,9 @@ const generateUnit = ( arrIn ) => {
 }
 
 const geNEWin = ( elem ) => {
-    const div = document.createElement("div");
-    div.id = "containErNT";
-    div.appendChild( elem );
     secuReFerShell ({
         referObj : rO_jspanel,
-        targetElem : div,
+        targetElem : elem,
     });
     secuReFerShell ({
         referObj: rO_imagesLoaded, 
@@ -175,10 +170,12 @@ const resolveTxt = ( txtIn ) => {
     const paras = arrSpliter( txtIn, ">　　　　　　　　" );
     const objS = [];
     const div = document.createElement("div");
+    div.className = "containErNT";
     paras.forEach(( elem ) => {
         const lines = arrSpliter( elem, "\n" );
         const innerObj = [];
         const innerDiv = document.createElement("div");
+        innerDiv.className = "unitCard";
         lines.forEach(( el ) => {
             const identify = parseURL( el );
             const iter = filterString( el );
@@ -213,8 +210,8 @@ const arrSpliter = ( txtIn, SpliTeR ) => {
     return arrOut;
 }
 
-const filterString = (strIn) => {
-    const currentStr = parseURL(strIn);
+const filterString = ( strIn ) => {
+    const currentStr = parseURL( strIn );
     switch (currentStr) {
         case "a":
             const aTag = document.createElement("a");
@@ -239,7 +236,7 @@ const filterString = (strIn) => {
     }
 }
 
-const parseURL = ($string, param) => {
+const parseURL = ( $string, param ) => {
     const __urlR = "((https?|ftp|file):\/\/|(www|ftp)\.)[-A-Z0-9+&@#\/%?=~_|$!:,.;]*[A-Z0-9+&@#\/%=~_|$]";
     const __imgR = "\.(?:img|jpe?g|gif|png)";
     const urlRegex = new RegExp(__urlR, "i");
@@ -351,14 +348,14 @@ const createIlLi = ( url ) => {
     img.style.minWidth = "25px";
     img.style.transition = "opacity 0.4s";
     img.addEventListener("click", (e) => {
-        const trgtContainer = document.querySelector("div#containErNT");
-        const arrImgS = trgtContainer.querySelectorAll("div > div > div > div > li > img");
+        const trgtContainer = document.querySelector("div.containErNT");
+        const arrImgS = trgtContainer.querySelectorAll("div > div > div.containErNT > div.unitCard > li > img");
         const arrForFB = new Array();
         arrImgS.forEach((elemImg) => {
             arrForFB.push({ src: elemImg.src });
         });
-        const clickTarget = e.currentTarget;
-        const galIdx = [].indexOf.call( arrImgS, clickTarget );
+        const eventTarget = e.currentTarget;
+        const galIdx = [].indexOf.call( arrImgS, eventTarget );
         new Fancybox(
             arrForFB,
             {
@@ -475,10 +472,14 @@ if (document.body) {
 
 const domainReStrict = ( dest ) => {
     const ghPage = /\bhttps?:\/\/\S+\.github\.io/i;
+    const jsitor = /\bhttps?:\/\/jsitor\.com/i;
     const msnCn = /\bhttps?:\/\/www\.msn\.cn\/zh-cn\/\w+\/\w+\/[%-\w]+\/[-\w]+/i;
     switch ( true ) {
         case ghPage.test(dest):
             return "ghPage";
+            break;
+        case jsitor.test(dest):
+            return "jsitor";
             break;
         case msnCn.test(dest):
             return "msnCn";
@@ -509,7 +510,8 @@ observer.observe(document.body, config);
 
 const reStrict = domainReStrict ( document.URL );
 switch ( reStrict ) {
-    case "ghPage":
+    case "ghPage" :
+    case "jsitor" :
         const unit = visualizeComponentS ();
         secuReFerShell ({
             referObj : rO_jspanel,
@@ -517,7 +519,7 @@ switch ( reStrict ) {
             param : "dashBoard",
         });
         break;
-    case "msnCn":
+    case "msnCn" :
         msnBehaviour ( "cp-article" );
         break;
     default:
