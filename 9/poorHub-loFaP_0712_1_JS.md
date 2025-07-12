@@ -158,24 +158,24 @@ const geNEWin = ( elem ) => {
     secuReFerShell ({ referObj: rO.fancybox, });
 }
 
-const genGFormT = ( txt ) => {
+const genGFormTxt = ( txt ) => {
     const urlSArr = extractUrls( txt );
     generateUnit( urlSArr );
 }
 
 const arrSpliter = ( txtIn, SpliTeR, param ) => {
-    const arrOut = txtIn.trim().split(SpliTeR);
+    const arrFromTxt = txtIn.trim().split(SpliTeR);
     if ( param === "clean" ) {
         const htmlScrap_class = /.<* *.class *= *.['"]obCompat['"] *.>*/i;
         const hS_imgSrc = /<* *.img *.src *= *["']/i;
         const hS_heightWidth = /['"] *.(height|width) *= *.['"]*\w*.['"] *\/?>*/i;
-        const purifiedArr = words.filter(( line ) =>
-        line.trim() !== "" && htmlScrap_class.test( line )
-        && hS_imgSrc.test( line )
-        && hS_heightWidth.test( line ));
+        const purifiedArr = arrFromTxt.filter(( line ) =>
+        line.trim() !== "" && ! htmlScrap_class.test( line )
+        && ! hS_imgSrc.test( line )
+        && ! hS_heightWidth.test( line ));
         return purifiedArr;
     }
-    return arrOut;
+    return arrFromTxt;
 }
 
 const resolveTxt = ( txtIn ) => {
@@ -301,7 +301,7 @@ const visualizeComponentS = () => {
         });
         textarea.addEventListener("paste", () => {
             setTimeout(() => {
-                genGFormT ( textarea.value );
+                genGFormTxt ( textarea.value );
             }, 1);
         });
         textarea.id = "textarea";
@@ -310,7 +310,7 @@ const visualizeComponentS = () => {
         textarea.style.overflow = "auto";
         const btnRslv = document.createElement("button");
         btnRslv.addEventListener("click", () => {
-            genGFormT ( textarea.value );
+            genGFormTxt ( textarea.value );
         });
         btnRslv.id = "btnRslv";
         btnRslv.textContent = "resolve";

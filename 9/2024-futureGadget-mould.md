@@ -20,8 +20,8 @@ var v = `${c} 小于 ${l}`;
 const el = document.querySelector("div.user-panel.main input[name='login']");
 const matches = container.querySelectorAll("li[data-active='1']");
 
-const fruits = [];
 const arrayEmpty = new Array();
+const fruits = [];
 
 arraySparse.forEach((element) => {
   const count = animals.push("cows");
@@ -47,6 +47,7 @@ Dog.prototype.toString = function dogToString() {
   return `${this.name}`;
 };
 
+const regExp = /ab+c/i;
 regex.test(str)
 
 undefined
