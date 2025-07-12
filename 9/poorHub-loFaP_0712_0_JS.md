@@ -158,9 +158,24 @@ const geNEWin = ( elem ) => {
     secuReFerShell ({ referObj: rO.fancybox, });
 }
 
-const genGFormT = (txt) => {
-    const urlSArr = extractUrls(txt);
-    generateUnit(urlSArr);
+const genGFormT = ( txt ) => {
+    const urlSArr = extractUrls( txt );
+    generateUnit( urlSArr );
+}
+
+const arrSpliter = ( txtIn, SpliTeR, param ) => {
+    const arrOut = txtIn.trim().split(SpliTeR);
+    if ( param === "clean" ) {
+        const htmlScrap_class = /.<* *.class *= *.['"]obCompat['"] *.>*/i;
+        const hS_imgSrc = /<* *.img *.src *= *["']/i;
+        const hS_heightWidth = /['"] *.(height|width) *= *.['"]*\w*.['"] *\/?>*/i;
+        const purifiedArr = words.filter(( line ) =>
+        line.trim() !== "" && htmlScrap_class.test( line )
+        && hS_imgSrc.test( line )
+        && hS_heightWidth.test( line ));
+        return purifiedArr;
+    }
+    return arrOut;
 }
 
 const resolveTxt = ( txtIn ) => {
@@ -168,25 +183,25 @@ const resolveTxt = ( txtIn ) => {
     const div = document.createElement("div");
     div.className = "containErNT";
     const objS = [];
-    paras.forEach((elem) => {
-        const lines = arrSpliter(elem, "\n");
+    paras.forEach(( elem ) => {
+        const lines = arrSpliter( elem, "\n", "clean" );
         const innerObj = [];
         const innerDiv = document.createElement("div");
         innerDiv.className = "unitCard";
-        lines.forEach((el) => {
-            const identify = parseURL(el);
-            const iter = filterString(el);
-            innerObj.push(identify);
-            innerDiv.appendChild(iter);
+        lines.forEach(( el ) => {
+            const identify = parseURL( el );
+            const iter = filterString( el );
+            innerObj.push( identify );
+            innerDiv.appendChild( iter );
         });
-        div.appendChild(innerDiv);
-        objS.push(innerObj);
+        div.appendChild( innerDiv );
+        objS.push( innerObj );
     });
-    return [div, objS];
+    return [ div, objS ];
 }
 
 const fetchCors = async ( url, targetElm ) => {
-    const respons = await fetch(url);
+    const respons = await fetch( url );
     const docData = await respons.text();
     targetElm.value = docData;
     const hybirdUnit = resolveTxt ( docData );
@@ -200,11 +215,6 @@ const extractUrls = ( input ) => {
 
     // Output the found URLs
     return match ? match : "No URLs found";
-}
-
-const arrSpliter = ( txtIn, SpliTeR ) => {
-    const arrOut = txtIn.trim().split(SpliTeR);
-    return arrOut;
 }
 
 const filterString = ( strIn ) => {
@@ -404,6 +414,14 @@ div.className = "cntInner";
 return div;
 }
 
+const insertRuleAfter = () => {
+    const style = document.createElement("style");
+    style.id = 'dynaContainer';
+    document.head.appendChild(style);
+    const sheet = style.sheet;
+    sheet.insertRule('.unitCard::after { clear: both; content: ""; display: block; }', 0);
+}
+
 const preprocessPrecast = () => {
     const trigger = createTrigger();
     const bar = createBar();
@@ -420,6 +438,7 @@ const preprocessPrecast = () => {
     });
     bar.appendChild(button);
     document.body.appendChild(trigger);
+    insertRuleAfter();
 }
 
 const createTrigger = () => {
