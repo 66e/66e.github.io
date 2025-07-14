@@ -29,6 +29,8 @@ arraySparse.forEach((element) => {
 
 clothing.length
 
+const result = words.filter((word) => word.length > 6);
+
 const o = new Object();
 o.foo = 42;
 const person = {};
@@ -48,7 +50,8 @@ Dog.prototype.toString = function dogToString() {
 };
 
 const regExp = /ab+c/i;
-regex.test(str)
+let result = /^hello/.test(str);
+const found = paragraph.match(regex);
 
 undefined
 

@@ -168,7 +168,7 @@ const txtGenAlbum = ( txt ) => {
 
 const arrSpliter = ( txtIn, SpliTeR, param ) => {
     const arrFromTxt = txtIn.trim().split(SpliTeR);
-    if ( true ) {
+    if ( param === "clean" ) {
         const htmlScrap_class = /.<* *.class *= *.['"]obCompat['"] *.>*/i;
         const hS_imgSrc = /<* *.img *.src *= *["']/i;
         const hS_heightWidth = /['"] *.(height|width) *= *.['"]*\w*.['"] *\/?>*/i;
@@ -187,7 +187,7 @@ const resolveTxt = ( txtIn ) => {
     const div = document.createElement("div");
     div.className = "containErNT";
     paras.forEach(( elem ) => {
-        const lines = arrSpliter( elem, "\n" );
+        const lines = arrSpliter( elem, "\n", "clean" );
         const innerObj = [];
         const innerDiv = document.createElement("div");
         innerDiv.className = "unitCard";
@@ -421,7 +421,7 @@ const sheetInsertAfter = () => {
       style.id = 'dynaContainer';
       document.head.appendChild(style);
       const sheet = style.sheet;
-      sheet.insertRule('.dynamic-container::after { clear: both; content: ""; display: block; }', 0);
+      sheet.insertRule('.unitCard::after { clear: both; content: ""; display: block; }', 0);
 }
 
 const preprocessPrecast = () => {
