@@ -3,7 +3,7 @@
 */
 
 // ==UserScript==
-// @name        loFaP_0707
+// @name        loadFancyPanel_0714-0
 // @namespace   Violentmonkey Scripts
 // @match       *://*/*
 // @grant       none
@@ -161,9 +161,24 @@ const geNEWin = ( elem ) => {
     });
 }
 
-const genGFormT = ( txt ) => {
+const txtGenAlbum = ( txt ) => {
     const urlSArr = extractUrls ( txt );
     generateUnit ( urlSArr );
+}
+
+const arrSpliter = ( txtIn, SpliTeR, param ) => {
+    const arrFromTxt = txtIn.trim().split(SpliTeR);
+    if ( true ) {
+        const htmlScrap_class = /.<* *.class *= *.['"]obCompat['"] *.>*/i;
+        const hS_imgSrc = /<* *.img *.src *= *["']/i;
+        const hS_heightWidth = /['"] *.(height|width) *= *.['"]*\w*.['"] *\/?>*/i;
+        const purifiedArr = arrFromTxt.filter(( line ) =>
+        line.trim() !== "" && ! htmlScrap_class.test( line )
+        && ! hS_imgSrc.test( line )
+        && ! hS_heightWidth.test( line ));
+        return purifiedArr;
+    }
+    return arrFromTxt;
 }
 
 const resolveTxt = ( txtIn ) => {
@@ -188,8 +203,8 @@ const resolveTxt = ( txtIn ) => {
     return [ div, objS ];
 }
 
-const fetchCors = async (url, targetElm) => {
-    const respons = await fetch(url);
+const fetchCors = async ( url, targetElm ) => {
+    const respons = await fetch( url );
     const docData = await respons.text();
     targetElm.value = docData;
     const hybirdUnit = resolveTxt ( docData );
@@ -205,21 +220,16 @@ const extractUrls = ( input ) => {
     return match ? match : "No URLs found";
 }
 
-const arrSpliter = ( txtIn, SpliTeR ) => {
-    const arrOut = txtIn.trim().split(SpliTeR);
-    return arrOut;
-}
-
 const filterString = ( strIn ) => {
     const currentStr = parseURL( strIn );
-    switch (currentStr) {
+    switch ( currentStr ) {
         case "a":
             const aTag = document.createElement("a");
             aTag.textContent = strIn;
             return aTag;
             break;
         case "img":
-            const liImg = createIlLi( strIn );
+            const liImg = createIlLi ( strIn );
             return liImg;
         case "p":
             const pTag = document.createElement("p");
@@ -294,7 +304,7 @@ const visualizeComponentS = () => {
         });
         textarea.addEventListener("paste", () => {
             setTimeout(() => {
-                genGFormT ( textarea.value );
+                txtGenAlbum ( textarea.value );
             }, 1);
         });
         textarea.cols = "50";
@@ -305,7 +315,7 @@ const visualizeComponentS = () => {
         btnRslv.textContent = "resolve";
         btnRslv.id = "btnRslv";
         btnRslv.addEventListener("click", () => {
-            genGFormT ( textarea.value );
+            txtGenAlbum ( textarea.value );
         });
         const btnMsn = document.createElement("button");
         btnMsn.addEventListener("click", () => {
@@ -406,6 +416,14 @@ div.className = "cntInner";
 return div;
 }
 
+const sheetInsertAfter = () => {
+    const style = document.createElement("style");
+      style.id = 'dynaContainer';
+      document.head.appendChild(style);
+      const sheet = style.sheet;
+      sheet.insertRule('.dynamic-container::after { clear: both; content: ""; display: block; }', 0);
+}
+
 const preprocessPrecast = () => {
     const trigger = createTrigger();
     const bar = createBar();
@@ -423,6 +441,7 @@ const preprocessPrecast = () => {
     bar.appendChild(button);
 
     document.body.appendChild(trigger);
+    sheetInsertAfter ();
 }
 
 const createTrigger = () => {
