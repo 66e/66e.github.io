@@ -3,7 +3,7 @@
 */
 
 // ==UserScript==
-// @name        loFaP_070
+// @name        loFaP_0715
 // @namespace   Violentmonkey Scripts
 // @match       *://*/*
 // @grant       none
@@ -178,6 +178,18 @@ const arrSpliter = ( txtIn, SpliTeR, param ) => {
     return arrFromTxt;
 }
 
+const seqGen = ( url ) => {
+    const fileNameReg = /[^\/=\b]+(?=\.[^\/.]*$)/i;
+    const fileName = url.match(fileNameReg)[0];
+    const fileInt = parseInt( fileName );
+    const urlFrame = url.split( fileNameReg );
+    const arrayEmpty = new Array();
+    for (let i = 0; i < fileInt; i++) {
+        arrayEmpty.push( urlFrame[0] + i + urlFrame[1] );
+    }
+    return arrayEmpty;
+}
+
 const resolveTxt = ( txtIn ) => {
     const paras = arrSpliter( txtIn, ">　　　　　　　　");
     const div = document.createElement("div");
@@ -188,11 +200,18 @@ const resolveTxt = ( txtIn ) => {
         const innerObj = [];
         const innerDiv = document.createElement("div");
         innerDiv.className = "unitCard";
-        lines.forEach(( el ) => {
+        lines.forEach(( el, iterator ) => {
             const identify = parseURL( el );
-            const iter = filterString( el );
-            innerObj.push( identify );
-            innerDiv.appendChild( iter );
+            if ( identify === "img" && 
+            parseURL( lines[ iterator - 1] ) === "pRompt6Exe" ) {
+                const arrSeq = seqGen ( el );
+                const unitS_Seq = processElem ( arrSeq );
+                innerDiv.appendChild( unitS_Seq );
+            } else {
+                const iter = filterString( el );
+                innerObj.push( identify );
+                innerDiv.appendChild( iter );
+            }
         });
         div.appendChild( innerDiv );
         objS.push( innerObj );
@@ -249,7 +268,7 @@ const parseURL = ( $string, param ) => {
     const urlRegex = new RegExp(__urlR, "i");
     const imgRegex = new RegExp(__imgR, "i");
     const imgWURegex = new RegExp(__urlR + __imgR, "i");
-    const pRompt6Exe = /^\#6\/p\/\w+$/i;
+    const pRompt6Exe = /^\#6\/p\/\w+/i;
     const strIsUrl = urlRegex.test($string);
     if ( strIsUrl ) {
         switch ( true ) {
