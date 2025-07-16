@@ -1,4 +1,4 @@
-[
+
   {
     "name": "2024-futureGadget-mould.md",
     "path": "9/2024-futureGadget-mould.md",
@@ -496,4 +496,3 @@
     }
   },
   {"c0mment": {"sp1it1":[62, {"8":12288}], "sp1it2":10, "sp1it3":124}},
-]

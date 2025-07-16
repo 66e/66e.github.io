@@ -52,19 +52,18 @@ const createInput = () => {
         input.addEventListener("dblclick", () => {
             input.value = '';
         });
-    const docUrl = "https://66e.github.io/9/poorHub-LFP-Amadeus_JS.md";
         input.addEventListener("paste", (e) => {
             setTimeout(() => {
-                const tag = appendRefer ( docUrl );
+                const tag = appendRefer ( input.value );
                 tag.addEventListener("load", () => {
-                    console.log(1 === 1);
+                    console.log( input.value );
                 });
                 document.body.appendChild( tag );
             }, 1);
         });
         input.id = "input";
         input.size = 40;
-        
+        const docUrl = "https://66e.github.io/9/poorHub-LFP-Amadeus_JS.md";
         input.value = docUrl;
     div.appendChild( input );
     document.body.appendChild( div );
