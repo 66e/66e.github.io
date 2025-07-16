@@ -3,7 +3,7 @@
 */
 
 // ==UserScript==
-// @name        loFaP_0715
+// @name        loFaP_0716
 // @namespace   Violentmonkey Scripts
 // @match       *://*/*
 // @grant       none
@@ -374,7 +374,7 @@ const createIlLi = ( url ) => {
     img.style.transition = "opacity 0.4s";
     img.addEventListener("click", (e) => {
         const trgtContainer = document.querySelector("div.containErNT");
-        const arrImgS = trgtContainer.querySelectorAll("div > div > div.containErNT > div.unitCard > li > img");
+        const arrImgS = trgtContainer.querySelectorAll("div > div > div.containErNT > div.unitCard li > img");
         const arrForFB = new Array();
         arrImgS.forEach((elemImg) => {
             arrForFB.push({ src: elemImg.src });
