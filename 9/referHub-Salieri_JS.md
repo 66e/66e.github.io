@@ -42,9 +42,30 @@ const appendRefer = ( urlFile ) => {
     return referElem;
 }
 
+const filterObj = ( obj ) => {
+    const exeCuTable = /(_JS\.md|\.js)$/i;
+    const result = obj.filter(( unit ) =>
+        exeCuTable.test( unit.name ));
+    return result;
+}
+
+const createSelect = ( obj ) => {
+    const select = document.createElement("select");
+    obj.forEach(( unit ) => {
+        const option = document.createElement("option");
+        option.textContent = unit.name;
+        select.appendChild( option );
+    });
+    return select;
+}
+
 const fetchCors = async ( url ) => {
     const respons = await fetch(url);
-    const docData = await respons.text();
+    const docData = await respons.json();
+    const jsObjS = filterObj ( docData );
+    const optionSel = createSelect ( jsObjS );
+    const el = document.querySelector("div#interFace");
+    el.appendChild( optionSel );
 }
 
 const createTrigger = () => {
@@ -63,9 +84,10 @@ const visualizeInterface = () => {
     input.addEventListener("dblclick", () => {
         input.value = '';
     });
-    input.addEventListener("paste", (e) => {
+    input.addEventListener("paste", () => {
         setTimeout(() => {
-            fetchCors(e.target.value, textarea);
+            const tag = appendRefer ( input.value );
+            document.body.appendChild( tag );
         }, 1);
     });
     input.id = "input";
@@ -73,6 +95,7 @@ const visualizeInterface = () => {
     const docUrl = "https://66e.github.io/9/2025-06-08-y.md";
     input.value = docUrl;
     const div = document.createElement("div");
+    div.id = "interFace";
     div.style.position = "fixed";
     div.style.bottom = "24px";
     div.style.right = "24px";
@@ -81,7 +104,7 @@ const visualizeInterface = () => {
 }
 
 const preprocessPrecast = () => {
-    const url = "https://66e.github.io/9/hexagram.md";
+    const url = "https://66e.github.io/9/apiReposContents9_JSON.md";
     fetchCors ( url );
     createTrigger ();
     visualizeInterface ();

@@ -56,6 +56,7 @@ const found = paragraph.match(regex);
 undefined
 
 document.body.appendChild(p);
+parentDiv.insertBefore(newNode, parentDiv.firstChild);
 
 if ( true ) {
     result = "positive";
