@@ -54,6 +54,12 @@ const visualizOptSel = ( objIn ) => {
     objIn.forEach(( subObj ) => {
         const option = document.createElement("option");
         option.textContent = subObj.name;
+        option.value = "" + subObj.name;
+        select.appendChild( option );
+    });
+    select.addEventListener("click", () => {
+        const input = document.querySelector("input#input");
+        input.value = select.value;
     });
     return select;
 }
@@ -70,34 +76,34 @@ const dataToEntity = ( objIn, exp_QS ) => {
 }
 
 const fetchCors = async ( url ) => {
-    const respons = await fetch(url);
-    const docData = await respons.text();
+    const respons = await fetch( url );
+    const docData = await respons.json();
     dataToEntity ( docData, "div#interFace" );
 }
 
 const visualizeInterface = () => {
     const div = document.createElement("div");
+    div.id = "interFace";
     div.style.position = "fixed";
     div.style.bottom = "24px";
     div.style.right = "24px";
     const input = document.createElement("input");
-
-        input.addEventListener("dblclick", () => {
-            input.value = '';
-        });
-        input.addEventListener("paste", (e) => {
-            setTimeout(() => {
-                const tag = appendRefer ( input.value );
-                tag.addEventListener("load", () => {
-                    console.log( input.value );
-                });
-                document.body.appendChild( tag );
-            }, 1);
-        });
-        input.id = "input";
-        input.size = 40;
-        const docUrl = "https://66e.github.io/9/poorHub-LFP-Amadeus_JS.md";
-        input.value = docUrl;
+    input.addEventListener("dblclick", () => {
+        input.value = '';
+    });
+    input.addEventListener("paste", (e) => {
+        setTimeout(() => {
+            const tag = appendRefer ( input.value );
+            tag.addEventListener("load", () => {
+                console.log( input.value );
+            });
+            document.body.appendChild( tag );
+        }, 1);
+    });
+    input.id = "input";
+    input.size = 40;
+    const docUrl = "https://66e.github.io/9/poorHub-LFP-Amadeus_JS.md";
+    input.value = docUrl;
     div.appendChild( input );
     document.body.appendChild( div );
 }
