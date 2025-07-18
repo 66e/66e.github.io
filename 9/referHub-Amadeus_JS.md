@@ -3,7 +3,7 @@
 */
 
 // ==UserScript==
-// @name        New script 
+// @name        referHub
 // @namespace   Violentmonkey Scripts
 // @match       *://*/*
 // @grant       none
@@ -42,7 +42,40 @@ const appendRefer = ( urlFile ) => {
     return referElem;
 }
 
-const createInput = () => {
+const conditFilter = ( objIn ) => {
+    const exeCuTable = /(_JS\.md|\.js)$/i;
+    const objOut = objIn.filter(( subObj ) =>
+        exeCuTable.test( subObj.name ));
+    return objOut;
+}
+
+const visualizOptSel = ( objIn ) => {
+    const select = document.createElement("select");
+    objIn.forEach(( subObj ) => {
+        const option = document.createElement("option");
+        option.textContent = subObj.name;
+    });
+    return select;
+}
+
+const dataToEntity = ( objIn, exp_QS ) => {
+    const js_Obj = conditFilter ( objIn );
+    const elemUnit = visualizOptSel ( js_Obj );
+    if ( exp_QS ) {
+        const targetElem = document.querySelector( exp_QS )
+            || document.body;
+        targetElem.appendChild( elemUnit );
+    }
+    return elemUnit;
+}
+
+const fetchCors = async ( url ) => {
+    const respons = await fetch(url);
+    const docData = await respons.text();
+    dataToEntity ( docData, "div#interFace" );
+}
+
+const visualizeInterface = () => {
     const div = document.createElement("div");
     div.style.position = "fixed";
     div.style.bottom = "24px";
@@ -71,7 +104,7 @@ const createInput = () => {
 
 const createTrigger = () => {
     const div = document.createElement("div");
-    div.id = "triggerField";
+    div.id = "triggeRH";
     div.addEventListener("click", () => {
         const trgrEntity = document.querySelector("nav.slide-menu");
         trgrEntity._slideMenu.toggle();
@@ -81,13 +114,15 @@ const createTrigger = () => {
 }
 
 const preprocessPrecast = () => {
+    const url = "https://66e.github.io/9/apiReposContents9_JSON.md";
+    fetchCors( url );
     createTrigger ();
-    createInput ();
+    visualizeInterface ();
 }
 
 const adaptSituatS = ( container ) => {
     const uniqueLauncher = () => {
-        const trgrEntity = document.querySelector("div#triggerField");
+        const trgrEntity = document.querySelector("div#triggeRH");
         if ( !trgrEntity ) {
             preprocessPrecast();
         } else {
