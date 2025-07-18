@@ -3,13 +3,13 @@
 */
 
 // ==UserScript==
-// @name         referHub
-// @namespace    Violentmonkey Scripts
-// @match        *://*/*
+// @name        referHub
+// @namespace   Violentmonkey Scripts
+// @match       *://*/*
 // @grant       none
-// @version      0.1.0
-// @author       You
-// @description  2025/6/30 13:45:42
+// @version     1.0
+// @author      -
+// @description 2025/6/30 13:45:42
 // ==/UserScript==
 
 (() => {
@@ -42,47 +42,53 @@ const appendRefer = ( urlFile ) => {
     return referElem;
 }
 
-const filterObj = ( obj ) => {
+const conditFilter = ( objIn ) => {
     const exeCuTable = /(_JS\.md|\.js)$/i;
-    const result = obj.filter(( unit ) =>
-        exeCuTable.test( unit.name ));
-    return result;
+    const objOut = objIn.filter(( subObj ) =>
+        exeCuTable.test( subObj.name ));
+    return objOut;
 }
 
-const createSelect = ( obj ) => {
+const visualizOptSel = ( objIn ) => {
     const select = document.createElement("select");
-    obj.forEach(( unit ) => {
+    objIn.forEach(( subObj ) => {
         const option = document.createElement("option");
-        option.textContent = unit.name;
+        option.textContent = subObj.name;
+        option.value = "https://66e.github.io/9/" + subObj.name;
         select.appendChild( option );
     });
+    select.addEventListener("change", () => {
+        const input = document.querySelector("input#input");
+        input.value = select.value;
+        const tag = appendRefer ( input.value );
+            tag.addEventListener("load", () => {
+                console.log( input.value );
+            });
+        document.body.appendChild( tag );
+    });
     return select;
+}
+
+const dataToEntity = ( objIn, exp_QS ) => {
+    const js_Obj = conditFilter ( objIn );
+    const elemUnit = visualizOptSel ( js_Obj );
+    if ( exp_QS ) {
+        const targetElem = document.querySelector( exp_QS );
+        targetElem.appendChild( elemUnit );
+    }
+    return elemUnit;
 }
 
 const fetchCors = async ( url ) => {
     const respons = await fetch(url);
     const docData = await respons.json();
-    const jsObjS = filterObj ( docData );
-    const optionSel = createSelect ( jsObjS );
-    const el = document.querySelector("div#interFace");
-    el.appendChild( optionSel );
-}
-
-const createTrigger = () => {
-    const div = document.createElement("div");
-    div.id = "triggeRH";
-    div.addEventListener("click", () => {
-        const trgrEntity = document.querySelector("nav.slide-menu");
-        trgrEntity._slideMenu.toggle();
-    });
-    div.style = "border: 1px dashed rgb(255, 0, 255); bottom: 0px; height: 24px; position: fixed; right: 0px; width: 24px;";
-    document.body.appendChild(div);
+    dataToEntity ( docData, "div#interFace" );
 }
 
 const visualizeInterface = () => {
     const input = document.createElement("input");
     input.addEventListener("dblclick", () => {
-        input.value = '';
+        input.value = "";
     });
     input.addEventListener("paste", () => {
         setTimeout(() => {
@@ -101,6 +107,17 @@ const visualizeInterface = () => {
     div.style.right = "24px";
     div.appendChild( input );
     document.body.appendChild( div );
+}
+
+const createTrigger = () => {
+    const div = document.createElement("div");
+    div.id = "triggeRH";
+    div.addEventListener("click", () => {
+        const trgrEntity = document.querySelector("nav.slide-menu");
+        trgrEntity._slideMenu.toggle();
+    });
+    div.style = "border: 1px dashed rgb(255, 0, 255); bottom: 0px; height: 24px; position: fixed; right: 0px; width: 24px;";
+    document.body.appendChild(div);
 }
 
 const preprocessPrecast = () => {
