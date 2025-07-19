@@ -59,15 +59,6 @@ const arrSpliter = ( txtIn, strIn ) => {
     return arrOutput;
 }
 
-const six = [
-          {id: '0', text: '初'},
-          {id: '1', text: '二'},
-          {id: '2', text: '三'},
-          {id: '3', text: '四'},
-          {id: '4', text: '五'},
-          {id: '5', text: '上'},
-        ];
-
 const resolveTxt = (txtIn) => {
     const paraS_a = arrSpliter(txtIn, ">　　　　　　　　");
     const nArrParaS = new Array();
@@ -79,7 +70,6 @@ const resolveTxt = (txtIn) => {
             const nObjStrS = new Object();
             nObjStrS.id = aStrS[0];
             nObjStrS.text = aStrS[3];
-            nObjStrS.children = six;
             nArrStrS.push(nObjStrS);
         });
         const nObjParaS = new Object();
@@ -93,29 +83,32 @@ const resolveTxt = (txtIn) => {
     return nArrParaS;
 }
 
+const visualizMenu = ( obj ) => {
+    const menuElement = document.createElement("nav");
+    menuElement.style.display = "none";
+    menuElement.className = "slide-menu";
+    const treeUnit = buildTree( obj, 0 );
+    menuElement.appendChild( treeUnit );
+    rEFerfUse ( menuElement );
+    menuElement.style.bottom = "24px";
+    menuElement.style.height = "95%";
+    document.body.appendChild( menuElement );
+}
+
 const fetchCors = async ( url, targetElm ) => {
     const respons = await fetch(url);
     const docData = await respons.text();
     const parsedArr = resolveTxt(docData);
-
-    const menuElement = document.createElement("nav");
-    menuElement.className = "slide-menu";
-    const treeUnit = buildTree(parsedArr, 0);
-    menuElement.appendChild(treeUnit);
-    rEFerfUse ( menuElement );
-    const layerContainer = document.createElement("div");
-    layerContainer.appendChild(menuElement);
-    document.body.appendChild(layerContainer);
-    menuElement.style.bottom = "24px";
-    menuElement.style.height = "95%";
+    visualizMenu ( parsedArr );
 }
 
-const initMenu = (targetElem) => {
+const initMenu = ( targetElem ) => {
     const menu = new SlideMenu(targetElem, {
         keyClose: 'Escape',
-        submenuLinkAfter: '<span style="margin-left: 1em; font-size: 85%;">⮞</span>',
-        backLinkBefore: '<span style="margin-right: 1em; font-size: 85%;">⮜</span>',
+        submenuLinkAfter: '<span style="margin-left: 1em; font-size: 85%;">➡️</span>',
+        backLinkBefore: '<span style="margin-right: 1em; font-size: 85%;">🔚</span>',
     });
+    targetElem.style.right = "24px";
     menu.open();
 }
 
@@ -177,7 +170,7 @@ const createTrigger = () => {
         const slideMenu = document.querySelector("nav.slide-menu");
         slideMenu._slideMenu.toggle();
     });
-    trggrFld.id = "triggerField";
+    trggrFld.id = "menuTrigger";
     trggrFld.style = "border: 1px dashed rgb(255, 0, 255); bottom: 0px; height: 24px; position: fixed; right: 0px; width: 24px;";
     document.body.appendChild(trggrFld);
 }
@@ -188,26 +181,26 @@ const preprocessPrecast = () => {
     createTrigger ();
 }
 
-const adaptSituatS = (container) => {
+const adaptSituatS = ( container ) => {
     const uniqueLauncher = () => {
-        const trgrEntity = document.querySelector("div#triggerField");
-        if ( !trgrEntity ) {
+        const trgrEntity = document.querySelector("div#menuTrigger");
+        if ( ! trgrEntity ) {
             preprocessPrecast();
         } else {
-            console.log("already entity");
+            console.log( "already entity" );
         }
     }
 
     if ( container ) {
-        uniqueLauncher();
+        uniqueLauncher ();
     } else {
         document.addEventListener("DOMContentLoaded", () => {
-            uniqueLauncher();
+            uniqueLauncher ();
         });
     }
 }
 
-adaptSituatS(document.body);
+adaptSituatS( document.body );
 
 /*
 ```
