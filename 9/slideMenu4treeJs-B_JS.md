@@ -83,11 +83,32 @@ const resolveTxt = (txtIn) => {
     return nArrParaS;
 }
 
+const fillSubMenu = ( arr ) => {
+    const ul = document.createElement("ul");
+    arr.forEach((elem) => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.textContent = elem;
+        ul.appendChild(li);
+        ul.appendChild(a);
+    });
+    return ul;
+}
+
+const fillContent = () => {
+    const arr_bookS = ["yuyu",];
+    const bookS = fillSubMenu ( arr_bookS );
+    const arr_volS = ["1", "2", "3",];
+    const volS = fillSubMenu ( arr_volS );
+    bookS.appendChild(volS);
+    return bookS;
+}
+
 const visualizMenu = ( obj ) => {
     const menuElement = document.createElement("nav");
     menuElement.style.display = "none";
     menuElement.className = "slide-menu";
-    const treeUnit = buildTree( obj, 0 );
+    const treeUnit = fillContent( );
     menuElement.appendChild( treeUnit );
     rEFerfUse ( menuElement );
     menuElement.style.bottom = "24px";
@@ -105,8 +126,8 @@ const fetchCors = async ( url, targetElm ) => {
 const initMenu = ( targetElem ) => {
     const menu = new SlideMenu(targetElem, {
         keyClose: 'Escape',
-        submenuLinkAfter: '<span style="margin-left: 1em; font-size: 85%;">➡️</span>',
-        backLinkBefore: '<span style="margin-right: 1em; font-size: 85%;">🔚</span>',
+        submenuLinkAfter: '<span style="margin-left: 1em; font-size: 85%;">➤</span>',
+        backLinkBefore: '<span style="margin-right: 1em; font-size: 85%;">◀️</span>',
     });
     targetElem.style.right = "24px";
     menu.open();

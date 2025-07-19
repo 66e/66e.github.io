@@ -58,14 +58,14 @@ const lyricer_OL = () => {
     }
     const docUrl = 'https://66e.github.io/9/%E3%83%A9%E3%82%A4%E3%82%A2.md';
     fetchCors(docUrl);
-    const jspContainer = document.querySelector('div.markdown-body');
+    const el = document.querySelector( "div.markdown-body" );
     const audio = document.createElement('audio');
     audio.controls = true; // 显示播放器控件
     audio.src = 'https://oss.mojidict.com/article/audio/dd16f7f0-8367-4d49-830a-3a66d0489982.mp3';  // 设置音频源
-    jspContainer.appendChild(audio);
+    el.appendChild( audio );
     const lyricer = document.createElement('div');
     lyricer.id = 'lyricer';
-    jspContainer.appendChild(lyricer);
+    el.appendChild( lyricer );
 
     const lrc = new Lyricer();
 
