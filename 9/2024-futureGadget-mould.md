@@ -21,6 +21,7 @@ const el = document.querySelector("div.user-panel.main input[name='login']");
 const matches = container.querySelectorAll("li[data-active='1']");
 
 const arrayEmpty = new Array();
+Array.isArray([1, 3, 5])
 const fruits = [];
 
 arraySparse.forEach((element) => {

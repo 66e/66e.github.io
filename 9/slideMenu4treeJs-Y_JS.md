@@ -121,11 +121,15 @@ const fillContent = () => {
     return bookS;
 }
 
-const createMenu_LiA = (str) => {
+const createMenu_LiA = (str, arr ) => {
     const li = document.createElement("li");
     const aTag = document.createElement("a");
     aTag.textContent = str;
     li.appendChild(aTag);
+    if ( arr ) {
+        const ulWithSubS = createMenu_UlNode (arr);
+        li.appendChild(ulWithSubS);
+    }
     return li;
 }
 
@@ -147,6 +151,8 @@ const visualizMenu = ( obj ) => {
     menuElement.style.display = "none";
     menuElement.className = "slide-menu";
     const treeUnit = createMenu_UlNode (["yuyuHakusho",]);
+    const liA = createMenu_LiA ("yuyuHakusho", ["akusho","usho"]);
+    treeUnit.appendChild( liA );
     menuElement.appendChild( treeUnit );
     rEFerfUse ( menuElement );
     menuElement.style.bottom = "24px";
