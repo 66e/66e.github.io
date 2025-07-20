@@ -1,1 +1,0 @@
-<script src="https://66e.github.io/9/poorHub-hakoniwaMenu-a_JS.md"></script>
