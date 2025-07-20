@@ -83,23 +83,40 @@ const resolveTxt = (txtIn) => {
     return nArrParaS;
 }
 
-const fillSubMenu = ( arr ) => {
+const fillSubMenu = ( arr, param ) => {
     const ul = document.createElement("ul");
-    arr.forEach((elem) => {
+    arr.forEach(( elem, iterator ) => {
         const li = document.createElement("li");
-        const a = document.createElement("a");
-        a.textContent = elem;
-        ul.appendChild(li);
-        ul.appendChild(a);
+        const aTag = document.createElement("a");
+        
+        switch ( param ) {
+            case undefined:
+                aTag.textContent = elem;
+                break;
+            case "volS":
+                const volNum = iterator + 1;
+                aTag.textContent = "第 " + volNum.toString() + " 卷";
+                break;
+            case "pageS":
+                break;
+            default:
+                console.log("default");
+        }
+
+        ul.appendChild( li );
+        ul.appendChild( aTag );
     });
     return ul;
 }
 
 const fillContent = () => {
-    const arr_bookS = ["yuyu",];
+    const arr_bookS = ["yuyuHakusho",];
     const bookS = fillSubMenu ( arr_bookS );
-    const arr_volS = ["1", "2", "3",];
-    const volS = fillSubMenu ( arr_volS );
+    const volPageS = [
+        102,  98,  96,  96, 104, 104, 101,  95,  96, 104,
+         95,  95,  94, 103, 103, 103, 103,  94,  97, 
+    ];
+    const volS = fillSubMenu ( volPageS, "volS" );
     bookS.appendChild(volS);
     return bookS;
 }
