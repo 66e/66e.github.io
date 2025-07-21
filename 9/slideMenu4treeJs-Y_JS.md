@@ -121,38 +121,35 @@ const fillContent = () => {
     return bookS;
 }
 
-const createMenu_LiA = (str, arr ) => {
+const createSubset = () => {
     const li = document.createElement("li");
     const aTag = document.createElement("a");
-    aTag.textContent = str;
-    li.appendChild(aTag);
-    if ( arr ) {
-        const ulWithSubS = createMenu_UlNode (arr);
-        li.appendChild(ulWithSubS);
-    }
+    aTag.textContent = "This text is different!";
+    li.appendChild( aTag );
     return li;
 }
 
-const createMenu_UlNode = (arr) => {
+const createJointNode = () => {
     const ul = document.createElement("ul");
-    const fragment = new DocumentFragment();
-    if ( Array.isArray( arr ) ) {
-        arr.forEach((elem) => {
-            const liA = createMenu_LiA (elem);
-            fragment.appendChild( liA );
-        });
-    }
-    ul.appendChild( fragment );
     return ul;
+}
+
+const assembleMenu = () => {
+    const node = createJointNode ();
+    const subset = createSubset ();
+    node.appendChild( subset );
+    return node;
 }
 
 const visualizMenu = ( obj ) => {
     const menuElement = document.createElement("nav");
     menuElement.style.display = "none";
     menuElement.className = "slide-menu";
-    const treeUnit = createMenu_UlNode (["yuyuHakusho",]);
-    const liA = createMenu_LiA ("yuyuHakusho", ["akusho","usho"]);
-    treeUnit.appendChild( liA );
+    const volPageS = [
+        102,  98,  96,  96, 104, 104, 101,  95,  96, 104,
+         95,  95,  94, 103, 103, 103, 103,  94,  97, 
+    ];
+    const treeUnit = assembleMenu ( volPageS );
     menuElement.appendChild( treeUnit );
     rEFerfUse ( menuElement );
     menuElement.style.bottom = "24px";

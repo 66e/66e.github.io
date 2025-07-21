@@ -89,11 +89,6 @@ switch (foo) {
   case -1:
     console.log("负 1");
     break;
-  case 0:
-    console.log(0);
-  case 1:
-    console.log(1);
-    break; // 遇到 break，不会继续到 'case 2:'
   case 2:
     console.log(2);
     break;
