@@ -121,10 +121,10 @@ const fillContent = () => {
     return bookS;
 }
 
-const createSubset = () => {
+const createSubset = ( string ) => {
     const li = document.createElement("li");
     const aTag = document.createElement("a");
-    aTag.textContent = "This text is different!";
+    aTag.textContent = string;
     li.appendChild( aTag );
     return li;
 }
@@ -134,10 +134,17 @@ const createJointNode = () => {
     return ul;
 }
 
+const createCluster = ( arr ) => {
+    const ul = document.createElement("ul");
+    arr.forEach(( elem ) => {
+        const subset = createSubset ( elem );
+        ul.appendChild( subset );
+    });
+    return ul;
+}
+
 const assembleMenu = () => {
-    const node = createJointNode ();
-    const subset = createSubset ();
-    node.appendChild( subset );
+    const node = createCluster ([1, 3, 5]);
     return node;
 }
 
