@@ -121,14 +121,14 @@ const fillContent = () => {
     return bookS;
 }
 
-const createSubset = ( string, param ) => {
+const createSubset = ( string, param, length ) => {
     const li = document.createElement("li");
     const aTag = document.createElement("a");
     aTag.textContent = string;
     li.appendChild( aTag );
     if ( param === "recur" ) {
         const ul = document.createElement("ul");
-        for (let i = 0 + 1; i < string + 1; i++) {
+        for (let i = 0 + 1; i < length + 1; i++) {
             const subset = createSubset ( i );
             ul.appendChild( subset );
         }
@@ -144,19 +144,15 @@ const createJointNode = () => {
 
 const createCluster = ( arr ) => {
     const ul = document.createElement("ul");
-    arr.forEach(( elem ) => {
-        const subset = createSubset ( elem, "recur" );
+    arr.forEach(( elem, iterator ) => {
+        const subset = createSubset ( iterator + 1, "recur", elem );
         ul.appendChild( subset );
     });
     return ul;
 }
 
-const assembleMenu = () => {
-    const volPageS = [
-        102,  98,  96,  96, 104, 104, 101,  95,  96, 104,
-         95,  95,  94, 103, 103, 103, 103,  94,  97, 
-    ];
-    const node = createCluster ( volPageS );
+const assembleMenu = ( arr ) => {
+    const node = createCluster ( arr );
     return node;
 }
 
