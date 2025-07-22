@@ -51,7 +51,7 @@ const createByExtens = ( urlFile, fileExtens ) => {
 const initMenu = ( targetElem ) => {
     const menu = new SlideMenu(targetElem, {
         keyClose: 'Escape',
-        submenuLinkAfter: '<span style="margin-left: 1em; font-size: 85%;">➤</span>',
+        submenuLinkAfter: '<span style="margin-left: 1em; font-size: 85%;">📁</span>',
         backLinkBefore: '<span style="margin-right: 1em; font-size: 85%;">◀️</span>',
     });
     targetElem.style.right = "24px";
@@ -472,9 +472,22 @@ const fillSubMenu = ( volNum, param, pLength ) => {
     if ( param === "recur" ) {
         const ul = document.createElement("ul");
         for (let i = 1; i <= pLength; i++) {
+            const table = document.createElement("table");
+            const tdL = document.createElement("td");
+            const tdR = document.createElement("td");
+            table.appendChild( tdL );
+            table.appendChild( tdR );
             const subMenu_L2 = fillSubMenu ( i );
-            ul.appendChild( subMenu_L2 );
+            const url = "https://6cc.github.io/c/m/y/" + volNum + "/" + i + ".jpg";
+            const liImg = createIlLi ( url );
+            tdL.appendChild( subMenu_L2 );
+            tdR.appendChild( liImg );
+            ul.appendChild( table );
         }
+        secuReFerShell ({
+            referObj: rO_imagesLoaded, 
+            targetElem: ul,
+        });
         li.appendChild( ul );
     }
     return li;
