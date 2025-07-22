@@ -181,21 +181,40 @@ const arrSpliter = ( txtIn, SpliTeR, param ) => {
     return arrFromTxt;
 }
 
+const sequenceGener = ( urlIn ) => {
+    const fileNamReg = /[^\/=\b]+(?=\.[^\/.]*$)/i;
+    const fileName = urlIn.match( fileNamReg ) [ 0 ];
+    const fInteger = parseInt( fileName );
+    const urlFrame = urlIn.split( fileNamReg );
+    const arrayEmpty = new Array();
+    for (let i = 0; i < fInteger; i++) {
+        arrayEmpty.push( urlFrame [ 0 ] + i + urlFrame [ 1 ]);
+    }
+    return arrayEmpty;
+}
+
 const resolveTxt = ( txtIn ) => {
-    const paras = arrSpliter( txtIn, ">　　　　　　　　" );
+    const paraS = arrSpliter( txtIn, ">　　　　　　　　" );
     const objS = [];
     const div = document.createElement("div");
     div.className = "containErNT";
-    paras.forEach(( elem ) => {
-        const lines = arrSpliter( elem, "\n", "clean" );
+    paraS.forEach(( para ) => {
+        const lineS = arrSpliter( para, "\n", "clean" );
         const innerObj = [];
         const innerDiv = document.createElement("div");
         innerDiv.className = "unitCard";
-        lines.forEach(( el ) => {
-            const identify = parseURL( el );
-            const iter = filterString( el );
-            innerObj.push( identify );
-            innerDiv.appendChild( iter );
+        lineS.forEach(( line, iterator ) => {
+            const identifyCur = parseURL ( line );
+            const identPrev = parseURL ( lineS [ iterator - 1] );
+            if ( identifyCur === "img" && identPrev === "pRompt6Exe" ) {
+                const arrSeq = sequenceGener ( line );
+                const unitSSeq = processElem ( arrSeq );
+                innerDiv.appendChild( unitSSeq );
+            } else {
+                const unitS = filterString( line );
+                innerObj.push( identifyCur );
+                innerDiv.appendChild( unitS );
+            }
         });
         objS.push( innerObj );
         div.appendChild( innerDiv );
@@ -252,7 +271,7 @@ const parseURL = ( $string, param ) => {
     const urlRegex = new RegExp(__urlR, "i");
     const imgRegex = new RegExp(__imgR, "i");
     const imgWURegex = new RegExp(__urlR + __imgR, "i");
-    const pRompt6Exe = /^\#6\/p\/\w+$/i;
+    const pRompt6Exe = /^\#6\/p\/\w+/i;
     const strIsUrl = urlRegex.test($string);
     if ( strIsUrl ) {
         switch ( true ) {
@@ -359,7 +378,7 @@ const createIlLi = ( url ) => {
     img.style.transition = "opacity 0.4s";
     img.addEventListener("click", (e) => {
         const trgtContainer = document.querySelector("div.containErNT");
-        const arrImgS = trgtContainer.querySelectorAll("div > div > div.containErNT > div.unitCard > li > img");
+        const arrImgS = trgtContainer.querySelectorAll("div > div > div.containErNT > div.unitCard  li > img");
         const arrForFB = new Array();
         arrImgS.forEach((elemImg) => {
             arrForFB.push({ src: elemImg.src });
