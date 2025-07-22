@@ -48,6 +48,29 @@ const createByExtens = ( urlFile, fileExtens ) => {
     }
 }
 
+const initMenu = ( targetElem ) => {
+    const menu = new SlideMenu(targetElem, {
+        keyClose: 'Escape',
+        submenuLinkAfter: '<span style="margin-left: 1em; font-size: 85%;">➤</span>',
+        backLinkBefore: '<span style="margin-right: 1em; font-size: 85%;">◀️</span>',
+    });
+    targetElem.style.right = "24px";
+    menu.open();
+}
+
+const rO_SlideMenu = {
+    exist: typeof SlideMenu,
+    schedule: "function",
+    referS: [
+        "https://grubersjoe.github.io/slide-menu/slide-menu.js",
+        "https://grubersjoe.github.io/slide-menu/slide-menu.css",
+        "https://grubersjoe.github.io/slide-menu/demo.css",
+    ],
+    method: ( elem ) => {
+        initMenu ( elem );
+    },
+};
+
 const rO_imagesLoaded = {
     exist: typeof imagesLoaded,
     schedule: "function",
@@ -441,6 +464,50 @@ const insertRuleAfter = () => {
     sheet.insertRule('.unitCard::after { clear: both; content: ""; display: block; }', 0);
 }
 
+const fillSubMenu = ( volNum, param, pLength ) => {
+    const li = document.createElement( "li" );
+    const aTag = document.createElement( "a" );
+    aTag.textContent = volNum;
+    li.appendChild( aTag );
+    if ( param === "recur" ) {
+        const ul = document.createElement("ul");
+        for (let i = 1; i <= pLength; i++) {
+            const subMenu_L2 = fillSubMenu ( i );
+            ul.appendChild( subMenu_L2 );
+        }
+        li.appendChild( ul );
+    }
+    return li;
+}
+
+const fillCluster = ( arr ) => {
+    const ul = document.createElement( "ul" );
+    arr.forEach(( elem, iterator ) => {
+        const subset = fillSubMenu ( iterator + 1, "recur", elem );
+        ul.appendChild( subset );
+    });
+    return ul;
+}
+
+const visualizMenu = () => {
+    const containerNav = document.createElement("nav");
+    containerNav.style.display = "none";
+    containerNav.className = "slide-menu";
+    const volPageS = [
+        102,  98,  96,  96, 104, 104, 101,  95,  96, 104,
+         95,  95,  94, 103, 103, 103, 103,  94,  97, 
+    ];
+    const menuUnit = fillCluster ( volPageS );
+    containerNav.appendChild( menuUnit );
+    secuReFerShell ({
+        referObj: rO_SlideMenu, 
+        targetElem: containerNav,
+    });
+    containerNav.style.bottom = "24px";
+    containerNav.style.height = "95%";
+    document.body.appendChild( containerNav );
+}
+
 const preprocessPrecast = () => {
     const trigger = createTrigger();
     const bar = createBar();
@@ -457,7 +524,8 @@ const preprocessPrecast = () => {
     });
     bar.appendChild(button);
     document.body.appendChild(trigger);
-    insertRuleAfter();
+    visualizMenu ();
+    insertRuleAfter ();
 }
 
 const createTrigger = () => {
