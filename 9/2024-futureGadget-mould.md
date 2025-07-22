@@ -56,9 +56,6 @@ const found = paragraph.match(regex);
 
 undefined
 
-document.body.appendChild(p);
-parentDiv.insertBefore(newNode, parentDiv.firstChild);
-
 if ( true ) {
     result = "positive";
 } else {
@@ -73,7 +70,10 @@ async
 
 const newDiv = document.createElement("div");
 newDiv.textContent = "This text is different!";
+document.body.appendChild(p);
+
 const fragment = new DocumentFragment();
+parentDiv.insertBefore(newNode, parentDiv.firstChild);
 
 my_element.addEventListener("click", () => {
     

@@ -83,32 +83,6 @@ const resolveTxt = (txtIn) => {
     return nArrParaS;
 }
 
-const fillSubMenu = ( arr, param ) => {
-    const ul = document.createElement("ul");
-    arr.forEach(( elem, iterator ) => {
-        const li = document.createElement("li");
-        const aTag = document.createElement("a");
-        
-        switch ( param ) {
-            case undefined:
-                aTag.textContent = elem;
-                break;
-            case "volS":
-                const volNum = iterator + 1;
-                aTag.textContent = "第 " + volNum.toString() + " 卷";
-                break;
-            case "pageS":
-                break;
-            default:
-                console.log("default");
-        }
-
-        ul.appendChild( li );
-        ul.appendChild( aTag );
-    });
-    return ul;
-}
-
 const fillContent = () => {
     const arr_bookS = ["yuyuHakusho",];
     const bookS = fillSubMenu ( arr_bookS );
@@ -121,11 +95,40 @@ const fillContent = () => {
     return bookS;
 }
 
+const fillSubMenu = ( volNum, param, pLength ) => {
+    const li = document.createElement("li");
+    const aTag = document.createElement("a");
+    aTag.textContent = volNum;
+    li.appendChild( aTag );
+    if ( param === "recur" ) {
+        const ul = document.createElement("ul");
+        for (let i = 1; i <= pLength; i++) {
+            const subMenu_L2 = fillSubMenu ( i );
+            ul.appendChild( subMenu_L2 );
+        }
+        li.appendChild( ul );
+    }
+    return li;
+}
+
+const fillCluster = ( arr ) => {
+    const ul = document.createElement("ul");
+    arr.forEach(( elem, iterator ) => {
+        const subset = fillSubMenu ( iterator + 1, "recur", elem );
+        ul.appendChild( subset );
+    });
+    return ul;
+}
+
 const visualizMenu = ( obj ) => {
     const menuElement = document.createElement("nav");
     menuElement.style.display = "none";
     menuElement.className = "slide-menu";
-    const treeUnit = fillContent( );
+    const volPageS = [
+        102,  98,  96,  96, 104, 104, 101,  95,  96, 104,
+         95,  95,  94, 103, 103, 103, 103,  94,  97, 
+    ];
+    const treeUnit = fillCluster ( volPageS );
     menuElement.appendChild( treeUnit );
     rEFerfUse ( menuElement );
     menuElement.style.bottom = "24px";
