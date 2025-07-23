@@ -464,14 +464,21 @@ const insertRuleAfter = () => {
     sheet.insertRule('.unitCard::after { clear: both; content: ""; display: block; }', 0);
 }
 
-const fillSubMenu = ( volNum, param, pLength ) => {
+const moduloCeil = ( integerIn, divide ) => {
+    const float = integerIn / divide;
+    const intCeil = Math.ceil( float );
+    return intCeil;
+}
+
+const fillSubMenu = ( volNum, param, pageSLength ) => {
     const li = document.createElement( "li" );
     const aTag = document.createElement( "a" );
     aTag.textContent = volNum;
     li.appendChild( aTag );
     if ( param === "recur" ) {
         const ul = document.createElement("ul");
-        for (let i = 1; i <= pLength; i++) {
+        const section = moduloCeil ( pageSLength, 2 );
+        for (let i = 1; i <= section; i++) {
             const table = document.createElement("table");
             const td_1 = document.createElement("td");
             const td_2 = document.createElement("td");
@@ -481,13 +488,19 @@ const fillSubMenu = ( volNum, param, pLength ) => {
             table.appendChild( td_2 );
             table.appendChild( td_3 );
             table.appendChild( td_4 );
-            const subMenu_L2 = fillSubMenu ( i );
+            const iteratorEqual = i * 2 - 1;
+            const subMenu_L2 = fillSubMenu ( iteratorEqual );
             const vol = volNum.toString();
             const volPadS = vol.padStart(2, "0");
-            const url = "https://6cc.github.io/c/m/y/" + volPadS + "/" + i + ".jpg";
+            const url = "https://6cc.github.io/c/m/y/" + volPadS + "/" + iteratorEqual + ".jpg";
             const liImg = createIlLi ( url );
+            const url_2 = "https://6cc.github.io/c/m/y/" + volPadS + "/" + i * 2 + ".jpg";
+            const liImg_2 = createIlLi ( url_2 );
+            const num_2 = document.createTextNode( i * 2 );
             td_1.appendChild( subMenu_L2 );
             td_2.appendChild( liImg );
+            td_3.appendChild( liImg_2 );
+            td_4.appendChild( num_2 );
             ul.appendChild( table );
         }
         secuReFerShell ({
