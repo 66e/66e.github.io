@@ -52,7 +52,7 @@ const initMenu = ( targetElem ) => {
     const menu = new SlideMenu(targetElem, {
         keyClose: 'Escape',
         submenuLinkAfter: '<span style="margin-left: 1em; font-size: 85%;">📁</span>',
-        backLinkBefore: '<span style="margin-right: 1em; font-size: 85%;">◀️</span>',
+        backLinkBefore: '<span style="margin-right: 1em; font-size: 85%;">◀</span>',
     });
     targetElem.style.right = "24px";
     menu.open();
@@ -473,15 +473,21 @@ const fillSubMenu = ( volNum, param, pLength ) => {
         const ul = document.createElement("ul");
         for (let i = 1; i <= pLength; i++) {
             const table = document.createElement("table");
-            const tdL = document.createElement("td");
-            const tdR = document.createElement("td");
-            table.appendChild( tdL );
-            table.appendChild( tdR );
+            const td_1 = document.createElement("td");
+            const td_2 = document.createElement("td");
+            const td_3 = document.createElement("td");
+            const td_4 = document.createElement("td");
+            table.appendChild( td_1 );
+            table.appendChild( td_2 );
+            table.appendChild( td_3 );
+            table.appendChild( td_4 );
             const subMenu_L2 = fillSubMenu ( i );
-            const url = "https://6cc.github.io/c/m/y/" + volNum + "/" + i + ".jpg";
+            const vol = volNum.toString();
+            const volPadS = vol.padStart(2, "0");
+            const url = "https://6cc.github.io/c/m/y/" + volPadS + "/" + i + ".jpg";
             const liImg = createIlLi ( url );
-            tdL.appendChild( subMenu_L2 );
-            tdR.appendChild( liImg );
+            td_1.appendChild( subMenu_L2 );
+            td_2.appendChild( liImg );
             ul.appendChild( table );
         }
         secuReFerShell ({

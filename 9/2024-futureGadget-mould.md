@@ -28,7 +28,7 @@ arraySparse.forEach((element) => {
   const count = animals.push("cows");
 });
 
-clothing.length
+clothing.length;
 
 const result = words.filter((word) => word.length > 6);
 
@@ -42,13 +42,13 @@ for (let i = 0; i < 9; i++) {
   str = str + i;
 }
 
-node.parentNode
+node.parentNode;
 
 console.log(typeof undeclaredVariable);
 
-Dog.prototype.toString = function dogToString() {
-  return `${this.name}`;
-};
+dog1.toString();
+
+str1.padStart(2, "0");
 
 const regExp = /ab+c/i;
 let result = /^hello/.test(str);
