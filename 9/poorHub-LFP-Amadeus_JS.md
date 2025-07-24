@@ -375,9 +375,21 @@ const visualizeComponentS = () => {
     return div;
 }
 
-const createIlLi = ( url ) => {
+const relaySwitch = ( param ) => {
+    switch ( param ) {
+        case undefined:
+            return "div.containErNT";
+            break;
+        case "menu":
+            return "nav.slide-menu";
+            break;
+    }
+}
+
+const createIlLi = ( url, param ) => {
     const urlTrimmed = parseURL ( url, "trim" );
     const li = document.createElement("li");
+    li.className = "iLAttached";
     li.style.backgroundColor = "#000";
     li.style.backgroundImage = "url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/loading.gif')";
     li.style.backgroundPosition = "center center";
@@ -390,19 +402,21 @@ const createIlLi = ( url ) => {
 
     const img = new Image();
     img.src = urlTrimmed;
+    img.className = "fBAttached";
     img.style.borderRadius = "4px";
     img.style.opacity = 0;
     img.style.maxHeight = "70px";
     img.style.minWidth = "25px";
     img.style.transition = "opacity 0.4s";
-    img.addEventListener("click", (e) => {
-        const trgtContainer = document.querySelector("div.containErNT");
-        const arrImgS = trgtContainer.querySelectorAll("div > div > div.containErNT > div.unitCard li > img");
+    const qSExp = relaySwitch ( param );
+    img.addEventListener("click", ( e ) => {
+        const eventTarget = e.currentTarget;
+        const trgtContainer = eventTarget.parentNode.parentNode.parentNode.parentNode;
+        const arrImgS = trgtContainer.querySelectorAll("li.iLAttached > img.fBAttached");
         const arrForFB = new Array();
-        arrImgS.forEach((elemImg) => {
+        arrImgS.forEach(( elemImg ) => {
             arrForFB.push({ src: elemImg.src });
         });
-        const eventTarget = e.currentTarget;
         const galIdx = [].indexOf.call( arrImgS, eventTarget );
         new Fancybox(
             // Array containing gallery items
@@ -493,9 +507,9 @@ const fillSubMenu = ( volNum, param, pageSLength ) => {
             const vol = volNum.toString();
             const volPadS = vol.padStart(2, "0");
             const url = "https://6cc.github.io/c/m/y/" + volPadS + "/" + iteratorEqual + ".jpg";
-            const liImg = createIlLi ( url );
+            const liImg = createIlLi ( url, "menu" );
             const url_2 = "https://6cc.github.io/c/m/y/" + volPadS + "/" + i * 2 + ".jpg";
-            const liImg_2 = createIlLi ( url_2 );
+            const liImg_2 = createIlLi ( url_2, "menu" );
             const num_2 = document.createTextNode( i * 2 );
             td_1.appendChild( subMenu_L2 );
             td_2.appendChild( liImg );
@@ -535,6 +549,7 @@ const visualizMenu = () => {
         referObj: rO_SlideMenu, 
         targetElem: containerNav,
     });
+    secuReFerShell ({ referObj: rO.fancybox, });
     containerNav.style.bottom = "24px";
     containerNav.style.height = "95%";
     document.body.appendChild( containerNav );
