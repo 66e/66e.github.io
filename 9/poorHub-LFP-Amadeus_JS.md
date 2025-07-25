@@ -484,29 +484,29 @@ const moduloCeil = ( integerIn, divide ) => {
     return intCeil;
 }
 
-const fillUnit = ( volNum, iIn ) => {
+const fillUnit = ( volNum, iIn, elemCatalyst ) => {
     const table = document.createElement("table");
     const td_1 = document.createElement("td");
     const td_2 = document.createElement("td");
     const td_3 = document.createElement("td");
-    const td_4 = document.createElement("td");
     table.appendChild( td_1 );
     table.appendChild( td_2 );
     table.appendChild( td_3 );
-    table.appendChild( td_4 );
     const iteratorEqual = iIn * 2 - 1;
     const subMenu_L2 = fillSubMenu ( iteratorEqual );
     const vol = volNum.toString();
     const volPadS = vol.padStart(2, "0");
     const url = "https://6cc.github.io/c/m/y/" + volPadS + "/" + iteratorEqual + ".jpg";
-    const liImg = createIlLi ( url, "menu" );
     const url_2 = "https://6cc.github.io/c/m/y/" + volPadS + "/" + iIn * 2 + ".jpg";
-    const liImg_2 = createIlLi ( url_2, "menu" );
+    elemCatalyst.addEventListener("click", () => {
+        const liImg = createIlLi ( url, "menu" );
+        const liImg_2 = createIlLi ( url_2, "menu" );
+        td_2.appendChild( liImg );
+        td_2.appendChild( liImg_2 );
+    });
     const num_2 = document.createTextNode( iIn * 2 );
     td_1.appendChild( subMenu_L2 );
-    td_2.appendChild( liImg );
-    td_3.appendChild( liImg_2 );
-    td_4.appendChild( num_2 );
+    td_3.appendChild( num_2 );
     return table;
 }
 
@@ -519,12 +519,14 @@ const fillSubMenu = ( volNum, param, pageSLength ) => {
         const ul = document.createElement("ul");
         const section = moduloCeil ( pageSLength, 2 );
         for (let i = 1; i <= section; i++) {
-            const unit = fillUnit ( volNum, i );
+            const unit = fillUnit ( volNum, i, aTag );
             ul.appendChild( unit );
         }
-        secuReFerShell ({
-            referObj: rO_imagesLoaded, 
-            targetElem: ul,
+        aTag.addEventListener("click", () => {
+            secuReFerShell ({
+                referObj: rO_imagesLoaded, 
+                targetElem: ul,
+            });
         });
         li.appendChild( ul );
     }
