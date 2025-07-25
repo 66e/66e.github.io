@@ -14,8 +14,6 @@ console.log(1 === "");
 */
 
 const c = "";
-let l = '';
-var v = `${c} 小于 ${l}`;
 
 const el = document.querySelector("div.user-panel.main input[name='login']");
 const matches = container.querySelectorAll("li[data-active='1']");
@@ -95,6 +93,9 @@ switch (foo) {
   default:
     console.log("default");
 }
+
+let l = '';
+var v = `${c} 小于 ${l}`;
 
 /*
 ```
