@@ -52,7 +52,7 @@ const initMenu = ( targetElem ) => {
     const menu = new SlideMenu(targetElem, {
         keyClose: 'Escape',
         submenuLinkAfter: '<span style="margin-left: 1em; font-size: 85%;">📁</span>',
-        backLinkBefore: '<span style="margin-right: 1em; font-size: 85%;">◀返回</span>',
+        backLinkBefore: '<span style="margin-right: 1em; font-size: 85%;">◀back forward</span>',
     });
     targetElem.style.right = "24px";
     menu.open();
@@ -201,7 +201,7 @@ const arrSpliter = ( txtIn, SpliTeR, param ) => {
     return arrFromTxt;
 }
 
-const seqGen = ( url ) => {
+const sequenceGener = ( url ) => {
     const fileNameReg = /[^\/=\b]+(?=\.[^\/.]*$)/i;
     const fileName = url.match(fileNameReg)[0];
     const fileInt = parseInt( fileName );
@@ -227,7 +227,7 @@ const resolveTxt = ( txtIn ) => {
             const identify = parseURL( el );
             if ( identify === "img" && 
             parseURL( lines[ iterator - 1] ) === "pRompt6Exe" ) {
-                const arrSeq = seqGen ( el );
+                const arrSeq = sequenceGener ( el );
                 const unitS_Seq = processElem ( arrSeq );
                 innerDiv.appendChild( unitS_Seq );
             } else {
@@ -499,10 +499,12 @@ const fillUnit = ( volNum, iIn, elemCatalyst ) => {
     const url = "https://6cc.github.io/c/m/y/" + volPadS + "/" + iteratorEqual + ".jpg";
     const url_2 = "https://6cc.github.io/c/m/y/" + volPadS + "/" + iIn * 2 + ".jpg";
     elemCatalyst.addEventListener("click", () => {
-        const liImg = createIlLi ( url, "menu" );
-        const liImg_2 = createIlLi ( url_2, "menu" );
-        td_2.appendChild( liImg );
-        td_2.appendChild( liImg_2 );
+        if ( td_2.childElementCount === 0 ) {
+            const liImg = createIlLi ( url, "menu" );
+            const liImg_2 = createIlLi ( url_2, "menu" );
+            td_2.appendChild( liImg );
+            td_2.appendChild( liImg_2 );
+        }
     });
     const num_2 = document.createTextNode( iIn * 2 );
     td_1.appendChild( subMenu_L2 );
