@@ -484,7 +484,7 @@ const moduloCeil = ( integerIn, divide ) => {
     return intCeil;
 }
 
-const fillUnit = ( volNum, iIn, elemCatalyst ) => {
+const fillUnit = ( volNum, iIn ) => {
     const table = document.createElement("table");
     const td_1 = document.createElement("td");
     const td_2 = document.createElement("td");
@@ -498,14 +498,10 @@ const fillUnit = ( volNum, iIn, elemCatalyst ) => {
     const volPadS = vol.padStart(2, "0");
     const url = "https://6cc.github.io/c/m/y/" + volPadS + "/" + iteratorEqual + ".jpg";
     const url_2 = "https://6cc.github.io/c/m/y/" + volPadS + "/" + iIn * 2 + ".jpg";
-    elemCatalyst.addEventListener("click", () => {
-        if ( td_2.childElementCount === 0 ) {
-            const liImg = createIlLi ( url, "menu" );
-            const liImg_2 = createIlLi ( url_2, "menu" );
-            td_2.appendChild( liImg );
-            td_2.appendChild( liImg_2 );
-        }
-    });
+    const liImg = createIlLi ( url, "menu" );
+    const liImg_2 = createIlLi ( url_2, "menu" );
+    td_2.appendChild( liImg );
+    td_2.appendChild( liImg_2 );
     const num_2 = document.createTextNode( iIn * 2 );
     td_1.appendChild( subMenu_L2 );
     td_3.appendChild( num_2 );
@@ -520,11 +516,13 @@ const fillSubMenu = ( volNum, param, pageSLength ) => {
     if ( param === "recur" ) {
         const ul = document.createElement("ul");
         const section = moduloCeil ( pageSLength, 2 );
-        for (let i = 1; i <= section; i++) {
-            const unit = fillUnit ( volNum, i, aTag );
-            ul.appendChild( unit );
-        }
         aTag.addEventListener("click", () => {
+            if ( ul.childElementCount <= 1 ) {
+                for (let i = 1; i <= section; i++) {
+                    const unit = fillUnit ( volNum, i );
+                    ul.appendChild( unit );
+                }
+            }
             secuReFerShell ({
                 referObj: rO_imagesLoaded, 
                 targetElem: ul,
