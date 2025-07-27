@@ -48,6 +48,29 @@ const createByExtens = ( urlFile, fileExtens ) => {
     }
 }
 
+const initMenu = ( targetElem ) => {
+    const menu = new SlideMenu( targetElem, {
+        keyClose: 'Escape',
+        submenuLinkAfter: '📁',
+        backLinkBefore: '◀返回',
+    });
+    targetElem.style.right = "24px";
+    menu.open();
+}
+
+const rO_SlideMenu = {
+    exist: typeof SlideMenu,
+    schedule: "function",
+    referS: [
+        "https://grubersjoe.github.io/slide-menu/slide-menu.js",
+        "https://grubersjoe.github.io/slide-menu/slide-menu.css",
+        "https://grubersjoe.github.io/slide-menu/demo.css",
+    ],
+    method: ( elem ) => {
+        initMenu ( elem );
+    },
+};
+
 const rO_imagesLoaded = {
     exist: typeof imagesLoaded,
     schedule: "function",
@@ -140,7 +163,7 @@ const generateUnit = ( arrIn ) => {
         referObj: rO_imagesLoaded, 
         targetElem: unit,
     });
-    if (trgtContainer) {
+    if ( trgtContainer ) {
         trgtContainer.appendChild( unit );
     } else {
         geNEWin(unit);
@@ -156,9 +179,7 @@ const geNEWin = ( elem ) => {
         referObj: rO_imagesLoaded, 
         targetElem: elem,
     });
-    secuReFerShell ({
-        referObj : rO.fancybox,
-    });
+    secuReFerShell ({ referObj : rO.fancybox, });
 }
 
 const txtGenAlbum = ( txt ) => {
@@ -195,12 +216,12 @@ const sequenceGener = ( urlIn ) => {
 
 const resolveTxt = ( txtIn ) => {
     const paraS = arrSpliter( txtIn, ">　　　　　　　　" );
-    const objS = [];
+    const objS = new Array();
     const div = document.createElement("div");
     div.className = "containErNT";
     paraS.forEach(( para ) => {
         const lineS = arrSpliter( para, "\n", "clean" );
-        const innerObj = [];
+        const innerObj = new Array();
         const innerDiv = document.createElement("div");
         innerDiv.className = "unitCard";
         lineS.forEach(( line, iterator ) => {
@@ -356,9 +377,21 @@ const visualizeComponentS = () => {
         return div;
 }
 
-const createIlLi = ( url ) => {
+const relaySwitch = ( param ) => {
+    switch ( param ) {
+        case undefined :
+            return "div.containErNT";
+            break;
+        case "menu":
+            return "nav.slide-menu";
+            break;
+    }
+}
+
+const createIlLi = ( url, param ) => {
     const urlTrimmed = parseURL ( url, "trim" );
     const li = document.createElement("li");
+    li.className = "iLAttached";
     li.style.backgroundColor = "#000";
     li.style.backgroundImage = "url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/loading.gif')";
     li.style.backgroundPosition = "center center";
@@ -371,22 +404,26 @@ const createIlLi = ( url ) => {
 
     const img = new Image();
     img.src = urlTrimmed;
+    img.className = "fBAttached";
     img.style.borderRadius = "4px";
     img.style.opacity = 0;
     img.style.maxHeight = "70px";
     img.style.minWidth = "25px";
     img.style.transition = "opacity 0.4s";
+    const qSExp = relaySwitch ( param );
     img.addEventListener("click", (e) => {
-        const trgtContainer = document.querySelector("div.containErNT");
-        const arrImgS = trgtContainer.querySelectorAll("div > div > div.containErNT > div.unitCard  li > img");
+        const eventTarget = e.currentTarget;
+        const trgtContainer = eventTarget.closest("ul.slide-menu__submenu--active");
+        const arrImgS = trgtContainer.querySelectorAll("li.iLAttached > img.fBAttached");
         const arrForFB = new Array();
-        arrImgS.forEach((elemImg) => {
+        arrImgS.forEach(( elemImg ) => {
             arrForFB.push({ src: elemImg.src });
         });
-        const eventTarget = e.currentTarget;
         const galIdx = [].indexOf.call( arrImgS, eventTarget );
         new Fancybox(
+            // Array containing gallery items
             arrForFB,
+            // Gallery options
             {
                 startIndex: galIdx,
             }
@@ -443,6 +480,90 @@ const sheetInsertAfter = () => {
       sheet.insertRule('.unitCard::after { clear: both; content: ""; display: block; }', 0);
 }
 
+const moduloCeil = ( integerIn, divide ) => {
+    const float = integerIn / divide;
+    const intCeil = Math.ceil( float );
+    return intCeil;
+}
+
+const fillUnit = ( volNum, iIn ) => {
+    const table = document.createElement("table");
+    const td_1 = document.createElement("td");
+    const td_2 = document.createElement("td");
+    const td_3 = document.createElement("td");
+    table.appendChild( td_1 );
+    table.appendChild( td_2 );
+    table.appendChild( td_3 );
+    const iteratorEqual = iIn * 2 - 1;
+    const subMenu_L2 = fillSubMenu ( iteratorEqual );
+    const vol = volNum.toString();
+    const volPadS = vol.padStart(2, "0");
+    const url = "https://6cc.github.io/c/m/y/" + volPadS + "/" + iteratorEqual + ".jpg";
+    const url_2 = "https://6cc.github.io/c/m/y/" + volPadS + "/" + iIn * 2 + ".jpg";
+    const liImg = createIlLi ( url, "menu" );
+    const liImg_2 = createIlLi ( url_2, "menu" );
+    td_2.appendChild( liImg );
+    td_2.appendChild( liImg_2 );
+    const num_2 = document.createTextNode( iIn * 2 );
+    td_1.appendChild( subMenu_L2 );
+    td_3.appendChild( num_2 );
+    return table;
+}
+
+const fillSubMenu = ( volNum, param, pageSLength ) => {
+    const li = document.createElement( "li" );
+    const aTag = document.createElement( "a" );
+    aTag.textContent = volNum;
+    li.appendChild( aTag );
+    if ( param === "recur" ) {
+        const ul = document.createElement("ul");
+        const section = moduloCeil ( pageSLength, 2 );
+        aTag.addEventListener("click", () => {
+            if ( ul.childElementCount <= 1 ) {
+                for (let i = 1; i <= section; i++) {
+                    const unit = fillUnit ( volNum, i );
+                    ul.appendChild( unit );
+                }
+            }
+            secuReFerShell ({
+                referObj: rO_imagesLoaded, 
+                targetElem: ul,
+            });
+        });
+        li.appendChild( ul );
+    }
+    return li;
+}
+
+const fillCluster = ( arr ) => {
+    const ul = document.createElement( "ul" );
+    arr.forEach(( elem, iterator ) => {
+        const subset = fillSubMenu ( iterator + 1, "recur", elem );
+        ul.appendChild( subset );
+    });
+    return ul;
+}
+
+const visualizMenu = () => {
+    const containerNav = document.createElement("nav");
+    containerNav.style.display = "none";
+    containerNav.className = "slide-menu";
+    const volPageS = [
+        102,  98,  96,  96, 104, 104, 101,  95,  96, 104,
+         95,  95,  94, 103, 103, 103, 103,  94,  97, 
+    ];
+    const menuUnit = fillCluster ( volPageS );
+    containerNav.appendChild( menuUnit );
+    secuReFerShell ({
+        referObj: rO_SlideMenu, 
+        targetElem: containerNav,
+    });
+    secuReFerShell ({ referObj: rO.fancybox, });
+    containerNav.style.bottom = "24px";
+    containerNav.style.height = "95%";
+    document.body.appendChild( containerNav );
+}
+
 const preprocessPrecast = () => {
     const trigger = createTrigger();
     const bar = createBar();
@@ -460,6 +581,7 @@ const preprocessPrecast = () => {
     bar.appendChild(button);
 
     document.body.appendChild(trigger);
+    visualizMenu ();
     sheetInsertAfter ();
 }
 
@@ -531,9 +653,7 @@ const msnBehaviour = ( mutateObserv ) => {
     const observer = new MutationObserver((mutationsList, observer) => {
     const cpArticleElement = document.querySelector( mutateObserv );
     if ( cpArticleElement ) {
-        secuReFerShell ({
-            referObj : rO_retrieveMsn,
-        });
+        secuReFerShell ({ referObj : rO_retrieveMsn });
         observer.disconnect();
     }
 });
