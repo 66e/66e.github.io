@@ -383,7 +383,7 @@ const relaySwitch = ( param ) => {
             return "div.containErNT";
             break;
         case "menu":
-            return "nav.slide-menu";
+            return "ul.slide-menu__submenu--active";
             break;
     }
 }
@@ -413,7 +413,7 @@ const createIlLi = ( url, param ) => {
     const qSExp = relaySwitch ( param );
     img.addEventListener("click", (e) => {
         const eventTarget = e.currentTarget;
-        const trgtContainer = eventTarget.closest("ul.slide-menu__submenu--active");
+        const trgtContainer = eventTarget.closest( qSExp );
         const arrImgS = trgtContainer.querySelectorAll("li.iLAttached > img.fBAttached");
         const arrForFB = new Array();
         arrImgS.forEach(( elemImg ) => {
@@ -535,10 +535,26 @@ const fillSubMenu = ( volNum, param, pageSLength ) => {
     return li;
 }
 
+const rectifyCover = ( iterator ) => {
+    const img = new Image();
+    const volNum = iterator + 1;
+    const vol = volNum.toString();
+    const volPadS = vol.padStart(2, "0");
+    const coverPageNum = "1";
+    const url = "https://6cc.github.io/c/m/y/" + volPadS + "/" + coverPageNum + ".jpg";
+    img.src = url;
+    img.style.borderRadius = "4px";
+    img.style.maxHeight = "70px";
+    img.style.minWidth = "25px";
+    return img;
+}
+
 const fillCluster = ( arr ) => {
     const ul = document.createElement( "ul" );
     arr.forEach(( elem, iterator ) => {
         const subset = fillSubMenu ( iterator + 1, "recur", elem );
+        const cover = rectifyCover ( iterator );
+        subset.firstChild.appendChild( cover );
         ul.appendChild( subset );
     });
     return ul;
