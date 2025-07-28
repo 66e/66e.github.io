@@ -536,12 +536,30 @@ const fillSubMenu = ( volNum, param, pageSLength ) => {
     return li;
 }
 
+const relayRectify = ( iteratorIn ) => {
+    switch ( iteratorIn ) {
+        case 7 :
+            return 5;
+            break;
+        case 8 :
+        case 9 :
+        case 18 :
+            return 2;
+            break;
+        case 14 :
+            return 12;
+            break;
+        default:
+            return 1;
+    }
+}
+
 const rectifyCover = ( iterator ) => {
     const img = new Image();
     const volNum = iterator + 1;
     const vol = volNum.toString();
     const volPadS = vol.padStart(2, "0");
-    const coverPageNum = "1";
+    const coverPageNum = relayRectify ( volNum );
     const url = "https://6cc.github.io/c/m/y/" + volPadS + "/" + coverPageNum + ".jpg";
     img.src = url;
     img.style.borderRadius = "4px";
