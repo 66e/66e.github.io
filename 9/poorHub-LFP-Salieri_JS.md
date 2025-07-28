@@ -51,7 +51,8 @@ const createByExtens = ( urlFile, fileExtens ) => {
 const initMenu = ( targetElem ) => {
     const menu = new SlideMenu( targetElem, {
         keyClose: 'Escape',
-        submenuLinkAfter: '📁',
+        submenuLinkBefore: '📁卷',
+        submenuLinkAfter: "➤",
         backLinkBefore: '◀返回',
     });
     targetElem.style.right = "24px";
@@ -411,7 +412,7 @@ const createIlLi = ( url, param ) => {
     img.style.minWidth = "25px";
     img.style.transition = "opacity 0.4s";
     const qSExp = relaySwitch ( param );
-    img.addEventListener("click", (e) => {
+    img.addEventListener("click", ( e ) => {
         const eventTarget = e.currentTarget;
         const trgtContainer = eventTarget.closest( qSExp );
         const arrImgS = trgtContainer.querySelectorAll("li.iLAttached > img.fBAttached");
@@ -513,7 +514,7 @@ const fillUnit = ( volNum, iIn ) => {
 const fillSubMenu = ( volNum, param, pageSLength ) => {
     const li = document.createElement( "li" );
     const aTag = document.createElement( "a" );
-    aTag.textContent = volNum;
+    aTag.textContent = volNum + " ";
     li.appendChild( aTag );
     if ( param === "recur" ) {
         const ul = document.createElement("ul");
