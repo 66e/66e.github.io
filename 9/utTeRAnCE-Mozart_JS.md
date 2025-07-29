@@ -79,7 +79,7 @@ const appendRefer = ( referUrl ) => {
 }
 
 const secuReFerShell = ( referObj, targetElem, param ) => {
-    if ( referObj.exist === referObj.schedule ) {
+    if ( referObj.exist === referObj.scheduled ) {
         referObj.method( targetElem, param );
     } else {
         const urlS = referObj.referS;
@@ -98,25 +98,31 @@ const secuReFerShell = ( referObj, targetElem, param ) => {
 
 const initializeVoiceSC = () => {
     const synth = window.speechSynthesis;
+    const mLingual_r = /Multilingual /i;
+    const rLang = /zh-/i;
     synth.addEventListener("voiceschanged", () => {
         const voices = synth.getVoices();
+        const voices_mL = voices.filter(( voice ) => mLingual_r.test(voice.name)
+        || rLang.test(voice.lang));
         const select = document.createElement("select");
         document.body.appendChild( select );
-        for (const voice of voices) {
+        for (const voice of voices_mL) {
             const option = document.createElement("option");
             option.textContent = `${voice.name} (${voice.lang})`;
             option.setAttribute("data-lang", voice.lang);
             option.setAttribute("data-name", voice.name);
             select.appendChild(option);
         }
+        const container = document.querySelector("div#container");
+        container.appendChild( select );
     });
-
 }
 
 const processWorkflow = () => {
-    const jsPanel_oM = matrixRetrieve ( "jsPanel" );
-    const fragment = new DocumentFragment();
-    secuReFerShell ( jsPanel_oM, fragment, "dashBoard" );
+    const jsPanel = matrixRetrieve ( "jsPanel" );
+    const container = document.createElement("div");
+    container.id = "container";
+    secuReFerShell ( jsPanel, container, "dashBoard" );
     initializeVoiceSC ();
 }
 
