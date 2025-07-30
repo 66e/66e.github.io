@@ -102,8 +102,8 @@ const initializeVoiceSC = () => {
     const rLang = /zh-/i;
     synth.addEventListener("voiceschanged", () => {
         const voices = synth.getVoices();
-        const select = document.createElement("select");
         const arrayEmpty = new Array();
+        const select = document.querySelector("select#voiceSSel");
         voices.forEach(( voice, iterator ) => {
             const condition = mLingual_r.test( voice.name )
                 || rLang.test( voice.lang );
@@ -115,16 +115,66 @@ const initializeVoiceSC = () => {
                 select.appendChild( option );
             }
         });
-        const container = document.querySelector("div#container");
-        container.appendChild( select );
     });
+}
+
+const visualizeComponentS = () => {
+    const textarea = document.createElement("textarea");
+    textarea.addEventListener("dblclick", () => {
+        textarea.value = "";
+    });
+    textarea.addEventListener("paste", () => {
+        setTimeout(() => {
+            
+        }, 1);
+    });
+    textarea.cols = "50";
+    textarea.rows = "10";
+    textarea.style.overflow = "auto";
+    textarea.value = "故大德必得其位，必得其禄。必得其名，必得其寿，故天之生物，必因其材而笃焉。";
+
+    const button = document.createElement("button");
+    button.addEventListener("click", () => {
+        artIculate ( textarea.value, 152 );
+    });
+    button.textContent = "button";
+
+    const select = document.createElement("select");
+    select.id = "voiceSSel";
+    const container = document.createElement("div");
+    container.appendChild( textarea );
+    container.appendChild( button );
+    container.appendChild( select );
+    return container;
+}
+
+//appreciate koldobika https://stackoverflow.com/questions/66951019/async-await-promise-does-not-work-promiseresult-is-undefined
+const getVoices = () => {
+    return new Promise(resolve => {
+        let voices = new Array();
+        if (voices.length) {
+          resolve(voices);
+          return;
+        }
+        const voiceschanged = () => {
+          voices = speechSynthesis.getVoices();
+          resolve(voices);
+        }
+        speechSynthesis.addEventListener("voiceschanged", () => {
+            voiceschanged ();
+        });
+    })
+}
+
+const artIculate = async ( txt, voxIdx, vol ) => {
+    const c = await getVoices ();
+    console.log( c );
 }
 
 const processWorkflow = () => {
     const jsPanel = matrixRetrieve ( "jsPanel" );
-    const container = document.createElement("div");
-    container.id = "container";
-    secuReFerShell ( jsPanel, container, "dashBoard" );
+    const componentS = visualizeComponentS ();
+    secuReFerShell ( jsPanel, componentS, "dashBoard" );
     initializeVoiceSC ();
 }
 
