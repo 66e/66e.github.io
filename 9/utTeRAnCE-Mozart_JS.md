@@ -96,14 +96,13 @@ const secuReFerShell = ( referObj, targetElem, param ) => {
     }
 }
 
-const initializeVoiceSC = () => {
-    const synth = window.speechSynthesis;
+const initializeVoiceSC = ( elem ) => {
     const mLingual_r = /Multilingual /i;
     const rLang = /zh-/i;
-    synth.addEventListener("voiceschanged", () => {
-        const voices = synth.getVoices();
+    speechSynthesis.addEventListener("voiceschanged", () => {
+        const voices = synthGetVoices ();
         const arrayEmpty = new Array();
-        const select = document.querySelector("select#voiceSSel");
+        const select = elem.querySelector("select#voiceSSel");
         voices.forEach(( voice, iterator ) => {
             const condition = mLingual_r.test( voice.name )
                 || rLang.test( voice.lang );
@@ -166,16 +165,24 @@ const getVoices = () => {
     })
 }
 
-const artIculate = async ( txt, voxIdx, vol ) => {
-    const c = await getVoices ();
-    console.log( c );
+const synthGetVoices = () => {
+    const voices = speechSynthesis.getVoices();
+    return voices;
+}
+
+const artIculate = ( txt, voxIdx, vol ) => {
+    const voices = synthGetVoices ();
+    const utterThis = new SpeechSynthesisUtterance( txt );
+    utterThis.voice = voices[ voxIdx ];
+    speechSynthesis.speak( utterThis );
 }
 
 const processWorkflow = () => {
+    synthGetVoices ();
     const jsPanel = matrixRetrieve ( "jsPanel" );
     const componentS = visualizeComponentS ();
     secuReFerShell ( jsPanel, componentS, "dashBoard" );
-    initializeVoiceSC ();
+    initializeVoiceSC ( componentS );
 }
 
 processWorkflow ();
