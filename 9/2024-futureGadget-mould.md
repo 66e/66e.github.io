@@ -22,6 +22,20 @@ const arrayEmpty = new Array();
 Array.isArray([1, 3, 5])
 const fruits = [];
 
+if (a > 0) {
+    
+} else {
+    
+}
+undefined &&
+||
+
+const func2 = (x, y) => {
+    return false;
+}
+
+async
+
 arraySparse.forEach((element) => {
   const count = animals.push("cows");
 });
@@ -42,8 +56,6 @@ for (let i = 0; i < 9; i++) {
 
 node.parentNode;
 
-console.log(typeof undeclaredVariable);
-
 dog1.toString();
 
 str1.padStart(2, "0");
@@ -51,20 +63,6 @@ str1.padStart(2, "0");
 const regExp = /ab+c/i;
 let result = /^hello/.test(str);
 const found = paragraph.match(regex);
-
-undefined
-
-if ( true ) {
-    result = "positive";
-} else {
-    result = "NOT positive";
-}
-
-const func2 = (x, y) => {
-    return false;
-}
-
-async
 
 const newDiv = document.createElement("div");
 newDiv.textContent = "This text is different!";

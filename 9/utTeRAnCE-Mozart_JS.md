@@ -102,17 +102,19 @@ const initializeVoiceSC = () => {
     const rLang = /zh-/i;
     synth.addEventListener("voiceschanged", () => {
         const voices = synth.getVoices();
-        const voices_mL = voices.filter(( voice ) => mLingual_r.test(voice.name)
-        || rLang.test(voice.lang));
         const select = document.createElement("select");
-        document.body.appendChild( select );
-        for (const voice of voices_mL) {
-            const option = document.createElement("option");
-            option.textContent = `${voice.name} (${voice.lang})`;
-            option.setAttribute("data-lang", voice.lang);
-            option.setAttribute("data-name", voice.name);
-            select.appendChild(option);
-        }
+        const arrayEmpty = new Array();
+        voices.forEach(( voice, iterator ) => {
+            const condition = mLingual_r.test( voice.name )
+                || rLang.test( voice.lang );
+            if ( condition ) {
+                arrayEmpty.push( voice );
+                const option = document.createElement("option");
+                option.textContent = `[${ iterator }]【${ voice.lang }】${ voice.name }`;
+                option.value = iterator;
+                select.appendChild( option );
+            }
+        });
         const container = document.querySelector("div#container");
         container.appendChild( select );
     });
