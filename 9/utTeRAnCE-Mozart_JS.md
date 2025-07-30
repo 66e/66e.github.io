@@ -102,18 +102,17 @@ const initializeVoiceSC = ( elem ) => {
     speechSynthesis.addEventListener("voiceschanged", () => {
         const voices = synthGetVoices ();
         const arrayEmpty = new Array();
-        const select = elem.querySelector("select#voiceSSel");
-        voices.forEach(( voice, iterator ) => {
+        for (const [i, voice] of voices.entries()) {
             const condition = mLingual_r.test( voice.name )
                 || rLang.test( voice.lang );
             if ( condition ) {
                 arrayEmpty.push( voice );
                 const option = document.createElement("option");
-                option.textContent = `[${ iterator }]【${ voice.lang }】${ voice.name }`;
-                option.value = iterator;
-                select.appendChild( option );
+                option.textContent = `[${ i }]【${ voice.lang }】${ voice.name }`;
+                option.value = i;
+                elem.appendChild( option );
             }
-        });
+        }
     });
 }
 
@@ -134,7 +133,7 @@ const visualizeComponentS = () => {
 
     const button = document.createElement("button");
     button.addEventListener("click", () => {
-        artIculate ( textarea.value, 152 );
+        artIculate ( textarea.value );
     });
     button.textContent = "button";
 
@@ -173,16 +172,17 @@ const synthGetVoices = () => {
 const artIculate = ( txt, voxIdx, vol ) => {
     const voices = synthGetVoices ();
     const utterThis = new SpeechSynthesisUtterance( txt );
-    utterThis.voice = voices[ voxIdx ];
+    const voiceSelect = document.querySelector("select#voiceSSel");
+    utterThis.voice = voices[ voxIdx | voiceSelect.value ];
     speechSynthesis.speak( utterThis );
 }
 
 const processWorkflow = () => {
-    synthGetVoices ();
     const jsPanel = matrixRetrieve ( "jsPanel" );
     const componentS = visualizeComponentS ();
     secuReFerShell ( jsPanel, componentS, "dashBoard" );
-    initializeVoiceSC ( componentS );
+    const targetElem = componentS.querySelector("select#voiceSSel"); // asynchronous processing
+    initializeVoiceSC ( targetElem );
 }
 
 processWorkflow ();
