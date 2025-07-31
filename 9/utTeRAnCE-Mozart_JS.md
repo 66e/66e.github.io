@@ -17,6 +17,9 @@
 
 const createWindow = ( elem, param ) => {
     const oWin = new Object();
+    if ( ! elem ) {
+        elem = new DocumentFragment();
+    }
     oWin.callback = (panel) => panel.content.appendChild( elem );
     oWin.opacity = .9;
     oWin.theme = "primary";
@@ -24,6 +27,9 @@ const createWindow = ( elem, param ) => {
     switch ( param ) {
         case undefined:
             oWin.contentSize = "400 250";
+            const identify = Date.now().toString( 36 );
+            oWin.headerTitle = identify;
+            oWin.id = identify;
             oWin.position = "right-top -10 125";
             break;
         case "dashBoard":
@@ -125,7 +131,7 @@ const visualizeComponentS = () => {
     });
     textarea.addEventListener("paste", () => {
         setTimeout(() => {
-            
+            artIculate ( textarea.value );
         }, 1);
     });
     textarea.cols = "50";
@@ -139,6 +145,13 @@ const visualizeComponentS = () => {
     });
     button.textContent = "button";
 
+    const newWin = document.createElement("button");
+    newWin.addEventListener("click", () => {
+        const jsPanel = matrixRetrieve ( "jsPanel" );
+        secuReFerShell ( jsPanel );
+    });
+    newWin.textContent = "newWin";
+
     const select = document.createElement("select");
     select.id = "voiceSSel";
     select.addEventListener("change", () => {
@@ -147,6 +160,7 @@ const visualizeComponentS = () => {
     const container = document.createElement("div");
     container.appendChild( textarea );
     container.appendChild( button );
+    container.appendChild( newWin );
     container.appendChild( select );
     return container;
 }
