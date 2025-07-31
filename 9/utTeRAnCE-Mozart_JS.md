@@ -102,15 +102,17 @@ const initializeVoiceSC = ( elem ) => {
     speechSynthesis.addEventListener("voiceschanged", () => {
         const voices = synthGetVoices ();
         const arrayEmpty = new Array();
-        for (const [i, voice] of voices.entries()) {
-            const condition = mLingual_r.test( voice.name )
+        if ( elem.length < 1 ) {
+            for (const [i, voice] of voices.entries()) {
+                const condition = mLingual_r.test( voice.name )
                 || rLang.test( voice.lang );
-            if ( condition ) {
-                arrayEmpty.push( voice );
-                const option = document.createElement("option");
-                option.textContent = `[${ i }]【${ voice.lang }】${ voice.name }`;
-                option.value = i;
-                elem.appendChild( option );
+                if ( condition ) {
+                    arrayEmpty.push( voice );
+                    const option = document.createElement("option");
+                    option.textContent = `[${ i }]【${ voice.lang }】${ voice.name }`;
+                    option.value = i;
+                    elem.appendChild( option );
+                }
             }
         }
     });
@@ -139,6 +141,9 @@ const visualizeComponentS = () => {
 
     const select = document.createElement("select");
     select.id = "voiceSSel";
+    select.addEventListener("change", () => {
+        artIculate ( textarea.value, select.value );
+    });
     const container = document.createElement("div");
     container.appendChild( textarea );
     container.appendChild( button );
