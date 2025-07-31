@@ -124,6 +124,29 @@ const initializeVoiceSC = ( elem ) => {
     });
 }
 
+const visualizeOutlet = () => {
+    const jsPanel = matrixRetrieve ( "jsPanel" );
+    const container = document.createElement("div");
+    container.id = "container";
+    secuReFerShell ( jsPanel, container, "outLet" );
+}
+
+const parsePassage = ( txtIn ) => {
+    const regExp = /(?<=[\n\r!,?。！，？])/i;
+    const sentenceS = txtIn.split( regExp );
+    return sentenceS;
+}
+
+const contentExport = ( content ) => {
+    const elem = document.querySelector("div#outLet");
+    if ( elem ) {
+        elem.appendChild( content );
+    } else {
+        visualizeOutlet ();
+    }
+    return false;
+}
+
 const visualizeComponentS = () => {
     const textarea = document.createElement("textarea");
     textarea.addEventListener("dblclick", () => {

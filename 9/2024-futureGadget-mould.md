@@ -36,6 +36,8 @@ const func2 = (x, y) => {
 
 async
 
+const words = str.split(" ");
+
 arraySparse.forEach((element) => {
   const count = animals.push("cows");
 });
