@@ -127,7 +127,7 @@ const initializeVoiceSC = ( elem ) => {
 const visualizeOutlet = () => {
     const jsPanel = matrixRetrieve ( "jsPanel" );
     const container = document.createElement("div");
-    container.id = "container";
+    container.id = "outLet";
     secuReFerShell ( jsPanel, container, "outLet" );
 }
 
@@ -144,7 +144,16 @@ const contentExport = ( content ) => {
     } else {
         visualizeOutlet ();
     }
-    return false;
+}
+
+const visualizeCluster = ( arr ) => {
+    const div = document.createElement("div");
+    arr.forEach(( elem ) => {
+        const pTag = document.createElement("p");
+        pTag.textContent = elem;
+        div.appendChild( pTag );
+    });
+    return div;
 }
 
 const visualizeComponentS = () => {
@@ -170,8 +179,9 @@ const visualizeComponentS = () => {
 
     const newWin = document.createElement("button");
     newWin.addEventListener("click", () => {
-        const jsPanel = matrixRetrieve ( "jsPanel" );
-        secuReFerShell ( jsPanel );
+        const array = parsePassage ( textarea.value );
+        const unit = visualizeCluster ( array );
+        contentExport ( unit );
     });
     newWin.textContent = "newWin";
 

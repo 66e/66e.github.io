@@ -13,7 +13,9 @@ console.log(1 === "");
 ```js
 */
 
+const value = func ();
 const c = "";
+console.log( c );
 
 const el = document.querySelector("div.user-panel.main input[name='login']");
 const matches = container.querySelectorAll("li[data-active='1']");
