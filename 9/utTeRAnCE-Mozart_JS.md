@@ -126,7 +126,9 @@ const initializeVoiceSC = ( elem ) => {
 
 const visualizeOutlet = ( unitIn ) => {
     const jsPanel = matrixRetrieve ( "jsPanel" );
-    secuReFerShell ( jsPanel, unitIn, "outLet" );
+    const div = document.createElement("div");
+    div.appendChild( unitIn );
+    secuReFerShell ( jsPanel, div, "outLet" );
 }
 
 const parsePassage = ( txtIn ) => {
@@ -179,6 +181,7 @@ const visualizeComponentS = () => {
     newWin.addEventListener("click", () => {
         const array = parsePassage ( textarea.value );
         const unit = visualizeCluster ( array );
+        artIcuLate ( array );
         toggleMount ( unit );
     });
     newWin.textContent = "newWin";
@@ -219,12 +222,25 @@ const synthGetVoices = () => {
     return voices;
 }
 
-const artIculate = ( txt, voxIdx, vol ) => {
-    const voices = synthGetVoices ();
-    const utterThis = new SpeechSynthesisUtterance( txt );
+const artIcuLate = ( arr, voxIdx, vol ) => {
+    const voices = synthGetVoices ( );
+    let currentIndex = 0;
+    const utterance = new SpeechSynthesisUtterance();
+    utterance.addEventListener("end", () => {
+        currentIndex++
+        if ( currentIndex < arr.length ) {
+            utter ();
+        }
+    });
     const voiceSelect = document.querySelector("select#voiceSSel");
-    utterThis.voice = voices[ voxIdx | voiceSelect.value ];
-    speechSynthesis.speak( utterThis );
+    utterance.voice = voices[ voxIdx | voiceSelect.value ];
+    
+    const utter = ( ) => {
+        utterance.text = arr [ currentIndex ];
+        speechSynthesis.speak( utterance );
+    }
+
+    utter ( );
 }
 
 const processWorkflow = () => {
