@@ -124,11 +124,9 @@ const initializeVoiceSC = ( elem ) => {
     });
 }
 
-const visualizeOutlet = () => {
+const visualizeOutlet = ( unitIn ) => {
     const jsPanel = matrixRetrieve ( "jsPanel" );
-    const container = document.createElement("div");
-    container.id = "outLet";
-    secuReFerShell ( jsPanel, container, "outLet" );
+    secuReFerShell ( jsPanel, unitIn, "outLet" );
 }
 
 const parsePassage = ( txtIn ) => {
@@ -137,12 +135,12 @@ const parsePassage = ( txtIn ) => {
     return sentenceS;
 }
 
-const contentExport = ( content ) => {
+const toggleMount = ( content ) => {
     const elem = document.querySelector("div#outLet");
     if ( elem ) {
         elem.appendChild( content );
     } else {
-        visualizeOutlet ();
+        visualizeOutlet ( content );
     }
 }
 
@@ -181,7 +179,7 @@ const visualizeComponentS = () => {
     newWin.addEventListener("click", () => {
         const array = parsePassage ( textarea.value );
         const unit = visualizeCluster ( array );
-        contentExport ( unit );
+        toggleMount ( unit );
     });
     newWin.textContent = "newWin";
 

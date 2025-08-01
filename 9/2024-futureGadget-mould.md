@@ -14,7 +14,7 @@ console.log(1 === "");
 */
 
 const value = func ();
-const c = "";
+const c = typeof undefined;
 console.log( c );
 
 const el = document.querySelector("div.user-panel.main input[name='login']");
@@ -29,8 +29,9 @@ if (a > 0) {
 } else {
     
 }
-undefined &&
-||
+
+ && NaN
+ || null
 
 const func2 = (x, y) => {
     return false;
