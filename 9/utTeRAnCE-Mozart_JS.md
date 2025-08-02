@@ -175,7 +175,7 @@ const visualizeComponentS = () => {
 
     const button = document.createElement("button");
     button.addEventListener("click", () => {
-        artIculate ( textarea.value );
+        artiCULate ( textarea.value );
     });
     button.textContent = "button";
 
@@ -183,7 +183,7 @@ const visualizeComponentS = () => {
     newWin.addEventListener("click", () => {
         const array = parsePassage ( textarea.value );
         const unit = visualizeCluster ( array );
-        artIcuLate ( array );
+        artiCULate ( array );
         toggleMount ( unit );
     });
     newWin.textContent = "newWin";
@@ -191,7 +191,7 @@ const visualizeComponentS = () => {
     const select = document.createElement("select");
     select.id = "voiceSSel";
     select.addEventListener("change", () => {
-        artIculate ( textarea.value, select.value );
+        artiCULate ( textarea.value, select.value );
     });
     const container = document.createElement("div");
     container.appendChild( textarea );
@@ -224,25 +224,37 @@ const synthGetVoices = () => {
     return voices;
 }
 
-const artIcuLate = ( arr, voxIdx, vol ) => {
-    const voices = synthGetVoices ( );
-    let currentIndex = 0;
+const artiCULate = ( arrSchedule, voxIdx, vol ) => {
     const utterance = new SpeechSynthesisUtterance();
-    utterance.addEventListener("end", () => {
-        currentIndex++
-        if ( currentIndex < arr.length ) {
-            utter ();
-        }
-    });
-    const voiceSelect = document.querySelector("select#voiceSSel");
-    utterance.voice = voices[ voxIdx | voiceSelect.value ];
-    
-    const utter = ( ) => {
-        utterance.text = arr [ currentIndex ];
-        speechSynthesis.speak( utterance );
-    }
+    const voices = synthGetVoices ( );
 
-    utter ( );
+    switch ( true ) {
+        case typeof arrSchedule === "string" :
+            utterance.text = arrSchedule;
+            speechSynthesis.speak( utterance );
+            break;
+        case Array.isArray( arrSchedule ) :
+            let currentIndex = 0;
+            utterance.addEventListener("end", () => {
+                currentIndex++
+                if ( currentIndex < arrSchedule.length ) {
+                    pollUtter ();
+                }
+            });
+            const voiceSelect = document.querySelector("select#voiceSSel");
+            utterance.voice = voices[ voxIdx | voiceSelect.value ];
+
+            const pollUtter = ( ) => {
+                utterance.text = arrSchedule [ currentIndex ];
+                speechSynthesis.speak( utterance );
+            }
+
+            pollUtter ( );
+            break;
+        default:
+            console.log("default");
+    }
+    
 }
 
 const processWorkflow = () => {
