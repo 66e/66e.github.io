@@ -17,7 +17,7 @@
 
 const createWindow = ( elem, param ) => {
     const div = document.createElement("div");
-    div.id = "container";
+    div.id = param;
     const oWin = new Object();
     oWin.callback = (panel) => panel.content.appendChild( div );
     oWin.opacity = .9;
@@ -201,24 +201,6 @@ const visualizeComponentS = () => {
     return container;
 }
 
-//appreciate koldobika https://stackoverflow.com/questions/66951019/async-await-promise-does-not-work-promiseresult-is-undefined
-const getVoices = () => {
-    return new Promise(resolve => {
-        let voices = new Array();
-        if (voices.length) {
-          resolve(voices);
-          return;
-        }
-        const voiceschanged = () => {
-          voices = speechSynthesis.getVoices();
-          resolve(voices);
-        }
-        speechSynthesis.addEventListener("voiceschanged", () => {
-            voiceschanged ();
-        });
-    })
-}
-
 const synthGetVoices = () => {
     const voices = speechSynthesis.getVoices();
     return voices;
@@ -227,34 +209,33 @@ const synthGetVoices = () => {
 const artiCULate = ( arrSchedule, voxIdx, vol ) => {
     const utterance = new SpeechSynthesisUtterance();
     const voices = synthGetVoices ( );
+    const voiceSelect = document.querySelector("select#voiceSSel");
+    utterance.voice = voices[ voxIdx || voiceSelect.value ];
+    const utter = ( currentIndex ) => {
+        utterance.text = arrSchedule [ currentIndex ] || arrSchedule;
+        speechSynthesis.speak( utterance );
+    }
 
     switch ( true ) {
         case typeof arrSchedule === "string" :
-            utterance.text = arrSchedule;
-            speechSynthesis.speak( utterance );
+            utter ();
             break;
         case Array.isArray( arrSchedule ) :
             let currentIndex = 0;
             utterance.addEventListener("end", () => {
                 currentIndex++
                 if ( currentIndex < arrSchedule.length ) {
-                    pollUtter ();
+                    recurUtter ();
                 }
             });
-            const voiceSelect = document.querySelector("select#voiceSSel");
-            utterance.voice = voices[ voxIdx | voiceSelect.value ];
 
-            const pollUtter = ( ) => {
-                utterance.text = arrSchedule [ currentIndex ];
-                speechSynthesis.speak( utterance );
+            const recurUtter = ( ) => {
+                utter ( currentIndex );
             }
 
-            pollUtter ( );
+            recurUtter ( );
             break;
-        default:
-            console.log("default");
     }
-    
 }
 
 const processWorkflow = () => {

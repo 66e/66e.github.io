@@ -23,6 +23,11 @@ const matches = container.querySelectorAll("li[data-active='1']");
 const arrayEmpty = new Array();
 Array.isArray([1, 3, 5])
 const fruits = [];
+const firstElement = array1.shift();
+
+const o = new Object();
+o.foo = 42;
+const person = {};
 
 if (a > 0) {
     
@@ -48,12 +53,6 @@ arraySparse.forEach((element) => {
 clothing.length;
 
 const result = words.filter((word) => word.length > 6);
-
-const o = new Object();
-o.foo = 42;
-const person = {};
-
-const firstElement = array1.shift();
 
 for (let i = 0; i < 9; i++) {
   str = str + i;
