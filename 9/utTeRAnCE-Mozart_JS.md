@@ -16,11 +16,10 @@
     'use strict';
 
 const createWindow = ( elem, param ) => {
+    const div = document.createElement("div");
+    div.id = "container";
     const oWin = new Object();
-    if ( ! elem ) {
-        elem = new DocumentFragment();
-    }
-    oWin.callback = (panel) => panel.content.appendChild( elem );
+    oWin.callback = (panel) => panel.content.appendChild( div );
     oWin.opacity = .9;
     oWin.theme = "primary";
 
@@ -40,13 +39,16 @@ const createWindow = ( elem, param ) => {
             break;
     }
     jsPanel.create( oWin );
+    if ( elem ) {
+        div.appendChild( elem );
+    }
 }
 
 const matrixRetrieve = ( branch ) => {
     const oM = new Object();
     oM.jsPanel = new Object();
     oM.jsPanel.existing = typeof jsPanel;
-    oM.jsPanel.scheduled = "object";
+    oM.jsPanel.scheduled = "object"; // `jsPanel` in window
     oM.jsPanel.referS = [
         "https://jspanel.de/jspanel/dist/jspanel.min.css",
         "https://jspanel.de/jspanel/dist/jspanel.min.js",
@@ -54,7 +56,7 @@ const matrixRetrieve = ( branch ) => {
     oM.jsPanel.method = ( elem, param ) => {
         createWindow ( elem, param );
     };
-    return oM[branch];
+    return oM [ branch ];
 }
 
 const createByExtens = ( urlFile, fileExtens ) => {
@@ -85,7 +87,7 @@ const appendRefer = ( referUrl ) => {
 }
 
 const secuReFerShell = ( referObj, targetElem, param ) => {
-    if ( referObj.exist === referObj.scheduled ) {
+    if ( referObj.existing === referObj.scheduled ) {
         referObj.method( targetElem, param );
     } else {
         const urlS = referObj.referS;
@@ -247,6 +249,7 @@ const processWorkflow = () => {
     const jsPanel = matrixRetrieve ( "jsPanel" );
     const componentS = visualizeComponentS ();
     secuReFerShell ( jsPanel, componentS, "dashBoard" );
+    secuReFerShell ( jsPanel, 0, "outLet" );
     const targetElem = componentS.querySelector("select#voiceSSel"); // asynchronous processing
     initializeVoiceSC ( targetElem );
 }
