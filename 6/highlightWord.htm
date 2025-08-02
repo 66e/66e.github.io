@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>语音朗读与高亮</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    .highlight-sentence {
+      background-color: yellow;
+      transition: background-color 0.3s ease;
+    }
+    .highlight-word {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>语音朗读与高亮示例</h1>
+  <div id="text-container"></div>
+  <button id="start-btn">开始朗读</button>
+
+  <script>
+    // 检查浏览器是否支持 Web Speech API
+    if ('speechSynthesis' in window) {
+      const arr = ["不成器。", "人不学，", "不知义。"];
+      const textContainer = document.getElementById('text-container');
+      const startBtn = document.getElementById('start-btn');
+
+      let currentIndex = 0;
+      let utterance = null;
+      let lastHighlightedElement = null;
+
+      // 1. 在页面上生成初始的 HTML 元素
+      function renderText() {
+        textContainer.innerHTML = ''; // 清空旧内容
+        arr.forEach((sentence, index) => {
+          const sentenceElement = document.createElement('span');
+          sentenceElement.classList.add('sentence');
+          sentenceElement.textContent = sentence;
+          sentenceElement.dataset.index = index;
+          textContainer.appendChild(sentenceElement);
+        });
+      }
+
+      // 2. 准备 Web Speech API
+      function speakText() {
+        if (!utterance) {
+          utterance = new SpeechSynthesisUtterance();
+          utterance.lang = 'zh-CN'; // 设置语言为中文
+
+          // 监听朗读结束事件，自动朗读下一个句子
+          utterance.onend = () => {
+            clearWordHighlight();
+            clearSentenceHighlight();
+            currentIndex++;
+            if (currentIndex < arr.length) {
+              speakText();
+            } else {
+              currentIndex = 0; // 朗读完毕后重置
+            }
+          };
+
+          // 监听朗读边界事件，实现字词高亮
+          utterance.addEventListener('boundary', ({ charIndex, charLength }) => {
+            const currentSentenceElement = document.querySelector(`.sentence[data-index="${currentIndex}"]`);
+            if (currentSentenceElement) {
+              const text = currentSentenceElement.textContent;
+              const before = text.substring(0, charIndex);
+              const word = text.substring(charIndex, charIndex + charLength);
+              const after = text.substring(charIndex + charLength);
+              
+              currentSentenceElement.innerHTML = `${before}<span class="highlight-word">${word}</span>${after}`;
+            }
+          });
+        }
+
+        // 3. 应用句子高亮并开始朗读
+        clearSentenceHighlight();
+        const currentSentenceElement = document.querySelector(`.sentence[data-index="${currentIndex}"]`);
+        if (currentSentenceElement) {
+          currentSentenceElement.classList.add('highlight-sentence');
+        }
+
+        utterance.text = arr[currentIndex];
+        window.speechSynthesis.speak(utterance);
+      }
+      
+      // 4. 清除高亮效果的辅助函数
+      function clearSentenceHighlight() {
+        document.querySelectorAll('.sentence').forEach(el => {
+          el.classList.remove('highlight-sentence');
+        });
+      }
+
+      function clearWordHighlight() {
+        const currentSentenceElement = document.querySelector(`.sentence[data-index="${currentIndex}"]`);
+        if (currentSentenceElement) {
+          // 移除所有高亮单词的标签，恢复原始文本
+          currentSentenceElement.innerHTML = arr[currentIndex];
+        }
+      }
+
+      // 5. 绑定按钮点击事件
+      startBtn.addEventListener('click', () => {
+        if (window.speechSynthesis.speaking) {
+          window.speechSynthesis.cancel();
+        }
+        currentIndex = 0;
+        speakText();
+      });
+
+      // 页面加载时生成文本
+      renderText();
+
+    } else {
+      document.body.innerHTML = '<h1>抱歉，你的浏览器不支持 Web Speech API。</h1>';
+    }
+  </script>
+
+</body>
+</html>
