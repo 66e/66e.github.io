@@ -134,7 +134,7 @@ const visualizeOutlet = ( unitIn ) => {
 }
 
 const parsePassage = ( txtIn ) => {
-    const regExp = /(?<=[\n\r!,?。！，？])/i;
+    const regExp = /(?<=[\n\r!?。！？])/i;
     const sentenceS = txtIn.split( regExp );
     return sentenceS;
 }
@@ -226,28 +226,37 @@ const artiCULate = ( arrSchedule, voxIdx, vol ) => {
     }
     renderText ();
 
-    const utter = ( currentIndex ) => {
+    const utterRecursive = ( currentIndex ) => {
         utterance.text = arrSchedule [ currentIndex ] || arrSchedule;
         speechSynthesis.speak( utterance );
     }
 
     switch ( true ) {
         case typeof arrSchedule === "string" :
-            utter ();
+            utterRecursive ();
             break;
         case Array.isArray( arrSchedule ) :
             let currentIndex = 0;
 
             utterance.addEventListener("end", () => {
+                // 清除高亮并准备朗读下一个句子
+                const currentSentenceElement = document.querySelector(`.sentence[data-index="${currentIndex}"]`);
+                if (currentSentenceElement) {
+                    currentSentenceElement.classList.remove('highlight-sentence');
+                    // 恢复原始文本节点
+                    currentSentenceElement.textContent = arrSchedule[currentIndex]; 
+                }
+
                 currentIndex++
                 if ( currentIndex < arrSchedule.length ) {
-                    recurUtter ();
+                    utterRecursive ( currentIndex );
                 }
             });
 
             utterance.addEventListener("boundary", ( { charIndex, charLength } ) => {
                 const currentSentenceElement = document.querySelector(`.sentence[data-index="${currentIndex}"]`);
             if (currentSentenceElement) {
+                currentSentenceElement.classList.add('highlight-sentence');
               // 获取当前句子的文本内容
               const text = arrSchedule [ currentIndex ];
               const before = text.substring(0, charIndex);
@@ -275,11 +284,7 @@ const artiCULate = ( arrSchedule, voxIdx, vol ) => {
             }
             });
 
-            const recurUtter = ( ) => {
-                utter ( currentIndex );
-            }
-
-            recurUtter ( );
+            utterRecursive ( currentIndex );
             break;
     }
 }

@@ -226,14 +226,14 @@
     }
     renderText();
 
-    const utter = (currentIndex) => {
+    const utterRecursive = (currentIndex) => {
       utterance.text = arrSchedule[currentIndex] || arrSchedule;
       speechSynthesis.speak(utterance);
     }
 
     switch (true) {
       case typeof arrSchedule === "string":
-        utter();
+        utterRecursive ();
         break;
       case Array.isArray(arrSchedule):
         let currentIndex = 0;
@@ -248,13 +248,14 @@
           }
           currentIndex++
           if (currentIndex < arrSchedule.length) {
-            recurUtter();
+            utterRecursive (currentIndex);
           }
         });
 
         utterance.addEventListener("boundary", ({ charIndex, charLength }) => {
           const currentSentenceElement = document.querySelector(`.sentence[data-index="${currentIndex}"]`);
           if (currentSentenceElement) {
+            currentSentenceElement.classList.add('highlight-sentence');
             // 获取当前句子的文本内容
             const text = arrSchedule[currentIndex];
             const before = text.substring(0, charIndex);
@@ -281,18 +282,8 @@
             currentSentenceElement.appendChild(fragment);
           }
         });
-        clearSentenceHighlight();
-        const currentSentenceElement = document.querySelector(`.sentence[data-index="${currentIndex}"]`);
-        if (currentSentenceElement) {
-          currentSentenceElement.classList.add('highlight-sentence');
-          // 确保每次开始新句子时，都恢复原始文本
-          currentSentenceElement.textContent = arrSchedule[currentIndex];
-        }
-        const recurUtter = () => {
-          utter(currentIndex);
-        }
-
-        recurUtter();
+        
+        utterRecursive (currentIndex);
         break;
     }
     function clearSentenceHighlight() {
