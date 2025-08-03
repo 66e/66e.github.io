@@ -182,9 +182,7 @@ const visualizeComponentS = () => {
     const newWin = document.createElement("button");
     newWin.addEventListener("click", () => {
         const array = parsePassage ( textarea.value );
-        const unit = visualizeCluster ( array );
         artiCULate ( array );
-        toggleMount ( unit );
     });
     newWin.textContent = "newWin";
 
@@ -211,9 +209,13 @@ const artiCULate = ( arrSchedule, voxIdx, vol ) => {
     const voices = synthGetVoices ( );
     const voiceSelect = document.querySelector("select#voiceSSel");
     utterance.voice = voices[ voxIdx || voiceSelect.value ];
+    const textContainer = document.querySelector("div#outLet");
 
     const renderText = () => {
         textContainer.innerHTML = "";
+        if ( ! Array.isArray( arrSchedule ) ) {
+            arrSchedule = [ arrSchedule ];
+        }
         arrSchedule.forEach(( sentence, index ) => {
             const sentenceElement = document.createElement("span");
             sentenceElement.classList.add("sentence");
@@ -222,6 +224,7 @@ const artiCULate = ( arrSchedule, voxIdx, vol ) => {
             textContainer.appendChild( sentenceElement );
         });
     }
+    renderText ();
 
     const utter = ( currentIndex ) => {
         utterance.text = arrSchedule [ currentIndex ] || arrSchedule;
@@ -234,11 +237,42 @@ const artiCULate = ( arrSchedule, voxIdx, vol ) => {
             break;
         case Array.isArray( arrSchedule ) :
             let currentIndex = 0;
+
             utterance.addEventListener("end", () => {
                 currentIndex++
                 if ( currentIndex < arrSchedule.length ) {
                     recurUtter ();
                 }
+            });
+
+            utterance.addEventListener("boundary", ( { charIndex, charLength } ) => {
+                const currentSentenceElement = document.querySelector(`.sentence[data-index="${currentIndex}"]`);
+            if (currentSentenceElement) {
+              // 获取当前句子的文本内容
+              const text = arrSchedule [ currentIndex ];
+              const before = text.substring(0, charIndex);
+              const word = text.substring(charIndex, charIndex + charLength);
+              const after = text.substring(charIndex + charLength);
+              
+              // 创建一个文档片段来优化性能
+              const fragment = document.createDocumentFragment();
+
+              // 创建并追加三个文本节点或元素
+              if (before) {
+                fragment.appendChild(document.createTextNode(before));
+              }
+              const wordSpan = document.createElement('span');
+              wordSpan.classList.add('highlight-word');
+              wordSpan.textContent = word;
+              fragment.appendChild(wordSpan);
+              if (after) {
+                fragment.appendChild(document.createTextNode(after));
+              }
+
+              // 清空旧内容并一次性插入新内容
+              currentSentenceElement.innerHTML = ""; // 或者使用 while(currentSentenceElement.firstChild) { ... }
+              currentSentenceElement.appendChild(fragment);
+            }
             });
 
             const recurUtter = ( ) => {
