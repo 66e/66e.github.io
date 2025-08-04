@@ -182,9 +182,7 @@ const visualizeComponentS = () => {
     const newWin = document.createElement("button");
     newWin.addEventListener("click", () => {
         const array = parsePassage ( textarea.value );
-        const unit = visualizeCluster ( array );
         artiCULate ( array );
-        toggleMount ( unit );
     });
     newWin.textContent = "newWin";
 
@@ -206,48 +204,124 @@ const synthGetVoices = () => {
     return voices;
 }
 
-const artiCULate = ( arrSchedule, voxIdx, vol ) => {
-    const utterance = new SpeechSynthesisUtterance();
-    const voices = synthGetVoices ( );
-    const voiceSelect = document.querySelector("select#voiceSSel");
-    utterance.voice = voices[ voxIdx || voiceSelect.value ];
-    const utter = ( currentIndex ) => {
-        utterance.text = arrSchedule [ currentIndex ] || arrSchedule;
-        speechSynthesis.speak( utterance );
-    }
+const renderText = (arr) => {
+  textContainer.innerHTML = "";
+  if (!Array.isArray(arr)) {
+    arr = [arr];
+  }
+  arr.forEach((sentence, index) => {
+    const sentenceElement = document.createElement("span");
+    sentenceElement.classList.add("sentence");
+    sentenceElement.textContent = sentence;
+    sentenceElement.dataset.index = index;
+    textContainer.appendChild(sentenceElement);
+  });
+};
 
-    switch ( true ) {
-        case typeof arrSchedule === "string" :
-            utter ();
-            break;
-        case Array.isArray( arrSchedule ) :
-            let currentIndex = 0;
-            utterance.addEventListener("end", () => {
-                currentIndex++
-                if ( currentIndex < arrSchedule.length ) {
-                    recurUtter ();
-                }
-            });
+const utterRecursive = ( index, voxIdx, vol ) => {
+  // 确保在朗读开始时才应用句子高亮
+  const currentSentenceElement = document.querySelector(`.sentence[data-index="${index}"]`);
+  if (currentSentenceElement) {
+    currentSentenceElement.classList.add('highlight-sentence');
+  }
+  
+  utterance.text = currentArrSchedule[index];
+  const voices = synthGetVoices ( );
+  const voiceSelect = document.querySelector("select#voiceSSel");
+  utterance.voice = voices[ voxIdx || voiceSelect.value ];
+  window.speechSynthesis.speak(utterance);
+};
 
-            const recurUtter = ( ) => {
-                utter ( currentIndex );
-            }
+const artiCULate = ( arrSchedule ) => {
+    // 停止之前的朗读
+    window.speechSynthesis.cancel();
 
-            recurUtter ( );
-            break;
-    }
+    // 更新状态
+    currentArrSchedule = Array.isArray(arrSchedule) ? arrSchedule : [arrSchedule];
+    currentIndex = 0;
+
+    // 重新渲染DOM
+    renderText(currentArrSchedule);
+
+    // 开始朗读
+    utterRecursive(currentIndex);
+}
+
+const styleCssInject = () => {
+    const style = document.createElement("style");
+    style.textContent = `
+.highlight-sentence {
+  background-color: yellow;
+  transition: background-color 0.3s ease;
+}
+
+.highlight-word {
+  color: red;
+  font-weight: bold;
+}`;
+    document.body.appendChild( style );
 }
 
 const processWorkflow = () => {
     const jsPanel = matrixRetrieve ( "jsPanel" );
     const componentS = visualizeComponentS ();
     secuReFerShell ( jsPanel, componentS, "dashBoard" );
-    secuReFerShell ( jsPanel, 0, "outLet" );
+    secuReFerShell ( jsPanel, textContainer, "outLet" );
     const targetElem = componentS.querySelector("select#voiceSSel"); // asynchronous processing
     initializeVoiceSC ( targetElem );
+    styleCssInject ();
 }
 
+const textContainer = document.createElement("div");
+textContainer.id = "textContainer";
 processWorkflow ();
+
+const utterance = new SpeechSynthesisUtterance();
+let currentIndex = 0;
+let currentArrSchedule = [];
+
+// 只添加一次监听器，避免重复
+utterance.addEventListener("end", () => {
+  // 清除上一个句子的所有高亮
+  const prevSentenceElement = document.querySelector(`.sentence[data-index="${currentIndex}"]`);
+  if (prevSentenceElement) {
+    prevSentenceElement.classList.remove('highlight-sentence');
+    prevSentenceElement.textContent = currentArrSchedule[currentIndex];
+  }
+
+  currentIndex++;
+  if (currentIndex < currentArrSchedule.length) {
+    utterRecursive(currentIndex);
+  } else {
+    // 朗读完毕后重置状态
+    currentIndex = 0;
+  }
+});
+
+utterance.addEventListener("boundary", ({ charIndex, charLength }) => {
+  const currentSentenceElement = document.querySelector(`.sentence[data-index="${currentIndex}"]`);
+  if (currentSentenceElement) {
+    const text = currentArrSchedule[currentIndex];
+    const before = text.substring(0, charIndex);
+    const word = text.substring(charIndex, charIndex + charLength);
+    const after = text.substring(charIndex + charLength);
+    
+    const fragment = document.createDocumentFragment();
+    if (before) {
+      fragment.appendChild(document.createTextNode(before));
+    }
+    const wordSpan = document.createElement('span');
+    wordSpan.classList.add('highlight-word');
+    wordSpan.textContent = word;
+    fragment.appendChild(wordSpan);
+    if (after) {
+      fragment.appendChild(document.createTextNode(after));
+    }
+
+    currentSentenceElement.innerHTML = '';
+    currentSentenceElement.appendChild(fragment);
+  }
+});
 
     // Your code here...
 })();
