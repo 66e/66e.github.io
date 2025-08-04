@@ -13,160 +13,160 @@
 // ==/UserScript==
 
 (() => {
-  'use strict';
+    'use strict';
 
-  const createWindow = (elem, param) => {
+const createWindow = ( elem, param ) => {
     const div = document.createElement("div");
     div.id = param;
     const oWin = new Object();
-    oWin.callback = (panel) => panel.content.appendChild(div);
+    oWin.callback = (panel) => panel.content.appendChild( div );
     oWin.opacity = .9;
     oWin.theme = "primary";
 
-    switch (param) {
-      case undefined:
-        oWin.contentSize = "400 250";
-        const identify = Date.now().toString(36);
-        oWin.headerTitle = identify;
-        oWin.id = identify;
-        oWin.position = "right-top -10 125";
-        break;
-      case "dashBoard":
-        oWin.contentSize = "450 250";
-        oWin.headerTitle = param;
-        oWin.id = param;
-        oWin.position = "right-bottom -10 -10";
-        break;
+    switch ( param ) {
+        case undefined:
+            oWin.contentSize = "400 250";
+            const identify = Date.now().toString( 36 );
+            oWin.headerTitle = identify;
+            oWin.id = identify;
+            oWin.position = "right-top -10 125";
+            break;
+        case "dashBoard":
+            oWin.contentSize = "450 250";
+            oWin.headerTitle = param;
+            oWin.id = param;
+            oWin.position = "right-bottom -10 -10";
+            break;
     }
-    jsPanel.create(oWin);
-    if (elem) {
-      div.appendChild(elem);
+    jsPanel.create( oWin );
+    if ( elem ) {
+        div.appendChild( elem );
     }
-  }
+}
 
-  const matrixRetrieve = (branch) => {
+const matrixRetrieve = ( branch ) => {
     const oM = new Object();
     oM.jsPanel = new Object();
     oM.jsPanel.existing = typeof jsPanel;
     oM.jsPanel.scheduled = "object"; // `jsPanel` in window
     oM.jsPanel.referS = [
-      "https://jspanel.de/jspanel/dist/jspanel.min.css",
-      "https://jspanel.de/jspanel/dist/jspanel.min.js",
+        "https://jspanel.de/jspanel/dist/jspanel.min.css",
+        "https://jspanel.de/jspanel/dist/jspanel.min.js",
     ];
-    oM.jsPanel.method = (elem, param) => {
-      createWindow(elem, param);
+    oM.jsPanel.method = ( elem, param ) => {
+        createWindow ( elem, param );
     };
-    return oM[branch];
-  }
+    return oM [ branch ];
+}
 
-  const createByExtens = (urlFile, fileExtens) => {
-    switch (fileExtens) {
-      case '.css':
-        const linkRefer = document.createElement('link');
-        linkRefer.href = urlFile;
-        linkRefer.setAttribute('rel', 'stylesheet');
-        return linkRefer;
-      case '.js':
-      case '.md':
-        const scriptRefer = document.createElement('script');
-        scriptRefer.src = urlFile;
-        return scriptRefer;
-      default:
-        console.log(fileExtens);
-        break;
+const createByExtens = ( urlFile, fileExtens ) => {
+    switch ( fileExtens ) {
+        case '.css':
+            const linkRefer = document.createElement('link');
+            linkRefer.href = urlFile;
+            linkRefer.setAttribute('rel', 'stylesheet');
+            return linkRefer;
+        case '.js':
+        case '.md':
+            const scriptRefer = document.createElement('script');
+            scriptRefer.src = urlFile;
+            return scriptRefer;
+        default:
+            console.log(fileExtens);
+            break;
     }
-  }
+}
 
-  const appendRefer = (referUrl) => {
+const appendRefer = ( referUrl ) => {
     const fileExtension = referUrl.match(/\.[^/.]+$/);
-    const referElem = createByExtens(referUrl, fileExtension[0]);
+    const referElem = createByExtens( referUrl, fileExtension[0] );
     const fileName = referUrl.match(/[^\/=\b]+(?=\.[^\/.]*$)/)[0];
-    referElem.id = fileName.replace(/\./g, '_')
-      + fileExtension[0].replace(/\./g, '_');
+    referElem.id = fileName.replace(/\./g,'_')
+    + fileExtension[0].replace(/\./g,'_');
     return referElem;
-  }
+}
 
-  const secuReFerShell = (referObj, targetElem, param) => {
-    if (referObj.existing === referObj.scheduled) {
-      referObj.method(targetElem, param);
+const secuReFerShell = ( referObj, targetElem, param ) => {
+    if ( referObj.existing === referObj.scheduled ) {
+        referObj.method( targetElem, param );
     } else {
-      const urlS = referObj.referS;
-      const exeCuTable = /(_JS\.md|\.js)$/i;
-      urlS.forEach((url) => {
-        const tag = appendRefer(url);
-        if (exeCuTable.test(url)) {
-          tag.addEventListener("load", () => {
-            referObj.method(targetElem, param);
-          });
-        }
-        document.body.appendChild(tag);
-      });
+        const urlS = referObj.referS;
+        const exeCuTable = /(_JS\.md|\.js)$/i;
+        urlS.forEach(( url ) => {
+            const tag = appendRefer ( url );
+            if ( exeCuTable.test(url) ) {
+                tag.addEventListener("load", () => {
+                    referObj.method( targetElem, param );
+                });
+            }
+            document.body.appendChild(tag);
+        });
     }
-  }
+}
 
-  const initializeVoiceSC = (elem) => {
+const initializeVoiceSC = ( elem ) => {
     const mLingual_r = /Multilingual /i;
     const rLang = /zh-/i;
     speechSynthesis.addEventListener("voiceschanged", () => {
-      const voices = synthGetVoices();
-      const arrayEmpty = new Array();
-      if (elem.length < 1) {
-        for (const [i, voice] of voices.entries()) {
-          const condition = mLingual_r.test(voice.name)
-            || rLang.test(voice.lang);
-          if (condition) {
-            arrayEmpty.push(voice);
-            const option = document.createElement("option");
-            option.textContent = `[${i}]【${voice.lang}】${voice.name}`;
-            option.value = i;
-            elem.appendChild(option);
-          }
+        const voices = synthGetVoices ();
+        const arrayEmpty = new Array();
+        if ( elem.length < 1 ) {
+            for (const [i, voice] of voices.entries()) {
+                const condition = mLingual_r.test( voice.name )
+                || rLang.test( voice.lang );
+                if ( condition ) {
+                    arrayEmpty.push( voice );
+                    const option = document.createElement("option");
+                    option.textContent = `[${ i }]【${ voice.lang }】${ voice.name }`;
+                    option.value = i;
+                    elem.appendChild( option );
+                }
+            }
         }
-      }
     });
-  }
+}
 
-  const visualizeOutlet = (unitIn) => {
-    const jsPanel = matrixRetrieve("jsPanel");
+const visualizeOutlet = ( unitIn ) => {
+    const jsPanel = matrixRetrieve ( "jsPanel" );
     const div = document.createElement("div");
-    div.appendChild(unitIn);
-    secuReFerShell(jsPanel, div, "outLet");
-  }
+    div.appendChild( unitIn );
+    secuReFerShell ( jsPanel, div, "outLet" );
+}
 
-  const parsePassage = (txtIn) => {
-    const regExp = /(?<=[\n\r!,?。！，？])/i;
-    const sentenceS = txtIn.split(regExp);
+const parsePassage = ( txtIn ) => {
+    const regExp = /(?<=[\n\r!?。！？])/i;
+    const sentenceS = txtIn.split( regExp );
     return sentenceS;
-  }
+}
 
-  const toggleMount = (content) => {
+const toggleMount = ( content ) => {
     const elem = document.querySelector("div#outLet");
-    if (elem) {
-      elem.appendChild(content);
+    if ( elem ) {
+        elem.appendChild( content );
     } else {
-      visualizeOutlet(content);
+        visualizeOutlet ( content );
     }
-  }
+}
 
-  const visualizeCluster = (arr) => {
+const visualizeCluster = ( arr ) => {
     const div = document.createElement("div");
-    arr.forEach((elem) => {
-      const pTag = document.createElement("p");
-      pTag.textContent = elem;
-      div.appendChild(pTag);
+    arr.forEach(( elem ) => {
+        const pTag = document.createElement("p");
+        pTag.textContent = elem;
+        div.appendChild( pTag );
     });
     return div;
-  }
+}
 
-  const visualizeComponentS = () => {
+const visualizeComponentS = () => {
     const textarea = document.createElement("textarea");
     textarea.addEventListener("dblclick", () => {
-      textarea.value = "";
+        textarea.value = "";
     });
     textarea.addEventListener("paste", () => {
-      setTimeout(() => {
-        artIculate(textarea.value);
-      }, 1);
+        setTimeout(() => {
+            artIculate ( textarea.value );
+        }, 1);
     });
     textarea.cols = "50";
     textarea.rows = "10";
@@ -175,125 +175,125 @@
 
     const button = document.createElement("button");
     button.addEventListener("click", () => {
-      artiCULate(textarea.value);
+        artiCULate ( textarea.value );
     });
     button.textContent = "button";
 
     const newWin = document.createElement("button");
     newWin.addEventListener("click", () => {
-      const array = parsePassage(textarea.value);
-      artiCULate(array);
+        const array = parsePassage ( textarea.value );
+        artiCULate ( array );
     });
     newWin.textContent = "newWin";
 
     const select = document.createElement("select");
     select.id = "voiceSSel";
     select.addEventListener("change", () => {
-      artiCULate(textarea.value, select.value);
+        artiCULate ( textarea.value, select.value );
     });
     const container = document.createElement("div");
-    container.appendChild(textarea);
-    container.appendChild(button);
-    container.appendChild(newWin);
-    container.appendChild(select);
+    container.appendChild( textarea );
+    container.appendChild( button );
+    container.appendChild( newWin );
+    container.appendChild( select );
     return container;
-  }
+}
 
-  const synthGetVoices = () => {
+const synthGetVoices = () => {
     const voices = speechSynthesis.getVoices();
     return voices;
+}
+
+// 将共享的状态和实例定义在函数外部，实现单例模式
+const textContainer = document.querySelector("div#outLet");
+const utterance = new SpeechSynthesisUtterance();
+let currentIndex = 0;
+let currentArrSchedule = [];
+
+// 只添加一次监听器，避免重复
+utterance.addEventListener("end", () => {
+  // 清除上一个句子的所有高亮
+  const prevSentenceElement = document.querySelector(`.sentence[data-index="${currentIndex}"]`);
+  if (prevSentenceElement) {
+    prevSentenceElement.classList.remove('highlight-sentence');
+    prevSentenceElement.textContent = currentArrSchedule[currentIndex];
   }
 
-  const artiCULate = (arrSchedule, voxIdx, vol) => {
-    const utterance = new SpeechSynthesisUtterance();
-    const voices = synthGetVoices();
-    const voiceSelect = document.querySelector("select#voiceSSel");
-    utterance.voice = voices[voxIdx || voiceSelect.value];
-    const textContainer = document.querySelector("div#outLet");
-
-    const renderText = () => {
-      textContainer.innerHTML = "";
-      if (!Array.isArray(arrSchedule)) {
-        arrSchedule = [arrSchedule];
-      }
-      arrSchedule.forEach((sentence, index) => {
-        const sentenceElement = document.createElement("span");
-        sentenceElement.classList.add("sentence");
-        sentenceElement.textContent = sentence;
-        sentenceElement.dataset.index = index;
-        textContainer.appendChild(sentenceElement);
-      });
-    }
-    renderText();
-
-    const utterRecursive = (currentIndex) => {
-      utterance.text = arrSchedule[currentIndex] || arrSchedule;
-      speechSynthesis.speak(utterance);
-    }
-
-    switch (true) {
-      case typeof arrSchedule === "string":
-        utterRecursive ();
-        break;
-      case Array.isArray(arrSchedule):
-        let currentIndex = 0;
-
-        utterance.addEventListener("end", () => {
-          // 清除高亮并准备朗读下一个句子
-          const currentSentenceElement = document.querySelector(`.sentence[data-index="${currentIndex}"]`);
-          if (currentSentenceElement) {
-            currentSentenceElement.classList.remove('highlight-sentence');
-            // 恢复原始文本节点
-            currentSentenceElement.textContent = arrSchedule[currentIndex];
-          }
-          currentIndex++
-          if (currentIndex < arrSchedule.length) {
-            utterRecursive (currentIndex);
-          }
-        });
-
-        utterance.addEventListener("boundary", ({ charIndex, charLength }) => {
-          const currentSentenceElement = document.querySelector(`.sentence[data-index="${currentIndex}"]`);
-          if (currentSentenceElement) {
-            currentSentenceElement.classList.add('highlight-sentence');
-            // 获取当前句子的文本内容
-            const text = arrSchedule[currentIndex];
-            const before = text.substring(0, charIndex);
-            const word = text.substring(charIndex, charIndex + charLength);
-            const after = text.substring(charIndex + charLength);
-
-            // 创建一个文档片段来优化性能
-            const fragment = document.createDocumentFragment();
-
-            // 创建并追加三个文本节点或元素
-            if (before) {
-              fragment.appendChild(document.createTextNode(before));
-            }
-            const wordSpan = document.createElement('span');
-            wordSpan.classList.add('highlight-word');
-            wordSpan.textContent = word;
-            fragment.appendChild(wordSpan);
-            if (after) {
-              fragment.appendChild(document.createTextNode(after));
-            }
-
-            // 清空旧内容并一次性插入新内容
-            currentSentenceElement.innerHTML = ""; // 或者使用 while(currentSentenceElement.firstChild) { ... }
-            currentSentenceElement.appendChild(fragment);
-          }
-        });
-        
-        utterRecursive (currentIndex);
-        break;
-    }
-    function clearSentenceHighlight() {
-      document.querySelectorAll('.sentence').forEach(el => {
-        el.classList.remove('highlight-sentence');
-      });
-    }
+  currentIndex++;
+  if (currentIndex < currentArrSchedule.length) {
+    utterRecursive(currentIndex);
+  } else {
+    // 朗读完毕后重置状态
+    currentIndex = 0;
   }
+});
 
-  const styleCssInject = () => {
+utterance.addEventListener("boundary", ({ charIndex, charLength }) => {
+  const currentSentenceElement = document.querySelector(`.sentence[data-index="${currentIndex}"]`);
+  if (currentSentenceElement) {
+    const text = currentArrSchedule[currentIndex];
+    const before = text.substring(0, charIndex);
+    const word = text.substring(charIndex, charIndex + charLength);
+    const after = text.substring(charIndex + charLength);
+    
+    const fragment = document.createDocumentFragment();
+    if (before) {
+      fragment.appendChild(document.createTextNode(before));
+    }
+    const wordSpan = document.createElement('span');
+    wordSpan.classList.add('highlight-word');
+    wordSpan.textContent = word;
+    fragment.appendChild(wordSpan);
+    if (after) {
+      fragment.appendChild(document.createTextNode(after));
+    }
+
+    currentSentenceElement.innerHTML = '';
+    currentSentenceElement.appendChild(fragment);
+  }
+});
+
+const renderText = (arr) => {
+  textContainer.innerHTML = "";
+  if (!Array.isArray(arr)) {
+    arr = [arr];
+  }
+  arr.forEach((sentence, index) => {
+    const sentenceElement = document.createElement("span");
+    sentenceElement.classList.add("sentence");
+    sentenceElement.textContent = sentence;
+    sentenceElement.dataset.index = index;
+    textContainer.appendChild(sentenceElement);
+  });
+};
+
+const utterRecursive = (index) => {
+  // 确保在朗读开始时才应用句子高亮
+  const currentSentenceElement = document.querySelector(`.sentence[data-index="${index}"]`);
+  if (currentSentenceElement) {
+    currentSentenceElement.classList.add('highlight-sentence');
+  }
+  
+  utterance.text = currentArrSchedule[index];
+  window.speechSynthesis.speak(utterance);
+};
+
+const artiCULate = ( arrSchedule, voxIdx, vol ) => {
+    // 停止之前的朗读
+    window.speechSynthesis.cancel();
+
+    // 更新状态
+    currentArrSchedule = Array.isArray(arrSchedule) ? arrSchedule : [arrSchedule];
+    currentIndex = 0;
+
+    // 重新渲染DOM
+    renderText(currentArrSchedule);
+
+    // 开始朗读
+    utterRecursive(currentIndex);
+}
+
+const styleCssInject = () => {
     const style = document.createElement("style");
     style.textContent = `
 .highlight-sentence {
@@ -305,22 +305,22 @@
   color: red;
   font-weight: bold;
 }`;
-    document.body.appendChild(style);
-  }
+    document.body.appendChild( style );
+}
 
-  const processWorkflow = () => {
-    const jsPanel = matrixRetrieve("jsPanel");
-    const componentS = visualizeComponentS();
-    secuReFerShell(jsPanel, componentS, "dashBoard");
-    secuReFerShell(jsPanel, 0, "outLet");
+const processWorkflow = () => {
+    const jsPanel = matrixRetrieve ( "jsPanel" );
+    const componentS = visualizeComponentS ();
+    secuReFerShell ( jsPanel, componentS, "dashBoard" );
+    secuReFerShell ( jsPanel, 0, "outLet" );
     const targetElem = componentS.querySelector("select#voiceSSel"); // asynchronous processing
-    initializeVoiceSC(targetElem);
-    styleCssInject();
-  }
+    initializeVoiceSC ( targetElem );
+    styleCssInject ();
+}
 
-  processWorkflow();
+processWorkflow ();
 
-  // Your code here...
+    // Your code here...
 })();
 
 /*
