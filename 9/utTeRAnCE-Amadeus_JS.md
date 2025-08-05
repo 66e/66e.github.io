@@ -175,7 +175,7 @@ const visualizeComponentS = () => {
 
     const button = document.createElement("button");
     button.addEventListener("click", () => {
-        artiCULate ( textarea.value );
+        styleCssInject ();
     });
     button.textContent = "button";
 
@@ -204,89 +204,80 @@ const synthGetVoices = () => {
     return voices;
 }
 
-const artiCULate = ( arrSchedule, voxIdx, vol ) => {
-    const utterance = new SpeechSynthesisUtterance();
-    const voices = synthGetVoices ( );
-    const voiceSelect = document.querySelector("select#voiceSSel");
-    utterance.voice = voices[ voxIdx || voiceSelect.value ];
-    const textContainer = document.querySelector("div#outLet");
-
-    const renderText = () => {
+const renderText = ( arr ) => {
+    // 仅在非 iframe 模式下才清空和重新生成 DOM
+    if (!isIframeMode) {
         textContainer.innerHTML = "";
-        if ( ! Array.isArray( arrSchedule ) ) {
-            arrSchedule = [ arrSchedule ];
-        }
-        arrSchedule.forEach(( sentence, index ) => {
+        arr.forEach((sentence, index) => {
             const sentenceElement = document.createElement("span");
             sentenceElement.classList.add("sentence");
             sentenceElement.textContent = sentence;
             sentenceElement.dataset.index = index;
-            textContainer.appendChild( sentenceElement );
+            textContainer.appendChild(sentenceElement);
+        });
+    } else {
+        // 在 iframe 模式下，直接修改页面上的 P 元素
+        pTagsInIframe.forEach((elem, index) => {
+            elem.dataset.index = index;
+            elem.classList.remove('highlight-sentence'); // 清除旧高亮
+            elem.textContent = currentArrSchedule[index]; // 恢复为纯文本
         });
     }
-    renderText ();
+}
 
-    const utterRecursive = ( currentIndex ) => {
-        utterance.text = arrSchedule [ currentIndex ] || arrSchedule;
-        speechSynthesis.speak( utterance );
+// 辅助函数：根据模式查找元素
+const findElementByIndex = ( index ) => {
+    if ( isIframeMode ) {
+        return pTagsInIframe [ index ];
+    } else {
+        const el = document.querySelector( `.sentence[data-index="${index}"]` );
+        return el;
+    }
+    
+}
+
+const utterRecursive = ( index, voxIdx, vol ) => {
+    const currentSentenceElement = findElementByIndex(index);
+
+    if (currentSentenceElement) {
+        currentSentenceElement.classList.add('highlight-sentence');
     }
 
-    switch ( true ) {
-        case typeof arrSchedule === "string" :
-            utterRecursive ();
-            break;
-        case Array.isArray( arrSchedule ) :
-            let currentIndex = 0;
+    utterance.text = currentArrSchedule[index];
+    window.speechSynthesis.speak(utterance);
+}
 
-            utterance.addEventListener("end", () => {
-                // 清除高亮并准备朗读下一个句子
-                const currentSentenceElement = document.querySelector(`.sentence[data-index="${currentIndex}"]`);
-                if (currentSentenceElement) {
-                    currentSentenceElement.classList.remove('highlight-sentence');
-                    // 恢复原始文本节点
-                    currentSentenceElement.textContent = arrSchedule[currentIndex]; 
-                }
+const artiCULate = ( arrSchedule, voxIdx, vol ) => {
+    window.speechSynthesis.cancel();
 
-                currentIndex++
-                if ( currentIndex < arrSchedule.length ) {
-                    utterRecursive ( currentIndex );
-                }
-            });
+    // 1. 检查URL，决定是否进入iframe模式
+    const iframeSelector = "div.epub-view>iframe";
+    if (window.location.href.includes("https://alist-org.github.io/static/epub.js/viewer.html")) {
+        try {
+            const iframe = document.querySelector(iframeSelector);
+            if (iframe && iframe.contentDocument) {
+                const pTags = iframe.contentDocument.querySelectorAll("div>h4, p");
+                pTagsInIframe = Array.from(pTags); // 将 NodeList 转换为数组
 
-            utterance.addEventListener("boundary", ( { charIndex, charLength } ) => {
-                const currentSentenceElement = document.querySelector(`.sentence[data-index="${currentIndex}"]`);
-            if (currentSentenceElement) {
-                currentSentenceElement.classList.add('highlight-sentence');
-              // 获取当前句子的文本内容
-              const text = arrSchedule [ currentIndex ];
-              const before = text.substring(0, charIndex);
-              const word = text.substring(charIndex, charIndex + charLength);
-              const after = text.substring(charIndex + charLength);
-              
-              // 创建一个文档片段来优化性能
-              const fragment = document.createDocumentFragment();
-
-              // 创建并追加三个文本节点或元素
-              if (before) {
-                fragment.appendChild(document.createTextNode(before));
-              }
-              const wordSpan = document.createElement('span');
-              wordSpan.classList.add('highlight-word');
-              wordSpan.textContent = word;
-              fragment.appendChild(wordSpan);
-              if (after) {
-                fragment.appendChild(document.createTextNode(after));
-              }
-
-              // 清空旧内容并一次性插入新内容
-              currentSentenceElement.innerHTML = ""; // 或者使用 while(currentSentenceElement.firstChild) { ... }
-              currentSentenceElement.appendChild(fragment);
+                const array = pTagsInIframe.map(elem => elem.textContent);
+                currentArrSchedule = array;
+                isIframeMode = true;
+            } else {
+                throw new Error("Iframe not found or content not accessible.");
             }
-            });
-
-            utterRecursive ( currentIndex );
-            break;
+        } catch (e) {
+            console.error("无法访问iframe内容，可能是跨域或元素不存在。", e);
+            currentArrSchedule = Array.isArray(arrSchedule) ? arrSchedule : [arrSchedule];
+            isIframeMode = false;
+        }
+    } else {
+        currentArrSchedule = Array.isArray(arrSchedule) ? arrSchedule : [arrSchedule];
+        isIframeMode = false;
     }
+
+    currentIndex = 0;
+    renderText(currentArrSchedule);
+    utterRecursive(currentIndex);
 }
 
 const styleCssInject = () => {
@@ -301,20 +292,79 @@ const styleCssInject = () => {
   color: red;
   font-weight: bold;
 }`;
-    document.body.appendChild( style );
+    const iframe = document.querySelector("div.epub-view>iframe");
+    if ( iframe && iframe.contentDocument ) {
+        iframe.contentDocument.body.appendChild( style );
+    } else {
+        document.body.appendChild( style );
+    }
 }
 
 const processWorkflow = () => {
     const jsPanel = matrixRetrieve ( "jsPanel" );
     const componentS = visualizeComponentS ();
     secuReFerShell ( jsPanel, componentS, "dashBoard" );
-    secuReFerShell ( jsPanel, 0, "outLet" );
+    secuReFerShell ( jsPanel, textContainer, "outLet" );
     const targetElem = componentS.querySelector("select#voiceSSel"); // asynchronous processing
     initializeVoiceSC ( targetElem );
     styleCssInject ();
 }
 
+const textContainer = document.createElement("div");
+textContainer.id = "textContainer";
+
 processWorkflow ();
+
+const utterance = new SpeechSynthesisUtterance();
+let currentIndex = 0;
+let currentArrSchedule = [];
+let isIframeMode = false; // 用于跟踪当前是否处于 iframe 模式
+let pTagsInIframe = []; // 新增：用于存储 iframe 中的 p 元素
+
+utterance.addEventListener("end", () => {
+    // 清除上一个句子的所有高亮
+    const prevSentenceElement = findElementByIndex(currentIndex);
+    if (prevSentenceElement) {
+        prevSentenceElement.classList.remove('highlight-sentence');
+        // 恢复原始文本内容
+        prevSentenceElement.textContent = currentArrSchedule[currentIndex];
+    }
+
+    currentIndex++;
+    if (currentIndex < currentArrSchedule.length) {
+        utterRecursive(currentIndex);
+    } else {
+        currentIndex = 0; // 朗读完毕后重置状态
+        isIframeMode = false; // 重置模式
+    }
+});
+
+utterance.addEventListener("boundary", ( { charIndex, charLength } ) => {
+    const currentSentenceElement = findElementByIndex(currentIndex);
+
+    if (currentSentenceElement) {
+        const text = currentArrSchedule[currentIndex];
+        const before = text.substring(0, charIndex);
+        const word = text.substring(charIndex, charIndex + charLength);
+        const after = text.substring(charIndex + charLength);
+
+        const fragment = document.createDocumentFragment();
+        if (before) {
+            fragment.appendChild(document.createTextNode(before));
+        }
+        const wordSpan = document.createElement('span');
+        wordSpan.classList.add('highlight-word');
+        wordSpan.textContent = word;
+        fragment.appendChild(wordSpan);
+        if (after) {
+            fragment.appendChild(document.createTextNode(after));
+        }
+
+        // 清空旧内容并一次性插入新内容
+        currentSentenceElement.innerHTML = '';
+        currentSentenceElement.appendChild(fragment);
+    }
+});
 
     // Your code here...
 })();
