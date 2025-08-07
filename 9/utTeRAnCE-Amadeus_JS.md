@@ -3,7 +3,7 @@
 */
 
 // ==UserScript==
-// @name        utTeRAnCE_0729
+// @name        utTeRAnCE_0807-0
 // @namespace   Violentmonkey Scripts
 // @match       *://*/*
 // @grant       none
@@ -175,7 +175,7 @@ const visualizeComponentS = () => {
 
     const button = document.createElement("button");
     button.addEventListener("click", () => {
-        styleCssInject ();
+        artiCULate ( textarea.value );
     });
     button.textContent = "button";
 
@@ -183,8 +183,15 @@ const visualizeComponentS = () => {
     newWin.addEventListener("click", () => {
         const array = parsePassage ( textarea.value );
         artiCULate ( array );
+        styleCssInject ();
     });
     newWin.textContent = "newWin";
+
+    const btnCancel = document.createElement("button");
+    btnCancel.addEventListener("click", () => {
+        window.speechSynthesis.cancel();
+    });
+    btnCancel.textContent = "cancel";
 
     const select = document.createElement("select");
     select.id = "voiceSSel";
@@ -195,13 +202,9 @@ const visualizeComponentS = () => {
     container.appendChild( textarea );
     container.appendChild( button );
     container.appendChild( newWin );
+    container.appendChild( btnCancel );
     container.appendChild( select );
     return container;
-}
-
-const synthGetVoices = () => {
-    const voices = speechSynthesis.getVoices();
-    return voices;
 }
 
 const renderText = ( arr ) => {
@@ -233,21 +236,30 @@ const findElementByIndex = ( index ) => {
         const el = document.querySelector( `.sentence[data-index="${index}"]` );
         return el;
     }
-    
 }
 
 const utterRecursive = ( index, voxIdx, vol ) => {
     const currentSentenceElement = findElementByIndex(index);
 
     if (currentSentenceElement) {
+        // 确保在朗读开始时才应用句子高亮
         currentSentenceElement.classList.add('highlight-sentence');
     }
 
-    utterance.text = currentArrSchedule[index];
-    window.speechSynthesis.speak(utterance);
+    // 关键改动：设置语音
+    if ( voices.length > 0 ) {
+        // 从 voxIdx 数组中获取当前语音的索引
+        const voiceIdx = voxIdx[currentVoiceIndex % voxIdx.length];
+        utterance.voice = voices[voiceIdx];
+        // 更新语音索引，以便下一次朗读使用不同的语音
+        currentVoiceIndex++;
+    }
+
+    utterance.text = currentArrSchedule [ index ];
+    window.speechSynthesis.speak( utterance );
 }
 
-const artiCULate = ( arrSchedule, voxIdx, vol ) => {
+const artiCULate = ( arrSchedule ) => {
     window.speechSynthesis.cancel();
 
     // 1. 检查URL，决定是否进入iframe模式
@@ -275,8 +287,36 @@ const artiCULate = ( arrSchedule, voxIdx, vol ) => {
         isIframeMode = false;
     }
 
+    // 新增：事件委托逻辑
+    const startReadingFromClick = (event) => {
+        let clickedElement = event.target;
+        // 确保点击的是 h4 或 p 元素
+        if ( clickedElement.tagName === "H4" || clickedElement.tagName === "P" || clickedElement.tagName === "SPAN" ) {
+            const index = parseInt(clickedElement.dataset.index, 10);
+            if (!isNaN(index)) {
+                currentIndex = index;
+                window.speechSynthesis.cancel();
+                utterRecursive(currentIndex);
+            }
+        }
+    };
+
+    if (isIframeMode) {
+        const iframeDoc = document.querySelector("div.epub-view>iframe").contentDocument;
+        const divInIframe = document.querySelector("div");
+        const pInDiv = document.querySelector("p");
+        if ( iframeDoc && divInIframe && pInDiv ) {
+            divInIframe.addEventListener('click', startReadingFromClick);
+        }
+    } else {
+        // 非iframe模式下，监听主容器
+        textContainer.addEventListener('click', startReadingFromClick);
+    }
+
     currentIndex = 0;
+    // 重新渲染DOM
     renderText(currentArrSchedule);
+    // 开始朗读
     utterRecursive(currentIndex);
 }
 
@@ -341,7 +381,6 @@ utterance.addEventListener("end", () => {
 
 utterance.addEventListener("boundary", ( { charIndex, charLength } ) => {
     const currentSentenceElement = findElementByIndex(currentIndex);
-
     if (currentSentenceElement) {
         const text = currentArrSchedule[currentIndex];
         const before = text.substring(0, charIndex);
