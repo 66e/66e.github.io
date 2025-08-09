@@ -3,7 +3,7 @@
 */
 
 // ==UserScript==
-// @name        utTeRAnCE_0807-0
+// @name        utTeRAnCE_0807-2
 // @namespace   Violentmonkey Scripts
 // @match       *://*/*
 // @grant       none
@@ -238,7 +238,7 @@ const findElementByIndex = ( index ) => {
     }
 }
 
-const utterRecursive = ( index, voxIdx, vol ) => {
+const utterRecursive = ( index, vol ) => {
     const currentSentenceElement = findElementByIndex(index);
 
     if (currentSentenceElement) {
@@ -303,8 +303,8 @@ const artiCULate = ( arrSchedule ) => {
 
     if (isIframeMode) {
         const iframeDoc = document.querySelector("div.epub-view>iframe").contentDocument;
-        const divInIframe = document.querySelector("div");
-        const pInDiv = document.querySelector("p");
+        const divInIframe = iframeDoc.querySelector("div");
+        const pInDiv = divInIframe.querySelector("p");
         if ( iframeDoc && divInIframe && pInDiv ) {
             divInIframe.addEventListener('click', startReadingFromClick);
         }
@@ -360,7 +360,16 @@ let currentIndex = 0;
 let currentArrSchedule = [];
 let isIframeMode = false; // 用于跟踪当前是否处于 iframe 模式
 let pTagsInIframe = []; // 新增：用于存储 iframe 中的 p 元素
+const synthGetVoices = () => speechSynthesis.getVoices();
+let voices = [];
+const voxIdx = [139, 61, 152];
+let currentVoiceIndex = 0; // 新增：当前语音在 voxIdx 中的索引
 
+window.speechSynthesis.addEventListener("voiceschanged", () => {
+    voices = synthGetVoices();
+});
+
+// 只添加一次监听器，避免重复
 utterance.addEventListener("end", () => {
     // 清除上一个句子的所有高亮
     const prevSentenceElement = findElementByIndex(currentIndex);
