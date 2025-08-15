@@ -204,11 +204,17 @@ const loadLibrary = async (libraryName, ...args) => {
 };
 
 const createNav = () => {
+    const page = document.createElement("div");
+    page.id = "page";
+    const header = document.createElement("div");
+    header.id = "header";
+    const aTag = document.createElement("a");
+    aTag.href = "#menu";
+    header.appendChild(aTag);
+    page.appendChild(header);
     const nav = document.createElement("nav");
     nav.id = "menu";
-    const div = document.createElement("div");
-    div.id = "panel-menu";
-    nav.appendChild(div);
+    document.body.appendChild(page);
     document.body.appendChild( nav );
 }
 
