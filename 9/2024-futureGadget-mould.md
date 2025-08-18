@@ -1,17 +1,6 @@
 /*
 ```js
 */
-console.log(1 === "");
-/*
-```
-*/
-
-
-
-// ---
-/*
-```js
-*/
 
 const value = func ();
 const c = typeof undefined;
@@ -35,6 +24,7 @@ if (a > 0) {
     
 }
 
+1 === ""
  && NaN
  || null
 
@@ -102,5 +92,34 @@ let l = '';
 var v = `${c} 小于 ${l}`;
 
 /*
+```
+*/
+
+
+
+/*
+```js
+*/
+console.log('it works!');
+/*
+```
+*/
+
+
+/*
+```js
+/**/
+console.log('it works!');
+/*
+```
+/**/
+
+
+
+/*/*
+```js
+*/
+console.log('it works!');
+/*/*
 ```
 */
