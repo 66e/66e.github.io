@@ -1,8 +1,8 @@
 ## 　
 ```tip
 ```
-**G-Cache**{:.h3}<br>
-<https://www.lanzoui.com/b844443>
+**goofyPlay**{:.h3}<br>
+<https://www.lanzoui.com/b844444>
 
 **劳斯莱斯Lossless**{:.h3}<br>
 <https://lanzoui.com/b823333>
@@ -64,8 +64,6 @@ md使用Html注释，JS注释之后的代码无效。
 
 {% include list.liquid all=true %}
 ```
-
-{{ page.content }}
 ```tip
 3D粒子螺旋线条动效
 ```
