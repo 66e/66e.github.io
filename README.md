@@ -56,6 +56,9 @@ md使用Html注释，JS注释之后的代码无效。
 一级目录(Test)MD文件名可包含表情或汉字。
 
 #### Alternative Kabbalah
+
+{{ number_of_words }}
+
 {% include list.liquid all=true %}
 
 ```
@@ -68,5 +71,3 @@ md使用Html注释，JS注释之后的代码无效。
 3D粒子螺旋线条动效
 ```
 <iframe width="100%" height="815px" id="iframe" src="https://www.17sucai.com/preview/1424582/2019-11-27/poc/index.html" frameborder="0"></iframe>
-
-{{ number_of_words }}
