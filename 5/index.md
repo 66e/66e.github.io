@@ -1,0 +1,994 @@
+
+<div class = "CardSuite"><pre>
+
+Be My Ghost - Push N' Glide - 单曲 - 网易云音乐
+https://music.163.com/song?id=1922363959
+
+2023-07-17_14-55-35
+</pre></div>
+
+<div class = "CardSuite"><pre>
+
+武家坡2021（薛平贵与王宝钏） - 龍猛寺寬度 - 单曲 - 网易云音乐
+https://music.163.com/#/song?id=1891431677
+
+2023-05-10_11-28-28
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3
+Yuri on ICE（冰上的尤里） - 梅林太郎 - 单曲 - 网易云音乐
+https://music.163.com/song?id=441835088
+
+冰上的尤里
+
+2023-4-23_9-28-37
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&oiil=
+▶ ble（without u）
+https://music.163.com/#/song?id=1856531775
+
+问君思忆：求你了，看到这里就别再往下翻了吧，赶紧去学习吧，别忘了你听这首曲子的初心是什么
+478赞
+　锦暮_：谢谢
+　Yangyy圈圈：谢谢你，正复习教资呢
+　终究逃不过十七：谢谢您
+
+2023-3-7_14-33-38
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&oiil=
+A Walk in the Park (feat. Jessica Greenfield) - Essa/Jessica Greenfield - 单曲 - 网易云音乐
+https://music.163.com/song?id=1428383952
+
+2023-2-21_11-34-44
+
+苦茶子
+https://music.163.com/#/song?id=1922888354&autoplay=0
+
+http://p1.music.126.net/VjXYNoGC3lXajZDs0r35XQ==/109951167852652412.jpg?param=130y130
+再说几句
+我们可能没有以后
+怒气把我们撕开不用彼此忍受
+
+2023-2-24_21-21-6
+Starling8 / MoreLearn 27 / FIVESTAR
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&oiil=
+南極洲 - 太陽無限 - 单曲 - 网易云音乐
+https://music.163.com/song?id=1962870503
+
+2023-2-28_14-38-13
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&oiil=
+没说出口的爱
+https://music.163.com/#/song?id=1989168930
+
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=2&oiil=0
+Memories - TRA$H - 单曲 - 网易云音乐
+https://music.163.com/song?id=517566417
+
+2023-3-14_15-1-0
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&oiil=
+OoOoO（气泡） - KokonAngel/田由甲/Die-OverXYC - 单曲 - 网易云音乐
+https://music.163.com/song?id=1491825646
+
+2023-3-14_14-47-55
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&oiil=
+cozy winter. - missingdisapear - 单曲 - 网易云音乐
+https://music.163.com/song?id=1810792032
+
+2023-3-14_14-52-29
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&oiil=
+虛 度 光 陰 vol.2 - Seto/bbbluelee/DryJo/田由甲/周大发/Die-OverXYC/G H C/CHILLVIBE 丘稗/pink dream/missingdisapear/亼仌/Lionzed/nevva/Yzz/10keys beats/發條/OuYoung/SheldonLeeee/Slitmy7/ADG/LEON - 单曲 - 网易云音乐
+https://music.163.com/song?id=1867990515
+
+亼仌：“女人会离开你，但音乐不会” ——发条
+
+2023-3-14_14-54-43
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&oiil=
+So Low - CPRCRN/CORBAL/Shiloh Dynasty - 单曲 - 网易云音乐
+https://music.163.com/song?id=2017217006
+
+2023-3-17_14-25-52
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=2&oiil=OriginalOrderInQueue
+フリージア（小苍兰） - Uru - 单曲 - 网易云音乐
+https://music.163.com/#/song?id=459925524
+
+2023-3-7_13-16-38
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&oiil=
+Night Cruising - 牛尾憲輔 - 单曲 - 网易云音乐
+https://music.163.com/song?id=1987948211
+
+2023-3-21_14-11-33
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&oiil=
+逆流（off vocal) - MoreanP - 单曲 - 网易云音乐
+https://music.163.com/song?id=1472925714
+
+訓屿：人在哭的时候大脑会分泌内啡肽，以减少你的痛苦，
+这相当于你的大脑，在轻轻的拍着你的背说：
+“没事的，一切都会好起来。”
+
+2023-4-4_11-37-46
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=2&oiil=
+StarRingChild（OVA「機動戦士ガンダムUC」ED7テーマ） - Aimer - 单曲 - 网易云音乐
+https://music.163.com/song?id=29460631
+
+Starringchild_YZ9R：我不明白，我不明白为什么要有这么多高达的粉丝相互攻击，相互指责，将自己划进某个范围，将高达世界分成一块块领土。UC、铁血、seed、00、w、age和武斗传等等，它们都曾在某一些瞬间让我们或感动、或热血沸腾、或为剧情而悲伤。
+
+立花泷SKY：高达用四十年告诉人互相理解，然而高达粉丝诠释了人们不可能互相理解[多多笑哭]
+
+落羽星辰1708：有些人提到独角兽就是踢出“uc籍”好像踩一脚独角兽很有优越感一样
+
+2023-4-6_18-8-12
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&z=OriginalOrderInQueue
+虚 度 光 陰 Vol.1 - SheldonLeeee/missingdisapear/CHILLVIBE 丘稗/亼仌/Yzz/10keys beats/DryJo/Die-OverXYC/G H C/周大发/發條/OuYoung - 单曲 - 网易云音乐
+https://music.163.com/song?id=1439464004
+
+GHC___：这是首贤者时间专用音乐，贤者时间这个词来自于日语，叫做：贤者タイム/Kenja Time，又称“贤者模式”或者“圣人模式”。大脑在某件事件过后产生的空洞感。
+
+2023-3-14_14-51-32
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&oiil=OriginalOrderInQueue
+Rendezvous - Craig David - 单曲 - 网易云音乐
+https://music.163.com/song?id=463145160
+
+2023-3-29_22-43-36
+</pre></div>
+
+<meting-js
+fixed = "0"
+	server="netease"
+	type="playlist"
+	id="4885272746">
+</meting-js>
+
+<div class = "CardSuite"><pre>
+6//?r=2&ooiq=2
+it's 6pm but I miss u already. - bbbluelee/Furyl/Siren - 单曲 - 网易云音乐
+https://music.163.com/#/song?id=1890756154
+
+2023-4-2_14-21-1
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=2&ooiq=
+LIVE（绽放） - bbbluelee/Siren/KIMWAITT - 单曲 - 网易云音乐
+https://music.163.com/song?id=2028884303
+
+2023-3-15_14-28-25
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=1&ooiq=OriginalOrderInQueue
+Free Sad New Wave Type Beat - "My mind"-EVO MUSIC
+https://music.163.com/#/song?id=1830722771&autoplay=0
+
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=2&ooiq=
+Free Sad Piano Type Beat - "Zombie" - EVO MUSIC/Siren/ZS beatz/Furyl/4_Chords - 单曲 - 网易云音乐
+https://music.163.com/song?id=1883441017
+
+2023-3-15_14-28-49
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=4
+seasons - cherrymint - 单曲 - 网易云音乐
+https://music.163.com/#/song?id=2003655675
+
+螺旋扇贝：好好听，有种在云间漫步的感jio
+
+2023-2-28_14-34-22
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=17
+Silhouette - Caxias Lu - 单曲 - 网易云音乐
+https://music.163.com/song?id=1977795374
+
+2023-3-1_10-19-22
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=18
+6 - furino - 单曲 - 网易云音乐
+https://music.163.com/song?id=500324098
+
+2023-3-14_14-36-18
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=29
+Over the sea - 星晴keylion - 单曲 - 网易云音乐
+https://music.163.com/song?id=1917818795
+
+星晴keylion：有人如果想拿这个拍vlog！私我！我拍不出，可是我好想看！
+
+2023-3-14_15-6-21
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=2&ooiq=37
+L I L I T H - 金桔0RANG3/Siren - 单曲 - 网易云音乐
+https://music.163.com/song?id=1437993230
+
+2023-3-17_14-9-23
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=0
+D Ξ L U Γ I Ø Ν - 金桔0RANG3 - 单曲 - 网易云音乐
+https://music.163.com/song?id=1421806452
+
+2023-3-15_14-24-41
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=2&ooiq=42
+unlimited - Jordan Maxwell - 单曲 - 网易云音乐
+https://music.163.com/song?id=484311413
+
+2023-3-17_14-26-28
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=49
+Tidal Wave（海浪） - bbbluelee - 单曲 - 网易云音乐
+https://music.163.com/song?id=1450274466
+
+BbblueLee：大家帮忙用云贝推推歌好嘛 这首歌虽然很粗糙 但是我有很多情绪做在了里面 希望能被更多人听到啊 实在很麻烦大家鸭
+6422赞
+
+2023-3-7_14-8-10
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=2&ooiq=51
+☾ - UM/NeonNeko/小师Yun - 单曲 - 网易云音乐
+https://music.163.com/song?id=1838374258
+
+兰月朔：注销账号的人们，是孤独了吗？我有一个特异功能( ・ิω・ิ)，
+就是我可以把我的眉毛摘下来，
+( ・ิω・)ノิ摘下，
+( ・ิω・ิ)安上， ( ・ω・ิ)ノิ又摘下，
+( ・ิω・ิ)再安上，
+╰ิ( ・ω・)ノิ2边都摘下，
+( ・ิω・ิ)嘿嘿，厉害吧！ 现在有没有开心一丢丢。没有的话，我的眉毛会难过的#喜提热评#
+
+2023-3-17_14-50-14
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=2&ooiq=52
+ｓａｇｉｔｔａｒｉｕｓ - Stevieboi - 单曲 - 网易云音乐
+https://music.163.com/song?id=1448290785
+
+Luminey_：今天也不是什么好人
+凌晨才睡
+早上赖床
+上课睡觉
+作业没写
+课后只玩
+没有复习
+没有预习
+什么都没
+拖拖拉拉
+日复一日
+又是糟糕的一天
+想必明天也一样……
+
+2023-3-17_14-54-57
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=55
+静 - UM/Krzto - 单曲 - 网易云音乐
+https://music.163.com/song?id=1818846136
+
+2023-3-17_15-7-17
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=63
+情 绪 售 卖 铺 - MEGA - 单曲 - 网易云音乐
+https://music.163.com/#/song?id=1821098098
+
+MEGA
+
+2023-3-22_14-28-2
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=87
+When It Rains - KUSIV - 单曲 - 网易云音乐
+https://music.163.com/song?id=1443473690
+
+KUSIV
+
+2023-3-23_14-41-50
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=97
+summer's day [version 2] - jinsang - 单曲 - 网易云音乐
+https://music.163.com/song?id=41631191
+
+蓝蓝璐教主：“我只能送你到这里了，剩下的路你要自己走，不要回头。” —《千与千寻》
+
+2023-3-24_14-13-31
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=100
+Once You've Met Someone, You Never Really Forget Them - Moments With You - 单曲 - 网易云音乐
+https://music.163.com/song?id=454224758
+
+孑瓜犭虫白勺犭苗
+
+2023-3-24_14-16-55
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=2&ooiq=102
+nop（lofi version） - 陈越龙 - 单曲 - 网易云音乐
+https://music.163.com/song?id=1427724472
+
+糕糕玖：某天，你无端想起了一个人，他曾让你对明天有所期许，但是却完全没有出现在你的明天里。 ——《再见金华站》
+
+2023-3-24_14-32-12
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=106
+2020.5.30:( 我 該 學 會 接 受 現 實 嗎 - WayMen歪门/Yzz - 单曲 - 网易云音乐
+https://music.163.com/song?id=1452033031
+
+2023-3-24_15-12-39
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=122
+Are You Lost（你迷失了吗） - park bird - 单曲 - 网易云音乐
+https://music.163.com/song?id=518894020
+
+takemelikeapill：本以为心中的小鹿都已经死了 高考看考场 又看到了那个 活了十九年唯一能入我眼的男生 原来我的小鹿只是睡着了 又起来乱撞了 =)
+　某个小张呢：心中的小鹿好像已经苍老了，遇见一个心动的人 它就叼着烟问我“就这样?” 不撞不撞 ，但是最终会有一天它掐灭了烟，叹口气跟它说，“看好咯 最后撞一次 就这个了啊”
+
+2023-3-25_10-6-38
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=128
+Aruarian Dance - Nujabes - 单曲 - 网易云音乐
+https://music.163.com/song?id=4909215
+
+2023-3-24_20-26-47
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=132
+hello there - Sophie Meiers/engelwood/simon eng - 单曲 - 网易云音乐
+https://music.163.com/song?id=479979816
+
+2023-3-25_10-49-38
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=136
+so far away - elijah who - 单曲 - 网易云音乐
+https://music.163.com/#/song?id=509098557
+
+elijah who
+
+2023-3-25_11-4-10
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=137
+reminisce - aqualina - 单曲 - 网易云音乐
+https://music.163.com/song?id=524913181
+
+aqualina
+
+2023-3-25_11-4-44
+</pre></div>
+
+<div class = "CardSuite"><pre>
+6//?r=3&ooiq=OriginalOrderInQueue
+비익련리（比翼连理） - Ccotbyel - 单曲 - 网易云音乐
+https://music.163.com/song?id=5401695
+
+Ccotbyel
+
+2023-3-25_11-21-11
+</pre></div>
+
+<div class = "CardSuite"><pre>
+
+Lofi hiphop • 沉浸在惬意学习时光里 - 歌单 - 网易云音乐
+https://music.163.com/playlist?id=4885272746
+
+2023-2-28_14-44-33
+</pre></div>
+
+<!--6//?r=🛑&　=　-->
+<select id = 'prefixKit'>
+  <option value = ''>00-No Assistor</option>
+  <option value = 'https://collect34.longsunhd.com/source/plugin/yzs1013_pldr/getimg.php?url='>01-Longsunhd-DummyUrl</option>
+  <option value = 'https://slack-imgs.com/?url='>11-Slack-Secure</option>
+  <option value = 'https://pic1.xuehuaimg.com/proxy/'>12-xuehua-Almost</option>
+  <option value = 'https://search.pstatic.net/common?src='>13-Pstati-YouTwi</option>
+  <option selected = 'selected' value = 'https://images.weserv.nl/?url='>21-weserv-Almost</option>
+  <option value = 'https://img.noobzone.ru/getimg.php?url='>22-noobzone-Almost</option>
+  <option value = 'https://image.thum.io/get/maxAge/12/width/1200/'>41-thum-Snapshot</option>
+  <option value = 'https://thumbnail.ws/get/thumbnail/?apikey=ab45a17344aa033247137cf2d457fc39abcd7e16a464&url='>42-nail-Thumb</option>
+  <option value = ''>🍀-Failure</option>
+  <option value = 'http://theinternetpics.com/freeweb/index.php?q='>🍀-theinternetpics</option>
+  <option value = 'https://ip.webmasterapi.com/api/imageproxy/'>🍀-webmasterapi</option>
+</select>
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/5.0.0/imagesloaded.pkgd.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://fastly.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+<script type="text/javascript">
+(function(){
+  createHtml();
+})()
+let statusElem = document.querySelector('#status');
+let progressElem = document.querySelector('progress');
+let loadedImageCount, imageCount;
+PreprocessPrecast();
+
+function PreprocessPrecast() {
+  let CardSuiteS = document.querySelectorAll("div.CardSuite");
+
+  for (let i=0;i<CardSuiteS.length;i++)
+  {
+    ParseIndividual(CardSuiteS[i]);
+  }
+}
+
+function ParseIndividual(CurrentElement) {
+  let TextArElement = CurrentElement.querySelector("pre,textarea");
+  let arrayFromTextArea = TextArElement.innerHTML
+  .split(String.fromCharCode(10))
+  .filter(line => line.trim() !== "");
+
+  let AppearDiv = document.createElement("div");
+  AppearDiv.className = "DynamicAppear";
+  let DataParent = TextArElement.parentNode;
+  let TabSLegend = document.createElement("legend");
+  if(CurrentElement.querySelector("t") !== null) {
+    let AppearField = document.createElement("fieldset");
+    AppearField.appendChild(TabSLegend);
+    DataParent.insertBefore(AppearField,DataParent.childNodes[0]);
+  }
+
+  for (let i=0;i<arrayFromTextArea.length;i++)
+  {
+    AppearDiv.append(AssemblePackage(ParseCurrentUrl(arrayFromTextArea[i])[0]
+    ,ParseCurrentUrl(arrayFromTextArea[i])[1]));
+    if(CurrentElement.querySelector("t") !== null
+     && ParseCurrentUrl(arrayFromTextArea[i])[1] == 'img') {
+      let TabIndividual = AssemblePackage(ParseCurrentUrl(
+        arrayFromTextArea[i])[0],'Tab');
+        TabSLegend.appendChild(TabIndividual);
+        ImgProCgrESS(TabSLegend);
+      }
+  }
+  
+  DataParent.insertBefore(AppearDiv,DataParent.childNodes[0]);
+  ImgProCgrESS(AppearDiv);
+
+    let ElementEditable = CurrentElement.querySelector("pre");
+  if(ElementEditable !== null) {
+    ElementEditable.style.display = "none";
+    }
+}
+
+function ParseCurrentUrl(strUggRLe){
+let b6Tag = /\b6\/\/.+/i;
+let twimgR = /\bhttps?:\/\/pbs.twimg.com\/media\/([\w-]{15,})/i;
+let youtuBeR = /^https?:\/\/(?:(?:youtu\.be\/)|(?:(?:www\.)?youtube\.com\/(?:(?:watch\?(?:[^&]+&)?vi?=)|(?:vi?\/)|(?:shorts\/))))([a-zA-Z0-9_-]{11,})/i;
+let baiduR = /\bhttps?:\/\/pics\d\.baidu\.com\/feed\/[0-9A-z]+\.(?:jpe?g|gif|png).+/i;
+let bingR = /^https?:\/\/.*(cn|mm).bing.(net|com)\/th.id.(.*rik=\w+|.*ORMS.\w+|.*OIP-C.[-\w]+|\w+)/i;
+let gtimgR = /^https?:\/\/inews\.gtimg\.com\/newsapp_bt\/0\/\d*\//i;
+let imgRegEX = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])\.(?:gif|img|jpe?g|png|mp4|svg|webp)+/i;
+let music163R = /^https?:\/\/music\.163\.com\/#?\/?\w+\?id\=\d+/i;
+let urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/i;
+
+let STagCount = RetrieveVariateS("s").indexOf(strUggRLe);
+
+switch (strUggRLe) {
+  case (strUggRLe.match(b6Tag) || {}).input:
+    return [strUggRLe,'b6Tag'];
+    break;
+
+  case STagCount > -1 && (strUggRLe.match(ImgRegEX) || {}).input:
+    return [strUggRLe,'Sequence'];
+    break;
+
+  case (strUggRLe.match(twimgR) || {}).input:
+    return [strUggRLe.match(twimgR)[1],'twimgR'];
+    break;
+
+  case (strUggRLe.match(baiduR) || {}).input:
+    return [strUggRLe.replace('https', 'http'),'img'];
+    break;
+
+  case (strUggRLe.match(bingR) || {}).input:
+    return [strUggRLe.match(bingR)[0],'img'];
+    break;
+
+  case (strUggRLe.match(gtimgR) || {}).input:
+    return [strUggRLe.match(gtimgR),'img'];
+    break;
+
+  case (strUggRLe.match(imgRegEX) || {}).input:
+    return [strUggRLe.match(imgRegEX)[0],'img'];
+    break;
+
+  case (strUggRLe.match(youtuBeR) || {}).input:
+    return [strUggRLe.match(youtuBeR)[1],'youtuBeR'];
+    break;
+
+  case (strUggRLe.match(music163R) || {}).input:
+    return [strUggRLe,'meting-js'];
+    break;
+
+  case (strUggRLe.match(urlRegex) || {}).input:
+    return [strUggRLe,'a'];
+    break;
+
+  default:
+    return [strUggRLe,''];
+    break;
+  }
+}
+
+function AssemblePackage(strUggRLe,TagType){
+  switch (TagType) {
+    case 'b6Tag':
+      let iconRank = document.createElement('img');
+      let randomColor = Math.floor(Math.random()*16777215).toString(16);
+      iconRank.height = 24;
+      iconRank.src = "https://img.shields.io/badge/"
+       + ratingStar(QueryString('r', decodeHTMLContent(strUggRLe)))
+       + '-推荐度-' + randomColor;
+      return iconRank;
+    break;
+
+    case 'Tab':
+      let ImgTab = document.createElement('img');
+      ImgTab.src = strUggRLe;
+      ImgTab.onclick = function(){AddNewImages(strUggRLe
+        ,this.parentNode.parentNode.parentNode);};
+      let LiTab = document.createElement("li");
+      LiTab.className = "is-loading";
+      LiTab.appendChild(ImgTab);
+      return LiTab;
+    break;
+
+    case 'Sequence':
+      let AppearDiv = document.createElement("div");
+      AppearDiv.className = "DynamicAppear";
+      AddNewImages(strUggRLe,AppearDiv);
+      return AppearDiv;
+    break;
+
+    case 'twimgR':
+      let preFixT = document.getElementById('prefixKit').value;
+      let urlIntegrity = preFixT + 'https://pbs.twimg.com/media/' + strUggRLe +
+       '?format=jpg&name=orig';
+      return imagineFancy( urlIntegrity );
+    break;
+
+    case 'img':
+      return imagineFancy(strUggRLe);
+    break;
+
+    case 'youtuBeR':
+      let HyperLinkY = document.createElement('a');
+      HyperLinkY.href = 'https://youtu.be/' + strUggRLe;
+      HyperLinkY.innerText = 'https://youtu.be/' + strUggRLe;
+      let preFix = document.getElementById('prefixKit').value;
+      let urlIntegrit = preFix + 'https://i.ytimg.com/vi/' + strUggRLe + '/hqdefault.jpg';
+      let FancySuite = imagineFancy( urlIntegrit );
+      let urlIntegri = preFix + 'https://i.ytimg.com/vi/' + strUggRLe + '/maxresdefault.jpg';
+
+      (async () => {
+        if (await imageExists(urlIntegri)){
+          FancySuite.querySelector('li img').src = urlIntegri;
+          FancySuite.querySelector('a').href = urlIntegri;
+        }
+      })()
+
+      let FancySuiteY = document.createElement("div");
+      FancySuiteY.appendChild(HyperLinkY);
+      FancySuiteY.appendChild(FancySuite);
+      return FancySuiteY;
+    break;
+
+    case 'meting-js':
+      let hyPlayERLink = document.createElement("a");
+      hyPlayERLink.href = strUggRLe;
+      hyPlayERLink.innerText = strUggRLe;
+      let breakLine = document.createElement("br");
+      let thumbSwitch = document.createElement('img');
+      thumbSwitch.height = 64;
+      
+      fetch('https://api.i-meto.com/meting/api?type=song&id='
+       + QueryString('id', strUggRLe)).then(
+        function(u){ return u.json();}
+        ).then(
+          function(json){
+            thumbSwitch.src = json[0].pic;
+        }
+      )
+      
+      thumbSwitch.onclick = function(){switchMeting(this.parentNode, strUggRLe);};
+      let metingTag = document.createElement("div");
+      metingTag.appendChild(hyPlayERLink);
+      metingTag.appendChild(breakLine);
+      metingTag.appendChild(thumbSwitch);
+      return metingTag;
+    break;
+
+    case 'a':
+      let HyperLink = document.createElement(TagType);
+      HyperLink.href = strUggRLe;
+      HyperLink.innerText = strUggRLe;
+      return HyperLink;
+    break;
+
+    default:
+      let PureText = document.createElement("p");
+      let HoRizonDelimit = document.createElement("hr");
+      PureText.append(strUggRLe);
+      PureText.appendChild(HoRizonDelimit);
+      return PureText;
+    break;
+  }
+}
+
+function imagineFancy(url) {
+  let imgResp = document.createElement('p');
+  let img = new Image();
+  let start_time = Date.now();
+  img.src = url;
+  let check = function(){
+    let diff = Date.now() - start_time;
+    let voidBoolean = '';
+    if(img.naturalWidth>0 || img.naturalHeight>0){
+    }
+    else{
+      voidBoolean = '❌';
+      img.alt = url;
+    }
+    imgResp.innerText = voidBoolean + '🏳‍🌈' + img.naturalWidth + '📶' + img.naturalHeight
+     + '⌛' + diff;
+    clearInterval(set);
+
+  };
+  let set = setInterval(check,40);
+
+  let Li = document.createElement('li');
+  Li.className = 'is-loading';
+  Li.appendChild(img);
+  let ATag = document.createElement('a');
+  ATag.setAttribute('data-fancybox', 'gallery');
+  ATag.href = url;
+  ATag.appendChild(Li);
+  let FancySuite = document.createElement('div');
+  FancySuite.style.display = 'table-cell';
+  FancySuite.appendChild(ATag);
+  FancySuite.appendChild(imgResp);
+  return FancySuite;
+}
+
+async function imageExists(imgUrl) {
+  if (!imgUrl) {
+    return false;
+    }
+    return new Promise(res => {
+      const image = new Image();
+      image.onload = () => res(true);
+      image.onerror = () => res(false);
+      image.src = imgUrl;
+    });
+}
+
+function switchMeting(currentNode, url) {
+  let ElementE = document.querySelector('div.onePlayer');
+  ElementE.remove();
+  let metingJs = document.createElement('meting-js');
+  metingJs.setAttribute('autoplay', true);
+  metingJs.setAttribute('auto', url);
+  metingJs.setAttribute('loop', 'none');
+  let divc = document.createElement('div');
+  divc.className = 'onePlayer';
+  divc.appendChild(metingJs);
+  currentNode.appendChild(divc);
+}
+
+function QueryString(item, text){
+   foundString = text.match(new RegExp("[\?\&]" + item + "=([^\&]*)(\&?)","i"));
+   return foundString ? foundString[1] : foundString;
+}
+
+function decodeHTMLContent(htmlText) {
+  let txt = document.createElement("span");
+  txt.innerHTML = htmlText;
+  return txt.innerText;
+}
+
+function ratingStar(howMany) {
+  let resultBlank = '';
+  let resultStarS = '';
+  let blankEmoji = '🔲';
+  let starEmoji = '⭐';
+  for (let i = 0; i < howMany - 1; i++) {
+    resultBlank += blankEmoji;
+  }
+  for (let i = 0; i < 4 - howMany; i++) {
+    resultStarS += starEmoji;
+  }
+  return resultBlank + resultStarS;
+}
+
+function createHtml() {
+  let div = document.createElement('div');
+  div.id = 'status';
+  let progress = document.createElement('progress');
+  progress.max = 7;
+  progress.value = 0;
+  div.appendChild(progress);
+  document.body.appendChild(div);
+  let button = document.createElement('button');
+  button.innerHTML = 'Proces';
+  document.body.insertBefore(button, document.body.firstChild);
+
+  let divc = document.createElement('div');
+  divc.className = 'onePlayer';
+  document.body.insertBefore(divc, button.nextElementSibling);
+}
+
+function RetrieveVariateS(TagType) {
+  let SequenceS = document.querySelectorAll("div.CardSuite > pre > " + TagType);
+  switch(TagType) {
+    case "t":
+      let NSiblingData = [];
+      for (let i=0; i<SequenceS.length; i++)
+      {
+        NSiblingData[i] = SequenceS[i].nextSibling.data;
+      }
+      return NSiblingData;
+      break;
+
+    case "s":
+      let GenerateSequenceS = [];
+      for (let i=0; i<SequenceS.length; i++)
+      {
+        let PSiblingData = SequenceS[i].previousSibling.data
+      .split("\n").filter(line => line.trim() !== "");
+        GenerateSequenceS[i] = PSiblingData[PSiblingData.length-1];
+      }
+      return GenerateSequenceS;
+      break;
+    
+    default:
+      
+  }
+}
+
+function ImgProCgrESS(DynamicContainer) {
+  let imgLoad = imagesLoaded( DynamicContainer );
+  imgLoad.on( 'progress', onProgress );
+  imgLoad.on( 'always', onAlways );
+  imageCount = imgLoad.images.length;
+  resetProgress();
+  progressElem.setAttribute( 'value', 0 );
+}
+
+function AddNewImages(UrlCause,DynamicContainer) {
+  let fragment = getItemsFragment(UrlCause);
+  DynamicContainer.insertBefore( fragment, DynamicContainer.firstChild );
+  let imgLoad = imagesLoaded( DynamicContainer );
+  imgLoad.on( 'progress', onProgress );
+  imgLoad.on( 'always', onAlways );
+  imageCount = imgLoad.images.length;
+  resetProgress();
+  progressElem.setAttribute( 'value', 0 );
+}
+
+function resetProgress() {
+  statusElem.style.opacity = 1;
+  loadedImageCount = 0;
+  progressElem.setAttribute( 'max', imageCount );
+}
+
+function updateProgress( value ) {
+}
+
+// triggered after each item is loaded
+function onProgress( imgLoad, image ) {
+  // change class if the image is loaded or broken
+  image.img.parentNode.className = image.isLoaded ? '' : 'is-broken';
+  // update progress element
+  loadedImageCount++;
+  progressElem.setAttribute( 'value', loadedImageCount );
+}
+
+// hide status when done
+function onAlways() {
+  statusElem.style.opacity = 0;
+}
+
+// -----  ----- //
+
+// return doc fragment with
+function getItemsFragment(LastSrc) {
+  let FileName = LastSrc.match(/[^\/=\D]+(?=\.[^\/.]*$)/)[0]
+.match(/[]?\d*\.?\d+(?:[Ee][\+\-]?\d+)?/)[0];
+  let UrlRazor = LastSrc.split(/[^\/=\D]+(?=\.[^\/.]*$)/);
+  let fragment = document.createDocumentFragment();
+  for ( let i = 0; i < FileName; i++ ) {
+    let item = AssemblePackage(UrlRazor[0] + i + UrlRazor[1],'img');
+    fragment.appendChild( item );
+  }
+  return fragment;
+}
+</script>
+
+<style type="text/css">
+
+div.CardSuite {
+  border-width: 1px;
+  border-style: dashed;
+  border-color: #C0C0C0;
+  margin: 1px;
+  padding: 1px;
+}
+
+li img {
+  max-height: 128px;
+}
+
+div.DynamicAppear img {
+  max-height: 128px;
+}
+
+fieldset {
+  border-width: 1px;
+  border-style: dashed;
+  border-color: #1E90FF;
+  background-color:#F0F8FF;
+}
+
+legend {
+  border-width: 1px;
+  border-style: dashed;
+  border-color: #1E90FF;
+  background-color:#F0F8FF;
+}
+
+p.UrlCollapsing
+{
+  white-space:nowrap;
+  width:32em;
+  overflow:hidden;
+}
+
+p.UrlCollapsing:hover
+{
+  overflow:visible;
+}
+
+p.H2Font
+{
+  font-weight: bold;
+  font-size: 20;
+}
+
+hr {
+  height:0.1px;
+  border-width:0;
+  background-color:#1E90FF;
+  width:50%;
+  margin-left:0;
+}
+
+a li {
+  height: 140px;
+  min-width: 100px;
+  display: block;
+  float: left;
+  list-style: none;
+  margin: 0 5px 5px 0;
+  background-color: black;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+li img,
+#status {
+  -webkit-transition: opacity 0.4s;
+     -moz-transition: opacity 0.4s;
+      -ms-transition: opacity 0.4s;
+          transition: opacity 0.4s;
+}
+
+li.is-loading {
+  background-color: black;
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/loading.gif');
+}
+
+li.is-broken {
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/broken.png');
+  background-color: #be3730;
+  width: 120px;
+}
+
+li.is-loading img,
+li.is-broken img {
+  opacity: 0;
+}
+
+#status {
+  opacity: 0;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  background: hsla( 0, 0%, 0%, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 2; /* over other stuff */
+}
+</style>
