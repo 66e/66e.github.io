@@ -1,5 +1,6 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { classNames } from "../util/lang"
+import YourComponent from "./YourComponent"
 
 const ArticleTitle: QuartzComponent = ({ fileData, displayClass }: QuartzComponentProps) => {
   const title = fileData.frontmatter?.title
@@ -10,6 +11,7 @@ const ArticleTitle: QuartzComponent = ({ fileData, displayClass }: QuartzCompone
   }
 }
 
+ArticleTitle.afterDOMLoaded = YourComponent
 ArticleTitle.css = `
 .article-title {
   margin: 2rem 0 0 0;
