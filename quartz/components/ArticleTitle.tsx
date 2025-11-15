@@ -4,21 +4,11 @@ import { classNames } from "../util/lang"
 const ArticleTitle: QuartzComponent = ({ fileData, displayClass }: QuartzComponentProps) => {
   const title = fileData.frontmatter?.title
   if (title) {
-    return <button id="btn">Click me</button>
+    return <h1 class={classNames(displayClass, "article-title")}>{title}</h1>
   } else {
     return null
   }
 }
-
-ArticleTitle.afterDOMLoaded = `
-  console.log("hello from before the page loads!")
-  `
-
-ArticleTitle.afterDOMLoaded = `
-  document.getElementById('btn').onclick = () => {
-    alert('button clicked!')
-  }
-  `
 
 ArticleTitle.css = `
 .article-title {
