@@ -30,5 +30,6 @@ PageTitle.beforeDOMLoaded = `
   document.getElementById('btn').onclick = () => {
     alert('button clicked!')
   }
+  `
 
 export default (() => PageTitle) satisfies QuartzComponentConstructor
