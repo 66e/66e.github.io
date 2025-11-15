@@ -30,4 +30,13 @@ PageTitle.css = `
 }
 `
 
+  PageTitle.beforeDOMLoaded = `
+  console.log("hello from before the page loads!")
+  `
+ 
+  PageTitle.afterDOMLoaded = `
+  document.getElementById('btn').onclick = () => {
+    alert('button clicked!')
+  }
+  `
 export default (() => PageTitle) satisfies QuartzComponentConstructor
