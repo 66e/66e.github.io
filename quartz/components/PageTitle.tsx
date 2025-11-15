@@ -7,10 +7,7 @@ const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzCompo
   const title = cfg?.pageTitle ?? i18n(cfg.locale).propertyDefaults.title
   const baseDir = pathToRoot(fileData.slug!)
   return (
-    <h2 class={classNames(displayClass, "page-title")}>
-
-      <button id="btnb">Click me</button>
-    </h2>
+    <button id="btnb">Click me</button>
   )
 }
 
@@ -24,12 +21,12 @@ PageTitle.css = `
 
 PageTitle.beforeDOMLoaded = `
   console.log("hello from before the page loads!")
-  `
+`
  
-  PageTitle.afterDOMLoaded = `
-  document.getElementById('btnb').onclick = () => {
-    alert('button clicked!')
-  }
-  `
+PageTitle.afterDOMLoaded = `
+document.getElementById('btnb').onclick = () => {
+  alert('button clicked!')
+}
+`
 
 export default (() => PageTitle) satisfies QuartzComponentConstructor
