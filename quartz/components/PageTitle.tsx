@@ -9,7 +9,7 @@ const PageTitle: QuartzComponent = ({ fileData, cfg, displayClass }: QuartzCompo
   return (
     <h2 class={classNames(displayClass, "page-title")}>
       <a href={baseDir}>{title}</a>
-      <button id="btn">Click me</button>
+      <button id="btnb">Click me</button>
     </h2>
   )
 }
@@ -27,7 +27,7 @@ PageTitle.beforeDOMLoaded = `
   `
  
   PageTitle.afterDOMLoaded = `
-  document.getElementById('btn').onclick = () => {
+  document.getElementById('btnb').onclick = () => {
     alert('button clicked!')
   }
   `
