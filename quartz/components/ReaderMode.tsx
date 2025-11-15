@@ -4,6 +4,7 @@ import styles from "./styles/readermode.scss"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import { i18n } from "../i18n"
 import { classNames } from "../util/lang"
+import YourComponent from "./YourComponent"
 
 const ReaderMode: QuartzComponent = ({ displayClass, cfg }: QuartzComponentProps) => {
   return (
@@ -33,6 +34,7 @@ const ReaderMode: QuartzComponent = ({ displayClass, cfg }: QuartzComponentProps
 }
 
 ReaderMode.beforeDOMLoaded = readerModeScript
+ReaderMode.afterDOMLoaded = YourComponent
 ReaderMode.css = styles
 
 export default (() => ReaderMode) satisfies QuartzComponentConstructor
