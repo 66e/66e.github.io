@@ -82,7 +82,8 @@ An example of a component using the header font could look like this:
 
 ```tsx title="socialImage.tsx"
 export const myImage: SocialImageOptions["imageStructure"] = (...) => {
-  return <p style={{ fontFamily: fonts[0].name }}>Cool Header!</p>
+  return <p style=
+  >Cool Header!</p>
 }
 ```
 
@@ -170,62 +171,24 @@ export const customImage: SocialImageOptions["imageStructure"] = (
   const { colorScheme } = userOpts
   return (
     <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        height: "100%",
-        width: "100%",
-      }}
+
     >
       <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100%",
-          width: "100%",
-          backgroundColor: cfg.theme.colors[colorScheme].light,
-          flexDirection: "column",
-          gap: "2.5rem",
-          paddingTop: "2rem",
-          paddingBottom: "2rem",
-        }}
+
       >
         <p
-          style={{
-            color: cfg.theme.colors[colorScheme].dark,
-            fontSize: useSmallerFont ? 70 : 82,
-            marginLeft: "4rem",
-            textAlign: "center",
-            marginRight: "4rem",
-            fontFamily: fonts[0].name,
-          }}
+
         >
           {title}
         </p>
         <p
-          style={{
-            color: cfg.theme.colors[colorScheme].dark,
-            fontSize: 44,
-            marginLeft: "8rem",
-            marginRight: "8rem",
-            lineClamp: 3,
-            fontFamily: fonts[1].name,
-          }}
+
         >
           {description}
         </p>
       </div>
       <div
-        style={{
-          height: "100%",
-          width: "2vw",
-          position: "absolute",
-          backgroundColor: cfg.theme.colors[colorScheme].tertiary,
-          opacity: 0.85,
-        }}
+
       />
     </div>
   )
@@ -263,28 +226,10 @@ export const og: SocialImageOptions["Component"] = (
 
     >
       <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: "radial-gradient(circle at center, transparent, rgba(0, 0, 0, 0.4) 70%)",
-        }}
+
       />
       <div
-        style={{
-          display: "flex",
-          height: "100%",
-          width: "100%",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "flex-start",
-          gap: "1.5rem",
-          paddingTop: "4rem",
-          paddingBottom: "4rem",
-          marginLeft: "4rem",
-        }}
+
       >
         <img
           src={`"https://${cfg.baseUrl}/static/icon.jpeg"`}
@@ -292,31 +237,15 @@ export const og: SocialImageOptions["Component"] = (
           width={80}
         />
         <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            textAlign: "left",
-            fontFamily: fonts[0].name,
-          }}
+
         >
           <h2
-            style={{
-              color: cfg.theme.colors[colorScheme].light,
-              fontSize: "3rem",
-              fontWeight: 700,
-              marginRight: "4rem",
-              fontFamily: fonts[0].name,
-            }}
+
           >
             {title}
           </h2>
           <ul
-            style={{
-              color: cfg.theme.colors[colorScheme].gray,
-              gap: "1rem",
-              fontSize: "1.5rem",
-              fontFamily: fonts[1].name,
-            }}
+
           >
             {Li.map((item, index) => {
               if (item) {
@@ -326,18 +255,7 @@ export const og: SocialImageOptions["Component"] = (
           </ul>
         </div>
         <p
-          style={{
-            color: cfg.theme.colors[colorScheme].light,
-            fontSize: "1.5rem",
-            overflow: "hidden",
-            marginRight: "8rem",
-            textOverflow: "ellipsis",
-            display: "-webkit-box",
-            WebkitLineClamp: 7,
-            WebkitBoxOrient: "vertical",
-            lineClamp: 7,
-            fontFamily: fonts[1].name,
-          }}
+
         >
           {description}
         </p>
