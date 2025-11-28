@@ -284,6 +284,16 @@ document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
 
     mobileExplorer.classList.remove("hide-until-loaded")
   }
+
+  const obTags = document.querySelector("ul.tags > li > a.tag-link")
+  if (obTags instanceof HTMLAnchorElement && obTags.textContent === "6/runjs") {
+    const giscusScript = document.createElement("script")
+    giscusScript.src = `https://66e.github.io/${currentSlug}.js`
+    const articPH = document.querySelector("article.popover-hint")
+    if (articPH) {
+      articPH.appendChild(giscusScript)
+    }
+  }
 })
 
 window.addEventListener("resize", function () {
