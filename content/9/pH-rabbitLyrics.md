@@ -1,2 +1,1 @@
 #6/runjs
-<script src="https://66e.github.io/9/pH-rabbitLyrics_JS.md"></script>
