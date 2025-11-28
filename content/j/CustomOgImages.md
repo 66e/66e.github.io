@@ -260,16 +260,7 @@ export const og: SocialImageOptions["Component"] = (
 ```ts
   return (
     <div
-      style="{" + "{"
-        position: "relative",
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "flex-start",
-        height: "100%",
-        width: "100%",
-        backgroundImage: `url("https://${cfg.baseUrl}/static/og-image.jpeg")`,
-        backgroundSize: "100% 100%",
-      "}" + "}"
+
     >
       <div
         style={{
@@ -297,11 +288,7 @@ export const og: SocialImageOptions["Component"] = (
       >
         <img
           src={`"https://${cfg.baseUrl}/static/icon.jpeg"`}
-          style={{
-            position: "relative",
-            backgroundClip: "border-box",
-            borderRadius: "6rem",
-          }}
+
           width={80}
         />
         <div
