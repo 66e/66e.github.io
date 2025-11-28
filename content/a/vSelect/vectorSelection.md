@@ -1,0 +1,1 @@
+<script src="https://66e.github.io/a/vSelect/vectorSelection_JS.md"></script>

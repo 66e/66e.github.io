@@ -1,0 +1,1 @@
+<script src="https://66e.github.io/j/rabbitLyrics-js.md"></script>

@@ -1,0 +1,174 @@
+<button id="downloadBtn">下载并播放音频</button>
+  <audio id="audio" controls style="margin: 10px 0;">您的浏览器不支持 audio 元素。</audio>
+  <div id="loadingOverlay">音频正在加载中...</div>
+
+  <div style="display: flex;">
+    <div>
+      <p>波形图</p>
+      <canvas id="waveform" width="200" height="200"></canvas> <!-- 波形图 -->
+    </div>
+    <div>
+      <p>频谱图</p>
+      <canvas id="spectrum" width="200" height="200"></canvas> <!-- 频谱图 -->
+    </div>
+  </div>
+
+<style>
+/* 设置页面样式 */
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: #fff;
+      background-color: #000;
+    }
+
+    /* 加载覆盖层的样式 */
+    #loadingOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      z-index: 1000;
+      display: none;
+      /* 初始隐藏 */
+    }
+
+    /* 设置canvas样式 */
+    canvas {
+      width: 200px;
+      /* 波形图和频谱图的宽度 */
+      height: 200px;
+      /* 波形图和频谱图的高度 */
+      background: rgba(255, 255, 255, 0.1);
+      /* 背景色 */
+      border: 1px solid #fff;
+      /* 边框颜色 */
+    }
+</style>
+
+<script>
+let audioContext; // 音频上下文
+    let analyser; // 分析器
+    let dataArray; // 用于存储音频数据的数组
+    let audioElement; // 音频元素
+
+    // 监听按钮点击事件
+    document.getElementById('downloadBtn').addEventListener('click', () => {
+      
+    });
+
+    // 初始化音频可视化
+    function initAudioVisualization () {
+      audioContext = new (window.AudioContext || window.webkitAudioContext)(); // 创建音频上下文
+      analyser = audioContext.createAnalyser(); // 创建分析器
+      const source = audioContext.createMediaElementSource(audioElement); // 创建音频源
+      source.connect(analyser); // 连接源到分析器
+      analyser.connect(audioContext.destination); // 连接分析器到音频输出
+
+      analyser.fftSize = 2048; // 设置FFT大小
+      const bufferLength = analyser.frequencyBinCount; // 获取频率数据的数量
+      dataArray = new Uint8Array(bufferLength); // 创建数组存储音频数据
+
+      // 开始可视化
+      drawWaveform();
+      drawSpectrum();
+    }
+
+    // 绘制波形图
+    function drawWaveform () {
+      const canvas = document.getElementById('waveform');
+      const canvasCtx = canvas.getContext('2d'); // 获取canvas上下文
+
+      function draw () {
+        requestAnimationFrame(draw); // 请求下一帧绘制
+        analyser.getByteTimeDomainData(dataArray); // 获取时间域数据
+
+        canvasCtx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // 填充颜色
+        canvasCtx.fillRect(0, 0, canvas.width, canvas.height); // 清空画布
+        canvasCtx.lineWidth = 2; // 线宽
+        canvasCtx.strokeStyle = '#fff'; // 线条颜色
+        canvasCtx.beginPath();
+
+        const sliceWidth = canvas.width / dataArray.length; // 计算每个slice的宽度
+        let x = 0;
+
+        // 绘制波形
+        for (let i = 0; i < dataArray.length; i++) {
+          const v = dataArray[i] / 128.0; // 归一化
+          const y = (v * canvas.height) / 2; // 计算Y坐标
+          if (i === 0) {
+            canvasCtx.moveTo(x, y); // 移动到起始点
+          } else {
+            canvasCtx.lineTo(x, y); // 连接到下一个点
+          }
+          x += sliceWidth; // 更新X坐标
+        }
+        canvasCtx.lineTo(canvas.width, canvas.height / 2); // 连接到画布底部
+        canvasCtx.stroke(); // 绘制线条
+      }
+
+      draw();
+    }
+
+    // 绘制频谱图
+    function drawSpectrum () {
+      const canvas = document.getElementById('spectrum');
+      const canvasCtx = canvas.getContext('2d'); // 获取canvas上下文
+
+      function draw () {
+        requestAnimationFrame(draw); // 请求下一帧绘制
+        analyser.getByteFrequencyData(dataArray); // 获取频率数据
+
+        canvasCtx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // 填充颜色
+        canvasCtx.fillRect(0, 0, canvas.width, canvas.height); // 清空画布
+        const barWidth = (canvas.width / dataArray.length) * 2.5; // 计算每个条形的宽度
+        let barHeight;
+        let x = 0;
+
+        // 绘制频谱条形
+        for (let i = 0; i < dataArray.length; i++) {
+          barHeight = dataArray[i]; // 获取每个条形的高度
+          canvasCtx.fillStyle = `rgb(${barHeight + 100},50,50)`; // 设置条形颜色
+          canvasCtx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight / 2); // 绘制条形
+          x += barWidth + 1; // 更新X坐标
+        }
+      }
+
+      draw();
+    }
+
+const audioAnalyser = () => {
+    const loadingOverlay = document.getElementById('loadingOverlay');
+      loadingOverlay.style.display = 'flex'; // 显示加载覆盖层
+
+      // 下载音频文件
+      fetch('https://res.wx.qq.com/voice/getvoice?mediaid=MzI3NjYzODY0Nl8yMjQ3NDg1NTIz')
+        .then(response => {
+          if (!response.ok) throw new Error('Network response was not ok');
+          return response.blob(); // 转换为blob对象
+        })
+        .then(blob => {
+          audioElement = document.getElementById('audio');
+          audioElement.src = URL.createObjectURL(blob); // 设置音频源
+          loadingOverlay.style.display = 'none'; // 隐藏加载覆盖层
+          audioElement.play(); // 播放音频
+          initAudioVisualization(); // 初始化音频可视化
+        })
+        .catch(error => {
+          console.error('下载音频文件时出现错误:', error);
+          loadingOverlay.style.display = 'none'; // 隐藏加载覆盖层
+        });
+}
+
+audioAnalyser ();
+</script>
