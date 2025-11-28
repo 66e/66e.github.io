@@ -46,9 +46,10 @@ const loadScriptAndGetExport = async (src, umdModuleName, exportChecker) => {
     return await scriptLoadPromise;
   }
 
-( async () => {
-  // 音乐和歌词的URL
-    const audioUrl = 'https://raw.githubusercontent.com/6cc/c/master/l/s/02.%20ライア.flac';
+
+  document.addEventListener('readystatechange', async () => {
+    // 音乐和歌词的URL
+    const audioUrl = 'https://oss.mojidict.com/article/audio/dd16f7f0-8367-4d49-830a-3a66d0489982.mp3';
     const lyricUrl = 'https://66e.github.io/9/%E3%83%A9%E3%82%A4%E3%82%A2.lrc';
 
     // --- 1. 动态生成 HTML 结构 ---
@@ -68,8 +69,8 @@ const loadScriptAndGetExport = async (src, umdModuleName, exportChecker) => {
     playerContainer.appendChild(audio);
 
     // 将容器添加到 body 中
-    const el = document.querySelector( "article.popover-hint" );
-    el.appendChild( playerContainer );
+    const el = document.querySelector( "div.markdown-body" );
+    document.body.appendChild( playerContainer );
 
     // --- 2. 动态加载 RabbitLyrics 库并获取其构造函数 ---
     try {
@@ -131,19 +132,7 @@ const loadScriptAndGetExport = async (src, umdModuleName, exportChecker) => {
       console.error('纯JS：加载歌词或初始化 RabbitLyrics 失败:', error);
       lyricsDisplay.textContent = `歌词加载失败: ${error.message}`;
     }
-})();
-
-document.addEventListener('DOMContentLoaded', async () => {
-  console.log( 'DOMContentLoaded' );
-});
-
-document.addEventListener('load', async () => {
-  console.log( 'load' );
-});
-
-document.addEventListener('readystatechange', async () => {
-  console.log( 'readystatechange' );
-});
+  });
   
 /*
 ```
