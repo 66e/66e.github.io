@@ -7,7 +7,7 @@ const emitReaderModeChangeEvent = (mode: "on" | "off") => {
   document.dispatchEvent(event)
 }
 
-document.addEventListener("nav", (e) => {
+document.addEventListener("nav", () => {
   const switchReaderMode = () => {
     isReaderMode = !isReaderMode
     const newMode = isReaderMode ? "on" : "off"
@@ -22,7 +22,4 @@ document.addEventListener("nav", (e) => {
 
   // Set initial state
   document.documentElement.setAttribute("reader-mode", isReaderMode ? "on" : "off")
-
-  const currentSlug = e.detail.url
-  console.log( currentSlug )
 })
