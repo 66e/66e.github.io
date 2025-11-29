@@ -17,6 +17,6 @@ ArticleTitle.css = `
 }
 `
 
-a_script.afterDOMLoaded = script
+ArticleTitle.afterDOMLoaded = script
 
 export default (() => ArticleTitle) satisfies QuartzComponentConstructor
