@@ -69,10 +69,10 @@ const loadScriptAndGetExport = async (src, umdModuleName, exportChecker) => {
     playerContainer.appendChild(audio);
 
     // 将容器添加到 body 中
-    const el = document.querySelector( "div.markdown-body" ) ||
-    document.querySelector("div.markdown-body") ||
+    const elem = document.querySelector( "article.popover-hint" ) ||
+    document.querySelector( "div.markdown-body" ) ||
     document.body;
-    el.appendChild( playerContainer );
+    elem.appendChild( playerContainer );
 
     // --- 2. 动态加载 RabbitLyrics 库并获取其构造函数 ---
     try {
