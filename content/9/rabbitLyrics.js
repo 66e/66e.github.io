@@ -9,7 +9,9 @@
    * @param {function} [exportChecker] - 一个可选的函数，用于检查并返回脚本加载后的导出对象。
    * @returns {Promise<any>} 返回一个 Promise，成功时解析为导出的模块，失败时拒绝。
    */
-const loadScriptAndGetExport = async (src, umdModuleName, exportChecker) => {
+
+if ( typeof loadScriptAndGetExport === undefined ) {
+  const loadScriptAndGetExport = async (src, umdModuleName, exportChecker) => {
     const script = document.createElement('script');
     script.src = src;
     script.type = 'text/javascript';
@@ -45,6 +47,7 @@ const loadScriptAndGetExport = async (src, umdModuleName, exportChecker) => {
 
     return await scriptLoadPromise;
   }
+}
 
   ( async () => {
     'use strict';
