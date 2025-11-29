@@ -47,7 +47,6 @@ if ( typeof loadScriptAndGetExport === undefined ) {
 
     return await scriptLoadPromise;
   }
-}
 
   ( async () => {
     'use strict';
@@ -138,6 +137,7 @@ if ( typeof loadScriptAndGetExport === undefined ) {
       lyricsDisplay.textContent = `歌词加载失败: ${error.message}`;
     }
   })();
+}
 
 /*
 ```
