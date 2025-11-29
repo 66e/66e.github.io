@@ -21,6 +21,9 @@ let newDiv = document.createElement("div");
 not ${2 * a + b}.`
 
 const paragraph = document.body.appendChild(document.createElement("p"));
+
+(async () => console.log(await resolveAfter2Seconds()))();
+(async () => console.log(await resolveAfter1Second()))();
 ```
 
 ```html
