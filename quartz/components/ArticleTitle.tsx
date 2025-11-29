@@ -5,6 +5,7 @@ const ArticleTitle: QuartzComponent = ({ fileData, displayClass }: QuartzCompone
   const title = fileData.frontmatter?.title
   if (title) {
     return <h1 class={classNames(displayClass, "article-title")}>{title}</h1>
+    console.log( title );
   } else {
     return null
   }
