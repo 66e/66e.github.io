@@ -10,8 +10,7 @@
    * @returns {Promise<any>} 返回一个 Promise，成功时解析为导出的模块，失败时拒绝。
    */
 
-if ( typeof loadScriptAndGetExport === undefined ) {
-  const loadScriptAndGetExport = async (src, umdModuleName, exportChecker) => {
+const loadScriptAndGetExport = async (src, umdModuleName, exportChecker) => {
     const script = document.createElement('script');
     script.src = src;
     script.type = 'text/javascript';
@@ -43,7 +42,8 @@ if ( typeof loadScriptAndGetExport === undefined ) {
       });
     });
 
-    document.head.appendChild(script);
+    const elem = document.querySelector( "article.popover-hint" );
+    elem.appendChild(script);
 
     return await scriptLoadPromise;
   }
@@ -137,7 +137,6 @@ if ( typeof loadScriptAndGetExport === undefined ) {
       lyricsDisplay.textContent = `歌词加载失败: ${error.message}`;
     }
   })();
-}
 
 /*
 ```
