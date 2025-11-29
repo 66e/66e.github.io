@@ -1,7 +1,32 @@
 ---
 title: My GitHub Pages Notebook!
 ---
+```js
+const number = 42;
+console.log(a, b, c);
 
-Hello world!
+let result;
+  if (a > 0) {
+    result = "positive";
+  } else {
+    result = "NOT positive";
+  }
+const matches = container.querySelectorAll("li[data-active='1']");
+const el = document.querySelector(".myclass");
+alert(document.body.id);
 
-Write some words here!
+let newDiv = document.createElement("div");
+
+`Fifteen is ${a + b} and
+not ${2 * a + b}.`
+
+const paragraph = document.body.appendChild(document.createElement("p"));
+```
+
+```html
+<script src="javascript.js"></script>
+
+<script>
+  alert("Hello World!");
+</script>
+```
