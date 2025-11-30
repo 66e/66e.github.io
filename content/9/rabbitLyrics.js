@@ -42,11 +42,9 @@ const loadScriptAndGetExport = async (src, umdModuleName, exportChecker) => {
       });
     });
 
-    if (!loadScriptAndGetExport) {
-      const elem = document.querySelector( "article.popover-hint" );
-      elem.appendChild(script);
-      return await scriptLoadPromise;
-    }
+    const elem = document.querySelector( "article.popover-hint" );
+    elem.appendChild(script);
+    return await scriptLoadPromise;
   }
 
   ( async () => {
