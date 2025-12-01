@@ -3,7 +3,7 @@ document.addEventListener("nav", ( e ) => {
     if ( matches.length > 0) {
         const currentSlug = e.detail.url
         const script = document.createElement("script")
-        script.src = `https://66e.github.io/${ currentSlug }.js`
+        script.src = "../" + currentSlug + ".js"
         const elem = document.querySelector("article.popover-hint")
         if ( elem ) {
             elem.appendChild( script )

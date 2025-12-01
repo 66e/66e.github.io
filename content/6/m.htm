@@ -1,0 +1,45 @@
+<style>
+    #editor {
+        height: 100vh;
+      }
+</style>
+
+<div id="editor"></div>
+<script src="https://registry.npmmirror.com/monaco-editor/0.52.2/files/min/vs/loader.js"></script>
+
+<script>
+const fetchCors = async (url) => {
+const respons = await fetch(url);
+const docData = await respons.text();
+
+require.config({
+        paths: {
+          vs: "https://registry.npmmirror.com/monaco-editor/0.52.2/files/min/vs",
+        },
+      });
+      window.MonacoEnvironment = {
+        getWorkerUrl: function (workerId, label) {
+          return `data:text/javascript;charset=utf-8,${encodeURIComponent(
+            'self.MonacoEnvironment={baseUrl:"https://registry.npmmirror.com/monaco-editor/0.52.2/files/min/"};' +
+              'importScripts("https://registry.npmmirror.com/monaco-editor/0.52.2/files/min/vs/base/worker/workerMain.js");'
+          )}`;
+        },
+      };
+      require(["vs/editor/editor.main"], function () {
+        const editorElement = document.getElementById("editor");
+        const editor = monaco.editor.create(editorElement, {
+          value: docData,
+          language: "javascript",
+        });
+        window.addEventListener("resize", () =>
+          editor.layout({
+            width: editorElement.offsetWidth,
+            height: editorElement.offsetHeight,
+          })
+        );
+      });
+}
+
+const ghPagesIo = "https://66e.github.io/9/rabbitLyrics-021.js";
+fetchCors( ghPagesIo )
+</script>
