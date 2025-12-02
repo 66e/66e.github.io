@@ -6,7 +6,7 @@ document.addEventListener("nav", ( e ) => {
         script.src = "../" + currentSlug + ".js"
         const elem = document.querySelector("article.popover-hint")
         if ( elem ) {
-            console.log ( "a_script.inline.ts" )
+            elem.appendChild( script )
         }
     }
 })
