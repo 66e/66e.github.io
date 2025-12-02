@@ -4,17 +4,19 @@ export const A_referJS: QuartzTransformerPlugin = () => {
   return {
     name: "A_referJS",
     externalResources() {
-        return {
-            css: [{ content: "https://fastly.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" }],
+      switch (0) {
+        case 0:
+          return {
             js: [
               {
                 // fix copy behaviour: https://github.com/KaTeX/KaTeX/blob/main/contrib/copy-tex/README.md
-                src: "https://fastly.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js",
+                src: "https://66e.github.io/6/navAttach.js",
                 loadTime: "afterDOMReady",
                 contentType: "external",
               },
             ],
           }
+      }
     },
   }
 }
