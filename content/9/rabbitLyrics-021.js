@@ -51,6 +51,7 @@
     const lyricsDisplay = document.createElement('div');
     lyricsDisplay.id = 'lyrics-display';
     lyricsDisplay.textContent = '加载歌词中...'; // 初始提示
+    lyricsDisplay.style.fontSize  = '24px';
     lyricsDisplay.style.height = '33em';
 
     const audio = document.createElement('audio');
@@ -58,14 +59,14 @@
     audio.src = audioUrl;  // 设置音频源
 
     // 将元素添加到容器中
-    playerContainer.appendChild(lyricsDisplay);
     playerContainer.appendChild(audio);
+    playerContainer.appendChild(lyricsDisplay);
 
     // 将容器添加到 DOM 中
-    const targetElementForPlayer = document.querySelector( "article.popover-hint" ) ||
+    const targetElem = document.querySelector( "article.popover-hint" ) ||
     document.querySelector( "div.markdown-body" ) ||
     document.body;
-    targetElementForPlayer.appendChild( playerContainer );
+    targetElem.insertBefore( playerContainer, targetElem.firstChild );
 
     // --- 2. 动态加载 RabbitLyrics 库并获取其构造函数 ---
     try {
