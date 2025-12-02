@@ -1,6 +1,6 @@
 import { QuartzTransformerPlugin } from "../types"
 
-export const ReferJS: QuartzTransformerPlugin<Partial> = () => {
+export const ReferJS: QuartzTransformerPlugin<> = () => {
     return {
         externalResources() {
             switch ( 0 ) {

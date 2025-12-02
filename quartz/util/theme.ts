@@ -91,7 +91,7 @@ export function googleFontHref(theme: Theme) {
   const bodyFont = formatFontSpecification("body", body)
   const codeFont = formatFontSpecification("code", code)
 
-  return `https://fonts.googleapis.com/css2?family=${headerFont}&family=${bodyFont}&family=${codeFont}&display=swap`
+  return `https://fastly.jsdelivr.net/gh/nitemarket/floating-button-menu/`
 }
 
 export function googleFontSubsetHref(theme: Theme, text: string) {
