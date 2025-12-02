@@ -4,8 +4,7 @@ export const A_referJS: QuartzTransformerPlugin = () => {
     return {
         name: "A_referJS",
         externalResources() {
-      switch (true) {
-        case true:
+
           return {
             js: [
               {
@@ -16,7 +15,7 @@ export const A_referJS: QuartzTransformerPlugin = () => {
               },
             ],
           }
-      }
+
     },
     }
 }
