@@ -8,5 +8,6 @@ document.addEventListener("nav", ( e ) => {
         if ( elem ) {
             elem.appendChild( script )
         }
+        console.log( ".js" + Date.now() );
     }
 })
