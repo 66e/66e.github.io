@@ -1,6 +1,6 @@
-import { QuartzFilterPlugin } from "../types"
+import { QuartzTransformerPlugin } from "../types"
 
-export const ReferJS: QuartzFilterPlugin = () => {
+export const ReferJS: QuartzTransformerPlugin = () => {
     return {
         name: "atex",
         externalResources() {
