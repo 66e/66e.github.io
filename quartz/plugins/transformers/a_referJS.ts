@@ -1,8 +1,8 @@
 import { QuartzTransformerPlugin } from "../types"
 
-export const atex: QuartzTransformerPlugin = () => {
+export const A_referJS: QuartzTransformerPlugin = () => {
     return {
-        name: "atex",
+        name: "A_referJS",
         externalResources() {
             switch ( 0 ) {
                 case 0 :
