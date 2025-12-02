@@ -91,7 +91,6 @@ const config: QuartzConfig = {
       // Comment out CustomOgImages to speed up build time
       Plugin.CustomOgImages(),
     ],
-    u_plug: [Plugin.ReferJS ()],
   },
 }
 
