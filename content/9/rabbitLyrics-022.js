@@ -51,7 +51,7 @@
     const lyricsDisplay = document.createElement('div');
     lyricsDisplay.id = 'lyrics-display';
     lyricsDisplay.textContent = '加载歌词中...'; // 初始提示
-    lyricsDisplay.style.fontSize  = '24px';
+    lyricsDisplay.style.fontSize  = '20px';
     lyricsDisplay.style.height = '33em';
 
     const audio = document.createElement('audio');
