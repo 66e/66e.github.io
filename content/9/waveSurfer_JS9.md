@@ -50,7 +50,9 @@ async function initializeWavesurfer() {
 
 const container = document.createElement("div");
 container.id = "waveform";
-document.body.appendChild(container);
+const targetElem = document.querySelector( "article.popover-hint" );
+targetElem.insertBefore( container, targetElem.firstChild );
+
 // 3. 调用初始化函数来启动流程
 initializeWavesurfer();
 
