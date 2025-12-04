@@ -7,7 +7,7 @@ document.addEventListener("nav", ( e ) => {
         }
 
         ( async () => {
-            const url = "../" + slug.slice( 0, -4 );
+            const url = "../" + slug.slice( 0, -4 ) + ".js";
             try {
                 const module = await loadModule ( url );
                 } catch (error) {
