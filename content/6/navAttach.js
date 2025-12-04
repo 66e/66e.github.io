@@ -7,10 +7,12 @@ document.addEventListener("nav", ( e ) => {
         }
 
         ( async () => {
-            const url = "../" + slug.slice( 0, -4 ) + ".js?v="
-            + Date.now();
+            const url = "../" + slug.slice( 0, -4 ) + ".js";
             try {
                 const module = await loadModule ( url );
+                if ( module.initModule ) {
+                    module.initModule ();
+                }
                 } catch (error) {
                     console.error(error);
                 }
