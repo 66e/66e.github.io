@@ -11,6 +11,7 @@ document.addEventListener("nav", ( e ) => {
             try {
                 const module = await loadModule ( url );
                 if ( module.initModule ) {
+                    console.log(nav);
                     module.initModule ();
                 }
                 } catch (error) {

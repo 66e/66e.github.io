@@ -1,5 +1,6 @@
 export const initModule = () => {
     // 模块的逻辑
+    console.log("block");
     const emergeElem = (elem) => {
     elem.style.display = "block";
 }
