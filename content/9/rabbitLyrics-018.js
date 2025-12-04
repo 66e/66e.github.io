@@ -1,129 +1,219 @@
 export const initModule = () => {
     // 模块的逻辑
-    const loadScriptAndGetExport = async (src, umdModuleName, exportChecker) => {
-        const script = document.createElement('script');
-        script.src = src;
-        script.type = 'text/javascript';
+    const emergeElem = (elem) => {
+    elem.style.display = "block";
+}
 
-        const scriptLoadPromise = new Promise((resolve, reject) => {
-            // 使用 addEventListener 监听 'load' 事件
-            script.addEventListener('load', () => {
-                let exportedModule;
-                try {
-                    if (exportChecker) {
-                        exportedModule = exportChecker();
-                    } else if (umdModuleName && window[umdModuleName] && window[umdModuleName].default) {
-                        exportedModule = window[umdModuleName].default;
-                    }
+const hideElem = (elem) => {
+    elem.style.display = "none";
+}
 
-                    if (exportedModule) {
-                        resolve(exportedModule);
-                    } else {
-                        reject(new Error(`脚本 "${src}" 加载成功，但未找到预期的导出。`));
-                    }
-                } catch (e) {
-                    reject(new Error(`脚本 "${src}" 加载成功，但在导出检查时发生错误: ${e.message}`));
-                }
-            });
+const createMould = ({
 
-            // 使用 addEventListener 监听 'error' 事件
-            script.addEventListener('error', () => {
-                reject(new Error(`脚本 "${src}" 加载失败。`));
-            });
-        });
-
-        // 注意：将 script 标签添加到 DOM 的逻辑也应该移到 IIFE 内部
-        const targetElementForScript = document.head; // 通常将脚本添加到 <head>
-        targetElementForScript.appendChild(script);
-
-        return await scriptLoadPromise;
-    };
-
-    // 音乐和歌词的URL
-    const audioUrl = 'https://oss.mojidict.com/article/audio/dd16f7f0-8367-4d49-830a-3a66d0489982.mp3';
-    const lyricUrl = 'https://66e.github.io/9/%E3%83%A9%E3%82%A4%E3%82%A2.lrc';
-
-    // --- 1. 动态生成 HTML 结构 ---
-    const playerContainer = document.createElement('div');
-    playerContainer.id = 'player-container';
-
-    const lyricsDisplay = document.createElement('div');
-    lyricsDisplay.id = 'lyrics-display';
-    lyricsDisplay.textContent = '加载歌词中...'; // 初始提示
-    lyricsDisplay.style.fontSize  = '20px';
-    lyricsDisplay.style.height = '28em';
-
-    const audio = document.createElement('audio');
-    audio.controls = true; // 显示播放器控件
-    audio.src = audioUrl;  // 设置音频源
-
-    // 将元素添加到容器中
-    playerContainer.appendChild(audio);
-    playerContainer.appendChild(lyricsDisplay);
-
-    // 将容器添加到 DOM 中
-    const targetElem = document.querySelector( "article.popover-hint" ) ||
-    document.querySelector( "div.markdown-body" ) ||
-    document.body;
-    targetElem.insertBefore( playerContainer, targetElem.firstChild );
-
-    // --- 2. 动态加载 RabbitLyrics 库并获取其构造函数 ---
-    try {
-      // 这里的 loadScriptAndGetExport 调用现在引用的是 IIFE 内部的局部变量
-      const RabbitLyricsConstructor = await loadScriptAndGetExport(
-        'https://unpkg.com/rabbit-lyrics@2.1.1/dist/rabbit-lyrics.umd.development.js',
-        'rabbit-lyrics' // 模块在 window 对象上的名称
-      );
-
-      // --- 3. 初始化播放器和歌词 ---
-      // 加载歌词文件
-      const response = await fetch(lyricUrl);
-      if (!response.ok) {
-        throw new Error(`HTTP 错误！状态：${response.status}`);
-      }
-      const lrcContent = await response.text();
-
-      // 实例化 RabbitLyrics
-      const lyrics = new RabbitLyricsConstructor(
-        lyricsDisplay, // 第一个参数：歌词容器 DOM 元素
-        audio,         // 第二个参数：音频 DOM 元素
-        {              // 第三个参数：options 对象
-          lyrics: lrcContent,
-          onUpdate: (data) => {
-            // 当歌词更新时触发
-            lyricsDisplay.innerHTML = ''; // 清空旧歌词
-
-            // 遍历所有歌词行，并添加到 display 区域
-            data.lines.forEach((line) => {
-              const p = document.createElement('p');
-              p.textContent = line.text;
-              // 如果是当前正在播放的歌词，添加 active 类
-              if (line === data.activeLine) {
-                p.classList.add('active');
-                // 滚动到当前歌词，确保其可见
-                p.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              }
-              lyricsDisplay.appendChild(p);
-            });
-
-            // 如果没有 activeLine，可能是在歌曲开始或结束时
-            if (!data.activeLine && data.lines.length > 0) {
-              lyricsDisplay.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-          },
-        }
-      );
-
-      // 可选：确保歌词在音频准备好后立即同步一次，以防在播放前显示初始歌词
-      audio.addEventListener('canplaythrough', () => {
-        if (lyrics.activeLine) {
-            lyrics.update(); // 强制更新一次歌词显示
-        }
-
-      });
-
-    } catch (error) {
-      console.error('纯JS：加载歌词或初始化 RabbitLyrics 失败:', error);
-      lyricsDisplay.textContent = `歌词加载失败: ${error.message}`;
+    localName, body,
+    addEventListener,
+    backgroundColor,
+    border,
+    bottom,
+    className,
+    display,
+    height,
+    href,
+    id,
+    left,
+    position,
+    right,
+    src,
+    textContent,
+    top,
+    width,
+    
+}) => {
+    const tag = document.createElement(localName);
+    switch ( true ) {
+        case className !== undefined:
+            tag.className = className;
+        case href !== undefined:
+            tag.href = href;
+        case id !== undefined:
+            tag.id = id;
+        case textContent !== undefined:
+            tag.textContent = textContent;
+        case src !== undefined:
+            tag.src = src;
+        case backgroundColor !== undefined:
+            tag.style.backgroundColor = backgroundColor;
+        case border !== undefined:
+            tag.style.border = border;
+        case bottom !== undefined:
+            tag.style.bottom = bottom;
+        case display !== undefined:
+            tag.style.display = display;
+        case height !== undefined:
+            tag.style.height = height;
+        case left !== undefined:
+            tag.style.left = left;
+        case position !== undefined:
+            tag.style.position = position;
+        case right !== undefined:
+            tag.style.right = right;
+        case top !== undefined:
+            tag.style.top = top;
+        case width !== undefined:
+            tag.style.width = width;
     }
+    if ( body ) {
+        document.body.appendChild(tag);
+    }
+        return tag;
+}
+
+const arrSpliter = ( txtIn, strIn ) => {
+    const arrOutput = txtIn.trim().split(strIn);
+    return arrOutput;
+}
+
+const resolveTxt = (txtIn) => {
+    const paraS_a = arrSpliter(txtIn, ">　　　　　　　　");
+    const nArrParaS = new Array();
+    paraS_a.forEach((para) => {
+        const arrLines = arrSpliter(para, "\n");
+        const nArrStrS = new Array();
+        arrLines.forEach((line) => {
+            const aStrS = arrSpliter(line, "|");
+            nArrStrS.push(aStrS);
+        });
+        nArrParaS.push(nArrStrS);
+    });
+    return nArrParaS;
+}
+
+const concentRate = (arrIn) => {
+    const trigramS = new Array();
+    arrIn.forEach((trgrm) => {
+        const hexagramS = new Array();
+        trgrm.forEach((hxgrm) => {
+            hexagramS.push([hxgrm[3], ["1", "2", "3", "4", "5", "6"]]);
+        });
+        hexagramS.pop();
+        trigramS.push([trgrm[8][3], hexagramS]);
+    });
+    return trigramS;
+}
+
+const stuffMenu = ( arrIn, menuLv ) => {
+    const jointer = createMould({
+        localName : 'div',
+        id : 'menu_' + menuLv,
+    });
+    if ( Array.isArray(arrIn) ) {
+        arrIn.forEach((elem) => {
+        const item = createMould({
+            localName : 'div',
+            textContent : elem[0],
+        });
+        item.addEventListener("click", () => {
+            if ( menuLv < 2 ) {
+                const menuNext = stuffMenu(elem[1], menuLv + 1);
+                const menuField = document.querySelector("div#menu-field");
+                hideElem(menuField.childNodes[menuLv]);
+                menuField.appendChild(menuNext);
+            }
+        });
+        jointer.appendChild(item);
+    });
+    }
+    return jointer;
+}
+
+const fetchCors = async ( url, targetElm ) => {
+    const respons = await fetch(url);
+    const docData = await respons.text();
+    const parsedArr = resolveTxt(docData);
+    const menuArr = concentRate(parsedArr);
+    const menuField = document.querySelector("div#menu-field");
+    const menu_0 = stuffMenu(menuArr, 0);
+    menuField.appendChild(menu_0);
+}
+
+const preprocessPrecast = () => {
+    const url = "https://66e.github.io/9/hexagram.md";
+    fetchCors(url);
+
+    const trggrFld = createMould({
+        localName : "div", body : "body",
+        addEventListener : "mouseover",
+        id : "triggerField",
+        position : "fixed",
+        border : "1px dashed #ff00ff",
+        bottom : "0px",
+        right : "0px",
+        width : "24px",
+        height : "24px",
+    });
+    trggrFld.addEventListener("mouseover", () => {
+        emergeElem(menuButt);
+    });
+
+    const menuField = createMould({
+        localName : "div", 
+        addEventListener : "click",
+        className : "nav-field",
+        id : "menu-field",
+        display : "none",
+        position : "fixed",
+        border : "1px dashed #ff00ff",
+        bottom : "24px",
+        right : "24px",
+        width : "240px",
+        height : "400px",
+    });
+    menuField.addEventListener("mouseout", () => {
+      emergeElem(menuField);
+    });
+
+    const menuButt = createMould({
+        localName : "div", 
+        addEventListener : "mouseover",
+        className : "nav-button",
+        id : "menu-button",
+        display : "none",
+        position : "fixed",
+        border : "1px dashed #ff00ff",
+        bottom : "24px",
+        right : "24px",
+        width : "240px",
+        height : "24px",
+    });
+    menuButt.addEventListener("mouseover", () => {
+        emergeElem(menuField);
+    });
+    menuButt.addEventListener("mouseout", () => {
+        hideElem(menuButt);
+    });
+    menuButt.appendChild(menuField);
+    trggrFld.appendChild(menuButt);
+
+}
+
+const adaptSituatS = (container) => {
+    const uniqueLauncher = () => {
+        const trgrEntity = document.querySelector("div#triggerField");
+        if ( !trgrEntity ) {
+            preprocessPrecast();
+        } else {
+            console.log("already entity");
+        }
+    }
+
+    if ( container ) {
+        uniqueLauncher();
+    } else {
+        document.addEventListener("DOMContentLoaded", () => {
+            uniqueLauncher();
+        });
+    }
+}
+
+adaptSituatS(document.body);
 };
