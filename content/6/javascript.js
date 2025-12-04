@@ -1,5 +1,18 @@
-// 在另一个文件中
-import { getFeature } from "https://66e.github.io/6/feature_data.js";
+// module "my-module.js"
+function cube(x) {
+  return x * x * x;
+}
 
-console.log(getFeature('a')); // 'valueA'
-console.log(getFeature('b')); // 'valueB'
+const foo = Math.PI + Math.SQRT2;
+
+const graph = {
+  options: {
+    color: "white",
+    thickness: "2px",
+  },
+  draw() {
+    console.log("来自 graph draw function");
+  },
+};
+
+export { cube, foo, graph };
