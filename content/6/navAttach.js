@@ -1,8 +1,8 @@
 document.addEventListener("nav", ( e ) => {
     const slug = e.detail.url
     if ( slug.endsWith( "_JS9" ) ) {
-        const loadModule = ( moduleUrl ) => {
-            const module = import ( moduleUrl );
+        const loadModule = async ( moduleUrl ) => {
+            const module = await import ( moduleUrl );
             return module;
         }
 
