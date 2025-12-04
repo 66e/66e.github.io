@@ -52,7 +52,7 @@
     lyricsDisplay.id = 'lyrics-display';
     lyricsDisplay.textContent = '加载歌词中...'; // 初始提示
     lyricsDisplay.style.fontSize  = '20px';
-    lyricsDisplay.style.height = '33em';
+    lyricsDisplay.style.height = '28em';
 
     const audio = document.createElement('audio');
     audio.controls = true; // 显示播放器控件
