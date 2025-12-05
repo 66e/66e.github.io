@@ -1,6 +1,4 @@
-export const initModule = () => {
-    // 模块的逻辑
-    (async () => {
+(async () => {
     'use strict';
 
     const loadScriptAndGetExport = async (src, umdModuleName, exportChecker) => {
@@ -130,4 +128,7 @@ export const initModule = () => {
       lyricsDisplay.textContent = `歌词加载失败: ${error.message}`;
     }
 })();
+
+export const initModule = () => {
+  console.log( "Hello World!" );
 };
