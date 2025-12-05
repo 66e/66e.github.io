@@ -1,7 +1,5 @@
-(async () => {
-    'use strict';
-
-    const loadScriptAndGetExport = async (src, umdModuleName, exportChecker) => {
+export const initModule = async () => {
+  const loadScriptAndGetExport = async (src, umdModuleName, exportChecker) => {
         const script = document.createElement('script');
         script.src = src;
         script.type = 'text/javascript';
@@ -52,7 +50,7 @@
     lyricsDisplay.id = 'lyrics-display';
     lyricsDisplay.textContent = '加载歌词中...'; // 初始提示
     lyricsDisplay.style.fontSize  = '20px';
-    lyricsDisplay.style.height = '28em';
+    lyricsDisplay.style.height = '27em';
 
     const audio = document.createElement('audio');
     audio.controls = true; // 显示播放器控件
@@ -127,8 +125,5 @@
       console.error('纯JS：加载歌词或初始化 RabbitLyrics 失败:', error);
       lyricsDisplay.textContent = `歌词加载失败: ${error.message}`;
     }
-})();
-
-export const initModule = () => {
-  console.log( "Hello World!" );
+    audio.play ();
 };
