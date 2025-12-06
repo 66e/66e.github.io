@@ -40,13 +40,13 @@ export default async function initPlayer(options) {
     // -------------------------------------------------------
     const wrapper = document.createElement("div");
     wrapper.style.width = "100%";
-    wrapper.style.maxWidth = "420px";
+    wrapper.style.maxWidth = "800px";
     wrapper.style.margin = "0 auto";
 
     const playerDiv = document.createElement("div");
     const lyricsDiv = document.createElement("div");
 
-    lyricsDiv.style.height = "18em";
+    lyricsDiv.style.height = "27em";
     lyricsDiv.style.overflowY = "auto";
     lyricsDiv.style.padding = "10px";
     lyricsDiv.style.fontSize = "18px";
@@ -152,7 +152,7 @@ export default async function initPlayer(options) {
 
             activeP.style.color = "#42b983";
             activeP.style.fontWeight = "bold";
-            activeP.style.fontSize = "20px";
+            activeP.style.fontSize = "24px";
 
             activeP.scrollIntoView({ behavior: "smooth", block: "center" });
         }
