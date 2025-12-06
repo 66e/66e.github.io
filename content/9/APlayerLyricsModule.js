@@ -4,9 +4,9 @@ export default async function initPlayer(options) {
         mount = document.body,
         audio,
         lrc,
+        cover,
         title = "",
-        artist = "",
-        cover = ""
+        artist = ""
     } = options;
 
     // -------------------------------------------------------
