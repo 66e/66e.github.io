@@ -84,110 +84,79 @@ export default async function initPlayer(options) {
     // ⑥ 自定义歌词系统（高亮/多行/点击跳转）
     // -------------------------------------------------------
     class CustomLyrics {
-    constructor(container, lrcText, audio) {
-        this.container = container;
-        this.audio = audio;
-        this.lines = this.parseLRC(lrcText);
-
-        this.userBehavior = false;     // 用户正在手动滚动
-        this.resumeTimer = null;       // 恢复自动滚动的计时器
-
-        this.render();
-        this.bind();
-    }
-
-    parseLRC(lrc) {
-        const lines = [];
-        const regex = /\[(\d{2}):(\d{2}\.\d{2})\](.*)/;
-
-        lrc.split(/\r?\n/).forEach(line => {
-            const m = regex.exec(line);
-            if (!m) return;
-
-            const time = parseInt(m[1]) * 60 + parseFloat(m[2]);
-            const text = m[3].trim();
-
-            lines.push({ time, text });
-        });
-
-        return lines.sort((a, b) => a.time - b.time);
-    }
-
-    render() {
-        this.container.innerHTML = "";
-        this.lines.forEach((line, i) => {
-            const p = document.createElement("p");
-            p.textContent = line.text;
-            p.dataset.index = i;
-            p.dataset.time = line.time;
-            this.container.appendChild(p);
-        });
-    }
-
-    bind() {
-        // timeupdate → 高亮 + 自动滚动
-        this.audio.addEventListener("timeupdate", () => this.highlight());
-
-        // 点击跳转
-        this.container.addEventListener("click", e => {
-            const t = e.target.dataset.time;
-            if (t) {
-                this.audio.currentTime = parseFloat(t);
-            }
-        });
-
-        // 用户主动滚动的各种事件
-        const userEvents = [ "wheel", "scroll", "touchstart", "touchmove", "mousedown" ];
-        userEvents.forEach(evt => {
-            this.container.addEventListener(evt, () => this.onUserScroll(), { passive: true });
-        });
-    }
-
-    onUserScroll() {
-        // 标记用户正在操作
-        this.userBehavior = true;
-
-        // 重置恢复计时器
-        clearTimeout(this.resumeTimer);
-
-        // 用户停止操作 1 秒后恢复自动滚动
-        this.resumeTimer = setTimeout(() => {
-            this.userBehavior = false;
-        }, 1000);
-    }
-
-    highlight() {
-        const cur = this.audio.currentTime;
-
-        let activeIdx = 0;
-        for (let i = 0; i < this.lines.length; i++) {
-            if (cur >= this.lines[i].time) activeIdx = i;
-            else break;
+        constructor(container, lrcText, audio) {
+            this.container = container;
+            this.audio = audio;
+            this.lines = this.parseLRC(lrcText);
+            this.render();
+            this.bind();
         }
 
-        // 高亮
-        const nodes = Array.from(this.container.children);
-        nodes.forEach(n => n.classList.remove("active"));
-        nodes.forEach(p => p.style.color = "#333");
-        nodes.forEach(p => p.style.fontWeight = "normal");
-        nodes.forEach(p => p.style.fontSize = "18px");
+        parseLRC(lrc) {
+            const lines = [];
+            const regex = /\[(\d{2}):(\d{2}\.\d{2})\](.*)/;
 
-        const activeP = nodes[activeIdx];
-        if (!activeP) return;
+            lrc.split(/\r?\n/).forEach(line => {
+                const m = regex.exec(line);
+                if (!m) return;
+                const time = parseInt(m[1]) * 60 + parseFloat(m[2]);
+                const text = m[3].trim();
+                lines.push({ time, text });
+            });
 
-        activeP.classList.add("active");
-        activeP.style.color = "#42b983";
-        activeP.style.fontWeight = "bold";
-        activeP.style.fontSize = "24px";
+            return lines.sort((a, b) => a.time - b.time);
+        }
 
-        // ⭐ 若用户正在滚动/拖拽 → 不自动滚动
-        if (this.userBehavior) return;
+        render() {
+            this.container.innerHTML = "";
+            this.container.classList.add("custom-lyrics");
 
-        // ⭐ 自动滚动
-        activeP.scrollIntoView({ behavior: "smooth", block: "center" });
+            this.lines.forEach((line, i) => {
+                const p = document.createElement("p");
+                p.textContent = line.text;
+                p.dataset.index = i;
+                p.dataset.time = line.time;
+                p.style.margin = "6px 0";
+                p.style.cursor = "pointer";
+                this.container.appendChild(p);
+            });
+        }
+
+        bind() {
+            this.audio.addEventListener("timeupdate", () => this.highlight());
+
+            // 点击跳转
+            this.container.addEventListener("click", e => {
+                if (e.target.dataset.time) {
+                    this.audio.currentTime = parseFloat(e.target.dataset.time);
+                }
+            });
+        }
+
+        highlight() {
+            const cur = this.audio.currentTime;
+
+            let active = 0;
+            for (let i = 0; i < this.lines.length; i++) {
+                if (cur >= this.lines[i].time) active = i;
+                else break;
+            }
+
+            const pNodes = Array.from(this.container.children);
+            pNodes.forEach(p => p.style.color = "#333");
+            pNodes.forEach(p => p.style.fontWeight = "normal");
+            pNodes.forEach(p => p.style.fontSize = "18px");
+
+            const activeP = pNodes[active];
+            if (!activeP) return;
+
+            activeP.style.color = "#42b983";
+            activeP.style.fontWeight = "bold";
+            activeP.style.fontSize = "24px";
+
+            activeP.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
     }
-}
-
 
     // -------------------------------------------------------
     // ⑦ 启用歌词组件
