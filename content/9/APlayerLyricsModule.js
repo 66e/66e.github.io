@@ -5,6 +5,7 @@ export default async function initPlayer(options) {
         audio,
         lrc,
         cover,
+        autoPlay,
         title = "",
         artist = ""
     } = options;
@@ -73,7 +74,8 @@ export default async function initPlayer(options) {
             name: title,
             artist: artist,
             url: audio,
-            cover: cover
+            cover: cover,
+            autoPlay: autoPlay,
         }],
         lrcType: 0 // ❗禁用 APlayer 内置 LRC
     });
