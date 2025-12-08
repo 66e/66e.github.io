@@ -1,6 +1,6 @@
 import initPlayer from "./APlayerLyricsModule.js";
 
-export default async function initLyricsPage() {
+export default async function initModule () {
     const targetElem =
         document.querySelector("article.popover-hint") ||
         document.querySelector("div.markdown-body") ||
