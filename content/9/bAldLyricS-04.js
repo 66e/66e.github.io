@@ -1,6 +1,6 @@
 import initPlayer from "./APlayerLyricsModule.js";
 
-export default async function initModule () {
+export async function initModule () {
     const targetElem =
         document.querySelector("article.popover-hint") ||
         document.querySelector("div.markdown-body") ||
@@ -13,5 +13,6 @@ export default async function initModule () {
         cover: "https://zweima.com/wp/wp-content/uploads/b2b99ccc4fe2b7d9e69f2b14b16b7a2e-1024x1024.jpg",
         title: "ライア",
         artist: "Zwei",
+        autoPlay: true,
     });
 }
