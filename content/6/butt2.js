@@ -31,6 +31,8 @@ async function initPlayer(options = {}) {
       artist: item.artist,
       url: item.url,
       cover: item.cover,
+      lrc: item.lrc,
+      theme: item.theme,
     })),
     lrcType: 0, // 不使用 APlayer 内置 LRC
   });
