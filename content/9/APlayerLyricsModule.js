@@ -5,7 +5,7 @@ export default async function initPlayer(options) {
         audio,
         lrc,
         cover,
-        autoPlay,
+        autoplay,
         title = "",
         artist = ""
     } = options;
@@ -70,12 +70,12 @@ export default async function initPlayer(options) {
     // -------------------------------------------------------
     const ap = new APlayer({
         container: playerDiv,
+        autoplay: autoplay,
         audio: [{
             name: title,
             artist: artist,
             url: audio,
             cover: cover,
-            autoPlay: autoPlay,
         }],
         lrcType: 0 // ❗禁用 APlayer 内置 LRC
     });
