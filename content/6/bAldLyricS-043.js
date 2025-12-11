@@ -21,15 +21,15 @@ async function initModule(inputArray) {
     theme: item.theme,
 
     // 自定义部分（给 CustomLyrics 用）
-    lrcExt: item.lrcIn
+    lrcExt: item.lrc
   }));
 
   // ------------------------
   // 2. 初始化 APlayer
   // ------------------------
-  const paragraph = document.body.appendChild(document.createElement("div"));
+  const div = document.body.appendChild(document.createElement("div"));
   const ap = new APlayer({
-    container: paragraph,
+    container: div,
     audio: playlist,
     lrcType: 0    // 禁用 APlayer 自带歌词
   });
@@ -80,7 +80,7 @@ function createCustomLyrics() {
   let audio = null;
   let lrcText = "";
   let parsed = [];
-  let container = document.getElementById("custom-lyrics");
+  let containerCL = document.getElementById("custom-lyrics");
 
   // 用户行为锁定滚动的开关
   let userBehavior = false;
@@ -105,13 +105,13 @@ function createCustomLyrics() {
   // 渲染 DOM
   // ------------------------
   function render() {
-    container.innerHTML = "";
+    containerCL.innerHTML = "";
     parsed.forEach((line, i) => {
       const div = document.createElement("div");
       div.className = "lyric-line";
       div.dataset.index = i;
       div.textContent = line.text;
-      container.appendChild(div);
+      containerCL.appendChild(div);
     });
   }
 
@@ -129,10 +129,10 @@ function createCustomLyrics() {
 
     if (idx === -1) return;
 
-    const active = container.querySelector(".lyric-line.active");
+    const active = containerCL.querySelector(".lyric-line.active");
     if (active) active.classList.remove("active");
 
-    const cur = container.querySelector(`[data-index="${idx}"]`);
+    const cur = containerCL.querySelector(`[data-index="${idx}"]`);
     if (cur) {
       cur.classList.add("active");
       cur.scrollIntoView({ block: "center", behavior: "smooth" });
@@ -145,7 +145,7 @@ function createCustomLyrics() {
   // ------------------------
   function bindUserBehaviorLock() {
     ["scroll", "mousemove", "touchstart", "touchmove"].forEach(evt => {
-      container.addEventListener(evt, () => {
+      containerCL.addEventListener(evt, () => {
         userBehavior = true;
       });
     });
