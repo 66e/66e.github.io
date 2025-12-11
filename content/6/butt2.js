@@ -26,6 +26,8 @@ async function initPlayer(options = {}) {
   const ap = new APlayer({
     container,
     fixed: false,
+    lrcType: 3,
+    autoplay: true,
     audio: audioIn.map(item => ({
       name: item.name,
       artist: item.artist,
@@ -34,7 +36,6 @@ async function initPlayer(options = {}) {
       lrc: item.lrc,
       theme: item.theme,
     })),
-    lrcType: 0, // 不使用 APlayer 内置 LRC
   });
 
   // ──────────────────────────────────────────
