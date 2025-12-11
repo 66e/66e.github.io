@@ -26,8 +26,8 @@ async function initPlayer(options = {}) {
   const ap = new APlayer({
     container,
     fixed: false,
-    lrcType: 3,
-    autoplay: true,
+    lrcType: options.lrcType,
+    autoplay: options.autoplay,
     audio: audioIn.map(item => ({
       name: item.name,
       artist: item.artist,
@@ -132,7 +132,7 @@ async function initPlayer(options = {}) {
   //   加载当前歌曲的 lrcExt
   // ──────────────────────────────────────────
   async function loadExtLrc(index) {
-    const item = playlist[index];
+    const item = audioIn[index];
     if (!item.lrcExt) {
       currentExtLrc = [];
       renderLyrics();
@@ -155,7 +155,7 @@ async function initPlayer(options = {}) {
 
   // 播放时更新高亮
   ap.on("timeupdate", () => {
-    updateHighlight(ap.audio.current.currentTime);
+    updateHighlight(ap.audio.currentTime);
   });
 
   return ap;
