@@ -25,7 +25,7 @@ async function initPlayer(options = {}) {
   // 转成 APlayer 数据结构
   const ap = new APlayer({
     container,
-    fixed: false,
+    fixed: options.fixed,
     lrcType: options.lrcType,
     autoplay: options.autoplay,
     audio: audioIn.map(item => ({
@@ -133,13 +133,13 @@ async function initPlayer(options = {}) {
   // ──────────────────────────────────────────
   async function loadExtLrc(index) {
     const item = audioIn[index];
-    if (!item.lrcExt) {
+    if (!item.lrc) {
       currentExtLrc = [];
       renderLyrics();
       return;
     }
 
-    const res = await fetch(item.lrcExt);
+    const res = await fetch(item.lrc);
     const text = await res.text();
     currentExtLrc = parseLrc(text);
     renderLyrics();
@@ -167,7 +167,7 @@ targetElem =
 initPlayer({
   mount: targetElem,
   autoplay: true,
-  lrcType: 0,
+  lrcType: 3,
   audio: [
     {
       name: 'ライア',
