@@ -35,7 +35,7 @@ export async function initModule () {
         ]
     });
 
-    return initPlayer {
+    return {
         destroy
     };
 }

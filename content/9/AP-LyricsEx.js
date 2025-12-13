@@ -150,9 +150,9 @@ export default async function initPlayer(options) {
         // 如果用户正在滚动，则禁止自动滚动
         if (userScrollLock) return;
 
-        active.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
+        lyricBox.scrollTo({
+            top: active.offsetTop - lyricBox.clientHeight / 2,
+            behavior: "smooth"
         });
     }
 
