@@ -1,22 +1,22 @@
-document.addEventListener("nav", ( e ) => {
-    const slug = e.detail.url
-    if ( slug.endsWith( "_JS9" ) ) {
-        const loadModule = ( moduleUrl ) => {
-            const module = import ( moduleUrl );
-            return module;
-        }
+let lastDestroy = null;
 
-        ( async () => {
-            const url = "../" + slug.slice( 0, -4 ) + ".js";
-            try {
-                const module = await loadModule ( url );
-                if ( module.initModule ) {
-                    console.log( "nav" );
-                    module.initModule ();
-                }
-                } catch (error) {
-                    console.error(error);
-                }
-        }) ();
+document.addEventListener("nav", async ( e ) => {
+    const slug = e.detail.url;
+    if (lastDestroy) {
+        lastDestroy();   // 离开页面时销毁上一次播放器
+        lastDestroy = null;
     }
-})
+
+    if ( slug.endsWith( "_JS9" ) ) {
+        const moduleUrl = "../" + slug.slice( 0, -4 ) + ".js";
+        const module = await import ( moduleUrl );
+
+        if ( module.initModule ) {
+            const ret = await module.initModule();
+            
+            if (ret && typeof ret.destroy === "function") {
+                lastDestroy = ret.destroy;
+            }
+        }
+    }
+});
