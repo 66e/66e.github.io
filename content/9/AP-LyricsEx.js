@@ -7,7 +7,7 @@ export default async function initPlayer(options) {
     style.rel = "stylesheet";
     style.href = "https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css";
     document.head.appendChild(style);
-    const { mount, audioIn } = options;
+    const { mount, autoplay, lrcType, audio } = options;
 
     // -------------------------
     // 创建 APlayer
@@ -17,7 +17,9 @@ export default async function initPlayer(options) {
 
     const player = new APlayer({
         container: apContainer,
-        audio: audioIn
+        autoplay: autoplay,
+        lrcType: lrcType,
+        audio: audio
     });
 
     // -------------------------
@@ -68,7 +70,7 @@ export default async function initPlayer(options) {
 
     /** 加载歌词 → 解析 → 渲染 */
     async function loadAndApplyLyrics(index) {
-        const track = audioIn[index];
+        const track = audio[index];
 
         // 1. 下载 LRC
         const lrcText = await fetchLrc(track.lrc);
@@ -150,8 +152,15 @@ export default async function initPlayer(options) {
         // 如果用户正在滚动，则禁止自动滚动
         if (userScrollLock) return;
 
+        const lineRect = active.getBoundingClientRect();
+        const boxRect  = lyricBox.getBoundingClientRect();
+
+        const targetOffset = lineRect.top - boxRect.top
+        + lyricBox.scrollTop
+        - lyricBox.clientHeight / 2 + lineRect.height / 2;
+
         lyricBox.scrollTo({
-            top: active.offsetTop - lyricBox.clientHeight / 2,
+            top: targetOffset,
             behavior: "smooth"
         });
     }

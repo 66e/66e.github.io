@@ -8,7 +8,7 @@ export async function initModule () {
         mount: targetElem,
         autoplay: true,
         lrcType: 3,
-        audioIn: [
+        audio: [
             {
                 name: 'ライア',
                 artist: 'Zwei',
