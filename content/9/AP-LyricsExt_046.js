@@ -15,22 +15,23 @@ export async function initModule () {
                 url: 'https://oss.mojidict.com/article/audio/dd16f7f0-8367-4d49-830a-3a66d0489982.mp3',
                 cover: 'https://zweima.com/wp/wp-content/uploads/b2b99ccc4fe2b7d9e69f2b14b16b7a2e-1024x1024.jpg',
                 lrc: 'https://66e.github.io/9/%E3%83%A9%E3%82%A4%E3%82%A2.lrc',
+                theme: ''
             },
             {
-                name: 'name2',
-                artist: 'artist2',
-                url: 'https://raw.githubusercontent.com/mcanam/assets/main/liricle-demo/audio.mp3',
-                cover: 'cover2.jpg',
-                lrc: 'https://raw.githubusercontent.com/mcanam/assets/main/liricle-demo/lyric-enhanced.lrc',
+                name: 'Two Occasions',
+                artist: 'Jay R Sillona',
+                url: 'https://api.injahow.cn/meting/?type=url&id=4453521',
+                cover: 'http://p1.music.126.net/wAsLJMHAZUXxWksKX1QwfA==/848822976677760.jpg?param=130y130',
+                lrc: 'https://api.injahow.cn/meting/?type=lrc&id=4453521',
                 theme: '#46718b'
             },
             {
-                name: 'name1',
-                artist: 'artist1',
-                url: 'https://www.jplayer.org/audio/m4a/Miaow-07-Bubble.m4a',
-                cover: 'cover1.jpg',
-                lrc: 'https://www.eev3.com/plug/down.php?ac=music&lk=lrc&id=vwnhvkhwk',
-                theme: '#ebd0c2'
+                name: '守候',
+                artist: 'ar赵英俊tist1',
+                url: 'https://er-sycdn.kuwo.cn/7d66e9c5663278f02923491422b56778/693e3304/resource/30106/trackmedia/M800000mlEza1Z0F9v.mp3',
+                cover: 'https://img2.kuwo.cn/star/albumcover/500/33/47/409996676.jpg',
+                lrc: 'https://api.injahow.cn/meting/?type=lrc&id=455345562',
+                theme: '#'
             }
         ]
     });
