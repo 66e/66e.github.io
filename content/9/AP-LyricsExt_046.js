@@ -1,4 +1,4 @@
-import initPlayer from "./AP-LyricsEx.js";
+import initPlayer from "./AP-LyricsSync.js";
 
 export async function initModule () {
     const targetElem =
@@ -15,7 +15,6 @@ export async function initModule () {
                 url: 'https://oss.mojidict.com/article/audio/dd16f7f0-8367-4d49-830a-3a66d0489982.mp3',
                 cover: 'https://zweima.com/wp/wp-content/uploads/b2b99ccc4fe2b7d9e69f2b14b16b7a2e-1024x1024.jpg',
                 lrc: 'https://66e.github.io/9/%E3%83%A9%E3%82%A4%E3%82%A2.lrc',
-                theme: ''
             },
             {
                 name: 'Two Occasions',
@@ -27,11 +26,11 @@ export async function initModule () {
             },
             {
                 name: '守候',
-                artist: 'ar赵英俊tist1',
-                url: 'https://er-sycdn.kuwo.cn/7d66e9c5663278f02923491422b56778/693e3304/resource/30106/trackmedia/M800000mlEza1Z0F9v.mp3',
+                artist: '赵英俊',
+                url: 'https://api.injahow.cn/meting/?type=url&id=455345562',
                 cover: 'https://img2.kuwo.cn/star/albumcover/500/33/47/409996676.jpg',
                 lrc: 'https://api.injahow.cn/meting/?type=lrc&id=455345562',
-                theme: '#'
+                theme: '#ebd0c2'
             }
         ]
     });
