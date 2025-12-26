@@ -10,7 +10,7 @@ export const A_referJS: QuartzTransformerPlugin = () => {
             js: [
               {
                 // fix copy behaviour: https://github.com/KaTeX/KaTeX/blob/main/contrib/copy-tex/README.md
-                src: "./6/navAttach.js",
+                src: "https://qqvvv.github.io/6/navAttach.js",
                 loadTime: "afterDOMReady",
                 contentType: "external",
               },
