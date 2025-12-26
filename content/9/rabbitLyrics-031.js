@@ -19,7 +19,7 @@ export const initModule = async () => {
   ensureRabbitLyricsStyle();
 
   const audioUrl = 'https://oss.mojidict.com/article/audio/dd16f7f0-8367-4d49-830a-3a66d0489982.mp3';
-  const lyricUrl = 'https://66e.github.io/9/%E3%83%A9%E3%82%A4%E3%82%A2.lrc';
+  const lyricUrl = 'https://qqvvv.github.io/9/%E3%83%A9%E3%82%A4%E3%82%A2.lrc';
 
   // 每次进入页面都创建新的 audio
   const audio = document.createElement("audio");

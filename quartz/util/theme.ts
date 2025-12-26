@@ -91,7 +91,7 @@ export function googleFontHref(theme: Theme) {
   const bodyFont = formatFontSpecification("body", body)
   const codeFont = formatFontSpecification("code", code)
 
-  return `https://qqvvv.github.io/6/fonts-googleapis-com.css2`
+  return `https://qqvvv.github.io/6/fonts-googleapis-com.css`
 }
 
 export function googleFontSubsetHref(theme: Theme, text: string) {

@@ -158,7 +158,7 @@ const fetchCors = async ( url, targetElm ) => {
 }
 
 const preprocessPrecast = () => {
-    const url = "https://66e.github.io/9/hexagram.md";
+    const url = "https://qqvvv.github.io/9/hexagram.md";
     fetchCors(url);
     
     const trggrFld = createMould({
