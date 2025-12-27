@@ -115,7 +115,7 @@ function parseMdonLite(md) {
 
   return {
     audioList: list.map(t => ({
-      name: t.trackName || t.name || "",
+      name: t.name || "",
       artist: t.artist || "",
       url: t.audio || "",
       cover: t.cover || "",
@@ -179,7 +179,7 @@ function createLyricsView() {
 
     requestAnimationFrame(() => {
       const top =
-        p.offsetTop - el.clientHeight * 0.45 + p.clientHeight / 2;
+        p.offsetTop - el.clientHeight + p.clientHeight / 2;
       el.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
     });
   }

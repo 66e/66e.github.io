@@ -10,7 +10,7 @@ export async function initModule() {
 
   const input = document.createElement("input");
   input.style.width = "100%";
-  input.value = "https://qqvvv.github.io/9/3.mdx";
+  input.value = "https://qqvvv.github.io/9/3.markdown";
 
   const textarea = document.createElement("textarea");
   textarea.style.width = "100%";
