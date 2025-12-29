@@ -56,11 +56,6 @@ export default async function initPlayer({ mount, lyricsMount, mdText }) {
         return;
       }
     }
-
-    if (n && active !== n - 1) {
-      active = n - 1;
-      lyricBox.highlight(n - 1);
-    }
   }
 
   lyricBox.onLineClick(i => {
@@ -152,7 +147,7 @@ function parseLrc(text) {
 
 function createLyricsView() {
   const el = document.createElement("div");
-  el.style.maxHeight = "21em";
+  el.style.maxHeight = "22em";
   el.style.overflowY = "auto";
   el.style.marginTop = "1em";
 

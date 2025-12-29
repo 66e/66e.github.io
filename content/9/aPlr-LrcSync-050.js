@@ -78,6 +78,13 @@ export async function initModule() {
     loadBtn.click();
   }
 
+  async function destroy() {
+    if (destroyPlayer) {
+      destroyPlayer();
+      destroyPlayer = null;
+    }
+  }
+
   return { destroy };
 
 }
