@@ -1,232 +1,255 @@
-async function initModule() {
-  const targetElem =
+(async function initModule() {
+  const target =
     document.querySelector("article.popover-hint") ||
     document.querySelector("div.markdown-body") ||
     document.body;
 
-  /* ---------------------------
-   * UI
-   * --------------------------- */
+  /* ======================================================
+   * UI: toggle + panel
+   * ====================================================== */
+
+  const toggleBtn = document.createElement("button");
+  toggleBtn.textContent = "Lyrics Panel";
+  toggleBtn.style.marginBottom = "0.5em";
+
+  const panel = document.createElement("div");
+  panel.style.border = "1px solid #ddd";
+  panel.style.padding = "0.5em";
+  panel.style.marginBottom = "1em";
 
   const input = document.createElement("input");
   input.style.width = "100%";
-  input.value = "https://fastly.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/3.md";
+  input.value =
+    "https://gcore.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/3.md";
+
+  const loadBtn = document.createElement("button");
+  loadBtn.textContent = "Load MD";
+  loadBtn.style.margin = "0.5em 0";
 
   const textarea = document.createElement("textarea");
   textarea.style.width = "100%";
   textarea.style.height = "200px";
 
-  const mount = document.createElement("div");
+  panel.append(input, loadBtn, textarea);
 
-  targetElem.prepend(mount);
-  targetElem.prepend(textarea);
-  targetElem.prepend(input);
+  toggleBtn.onclick = () => {
+    panel.style.display = panel.style.display === "none" ? "" : "none";
+  };
+
+  /* ======================================================
+   * Player containers
+   * ====================================================== */
+
+  const playerMount = document.createElement("div");
+  const lyricsMount = document.createElement("div");
+
+  target.prepend(toggleBtn, panel, playerMount, lyricsMount);
 
   let destroyPlayer = null;
 
   async function reload(mdText) {
-    if (destroyPlayer) {
-      destroyPlayer();
-      destroyPlayer = null;
-    }
-
+    destroyPlayer?.();
     const { destroy } = await initPlayer({
-      mount,
+      mount: playerMount,
+      lyricsMount,
       mdText
     });
-
     destroyPlayer = destroy;
+
+    // 数据齐备后默认隐藏面板
+    panel.style.display = "none";
   }
 
-  input.addEventListener("keydown", async e => {
-    if (e.key !== "Enter") return;
+  loadBtn.onclick = async () => {
     const res = await fetch(input.value);
     const md = await res.text();
     textarea.value = md;
     reload(md);
-  });
+  };
 
   textarea.addEventListener("input", () => {
-    reload(textarea.value);
+    clearTimeout(textarea._t);
+    textarea._t = setTimeout(() => reload(textarea.value), 600);
   });
 
-  return {
-    destroy() {
-      if (destroyPlayer) destroyPlayer();
-      input.remove();
-      textarea.remove();
-      mount.remove();
-    }
-  };
-}
+  if (input.value) {
+    loadBtn.click();
+  }
 
-/* ============================================================
- * Player
- * ============================================================ */
+})();
 
-async function initPlayer({ mount, mdText }) {
+/* ======================================================
+ * debug-02 内核（播放器 + 歌词）
+ * ====================================================== */
+
+async function initPlayer({ mount, lyricsMount, mdText }) {
   await import("https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js");
 
   if (!document.querySelector("#aplayer-css")) {
-    const link = document.createElement("link");
-    link.id = "aplayer-css";
-    link.rel = "stylesheet";
-    link.href = "https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css";
-    document.head.appendChild(link);
+    const css = document.createElement("link");
+    css.id = "aplayer-css";
+    css.rel = "stylesheet";
+    css.href =
+      "https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.css";
+    document.head.appendChild(css);
   }
 
-  const audioList = parseMdonLite(mdText);
-  if (!audioList.length) throw new Error("No tracks");
+  const { audioList, autoplay } = parseMdonLite(mdText);
 
   mount.innerHTML = "";
+  lyricsMount.innerHTML = "";
 
   const ap = new APlayer({
     container: mount,
     audio: audioList,
-    lrcType: 3
+    autoplay: 1,
+    lrcType: 0
   });
 
-  /* ---------------------------
-   * Lyrics
-   * --------------------------- */
-
   const lyricBox = createLyricsView();
-  mount.appendChild(lyricBox.el);
+  lyricsMount.appendChild(lyricBox.el);
 
   let lyrics = [];
-  let activeIndex = -1;
+  let active = -1;
 
-  async function loadLyrics(index) {
-    activeIndex = -1;
+  async function loadLyrics() {
     lyricBox.clear();
+    lyrics = [];
+    active = -1;
 
-    const item = audioList[index];
+    const item = audioList[ap.list.index];
     if (!item?.lrc) return;
 
-    const res = await fetch(item.lrc);
-    const text = await res.text();
+    const text = await (await fetch(item.lrc)).text();
     lyrics = parseLrc(text);
     lyricBox.setLines(lyrics);
   }
 
-  function sync() {
+  function syncHighlight() {
     if (!lyrics.length) return;
+
     const t = ap.audio.currentTime;
+    const n = lyrics.length;
 
-    if (t <= lyrics[0].time) {
-      if (activeIndex !== 0) {
-        activeIndex = 0;
-        lyricBox.highlight(0);
-      }
-      return;
-    }
-
-    for (let i = 0; i < lyrics.length - 1; i++) {
+    for (let i = 0; i < n - 1; i++) {
       if (t >= lyrics[i].time && t < lyrics[i + 1].time) {
-        if (i !== activeIndex) {
-          activeIndex = i;
+        if (i !== active) {
+          active = i;
           lyricBox.highlight(i);
         }
-        break;
+        return;
       }
+    }
+
+    if (n && active !== n - 1) {
+      active = n - 1;
+      lyricBox.highlight(n - 1);
     }
   }
 
-  ap.on("play", sync);
-  ap.on("timeupdate", sync);
-  ap.on("listswitch", ({ index }) => loadLyrics(index));
+  lyricBox.onLineClick(i => {
+    const line = lyrics[i];
+    if (line) ap.seek(line.time);
+  });
 
-  await loadLyrics(ap.list.index);
+  ap.on("timeupdate", syncHighlight);
+  ap.on("listswitch", () => Promise.resolve().then(loadLyrics));
+
+  await loadLyrics();
 
   return {
     destroy() {
-      ap.pause();
-      ap.off("play");
-      ap.off("timeupdate");
-      ap.off("listswitch");
       ap.destroy();
       lyricBox.destroy();
       mount.innerHTML = "";
+      lyricsMount.innerHTML = "";
     }
   };
 }
 
-/* ============================================================
- * mdonLite
- * ============================================================ */
+/* ======================================================
+ * mdonLite parser
+ * ====================================================== */
 
 function parseMdonLite(md) {
   const lines = md.split(/\r?\n/);
-  const tracks = [];
+  const list = [];
   let cur = null;
   let field = null;
+  let autoplay = false;
 
-  for (const line of lines) {
-    if (line.startsWith("## ")) {
-      if (cur?.audio) tracks.push(cur);
-      cur = { name: line.slice(3).trim() };
+  for (const l of lines) {
+    if (l.startsWith("## autoplay")) {
+      autoplay = /true/i.test(l);
+      continue;
+    }
+    if (l.startsWith("## ")) {
+      if (cur?.audio) list.push(cur);
+      cur = { name: l.slice(3).trim() };
       field = null;
       continue;
     }
-    if (line.startsWith("### ") && cur) {
-      field = line.slice(4).trim();
+    if (l.startsWith("### ") && cur) {
+      field = l.slice(4).trim();
+      cur[field] = "";
       continue;
     }
-    if (cur && field && line.trim()) {
-      cur[field] = line.trim();
+    if (cur && field && l.trim()) {
+      cur[field] += l.trim();
     }
   }
-  if (cur?.audio) tracks.push(cur);
+  if (cur?.audio) list.push(cur);
 
-  return tracks.map(t => ({
-    name: t.name,
-    artist: t.artist || "",
-    url: t.audio,
-    cover: t.cover || "",
-    lrc: t.lrc || ""
-  }));
+  return {
+    autoplay,
+    audioList: list.map(t => ({
+      name: t.name || "",
+      artist: t.artist || "",
+      url: t.audio || "",
+      cover: t.cover || "",
+      lrc: t.lrc || ""
+    }))
+  };
 }
 
-/* ============================================================
+/* ======================================================
  * LRC
- * ============================================================ */
+ * ====================================================== */
 
 function parseLrc(text) {
   const out = [];
-  const r = /\[(\d+):(\d+(?:\.\d+)?)\](.*)/;
-
+  const re = /\[(\d+):(\d+(?:\.\d+)?)\](.*)/;
   text.split(/\r?\n/).forEach(l => {
-    const m = r.exec(l);
-    if (!m) return;
-    out.push({
-      time: +m[1] * 60 + +m[2],
-      text: m[3].trim()
-    });
+    const m = re.exec(l);
+    if (m)
+      out.push({
+        time: +m[1] * 60 + +m[2],
+        text: m[3].trim()
+      });
   });
-
   return out.sort((a, b) => a.time - b.time);
 }
 
-/* ============================================================
- * Lyrics View (no magic offset)
- * ============================================================ */
+/* ======================================================
+ * Lyrics view（debug-02 滚动模型）
+ * ====================================================== */
 
 function createLyricsView() {
   const el = document.createElement("div");
   el.style.maxHeight = "20em";
   el.style.overflowY = "auto";
+  el.style.marginTop = "1em";
 
   let ps = [];
   let active = null;
+  let clickCb = null;
 
   function setLines(lines) {
     el.innerHTML = "";
     ps = lines.map((l, i) => {
       const p = document.createElement("p");
       p.textContent = l.text;
-      p.addEventListener("click", () => {
-        window.__aplayer?.seek(l.time);
-      });
+      p.onclick = () => clickCb?.(i);
       el.appendChild(p);
       return p;
     });
@@ -236,7 +259,6 @@ function createLyricsView() {
     if (active) active.style.color = "";
     const p = ps[i];
     if (!p) return;
-
     p.style.color = "#f55";
     active = p;
 
@@ -250,13 +272,19 @@ function createLyricsView() {
       el.clientHeight / 2 +
       lineRect.height / 2;
 
-    el.scrollTo({ top: target, behavior: "smooth" });
+    // debug-02 核心：条件滚动
+    if (Math.abs(target - el.scrollTop) > el.clientHeight * 0.25) {
+      el.scrollTo({ top: target, behavior: "smooth" });
+    }
   }
 
   return {
     el,
     setLines,
     highlight,
+    onLineClick(fn) {
+      clickCb = fn;
+    },
     clear() {
       el.innerHTML = "";
       ps = [];
@@ -267,5 +295,3 @@ function createLyricsView() {
     }
   };
 }
-
-initModule();
