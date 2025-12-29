@@ -207,7 +207,10 @@ function createLyricsView() {
       active = null;
     },
     destroy() {
-      el.remove();
+      try {
+        ap.pause();   // ← 必须
+        ap.destroy();
+      } catch (e) {}
     }
   };
 }

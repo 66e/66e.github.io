@@ -11,7 +11,7 @@ export async function initModule() {
    * ====================================================== */
 
   const toggleBtn = document.createElement("button");
-  toggleBtn.textContent = "toggleMD";
+  toggleBtn.textContent = "toggle";
   toggleBtn.style.marginBottom = "0.5em";
 
   const panel = document.createElement("div");
@@ -25,7 +25,7 @@ export async function initModule() {
     "https://gcore.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/3.md";
 
   const loadBtn = document.createElement("button");
-  loadBtn.textContent = "Load MD";
+  loadBtn.textContent = "load";
   loadBtn.style.margin = "0.5em 0";
 
   const textarea = document.createElement("textarea");
