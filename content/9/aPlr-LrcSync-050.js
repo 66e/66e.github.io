@@ -6,22 +6,46 @@ export async function initModule() {
     document.querySelector("div.markdown-body") ||
     document.body;
 
-  /* ---------------- UI ---------------- */
+  /* ======================================================
+   * UI: toggle + panel
+   * ====================================================== */
+
+  const toggleBtn = document.createElement("button");
+  toggleBtn.textContent = "toggleMD";
+  toggleBtn.style.marginBottom = "0.5em";
+
+  const panel = document.createElement("div");
+  panel.style.border = "1px solid #ddd";
+  panel.style.padding = "0.5em";
+  panel.style.marginBottom = "1em";
 
   const input = document.createElement("input");
   input.style.width = "100%";
-  input.value = "https://qqvvv.github.io/9/3.markdown";
+  input.value =
+    "https://gcore.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/3.md";
+
+  const loadBtn = document.createElement("button");
+  loadBtn.textContent = "Load MD";
+  loadBtn.style.margin = "0.5em 0";
 
   const textarea = document.createElement("textarea");
   textarea.style.width = "100%";
   textarea.style.height = "200px";
 
-  const playerWrap = document.createElement("div");
+  panel.append(input, loadBtn, textarea);
+
+  toggleBtn.onclick = () => {
+    panel.style.display = panel.style.display === "none" ? "" : "none";
+  };
+
+  /* ======================================================
+   * Player containers
+   * ====================================================== */
+
   const playerMount = document.createElement("div");
   const lyricsMount = document.createElement("div");
 
-  playerWrap.append(playerMount, lyricsMount);
-  target.prepend(playerWrap, textarea, input);
+  target.prepend(toggleBtn, panel, playerMount, lyricsMount);
 
   let destroyPlayer = null;
 
@@ -33,16 +57,25 @@ export async function initModule() {
       mdText
     });
     destroyPlayer = destroy;
+
+    // 数据齐备后默认隐藏面板
+    panel.style.display = "none";
   }
 
-  input.addEventListener("keydown", async e => {
-    if (e.key !== "Enter") return;
-    const md = await (await fetch(input.value)).text();
+  loadBtn.onclick = async () => {
+    const res = await fetch(input.value);
+    const md = await res.text();
     textarea.value = md;
     reload(md);
-  });
+  };
 
   textarea.addEventListener("input", () => {
-    reload(textarea.value);
+    clearTimeout(textarea._t);
+    textarea._t = setTimeout(() => reload(textarea.value), 600);
   });
+
+  if (input.value) {
+    loadBtn.click();
+  }
+
 }

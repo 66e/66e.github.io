@@ -10,8 +10,7 @@ export default async function initPlayer({ mount, lyricsMount, mdText }) {
     document.head.appendChild(css);
   }
 
-  const { audioList } = parseMdonLite(mdText);
-  if (!audioList.length) throw new Error("No tracks");
+  const { audioList, autoplay } = parseMdonLite(mdText);
 
   mount.innerHTML = "";
   lyricsMount.innerHTML = "";
@@ -19,11 +18,9 @@ export default async function initPlayer({ mount, lyricsMount, mdText }) {
   const ap = new APlayer({
     container: mount,
     audio: audioList,
-    autoplay: false,
+    autoplay: 1,
     lrcType: 0
   });
-
-  /* ---------------- Lyrics View ---------------- */
 
   const lyricBox = createLyricsView();
   lyricsMount.appendChild(lyricBox.el);
@@ -36,8 +33,7 @@ export default async function initPlayer({ mount, lyricsMount, mdText }) {
     lyrics = [];
     active = -1;
 
-    const index = ap.list.index;
-    const item = audioList[index];
+    const item = audioList[ap.list.index];
     if (!item?.lrc) return;
 
     const text = await (await fetch(item.lrc)).text();
@@ -45,21 +41,25 @@ export default async function initPlayer({ mount, lyricsMount, mdText }) {
     lyricBox.setLines(lyrics);
   }
 
-  function sync() {
+  function syncHighlight() {
     if (!lyrics.length) return;
 
     const t = ap.audio.currentTime;
-    for (let i = 0; i < lyrics.length; i++) {
-      if (
-        i === lyrics.length - 1 ||
-        (t >= lyrics[i].time && t < lyrics[i + 1].time)
-      ) {
+    const n = lyrics.length;
+
+    for (let i = 0; i < n - 1; i++) {
+      if (t >= lyrics[i].time && t < lyrics[i + 1].time) {
         if (i !== active) {
           active = i;
           lyricBox.highlight(i);
         }
-        break;
+        return;
       }
+    }
+
+    if (n && active !== n - 1) {
+      active = n - 1;
+      lyricBox.highlight(n - 1);
     }
   }
 
@@ -68,10 +68,8 @@ export default async function initPlayer({ mount, lyricsMount, mdText }) {
     if (line) ap.seek(line.time);
   });
 
-  ap.on("timeupdate", sync);
-  ap.on("listswitch", () => {
-    Promise.resolve().then(loadLyrics);
-  });
+  ap.on("timeupdate", syncHighlight);
+  ap.on("listswitch", () => Promise.resolve().then(loadLyrics));
 
   await loadLyrics();
 
@@ -85,17 +83,22 @@ export default async function initPlayer({ mount, lyricsMount, mdText }) {
   };
 }
 
-/* ============================================================
- * mdonLite
- * ============================================================ */
+/* ======================================================
+ * mdonLite parser
+ * ====================================================== */
 
 function parseMdonLite(md) {
   const lines = md.split(/\r?\n/);
   const list = [];
   let cur = null;
   let field = null;
+  let autoplay = false;
 
   for (const l of lines) {
+    if (l.startsWith("## autoplay")) {
+      autoplay = /true/i.test(l);
+      continue;
+    }
     if (l.startsWith("## ")) {
       if (cur?.audio) list.push(cur);
       cur = { name: l.slice(3).trim() };
@@ -114,6 +117,7 @@ function parseMdonLite(md) {
   if (cur?.audio) list.push(cur);
 
   return {
+    autoplay,
     audioList: list.map(t => ({
       name: t.name || "",
       artist: t.artist || "",
@@ -124,29 +128,27 @@ function parseMdonLite(md) {
   };
 }
 
-/* ============================================================
+/* ======================================================
  * LRC
- * ============================================================ */
+ * ====================================================== */
 
 function parseLrc(text) {
   const out = [];
   const re = /\[(\d+):(\d+(?:\.\d+)?)\](.*)/;
-
   text.split(/\r?\n/).forEach(l => {
     const m = re.exec(l);
-    if (!m) return;
-    out.push({
-      time: +m[1] * 60 + +m[2],
-      text: m[3].trim()
-    });
+    if (m)
+      out.push({
+        time: +m[1] * 60 + +m[2],
+        text: m[3].trim()
+      });
   });
-
   return out.sort((a, b) => a.time - b.time);
 }
 
-/* ============================================================
- * Lyrics View
- * ============================================================ */
+/* ======================================================
+ * Lyrics view（debug-02 滚动模型）
+ * ====================================================== */
 
 function createLyricsView() {
   const el = document.createElement("div");
@@ -156,14 +158,14 @@ function createLyricsView() {
 
   let ps = [];
   let active = null;
-  let onClick = null;
+  let clickCb = null;
 
   function setLines(lines) {
     el.innerHTML = "";
     ps = lines.map((l, i) => {
       const p = document.createElement("p");
       p.textContent = l.text;
-      p.onclick = () => onClick?.(i);
+      p.onclick = () => clickCb?.(i);
       el.appendChild(p);
       return p;
     });
@@ -173,15 +175,23 @@ function createLyricsView() {
     if (active) active.style.color = "";
     const p = ps[i];
     if (!p) return;
-
     p.style.color = "#f55";
     active = p;
 
-    requestAnimationFrame(() => {
-      const top =
-        p.offsetTop - el.clientHeight + p.clientHeight / 2;
-      el.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
-    });
+    const lineRect = p.getBoundingClientRect();
+    const boxRect = el.getBoundingClientRect();
+
+    const target =
+      lineRect.top -
+      boxRect.top +
+      el.scrollTop -
+      el.clientHeight / 2 +
+      lineRect.height / 2;
+
+    // debug-02 核心：条件滚动
+    if (Math.abs(target - el.scrollTop) > el.clientHeight * 0.25) {
+      el.scrollTo({ top: target, behavior: "smooth" });
+    }
   }
 
   return {
@@ -189,7 +199,7 @@ function createLyricsView() {
     setLines,
     highlight,
     onLineClick(fn) {
-      onClick = fn;
+      clickCb = fn;
     },
     clear() {
       el.innerHTML = "";
