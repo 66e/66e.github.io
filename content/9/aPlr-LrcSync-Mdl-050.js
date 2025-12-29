@@ -152,7 +152,7 @@ function parseLrc(text) {
 
 function createLyricsView() {
   const el = document.createElement("div");
-  el.style.maxHeight = "20em";
+  el.style.maxHeight = "21em";
   el.style.overflowY = "auto";
   el.style.marginTop = "1em";
 

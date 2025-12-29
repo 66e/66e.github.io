@@ -78,4 +78,6 @@ export async function initModule() {
     loadBtn.click();
   }
 
+  return { destroy };
+
 }
