@@ -170,23 +170,15 @@ function createLyricsView() {
     if (active) active.style.color = "";
     const p = ps[i];
     if (!p) return;
+
     p.style.color = "#f55";
     active = p;
 
-    const lineRect = p.getBoundingClientRect();
-    const boxRect = el.getBoundingClientRect();
-
-    const target =
-      lineRect.top -
-      boxRect.top +
-      el.scrollTop -
-      el.clientHeight / 2 +
-      lineRect.height / 2;
-
-    // debug-02 核心：条件滚动
-    if (Math.abs(target - el.scrollTop) > el.clientHeight * 0.25) {
-      el.scrollTo({ top: target, behavior: "smooth" });
-    }
+    requestAnimationFrame(() => {
+      const top =
+        p.offsetTop - el.clientHeight + p.clientHeight / 2;
+      el.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+    });
   }
 
   return {

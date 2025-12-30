@@ -13,6 +13,11 @@ document.addEventListener("nav", async ( e ) => {
 
     const moduleUrl = "../" + slug.slice( 0, -4 ) + ".js";
     const module = await import ( moduleUrl );
+
+    if (typeof module.initModule !== "function") {
+        console.warn("Module has no initModule:", moduleUrl);
+        return;
+    }
     const res = await module.initModule();
     lastDestroy = res?.destroy || null;
 });
