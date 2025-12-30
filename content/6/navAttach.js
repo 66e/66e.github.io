@@ -13,6 +13,6 @@ document.addEventListener("nav", async ( e ) => {
 
     const moduleUrl = "../" + slug.slice( 0, -4 ) + ".js";
     const module = await import ( moduleUrl );
-    const ret = await module.initModule();
-    lastDestroy = ret.destroy || null;
+    const res = await module.initModule();
+    lastDestroy = res?.destroy || null;
 });

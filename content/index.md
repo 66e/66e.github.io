@@ -24,6 +24,12 @@ const paragraph = document.body.appendChild(document.createElement("p"));
 
 (async () => console.log(await resolveAfter2Seconds()))();
 (async () => console.log(await resolveAfter1Second()))();
+
+const dogName = adventurer.dog?.name;
+
+resetButton.addEventListener("click", () => {
+  
+});
 ```
 
 ```html
