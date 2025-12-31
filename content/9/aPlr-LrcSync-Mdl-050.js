@@ -147,7 +147,7 @@ function parseLrc(text) {
 
 function createLyricsView() {
   const el = document.createElement("div");
-  el.style.maxHeight = "22em";
+  el.style.maxHeight = "23em";
   el.style.overflowY = "auto";
   el.style.marginTop = "1em";
 
@@ -186,7 +186,7 @@ function createLyricsView() {
     // 上边缘即将越界
     if (pTop < viewTop + safeMargin) {
       el.scrollTo({
-        top: pTop - el.clientHeight + p.offsetHeight,
+        top: pTop - el.clientHeight / 1.5 + p.offsetHeight / 1.5,
         behavior: "smooth"
       });
       return;
@@ -195,7 +195,7 @@ function createLyricsView() {
   // 下边缘即将越界
   if (pBottom > viewBottom - safeMargin) {
     el.scrollTo({
-      top: pTop - el.clientHeight + p.offsetHeight,
+      top: pTop - el.clientHeight / 1.5 + p.offsetHeight / 1.5,
       behavior: "smooth"
     });
   }
