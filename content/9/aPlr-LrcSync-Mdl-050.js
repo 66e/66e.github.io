@@ -166,20 +166,41 @@ function createLyricsView() {
     });
   }
 
-  function highlight(i) {
+  function highlight(index) {
     if (active) active.style.color = "";
-    const p = ps[i];
+
+    const p = ps[index];
     if (!p) return;
 
     p.style.color = "#f55";
     active = p;
 
-    requestAnimationFrame(() => {
-      const top =
-        p.offsetTop - el.clientHeight + p.clientHeight / 2;
-      el.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+    const pTop = p.offsetTop;
+    const pBottom = pTop + p.offsetHeight;
+
+    const viewTop = el.scrollTop;
+    const viewBottom = viewTop + el.clientHeight;
+
+    const safeMargin = el.clientHeight;
+
+    // 上边缘即将越界
+    if (pTop < viewTop + safeMargin) {
+      el.scrollTo({
+        top: pTop - el.clientHeight + p.offsetHeight,
+        behavior: "smooth"
+      });
+      return;
+    }
+
+  // 下边缘即将越界
+  if (pBottom > viewBottom - safeMargin) {
+    el.scrollTo({
+      top: pTop - el.clientHeight + p.offsetHeight,
+      behavior: "smooth"
     });
   }
+}
+
 
   return {
     el,
