@@ -166,30 +166,29 @@ function createLyricsView() {
     });
   }
 
-  function highlight(index) {
-  if (active) active.style.color = "";
+  function highlight(i) {
+    if (active) active.style.color = "";
+    const p = ps[i];
+    if (!p) return;
+    p.style.color = "#f55";
+    active = p;
 
-  const p = ps[index];
-  if (!p) return;
+    const lineRect = p.getBoundingClientRect();
+    const boxRect = el.getBoundingClientRect();
 
-  p.style.color = "#f55";
-  active = p;
+    const target =
+      lineRect.top -
+      boxRect.top +
+      el.scrollTop -
+      el.clientHeight / 2 +
+      lineRect.height / 2;
 
-  const pTop = p.offsetTop;
-  const pBottom = pTop + p.offsetHeight;
-
-  const viewTop = el.scrollTop;
-  const viewBottom = viewTop + el.clientHeight;
-
-  // 只有当歌词即将超出可视区时才滚动
-  if (pTop < viewTop || pBottom > viewBottom) {
-    el.scrollTo({
-      top: pTop - el.clientHeight + p.offsetHeight,
-      behavior: "smooth"
-    });
+    // debug-02 核心：条件滚动
+    if (Math.abs(target - el.scrollTop) > el.clientHeight * 0.25) {
+      el.scrollTo({ top: target, behavior: "smooth" });
+    }
   }
-}
-
+  
   return {
     el,
     setLines,
