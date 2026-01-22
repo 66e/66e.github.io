@@ -41,6 +41,11 @@ primary
 1
 
 # GALLERY
+## Mirrors
+https://6cc.github.io/c/m/y/19/97.jpg
+https://i1.wp.com/6cc.github.io/c/m/y/19/97.jpg
+https://gcore.jsdelivr.net/gh/6cc/c/m/y/19/97.jpg
+
 - 幽幽白书
   - 第01卷 {"vol":"01", "cnt":102, "cv":"1"}
   - 第02卷 {"vol":"02", "cnt":98, "cv":"1"}
