@@ -1,26 +1,44 @@
 # CONFIG
 ## Mirrors
+
 ### jsPanel-1
+https://gcore.jsdelivr.net/gh/Flyer53/jsPanel4/es6module/jspanel.min.css
+https://gcore.jsdelivr.net/gh/Flyer53/jsPanel4/es6module/jspanel.min.js
+
+### jsPanel-2
 https://ghproxy.net/https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.css
 https://ghproxy.net/https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.js
 
-### jsPanel-2
+### jsPanel-3
 https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.css
 https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.js
 
 ### fancyapps-ui-1
+https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css
+https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.esm.min.js
+
+### fancyapps-ui-2
 https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css
 https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.esm.js
 
-### fancyapps-ui-2
+### fancyapps-ui-3
 https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css
 https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.esm.js
 
 ### imagesloaded-1
+https://esm.sh/imagesloaded@5.0.0
+
+### imagesloaded-2
 https://cdn.skypack.dev/imagesloaded@5.0.0
 
-### imagesloaded-1
+### imagesloaded-3
 https://qqvvv.github.io/j/imagesloaded.mjs
+
+## jsPanelTheme
+primary
+
+## autoNavFirst
+1
 
 # GALLERY
 - 幽幽白书
@@ -43,5 +61,9 @@ https://qqvvv.github.io/j/imagesloaded.mjs
   - 第17卷 {"vol":"17", "cnt":103, "cv":"1"}
   - 第18卷 {"vol":"18", "cnt":94, "cv":"2"}
   - 第19卷 {"vol":"19", "cnt":97, "cv":"1"}
-- 白书 (b)
-  - 第21卷 {"vol":"01", "cnt":10, "cv":"2"}
+- hYakusho百书
+  - 第01卷 {"vol":"01", "cnt":3, "cv":"1"}
+## hashArray
+https://i.postimg.cc/ppCsnWdr/Windows-booting.png
+https://i.ibb.co/0yCrvxq/C41805-FC-BFB6-4-E45-8464-6-B73-EC3-E5496.jpg
+https://s2.loli.net/2026/01/16/wGzRlFP3I1KrqaM.jpg
