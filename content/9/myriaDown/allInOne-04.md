@@ -1,51 +1,58 @@
 # CONFIG
-## Mirrors
 
-### jsPanel-1
+## Refers
+
+### jsPanel
+#### p
 https://gcore.jsdelivr.net/gh/Flyer53/jsPanel4/es6module/jspanel.min.css
 https://gcore.jsdelivr.net/gh/Flyer53/jsPanel4/es6module/jspanel.min.js
 
-### jsPanel-2
+#### m1
 https://ghproxy.net/https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.css
 https://ghproxy.net/https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.js
 
-### jsPanel-3
+#### m2
 https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.css
 https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.js
 
-### fancyapps-ui-1
+### fancyapps-ui
+#### p
 https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css
 https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.esm.min.js
 
-### fancyapps-ui-2
+#### m1
 https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css
 https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.esm.js
 
-### fancyapps-ui-3
+#### m2
 https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css
 https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.esm.js
 
-### imagesloaded-1
+### imagesloaded
+#### p
 https://esm.sh/imagesloaded@5.0.0
 
-### imagesloaded-2
+#### m1
 https://cdn.skypack.dev/imagesloaded@5.0.0
 
-### imagesloaded-3
+#### m2
 https://qqvvv.github.io/j/imagesloaded.mjs
 
 ## jsPanelTheme
 primary
 
-## autoNavFirst
+## autoNav
 1
 
 # GALLERY
-## Mirrors
+
+## book-01
+### Mirrors
 https://6cc.github.io/c/m/y/19/97.jpg
 https://i1.wp.com/6cc.github.io/c/m/y/19/97.jpg
 https://gcore.jsdelivr.net/gh/6cc/c/m/y/19/97.jpg
 
+### Menus
 - 幽幽白书
   - 第01卷 {"vol":"01", "cnt":102, "cv":"1"}
   - 第02卷 {"vol":"02", "cnt":98, "cv":"1"}
@@ -66,9 +73,12 @@ https://gcore.jsdelivr.net/gh/6cc/c/m/y/19/97.jpg
   - 第17卷 {"vol":"17", "cnt":103, "cv":"1"}
   - 第18卷 {"vol":"18", "cnt":94, "cv":"2"}
   - 第19卷 {"vol":"19", "cnt":97, "cv":"1"}
-- hYakusho百书
-  - 第01卷 {"vol":"01", "cnt":3, "cv":"1"}
-## hashArray
+
+## book-02
+### Menus
+- apocrypha
+  - 第01卷 {"vol":"01", "seq":false, "cv":"1"}
+#### vol-01
 https://i.postimg.cc/ppCsnWdr/Windows-booting.png
 https://i.ibb.co/0yCrvxq/C41805-FC-BFB6-4-E45-8464-6-B73-EC3-E5496.jpg
 https://s2.loli.net/2026/01/16/wGzRlFP3I1KrqaM.jpg
