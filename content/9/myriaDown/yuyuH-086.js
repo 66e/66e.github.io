@@ -200,7 +200,7 @@
     };
 
     await setup();
-    state.tree = await advancedParser.load('https://gcore.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/myriaDown/allInOne-02.md');
+    state.tree = await advancedParser.load('https://gcore.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/myriaDown/allInOne-04.md');
     UI.injectStyles();
     
     const dot = document.createElement('div'); dot.id = 'y-dot'; document.body.appendChild(dot);

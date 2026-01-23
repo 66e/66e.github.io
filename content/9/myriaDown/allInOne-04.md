@@ -1,44 +1,46 @@
+#myriaDown
 # CONFIG
 
 ## Refers
 
-### jsPanel
-#### p
+### jsPanel4
+#### primary
 https://gcore.jsdelivr.net/gh/Flyer53/jsPanel4/es6module/jspanel.min.css
 https://gcore.jsdelivr.net/gh/Flyer53/jsPanel4/es6module/jspanel.min.js
 
-#### m1
+#### mirror-1
 https://ghproxy.net/https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.css
 https://ghproxy.net/https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.js
 
-#### m2
+#### mirror-2
 https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.css
 https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.js
 
 ### fancyapps-ui
-#### p
+#### primary
 https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css
 https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.esm.min.js
 
-#### m1
+#### mirror-1
 https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css
 https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.esm.js
 
-#### m2
+#### mirror-2
 https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css
 https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.esm.js
 
 ### imagesloaded
-#### p
+#### primary
 https://esm.sh/imagesloaded@5.0.0
 
-#### m1
+#### mirror-1
 https://cdn.skypack.dev/imagesloaded@5.0.0
 
-#### m2
+#### mirror-2
 https://qqvvv.github.io/j/imagesloaded.mjs
 
-## jsPanelTheme
+## jsPanel
+### theme
 primary
 
 ## autoNav
@@ -82,3 +84,9 @@ https://gcore.jsdelivr.net/gh/6cc/c/m/y/19/97.jpg
 https://i.postimg.cc/ppCsnWdr/Windows-booting.png
 https://i.ibb.co/0yCrvxq/C41805-FC-BFB6-4-E45-8464-6-B73-EC3-E5496.jpg
 https://s2.loli.net/2026/01/16/wGzRlFP3I1KrqaM.jpg
+
+### misc
+|     | a   | b   |
+| --- | --- | --- |
+| 1   | a1  | b1  |
+| 2   | a2  | b2  |
