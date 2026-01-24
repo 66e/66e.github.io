@@ -1,6 +1,5 @@
-#myriaDown
-# VERSION
-0.50
+# #myriaDown Ver
+0.6
 
 # CONFIG
 ## Refers
@@ -47,17 +46,11 @@ primary
 ## autoNav
 1
 
-## misc
-|     | a   | b   |
-| --- | --- | --- |
-| 1   | a1  | b1  |
-| 2   | a2  | b2  |
-
 # GALLERY
 ## Menu
 
 - Root
-  - 幽幽白书 {"mirr":mirrors_Y}
+  - 幽幽白书 {"mirr":"mirrors_Y"}
     - 第01卷 {"vol":"01", "cnt":102, "cv":"1"}
     - 第02卷 {"vol":"02", "cnt":98, "cv":"1"}
     - 第03卷 {"vol":"03", "cnt":96, "cv":"1"}
@@ -79,7 +72,7 @@ primary
     - 第19卷 {"vol":"19", "cnt":97, "cv":"1"}
     
   - apocrypha
-    - 第01卷 {"seq":list_A_1}
+    - 第01卷 {"seq":"list_A_1"}
     
 ### mirrors_Y
 https://6cc.github.io/c/m/y/19/97.jpg
@@ -90,3 +83,9 @@ https://gcore.jsdelivr.net/gh/6cc/c/m/y/19/97.jpg
 https://i.postimg.cc/ppCsnWdr/Windows-booting.png
 https://i.ibb.co/0yCrvxq/C41805-FC-BFB6-4-E45-8464-6-B73-EC3-E5496.jpg
 https://s2.loli.net/2026/01/16/wGzRlFP3I1KrqaM.jpg
+
+## misc
+|     | a   | b   |
+| --- | --- | --- |
+| 1   | a1  | b1  |
+| 2   | a2  | b2  |
