@@ -1,5 +1,5 @@
 # #myriaDown Ver
-0.6
+0.7
 
 # CONFIG
 ## Refers
@@ -50,36 +50,36 @@ primary
 ## Menu
 
 - Root
-  - 幽幽白书 {"mirr":"mirrors_Y"}
-    - 第01卷 {"vol":"01", "cnt":102, "cv":"1"}
-    - 第02卷 {"vol":"02", "cnt":98, "cv":"1"}
-    - 第03卷 {"vol":"03", "cnt":96, "cv":"1"}
-    - 第04卷 {"vol":"04", "cnt":96, "cv":"1"}
-    - 第05卷 {"vol":"05", "cnt":104, "cv":"1"}
-    - 第06卷 {"vol":"06", "cnt":104, "cv":"1"}
-    - 第07卷 {"vol":"07", "cnt":101, "cv":"5"}
-    - 第08卷 {"vol":"08", "cnt":95, "cv":"2"}
-    - 第09卷 {"vol":"09", "cnt":96, "cv":"2"}
-    - 第10卷 {"vol":"10", "cnt":104, "cv":"1"}
-    - 第11卷 {"vol":"11", "cnt":95, "cv":"1"}
-    - 第12卷 {"vol":"12", "cnt":95, "cv":"1"}
-    - 第13卷 {"vol":"13", "cnt":94, "cv":"1"}
-    - 第14卷 {"vol":"14", "cnt":103, "cv":"12"}
-    - 第15卷 {"vol":"15", "cnt":103, "cv":"1"}
-    - 第16卷 {"vol":"16", "cnt":103, "cv":"1"}
-    - 第17卷 {"vol":"17", "cnt":103, "cv":"1"}
-    - 第18卷 {"vol":"18", "cnt":94, "cv":"2"}
-    - 第19卷 {"vol":"19", "cnt":97, "cv":"1"}
+  - 幽幽白书 | mir, #mirrors_Y |
+    - 01 | cnt, 102 | cvr, 1  |
+    - 02 | cnt, 98  | cvr, 1  |
+    - 03 | cnt, 96  | cvr, 1  |
+    - 04 | cnt, 96  | cvr, 1  |
+    - 05 | cnt, 104 | cvr, 1  |
+    - 06 | cnt, 104 | cvr, 1  |
+    - 07 | cnt, 101 | cvr, 5  |
+    - 08 | cnt, 95  | cvr, 2  |
+    - 09 | cnt, 96  | cvr, 2  |
+    - 10 | cnt, 104 | cvr, 1  |
+    - 11 | cnt, 95  | cvr, 1  |
+    - 12 | cnt, 95  | cvr, 1  |
+    - 13 | cnt, 94  | cvr, 1  |
+    - 14 | cnt, 103 | cvr, 12 |
+    - 15 | cnt, 103 | cvr, 1  |
+    - 16 | cnt, 103 | cvr, 1  |
+    - 17 | cnt, 103 | cvr, 1  |
+    - 18 | cnt, 94  | cvr, 2  |
+    - 19 | cnt, 97  | cvr, 1  |
     
   - apocrypha
-    - 第01卷 {"seq":"list_A_1"}
+    - 第01卷 | hsh, #list_A_1 |
     
-### mirrors_Y
+### #mirrors_Y
 https://6cc.github.io/c/m/y/19/97.jpg
 https://i1.wp.com/6cc.github.io/c/m/y/19/97.jpg
 https://gcore.jsdelivr.net/gh/6cc/c/m/y/19/97.jpg
 
-### list_A_1
+### #list_A_1
 https://i.postimg.cc/ppCsnWdr/Windows-booting.png
 https://i.ibb.co/0yCrvxq/C41805-FC-BFB6-4-E45-8464-6-B73-EC3-E5496.jpg
 https://s2.loli.net/2026/01/16/wGzRlFP3I1KrqaM.jpg
