@@ -1,6 +1,6 @@
 # #myriaDown
 ## version
-0.9
+1.0
 
 # CONFIG
 | key     | value   |
@@ -46,10 +46,10 @@ https://cdn.skypack.dev/imagesloaded@5.0.0
 https://qqvvv.github.io/j/imagesloaded.mjs
 
 # GALLERY
-## #mYriAMemu
-- Root: &_YggdrAML
+## #mYriAMenu
+- Root: # &_ROOT
   - 幽幽白书
-    - # &_Mirrors
+    - # &_MIR
       - https://6cc.github.io/c/m/y/19/97.jpg
       - https://i1.wp.com/6cc.github.io/c/m/y/19/97.jpg
       - https://gcore.jsdelivr.net/gh/6cc/c/m/y/19/97.jpg
@@ -99,7 +99,7 @@ https://qqvvv.github.io/j/imagesloaded.mjs
       - # &_SEQ: 97
     
   - apocrypha
-    - 01
+    - 01: # &_REF
       - https://s2.loli.net/2026/01/16/wGzRlFP3I1KrqaM.jpg
       - https://i.ibb.co/0yCrvxq/C41805-FC-BFB6-4-E45-8464-6-B73-EC3-E5496.jpg
       - https://i.postimg.cc/ppCsnWdr/Windows-booting.png
