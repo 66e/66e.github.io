@@ -1,13 +1,12 @@
 # #myriaDown
 ## version
-0.8
+0.9
 
 # CONFIG
-## autoNav
-1
-
-## theme
-primary
+| key     | value   |
+| ---     | ---     |
+| autoNav | 1       |
+| theme   | primary |
 
 ## Refers
 ### jsPanel
@@ -47,57 +46,57 @@ https://cdn.skypack.dev/imagesloaded@5.0.0
 https://qqvvv.github.io/j/imagesloaded.mjs
 
 # GALLERY
-## yamlMenu
-- &_Root
+## #mYriAMemu
+- Root: &_YggdrAML
   - 幽幽白书
-    - &_Mirrors
+    - # &_Mirrors
       - https://6cc.github.io/c/m/y/19/97.jpg
       - https://i1.wp.com/6cc.github.io/c/m/y/19/97.jpg
       - https://gcore.jsdelivr.net/gh/6cc/c/m/y/19/97.jpg
 
     - 01
-      - &_SEQ: 102
+      - # &_SEQ: 102
     - 02
-      - &_SEQ: 98
+      - # &_SEQ: 98
     - 03
-      - &_SEQ: 96
+      - # &_SEQ: 96
     - 04
-      - &_SEQ: 96
+      - # &_SEQ: 96
     - 05
-      - &_SEQ: 104
+      - # &_SEQ: 104
     - 06
-      - &_SEQ: 104
+      - # &_SEQ: 104
     - 07
-      - &_SEQ: 101
-      - &_CVR: 5
+      - # &_SEQ: 101
+      - # &_CVR: 5
     - 08
-      - &_SEQ: 95
-      - &_CVR: 2
+      - # &_SEQ: 95
+      - # &_CVR: 2
     - 09
-      - &_SEQ: 96
-      - &_CVR: 2
+      - # &_SEQ: 96
+      - # &_CVR: 2
     - 10
-      - &_SEQ: 104
+      - # &_SEQ: 104
     - 11
-      - &_SEQ: 95
+      - # &_SEQ: 95
     - 12
-      - &_SEQ: 95
+      - # &_SEQ: 95
     - 13
-      - &_SEQ: 94
+      - # &_SEQ: 94
     - 14
-      - &_SEQ: 103
-      - &_CVR: 12
+      - # &_SEQ: 103
+      - # &_CVR: 12
     - 15
-      - &_SEQ: 103
+      - # &_SEQ: 103
     - 16
-      - &_SEQ: 103
+      - # &_SEQ: 103
     - 17
-      - &_SEQ: 103
+      - # &_SEQ: 103
     - 18
-      - &_SEQ: 94
-      - &_CVR: 2
+      - # &_SEQ: 94
+      - # &_CVR: 2
     - 19
-      - &_SEQ: 97
+      - # &_SEQ: 97
     
   - apocrypha
     - 01
