@@ -1,14 +1,11 @@
-# #myriaDown
-## version
-1.0
-
 # CONFIG
-| key     | value   |
-| ---     | ---     |
-| autoNav | 1       |
-| theme   | primary |
+| #matrixDown | key     | value   | alternate |
+| ---         | ---     | ---     | --- |
+| #myriaDown  | version | 1.0     |     |
+| y-Menu      | autoNav | 1       ||
+| jsPanel     | theme   | primary ||
 
-## Refers
+## mirrorRefers
 ### jsPanel
 #### jsdelivr
 https://gcore.jsdelivr.net/gh/Flyer53/jsPanel4/es6module/jspanel.min.css
@@ -46,7 +43,7 @@ https://cdn.skypack.dev/imagesloaded@5.0.0
 https://qqvvv.github.io/j/imagesloaded.mjs
 
 # GALLERY
-## #mYriAMenu
+## #YggdrAML
 - Root: # &_ROOT
   - 幽幽白书
     - # &_MIR
@@ -103,9 +100,3 @@ https://qqvvv.github.io/j/imagesloaded.mjs
       - https://s2.loli.net/2026/01/16/wGzRlFP3I1KrqaM.jpg
       - https://i.ibb.co/0yCrvxq/C41805-FC-BFB6-4-E45-8464-6-B73-EC3-E5496.jpg
       - https://i.postimg.cc/ppCsnWdr/Windows-booting.png
-
-## misc
-|     | a   | b   |
-| --- | --- | --- |
-| 1   | a1  | b1  |
-| 2   | a2  | b2  |
