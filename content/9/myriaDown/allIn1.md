@@ -1,50 +1,46 @@
 # CONFIG
-| #matrixDown | key     | value   | alternate |
+## #matrixDice
+| dimension   | key     | value   | alternate |
 | ---         | ---     | ---     | --- |
-| #myriaDown  | version | 1.0     |     |
-| y-Menu      | autoNav | 1       ||
+| #myriaDown  | version | 1.1     |     |
+| y-Menu      | autoNav | 1       | |
 | jsPanel     | theme   | primary ||
 
-## mirrorRefers
-### jsPanel
-#### jsdelivr
-https://gcore.jsdelivr.net/gh/Flyer53/jsPanel4/es6module/jspanel.min.css
-https://gcore.jsdelivr.net/gh/Flyer53/jsPanel4/es6module/jspanel.min.js
+## #libRefers
+- Root
+  - ### jsPanel
+    - #### Set-1
+      - https://gcore.jsdelivr.net/gh/Flyer53/jsPanel4/es6module/jspanel.min.css
+      - https://gcore.jsdelivr.net/gh/Flyer53/jsPanel4/es6module/jspanel.min.js
+    - #### Set-2
+      - https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.css
+      - https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.js
+    - #### Set-3
+      - https://qqvvv.github.io/j/jspanel.min.css
+      - https://qqvvv.github.io/j/jspanel.min.js
 
-#### ghUC
-https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.css
-https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.js
+  - ### fancyapps-ui
+    - #### Set-1
+      - https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css
+      - https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.esm.min.js
+    - #### Set-2
+      - https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css
+      - https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.esm.js
+    - #### Set-3
+      - https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css
+      - https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.esm.js
 
-#### ghPageS
-https://qqvvv.github.io/j/jspanel.min.css
-https://qqvvv.github.io/j/jspanel.min.js
-
-### fancyapps-ui
-#### cloudflare
-https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css
-https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.esm.min.js
-
-#### jsdelivr
-https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css
-https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.esm.js
-
-#### unpkg
-https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css
-https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.esm.js
-
-### imagesloaded
-#### esm
-https://esm.sh/imagesloaded@5.0.0
-
-#### skypack
-https://cdn.skypack.dev/imagesloaded@5.0.0
-
-#### ghPageS
-https://qqvvv.github.io/j/imagesloaded.mjs
+  - ### imagesloaded
+    - #### Set-1
+      - https://esm.sh/imagesloaded@5.0.0
+    - #### Set-2
+      - https://cdn.skypack.dev/imagesloaded@5.0.0
+    - #### Set-3
+      - https://qqvvv.github.io/j/imagesloaded.mjs
 
 # GALLERY
 ## #YggdrAML
-- Root: # &_ROOT
+- Root
   - 幽幽白书
     - # &_MIR
       - https://6cc.github.io/c/m/y/19/97.jpg
