@@ -2,7 +2,7 @@
 ## #matrixDice
 | dimension   | key     | value   | alternate |
 | ---         | ---     | ---     | --- |
-| #myriaDown  | version | 1.4     | lines: 98 |
+| #myriaDown  | version | 1.5     | lines: 101 |
 | y-Menu      | autoNav | 1       |     |
 | jsPanel     | theme   | primary ||
 
@@ -45,50 +45,53 @@
       - https://6cc.github.io/c/m/y/19/97.jpg
       - https://i1.wp.com/6cc.github.io/c/m/y/19/97.jpg
       - https://gcore.jsdelivr.net/gh/6cc/c/m/y/19/97.jpg
+    - # &_COV: 1
+    - # &_RVO: \/(\d{1,})\.
+    - # &_RPA: \/(\d{2})\/[^\/]*$
 
     - 01 # &_COM: [卷]
-      - # &_SEQ: 102
+      - # &_LEN: 102
     - 02
-      - # &_SEQ: 98
+      - # &_LEN: 98
     - 03
-      - # &_SEQ: 96
+      - # &_LEN: 96
     - 04
-      - # &_SEQ: 96
+      - # &_LEN: 96
     - 05
-      - # &_SEQ: 104
+      - # &_LEN: 104
     - 06
-      - # &_SEQ: 104
+      - # &_LEN: 104
     - 07
-      - # &_SEQ: 101
+      - # &_LEN: 101
       - # &_COV: 5
     - 08
-      - # &_SEQ: 95
+      - # &_LEN: 95
       - # &_COV: 2
     - 09
-      - # &_SEQ: 96
+      - # &_LEN: 96
       - # &_COV: 2
     - 10
-      - # &_SEQ: 104
+      - # &_LEN: 104
     - 11
-      - # &_SEQ: 95
+      - # &_LEN: 95
     - 12
-      - # &_SEQ: 95
+      - # &_LEN: 95
     - 13
-      - # &_SEQ: 94
+      - # &_LEN: 94
     - 14
-      - # &_SEQ: 103
+      - # &_LEN: 103
       - # &_COV: 12
     - 15
-      - # &_SEQ: 103
+      - # &_LEN: 103
     - 16
-      - # &_SEQ: 103
+      - # &_LEN: 103
     - 17
-      - # &_SEQ: 103
+      - # &_LEN: 103
     - 18
-      - # &_SEQ: 94
+      - # &_LEN: 94
       - # &_COV: 2
     - 19
-      - # &_SEQ: 97
+      - # &_LEN: 97
     
   - apocrypha # &_COM: [伪书]
     - 01 # &_ANC # &_COM: [yaml_anchor-alias]
