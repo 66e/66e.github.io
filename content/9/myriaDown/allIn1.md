@@ -2,11 +2,11 @@
 ## #matrixDice
 | dimension   | key     | value   | alternate |
 | ---         | ---     | ---     | --- |
-| #myriaDown  | version | 1.3     | lines: 98 |
+| #myriaDown  | version | 1.4     | lines: 98 |
 | y-Menu      | autoNav | 1       |     |
 | jsPanel     | theme   | primary ||
 
-## #YggdrAML
+## #yggdrasiLabs
 - jsPanel # &_COM: [jsD]
   - # &_SET
     - https://gcore.jsdelivr.net/gh/Flyer53/jsPanel4/es6module/jspanel.min.css
@@ -60,13 +60,13 @@
       - # &_SEQ: 104
     - 07
       - # &_SEQ: 101
-      - # &_CVR: 5
+      - # &_COV: 5
     - 08
       - # &_SEQ: 95
-      - # &_CVR: 2
+      - # &_COV: 2
     - 09
       - # &_SEQ: 96
-      - # &_CVR: 2
+      - # &_COV: 2
     - 10
       - # &_SEQ: 104
     - 11
@@ -77,7 +77,7 @@
       - # &_SEQ: 94
     - 14
       - # &_SEQ: 103
-      - # &_CVR: 12
+      - # &_COV: 12
     - 15
       - # &_SEQ: 103
     - 16
@@ -86,13 +86,13 @@
       - # &_SEQ: 103
     - 18
       - # &_SEQ: 94
-      - # &_CVR: 2
+      - # &_COV: 2
     - 19
       - # &_SEQ: 97
     
   - apocrypha # &_COM: [伪书]
-    - 01 # &_&a # &_COM: [yaml_anchor-alias]
+    - 01 # &_ANC # &_COM: [yaml_anchor-alias]
       - https://s2.loli.net/2026/01/16/wGzRlFP3I1KrqaM.jpg
       - https://i.ibb.co/0yCrvxq/C41805-FC-BFB6-4-E45-8464-6-B73-EC3-E5496.jpg
       - https://i.postimg.cc/ppCsnWdr/Windows-booting.png
-    - 02 # &_*a
+    - 02 # &_ALI
