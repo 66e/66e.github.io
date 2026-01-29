@@ -2,9 +2,8 @@
 ## #matrixDice
 | dimension   | key     | value   | alternate |
 | ---         | ---     | ---     | --- |
-| #myriaDown  | version | 1.6     | lines: 77 |
-| y-Menu      | autoNav | 1       |     |
-| jsPanel     | theme   | primary ||
+| #myriaDown  | version | 1.7     | lines: 76 |
+| jsPanel     | theme   | primary | |
 
 ## #yggdrasiLabs
 - fancyapps-ui #?<comment= Lab-f
@@ -39,12 +38,12 @@
 
 # galleryData
 ## #YggdrAML
-- Root
+- Root #?<autonav=1
   - 幽幽白书
-    - default #?<ignore=1 &cover=1
-      - \/(\d{2})\/[^\/]*$
-      - \/(\d{1,})\.
-    - mirrors #?<ignore=1
+    - default #?<hidden=true &cover=1 &thumb=1
+      - volume #?<regexp=\/(\d{2})\/[^\/]*$
+      - page #?<regexp=\/(\d{1,})\.
+    - mirrors #?<hidden=true
       - https://6cc.github.io/c/m/y/19/97.jpg
       - https://i1.wp.com/6cc.github.io/c/m/y/19/97.jpg
       - https://gcore.jsdelivr.net/gh/6cc/c/m/y/19/97.jpg
