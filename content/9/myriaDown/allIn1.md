@@ -2,43 +2,43 @@
 ## #matrixDice
 | dimension   | key     | value   | alternate |
 | ---         | ---     | ---     | --- |
-| #myriaDown  | version | 1.8     | lines: 75 |
+| #myriaDown  | version | 1.02    | lines: 75 |
 
 ## #yggdrasiLabs
-- fancyapps-ui #?<comment= =Lab-f
-  - Set #?<comment= f1
+- fancyapps-ui #?<comment= =lab-F
+  - Set #?<comment= F-1
     - https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css
     - https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.esm.min.js
-  - Set #?<comment= f2
+  - Set #?<comment= F-2
     - https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css
     - https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.esm.min.js
-  - Set #?<comment= f3
+  - Set #?<comment= F-3
     - https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css
     - https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.esm.js
 
-- imagesloaded #?<comment= =Lab-i
-  - Set #?<comment= i1
+- imagesloaded #?<comment= =lab-I
+  - Set #?<comment= I-1
     - https://esm.sh/imagesloaded@5.0.0
-  - Set #?<comment= i2
+  - Set #?<comment= I-2
     - https://cdn.skypack.dev/imagesloaded@5.0.0
-  - Set #?<comment= i3
+  - Set #?<comment= I-3
     - https://qqvvv.github.io/j/imagesloaded.mjs
 
-- jsPanel #?<comment= =Lab-j
-  - Set #?<comment= j1
+- jsPanel #?<comment= =lab-J
+  - Set #?<comment= J-1
     - https://gcore.jsdelivr.net/gh/Flyer53/jsPanel4/es6module/jspanel.min.css
     - https://gcore.jsdelivr.net/gh/Flyer53/jsPanel4/es6module/jspanel.min.js
-  - Set #?<comment= j2
-    - https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.css
-    - https://raw.githubusercontent.com/Flyer53/jsPanel4/refs/heads/master/es6module/jspanel.min.js
-  - Set #?<comment= j3
+  - Set #?<comment= J-2
+    - https://unpkg.com/jspanel4@4.16.1/es6module/jspanel.min.css
+    - https://unpkg.com/jspanel4@4.16.1/es6module/jspanel.min.js
+  - Set #?<comment= J-3
     - https://qqvvv.github.io/j/jspanel.min.css
     - https://qqvvv.github.io/j/jspanel.min.js
 
 # galleryData
 ## #YggdrAML
-- Root #?<coverPic=1 &bookThumb=1 &autoNav=1 &winTheme=primary
-  - 幽幽白书 #?<sequence=true
+- Root #?<coverPic=1 &bookThumb=1 &autoNavTo=1 &theme=primary
+  - 幽幽白书 #?<autoGenSeq=true
     - default #?<isNode=false
       - volume #?<padStart=2 &regExp=\/(\d{2})\/[^\/]*$
       - page #?<regExp=\/(\d{1,})\.
