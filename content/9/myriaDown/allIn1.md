@@ -1,23 +1,22 @@
-# labConfig
+# mdConfig
 ## #matrixDice
 | dimension   | key     | value   | alternate |
 | ---         | ---     | ---     | --- |
-| #myriaDown  | version | 1.7     | lines: 76 |
-| jsPanel     | theme   | primary | |
+| #myriaDown  | version | 1.8     | lines: 75 |
 
 ## #yggdrasiLabs
-- fancyapps-ui #?<comment= Lab-f
+- fancyapps-ui #?<comment= =Lab-f
   - Set #?<comment= f1
     - https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.min.css
     - https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.36/fancybox/fancybox.esm.min.js
   - Set #?<comment= f2
-    - https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css
-    - https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.esm.js
+    - https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css
+    - https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.esm.min.js
   - Set #?<comment= f3
     - https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.css
     - https://unpkg.com/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.esm.js
 
-- imagesloaded #?<comment= Lab-i
+- imagesloaded #?<comment= =Lab-i
   - Set #?<comment= i1
     - https://esm.sh/imagesloaded@5.0.0
   - Set #?<comment= i2
@@ -25,7 +24,7 @@
   - Set #?<comment= i3
     - https://qqvvv.github.io/j/imagesloaded.mjs
 
-- jsPanel #?<comment= Lab-j
+- jsPanel #?<comment= =Lab-j
   - Set #?<comment= j1
     - https://gcore.jsdelivr.net/gh/Flyer53/jsPanel4/es6module/jspanel.min.css
     - https://gcore.jsdelivr.net/gh/Flyer53/jsPanel4/es6module/jspanel.min.js
@@ -38,12 +37,12 @@
 
 # galleryData
 ## #YggdrAML
-- Root #?<autonav=1
-  - 幽幽白书
-    - default #?<hidden=true &cover=1 &thumb=1
-      - volume #?<regexp=\/(\d{2})\/[^\/]*$
-      - page #?<regexp=\/(\d{1,})\.
-    - mirrors #?<hidden=true
+- Root #?<coverPic=1 &bookThumb=1 &autoNav=1 &winTheme=primary
+  - 幽幽白书 #?<sequence=true
+    - default #?<isNode=false
+      - volume #?<padStart=2 &regExp=\/(\d{2})\/[^\/]*$
+      - page #?<regExp=\/(\d{1,})\.
+    - mirrors #?<isNode=false
       - https://6cc.github.io/c/m/y/19/97.jpg
       - https://i1.wp.com/6cc.github.io/c/m/y/19/97.jpg
       - https://gcore.jsdelivr.net/gh/6cc/c/m/y/19/97.jpg
@@ -54,18 +53,18 @@
     - 04 #?<length=96
     - 05 #?<length=104
     - 06 #?<length=104
-    - 07 #?<length=101 &cover=5
-    - 08 #?<length=95 &cover=2
-    - 09 #?<length=96 &cover=2
+    - 07 #?<length=101 &coverPic=5
+    - 08 #?<length=95 &coverPic=2
+    - 09 #?<length=96 &coverPic=2
     - 10 #?<length=104
     - 11 #?<length=95
     - 12 #?<length=95
     - 13 #?<length=94
-    - 14 #?<length=103 &cover=12
+    - 14 #?<length=103 &coverPic=12
     - 15 #?<length=103
     - 16 #?<length=103
     - 17 #?<length=103
-    - 18 #?<length=94 &cover=2
+    - 18 #?<length=94 &coverPic=2
     - 19 #?<length=97
     
   - apocrypha #?<comment=伪书
