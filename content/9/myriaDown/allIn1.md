@@ -2,7 +2,7 @@
 ## #matrixDice
 | dimension   | key     | value   | alternate |
 | ---         | ---     | ---     | --- |
-| #myriaDown  | version | 1.03    | lines: 76 |
+| #myriaDown  | version | 1.04    | lines: 76 |
 
 ## #yggdrasiLabs
 - fancyapps-ui #?<comment= =lab-F
@@ -37,8 +37,8 @@
 
 # galleryData
 ## #YggdrAML
-- Root #?<firstPic=1 &bookPicVol=1 &autoNavTo=1 &jspTheme=primary
-  - 幽幽白书 #?<genSeqPics=true
+- Root #?<coverPic=1 &autoNavTo=1 &jspTheme=primary
+  - 幽幽白书 #?<bookPicFromVol=1 &genSeqPics=true
     - default #?<isMenuNode=false
       - volume #?<padStart=2 &regExp=\/(\d{2})\/[^\/]*$
       - page #?<regExp=\/(\d{1,})\.
@@ -53,22 +53,22 @@
     - 04 #?<lastPic=96
     - 05 #?<lastPic=104
     - 06 #?<lastPic=104
-    - 07 #?<lastPic=101 &firstPic=5
-    - 08 #?<lastPic=95 &firstPic=2
-    - 09 #?<lastPic=96 &firstPic=2
+    - 07 #?<lastPic=101 &coverPic=5
+    - 08 #?<lastPic=95 &coverPic=2
+    - 09 #?<lastPic=96 &coverPic=2
     - 10 #?<lastPic=104
     - 11 #?<lastPic=95
     - 12 #?<lastPic=95
     - 13 #?<lastPic=94
-    - 14 #?<lastPic=103 &firstPic=12
+    - 14 #?<lastPic=103 &coverPic=12
     - 15 #?<lastPic=103
     - 16 #?<lastPic=103
     - 17 #?<lastPic=103
-    - 18 #?<lastPic=94 &firstPic=2
+    - 18 #?<lastPic=94 &coverPic=2
     - 19 #?<lastPic=97
     
   - apocrypha #?<comment=伪书
-    - 01 #?<anchor=a1
+    - 01 #?<bookPicFromVol=1 &anchor=a1
       - https://s2.loli.net/2026/01/16/wGzRlFP3I1KrqaM.jpg
       - https://i.ibb.co/xSt0Rdk/95433208113.jpg
       - https://i.postimg.cc/ppCsnWdr/Windows-booting.png
