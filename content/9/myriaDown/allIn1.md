@@ -2,7 +2,9 @@
 ## #matrixDice
 | dimension   | key     | value   | alternate |
 | ---         | ---     | ---     | --- |
-| #myriaDown  | version | 1.04    | lines: 76 |
+| #myriaDown  | version | 1.05    | lines: 78 |
+| ---         | ---     | ---     | --- |
+| hYakusho    | book    | 2       | |
 
 ## #yggdrasiLabs
 - fancyapps-ui #?<comment= =lab-F
@@ -67,8 +69,8 @@
     - 18 #?<lastPic=94 &coverPic=2
     - 19 #?<lastPic=97
     
-  - apocrypha #?<comment=伪书
-    - 01 #?<bookPicFromVol=1 &anchor=a1
+  - apocrypha #?<bookPicFromVol=1 &comment=伪书
+    - 01 #?<anchor=a1
       - https://s2.loli.net/2026/01/16/wGzRlFP3I1KrqaM.jpg
       - https://i.ibb.co/xSt0Rdk/95433208113.jpg
       - https://i.postimg.cc/ppCsnWdr/Windows-booting.png
