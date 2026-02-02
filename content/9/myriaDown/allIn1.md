@@ -2,7 +2,7 @@
 ## #matrixDice
 | dimension   | key     | value   | alternate |
 | ---         | ---     | ---     | --- |
-| #myriaDown  | version | 1.05    | lines: 78 |
+| #myriaDown  | version | 1.06    | lines: 78 |
 | ---         | ---     | ---     | --- |
 | hYakusho    | book    | 2       | |
 
@@ -24,7 +24,7 @@
   - Set #?<comment= I-2
     - https://cdn.skypack.dev/imagesloaded@5.0.0
   - Set #?<comment= I-3
-    - https://qqvvv.github.io/j/imagesloaded.mjs
+    - https://esm.sh/imagesloaded@5.0.0/es2022/imagesloaded.mjs
 
 - jsPanel #?<comment= =lab-J
   - Set #?<comment= J-1
@@ -42,12 +42,12 @@
 - Root #?<coverPic=1 &autoNavTo=1 &jspTheme=primary
   - 幽幽白书 #?<bookPicFromVol=1 &genSeqPics=true
     - default #?<isMenuNode=false
-      - volume #?<padStart=2 &regExp=\/(\d{2})\/[^\/]*$
-      - page #?<regExp=\/(\d{1,})\.
+      - volume #?<padStart=2 &regExp=\/(\d{1,3})\/[^\/]*$
+      - page #?<regExp=\/(\d{1,4})\.(?:jpg|png|webp|jpeg)
     - mirrors #?<isMenuNode=false
-      - https://6cc.github.io/c/m/y/19/97.jpg
       - https://i1.wp.com/6cc.github.io/c/m/y/19/97.jpg
       - https://gcore.jsdelivr.net/gh/6cc/c/m/y/19/97.jpg
+      - https://6cc.github.io/c/m/y/19/97.jpg
 
     - 01 #?<lastPic=102
     - 02 #?<lastPic=98
