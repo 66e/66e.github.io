@@ -1,11 +1,12 @@
 /**
- * hYakusho-005: 核心引导与泛用竞速架构
+ * hYakusho-0052: 核心引导与泛用竞速架构
  */
 const hYakusho = (function() {
     "use strict";
 
     const state = {
         isMobile: window.innerWidth <= 768,
+        rawMD: "",
         tree: [],
         anchors: {},
         libs: {},
@@ -42,6 +43,9 @@ async boot() {
     try {
         const res = await fetch(`https://raw.githubusercontent.com/qqvvv/qqvvv.github.io/master/content/9/myriaDown/allIn1.md?t=${Date.now()}`);
         const rawMD = await res.text();
+
+        await fetchMD(); // FROM_hYakusho-002
+        await setupEnv(); // 测速并准备库 FROM_hYakusho-002
 
         // 1. 数据解析 (填充 state.libs 和 state.tree)
         Parser.build(rawMD);
@@ -90,6 +94,70 @@ toggleDebug() {
         alert("jsPanel 加载失败，请查看控制台 Winners 表格。");
     }
 }
+    };
+
+    // --- [模块 A1: 数据获取] ---FROM_hYakusho-002
+    const fetchMD = async () => {
+        console.log("[hLog] Fetching MD...");
+        const url = 'https://raw.githubusercontent.com/qqvvv/qqvvv.github.io/master/content/9/myriaDown/allIn1.md';
+        const res = await fetch(`${url}?t=${Date.now()}`);
+        state.rawMD = await res.text();
+    };
+
+    // --- [模块 A2: 实验室解析与镜像竞速] ---FROM_hYakusho-002
+    const setupEnv = async () => {
+        const lines = state.rawMD.split('\n');
+        let inLabs = false, currentLib = null, lastSet = null;
+
+        // 1. 精准提取 Labs 信息
+        for (let line of lines) {
+            const trim = line.trim(), indent = line.search(/\S/);
+            if (trim.includes('#yggdrasiLabs')) { inLabs = true; continue; }
+            if (inLabs && trim.startsWith('##')) { inLabs = false; break; }
+            if (inLabs && trim.startsWith('- ')) {
+                const content = trim.replace(/^- /, '');
+                if (indent === 0) {
+                    const id = content.split(' #?<')[0].trim();
+                    state.libs[id] = {}; currentLib = state.libs[id];
+                } else if (content.startsWith('Set') && currentLib) {
+                    currentLib[content] = []; lastSet = currentLib[content];
+                } else if (content.startsWith('http') && lastSet) {
+                    lastSet.push(content);
+                }
+            }
+        }
+
+        // 2. 竞速与注入
+        const racePromises = Object.entries(state.libs).map(async ([libId, sets]) => {
+            const setEntries = Object.entries(sets);
+            try {
+                // 使用 Promise.any 进行并行的 HEAD 测速 (Fastest Wins)
+                const winnerId = await Promise.any(setEntries.map(([setId, urls]) => {
+                    const probe = urls.find(u => u.endsWith('.js'));
+                    return fetch(probe, { method: 'HEAD', mode: 'no-cors' }).then(() => setId);
+                }));
+
+                state.winners[libId] = sets[winnerId];
+                console.log(`[hLog] ${libId} -> Winner: ${winnerId}`);
+
+                // 立即注入资源
+                for (const url of state.winners[libId]) {
+                    if (url.endsWith('.css')) {
+                        const l = document.createElement('link'); l.rel='stylesheet'; l.href=url;
+                        document.head.appendChild(l);
+                    } else {
+                        // 使用 import 动态载入 ESM 模块或传统脚本
+                        const mod = await import(url);
+                        window[libId === 'fancyapps-ui' ? 'Fancybox' : libId] = mod.default || mod[libId] || mod;
+                    }
+                }
+            } catch (e) {
+                console.warn(`[hLog] All mirrors failed for ${libId}`);
+            }
+        });
+
+        await Promise.all(racePromises);
+        console.log("[hLog] Environment Environment Setup Complete.");
     };
 
     const Parser = {
@@ -196,6 +264,81 @@ toggleDebug() {
         });
         return result;
     }
+};
+
+const MirrorRacer = {};
+
+/**
+ * 扩展 MirrorRacer: 报表与可视化模块
+ */
+MirrorRacer.report = async function(templates, config) {
+    console.log("🚀 竞速开始，请稍候...");
+    
+    // 1. 执行所有镜像的测速
+    const results = await Promise.all(templates.map(async (tpl) => {
+        const url = this.generate(tpl, config.vol, config.page, config.vReg, config.pReg);
+        if (!url) return { hostname: '无效正则', ms: Infinity, status: 'Error' };
+        
+        const start = performance.now();
+        try {
+            const res = await fetch(url, { method: 'HEAD', mode: 'no-cors' });
+            return {
+                hostname: new URL(url).hostname,
+                ms: parseFloat((performance.now() - start).toFixed(1)),
+                status: 'Success'
+            };
+        } catch (e) {
+            return { hostname: new URL(url).hostname, ms: 9999, status: 'Failed' };
+        }
+    }));
+
+    // 2. 按响应时间升序排列
+    const sorted = results.sort((a, b) => a.ms - b.ms);
+
+    // 3. 构建 HTML 表格内容
+    const tableRows = sorted.map((item, index) => `
+        <tr style="background: ${index === 0 ? 'rgba(0,255,0,0.1)' : 'transparent'}; border-bottom: 1px solid #444;">
+            <td style="padding: 8px;">${index + 1}</td>
+            <td style="padding: 8px;">${item.hostname}</td>
+            <td style="padding: 8px; color: ${item.ms < 200 ? '#4caf50' : '#ff9800'}; font-family: monospace;">
+                ${item.ms === 9999 ? 'Timeout' : item.ms + 'ms'}
+            </td>
+        </tr>
+    `).join('');
+
+    const tableHTML = `
+        <div style="padding: 15px; background: #222; color: #eee; height: 100%;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr style="border-bottom: 2px solid #666;">
+                        <th style="padding: 8px;">Rank</th>
+                        <th style="padding: 8px;">Hostname</th>
+                        <th style="padding: 8px;">Latency</th>
+                    </tr>
+                </thead>
+                <tbody>${tableRows}</tbody>
+            </table>
+            <p style="font-size: 12px; margin-top: 15px; color: #888;">* 基于 HEAD 请求测得的延迟</p>
+        </div>
+    `;
+
+    // 4. 评估显示方式：jsPanel 是更好的选择
+    if (window.jsPanel) {
+        jsPanel.create({
+            headerTitle: 'Mirror Performance Report',
+            theme: 'dark',
+            contentSize: '400 300',
+            content: tableHTML,
+            callback: function() {
+                this.content.style.padding = '0';
+            }
+        });
+    } else {
+        // 退而求其次显示在控制台
+        console.table(sorted);
+    }
+
+    return sorted[0]; // 依然返回最优解
 };
 
     /**
