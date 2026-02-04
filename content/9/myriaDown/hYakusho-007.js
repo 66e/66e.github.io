@@ -15,21 +15,6 @@ const hYakusho = (function() {
     };
 
     // --- 第二层：Tools ---
-    const RaceEngine = {
-        async run(urls) {
-            const tasks = urls.map(async (url) => {
-                const start = performance.now();
-                try {
-                    // 对于 MD 文件或图片，HEAD 请求是最快的
-                    await fetch(url, { method: 'HEAD', mode: 'no-cors' });
-                    return { url, ms: (performance.now() - start).toFixed(1), domain: new URL(url).hostname };
-                } catch (e) { return null; }
-            });
-            const results = (await Promise.all(tasks)).filter(r => r !== null);
-            return results.sort((a, b) => a.ms - b.ms)[0]; // 返回最快的
-        }
-    };
-
     const Parser = {
     parseTags(str) {
         const match = str.match(/#\?<([^&\s]+)(.*)/);
@@ -111,8 +96,11 @@ const hYakusho = (function() {
             let tags = { ...parentTags, ...node.tags };
             
             // 1. 捕获正则 (存入 state.rules)
-            if (tags.volReg) state.rules.volReg = tags.volReg;
-            if (tags.pageReg) state.rules.pageReg = tags.pageReg;
+            if (tags.regExp) {
+    // 只要看到标签里有 regExp，就根据 node.title 存入 rules
+    if (node.title === 'volume') state.rules.volReg = tags.regExp;
+    if (node.title === 'page') state.rules.pageReg = tags.regExp;
+}
             
             // 2. 捕获镜像模板
             if (node.title === 'mirrors' || tags.isMirrorNode === 'true') {
@@ -158,6 +146,115 @@ const hYakusho = (function() {
             }
         });
         return result;
+    }
+};
+
+    /**
+ * 修正后的 RaceEngine：返回所有参与者的成绩
+ */
+const RaceEngine = {
+    async run(urls, type = 'Default') {
+        const tasks = urls.map(async (url) => {
+            const start = performance.now();
+            try {
+                // 统一使用 HEAD 请求探测
+                await fetch(url, { method: 'HEAD', mode: 'no-cors' });
+                const res = { 
+                    type, 
+                    name: new URL(url).hostname, 
+                    ms: parseFloat((performance.now() - start).toFixed(1)),
+                    url: url,
+                    status: '✅'
+                };
+                state.allStats.push(res); // 实时推入全量统计
+                return res;
+            } catch (e) {
+                const fail = { type, name: new URL(url).hostname, ms: 9999, url, status: '❌' };
+                state.allStats.push(fail);
+                return fail;
+            }
+        });
+
+        const results = await Promise.all(tasks);
+        // 返回最快的那个作为 Winner
+        return results.sort((a, b) => a.ms - b.ms).find(r => r.status === '✅');
+    }
+};
+
+    /**
+ * Module B-4: URLFactory (带容错机制)
+ */
+const URLFactory = {
+    generate(template, vol, page) {
+        // 从 state 中实时获取最新的正则规则
+        const { volReg, pageReg } = state.rules;
+        let url = template;
+
+        if (!url) return "";
+
+        try {
+            // 替换卷号
+            if (volReg) {
+                const vRegex = new RegExp(volReg);
+                url = url.replace(vRegex, (match, p1) => match.replace(p1, vol));
+            }
+            // 替换页码
+            if (pageReg) {
+                const pRegex = new RegExp(pageReg);
+                url = url.replace(pRegex, (match, p1) => match.replace(p1, page));
+            }
+        } catch (e) {
+            console.warn("[hLog] URLFactory logic skip:", e.message);
+        }
+        return url;
+    }
+};
+
+/**
+ * 修复 URLFactory 的调用链
+ */
+const MirrorRacer = {
+    async report() {
+        if (!state.rules.templates.length) return;
+
+        // 核心：调用 URLFactory 验证正则并准备测速地址
+        const testUrls = state.rules.templates.map(tpl => 
+            URLFactory.generate(tpl, "01", "1", state.rules.volReg, state.rules.pageReg)
+        ).filter(u => u !== null);
+
+        // 执行全数镜像测速
+        const winner = await RaceEngine.run(testUrls, 'Mirror');
+        if (winner) state.activeMirror = winner.url;
+
+        // 弹窗显示（此时 allStats 已经包含了 Config, Library, Mirror 的所有数据）
+        this.showStatsPanel();
+    },
+
+    showStatsPanel() {
+        if (!window.jsPanel) return;
+        
+        // 按类型分组排序显示，让数据控更舒服
+        const rows = state.allStats.sort((a,b) => a.ms - b.ms).map(s => `
+            <tr style="border-bottom: 1px solid #333; color: ${s.ms > 2000 ? '#888' : '#eee'}">
+                <td style="padding:4px;">${s.status} ${s.type}</td>
+                <td style="padding:4px;">${s.name}</td>
+                <td style="padding:4px; text-align:right; font-family:monospace;">${s.ms === 9999 ? 'FAIL' : s.ms + 'ms'}</td>
+            </tr>
+        `).join('');
+
+        jsPanel.create({
+            headerTitle: 'hYakusho 全量监控仪表盘',
+            theme: 'dark',
+            contentSize: '450 350',
+            content: `<div style="padding:10px; background:#111; height:100%; overflow:auto;">
+                <table style="width:100%; border-collapse:collapse; font-size:12px;">
+                    <thead><tr style="text-align:left; color:#aaa; border-bottom:1px solid #666;">
+                        <th>Type</th><th>Host</th><th style="text-align:right">Latency</th>
+                    </tr></thead>
+                    <tbody>${rows}</tbody>
+                </table>
+            </div>`
+        });
     }
 };
 
@@ -221,60 +318,6 @@ const JSLoader = {
             window[globalName] = mod.default || mod[globalName] || mod;
             console.log(`[hLog] Attempting to mount ${globalName} to window...`);
         }
-    }
-};
-
-    /**
- * Module B-4: URLFactory (带容错机制)
- */
-const URLFactory = {
-    generate(template, vol, page) {
-        // 从 state 中实时获取最新的正则规则
-        const { volReg, pageReg } = state.rules;
-        let url = template;
-
-        if (!url) return "";
-
-        try {
-            // 替换卷号
-            if (volReg) {
-                const vRegex = new RegExp(volReg);
-                url = url.replace(vRegex, (match, p1) => match.replace(p1, vol));
-            }
-            // 替换页码
-            if (pageReg) {
-                const pRegex = new RegExp(pageReg);
-                url = url.replace(pRegex, (match, p1) => match.replace(p1, page));
-            }
-        } catch (e) {
-            console.warn("[hLog] URLFactory logic skip:", e.message);
-        }
-        return url;
-    }
-};
-
-    const MirrorRacer = {
-    showStatsPanel() {
-        const rows = state.allStats.map(s => `
-            <tr style="border-bottom: 1px solid #333;">
-                <td style="padding:4px; font-size:12px;">[${s.type}]</td>
-                <td style="padding:4px;">${s.name}</td>
-                <td style="padding:4px; text-align:right; color:#0f0;">${s.ms}ms</td>
-            </tr>
-        `).join('');
-
-        jsPanel.create({
-            headerTitle: 'hYakusho 系统状态监控',
-            theme: 'dark',
-            contentSize: '350 250',
-            content: `
-                <div style="padding:10px; background:#111; color:#eee; font-family:monospace;">
-                    <table style="width:100%; border-collapse:collapse;">
-                        ${rows}
-                    </table>
-                </div>
-            `
-        });
     }
 };
 
