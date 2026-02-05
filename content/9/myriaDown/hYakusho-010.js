@@ -217,59 +217,99 @@ const URLFactory = {
     }
 };
 
-/**
- * 修复 URLFactory 的调用链
- */
-const MirrorRacer = {
-    // 将之前的 Mirror 逻辑统一更名为 Gallery
+    /**
+    * 修复 URLFactory 的调用链
+    */
+   const MirrorRacer = {
+    // 1. 核心测速逻辑：直接测 MD 里的 mirrors 地址
     async report() {
-        if (!state.rules.templates.length) return;
-        const testUrls = state.rules.templates.map(tpl => 
-            URLFactory.generate(tpl, "01", "1", state.rules.volReg, state.rules.pageReg)
-        );
-        const winner = await RaceEngine.run(testUrls, 'Gallery');
-        if (winner) state.activeMirror = winner.url;
-        this.showStatsPanel();
+        if (!state.rules.templates || state.rules.templates.length === 0) {
+            console.warn("[hLog] 未发现镜像地址，请检查 Parser 是否成功捕获 mirrors 节点。");
+            return;
+        }
+
+        console.log("[hLog] 开始图库镜像全量测速...");
+        
+        // 直接使用模板地址进行测速，不再生成具体的图片 URL
+        // 这样既能测试连通性，又能获取最纯粹的延迟
+        const winner = await RaceEngine.run(state.rules.templates, 'Gallery');
+        
+        if (winner) {
+            state.activeMirror = winner.url;
+            console.log(`[hLog] 最优镜像已锁定: ${winner.name}`);
+        }
+
+        // 测速完成后，如果监控面板已打开，则刷新它
+        const activePanels = window.jsPanel?.activePanels;
+        if (activePanels && typeof activePanels.get === 'function' && activePanels.get('stats-panel')) {
+            this.showStatsPanel(); 
+        }
     },
 
+    // 2. 增强型显示面板
     showStatsPanel() {
         if (!window.jsPanel) return;
 
+        // 定义三色外观
         const typeStyles = {
-            'MdFile': { bg: 'rgba(33, 150, 243, 0.15)', color: '#90caf9' }, // 蓝
-            'Library': { bg: 'rgba(156, 39, 176, 0.15)', color: '#ce93d8' }, // 紫
-            'Gallery': { bg: 'rgba(255, 152, 0, 0.15)', color: '#ffcc80' }  // 橙
+            'MdFile':  { bg: 'rgba(33, 150, 243, 0.15)', color: '#90caf9' },
+            'Library': { bg: 'rgba(156, 39, 176, 0.15)', color: '#ce93d8' },
+            'Gallery': { bg: 'rgba(255, 152, 0, 0.15)',  color: '#ffcc80' }
         };
 
-        const rows = state.allStats.map(s => {
+        // 排序逻辑：先按类型(MdFile > Library > Gallery)，再按延迟
+        const typeOrder = { 'MdFile': 1, 'Library': 2, 'Gallery': 3 };
+        const sortedStats = [...state.allStats].sort((a, b) => {
+            if (a.type !== b.type) return typeOrder[a.type] - typeOrder[b.type];
+            return a.ms - b.ms;
+        });
+
+        const rows = sortedStats.map(s => {
             const style = typeStyles[s.type] || { bg: 'transparent', color: '#eee' };
             const isWinner = s.isWinner ? 'border-left: 4px solid #4caf50; background: rgba(76, 175, 80, 0.1);' : '';
-            const winnerIcon = s.isWinner ? '👑 ' : '';
+            const winnerIcon = s.isWinner ? '🏆 ' : '';
 
             return `
                 <tr style="${isWinner} border-bottom: 1px solid #222;">
                     <td style="padding:8px; background:${style.bg}; color:${style.color}; font-size:11px;">${s.type}</td>
                     <td style="padding:8px; color:#eee;">${winnerIcon}${s.name}</td>
                     <td style="padding:8px; text-align:right; font-family:monospace; color:${s.ms < 500 ? '#4caf50' : '#888'}">
-                        ${s.ms === 9999 ? 'FAIL' : s.ms + 'ms'}
+                        ${s.ms === 9999 ? '<span style="color:#ff5252">FAIL</span>' : s.ms + 'ms'}
                     </td>
                 </tr>
             `;
         }).join('');
 
-        jsPanel.create({
-            headerTitle: 'hYakusho 全量监控 (Alt + \\)',
-            contentSize: '500 400',
-            theme: 'dark',
-            content: `<div style="background:#111; height:100%; overflow:auto;">
+        // 创建或更新面板
+        const panel = window.jsPanel?.activePanels?.get?.('stats-panel');
+        if (panel) {
+            panel.content.innerHTML = this.getPanelHTML(rows);
+        } else {
+            jsPanel.create({
+                id: 'stats-panel',
+                headerTitle: 'hYakusho 系统概览 (Alt + \\)',
+                contentSize: '500 400',
+                theme: 'dark',
+                content: this.getPanelHTML(rows)
+            });
+        }
+    },
+
+    getPanelHTML(rows) {
+        return `
+            <div style="background:#111; height:100%; overflow:auto;">
                 <table style="width:100%; border-collapse:collapse; font-size:13px;">
-                    <thead style="background:#000; position:sticky; top:0;">
-                        <tr><th style="padding:10px;text-align:left">类型</th><th style="padding:10px;text-align:left">节点</th><th style="padding:10px;text-align:right">延迟</th></tr>
+                    <thead style="background:#000; position:sticky; top:0; z-index:1;">
+                        <tr>
+                            <th style="padding:10px;text-align:left;color:#888;">类型</th>
+                            <th style="padding:10px;text-align:left;color:#888;">主机节点</th>
+                            <th style="padding:10px;text-align:right;color:#888;">响应</th>
+                        </tr>
                     </thead>
                     <tbody>${rows}</tbody>
                 </table>
-            </div>`
-        });
+            </div>
+        `;
     }
 };
 
@@ -389,7 +429,6 @@ const MirrorRacer = {
 
             // 第二场竞速：JS 库注入
             if (Object.keys(state.libs).length > 0) {
-                await JSLoader.injectAll();
                 // 转换 winners 到 allStats
                 Object.entries(state.winners).forEach(([id, info]) => {
                     state.allStats.push({ type: 'Library', name: id, ms: info.ms, dns: info.dns });
@@ -409,8 +448,21 @@ const MirrorRacer = {
             console.groupEnd();
 
             // 如果 jsPanel 成功注入，自动弹窗
-            if (window.jsPanel) MirrorRacer.showStatsPanel();
+            // --- Core.boot 内部推荐的尾部逻辑 ---
+            await JSLoader.injectAll(); // 等待所有 Set 加载完成
 
+            // 此时 Library 的 stats 已经全了，开始跑 Gallery 测速
+            // 注意：report 内部现在会自动调用 RaceEngine 并填充 Gallery stats
+            await MirrorRacer.report(); 
+
+            // 最终展现：确保 jsPanel 真的存在
+            if (window.jsPanel) {
+                console.log("[hLog] 所有竞速完成，弹出全量仪表盘。");
+                MirrorRacer.showStatsPanel();
+            } else {
+                // 如果 jsPanel 没出来，至少在控制台给你看结果
+                console.table(state.allStats);
+            }
         } catch (err) {
             if (err.message.includes('shutting down')) return; // 忽略静默错误
             console.error("[hLog] 启动过程中断:", err);
