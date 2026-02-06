@@ -2,7 +2,7 @@
 ## #matrixDice
 | dimension   | key     | value   | alternate |
 | ---         | ---     | ---     | --- |
-| #myriaDown  | version | 1.06    | lines: 78 |
+| #myriaDown  | version | 1.07    | lines: 78 |
 | ---         | ---     | ---     | --- |
 | hYakusho    | book    | 2       | |
 
@@ -40,7 +40,7 @@
 # galleryData
 ## #YggdrAML
 - Root #?<coverPic=1 &autoNavTo=1 &jspTheme=primary
-  - 幽幽白书 #?<bookPicFromVol=1 &genSeqPics=true
+  - ゆうゆうはくしょ #?<bookPicFromVol=1 &genSeqPics=true
     - default #?<isMenuNode=false
       - volume #?<padStart=2 &regExp=\/(\d{1,3})\/[^\/]*$
       - page #?<regExp=\/(\d{1,4})\.(?:jpg|png|webp|jpeg)
