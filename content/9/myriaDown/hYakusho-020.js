@@ -407,172 +407,167 @@ const URLFactory = {
     
     injectStyles() {
         const css = `
-            #h-orb { 
-                position: fixed; right: 20px; bottom: 20px; width: 48px; height: 48px;
-                border-radius: 50%; background: rgba(80, 80, 80, 0.6); color: white;
-                z-index: 10001; cursor: pointer; display: flex; align-items: center; 
-                justify-content: center; font-size: 20px; backdrop-filter: blur(4px);
-            }
-            .md-sidebar {
-                position: fixed; top: 0; right: 0; bottom: 0; width: 320px;
-                background: #121212; z-index: 10000; transform: translateX(100%);
-                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                overflow-y: auto; color: #eee; border-left: 1px solid #333; font-family: sans-serif;
-            }
+            #h-orb { position: fixed; right: 20px; bottom: 20px; width: 48px; height: 48px; border-radius: 50%; background: rgba(80, 80, 80, 0.6); color: white; z-index: 1049; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; backdrop-filter: blur(4px); }
+            .md-sidebar { position: fixed; top: 0; right: 0; bottom: 0; width: 320px; background: #121212; z-index: 19; transform: translateX(100%); transition: transform 0.3s ease; overflow-y: auto; color: #eee; border-left: 1px solid #333; font-family: sans-serif; }
             .md-sidebar.active { transform: translateX(0); }
-            .md-backdrop {
-                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-                background: rgba(0,0,0,0.5); z-index: 9999; opacity: 0; 
-                pointer-events: none; transition: opacity 0.3s;
-            }
+            .md-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 18; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
             .md-backdrop.active { opacity: 1; pointer-events: auto; }
-
-            /* 宫格通用样式 */
-            .u-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; }
-            .u-card { 
-                background: #1e1e1e; border-radius: 4px; overflow: hidden; 
-                cursor: pointer; border: 1px solid #333; position: relative;
-            }
-            .u-card:hover { border-color: #2196F3; }
-            .u-thumb { width: 100%; aspect-ratio: 3/4; background: #2a2a2a; background-size: cover; background-position: center; }
-            .u-label { font-size: 11px; padding: 6px; text-align: center; color: #bbb; }
-            
-            /* Debug 项目样式 */
-            .u-debug-btn { margin: 15px; padding: 10px; border: 1px dashed #555; text-align: center; color: #888; cursor: pointer; font-size: 12px; }
-            .u-debug-btn:hover { color: #ff9800; border-color: #ff9800; }
+            .u-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
+            .u-card { background: #1e1e1e; border: 1px solid #333; text-align: center; cursor: pointer; overflow: hidden; }
+            .u-thumb { width: 100%; aspect-ratio: 3/4; background-size: cover; background-position: center; background-color: #222; }
+            .u-label { font-size: 11px; padding: 6px; color: #bbb; }
+            .u-btn { padding: 14px 18px; border-bottom: 1px solid #333; cursor: pointer; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+            .u-header { padding: 15px; background: #1a1a1a; font-weight: bold; border-bottom: 1px solid #333; color: #ea580c; }
         `;
         const style = document.createElement('style');
         style.innerHTML = css;
         document.head.appendChild(style);
     },
 
-    // 渲染侧边栏内容
+    getMeta(node) {
+        const tag = node.tags?.meta || "";
+        return {
+            last: parseInt(tag.match(/lastPic=(\d+)/)?.[1] || 20),
+            cover: tag.match(/coverPic=(\d+)/)?.[1] || "1"
+        };
+    },
+
+    // 核心下钻逻辑
     renderSidebar(level = 0, params = {}) {
         const sidebar = document.querySelector('.md-sidebar');
-        let html = `<div style="padding:15px; background:#1a1a1a; font-size:14px; font-weight:bold; border-bottom:1px solid #333;">${level === 0 ? 'Specifications' : 'Navigation'}</div>`;
+        let html = '';
 
+        // --- LEVEL 0: ROOT 菜单 ---
         if (level === 0) {
-            // Level 1: 漫画列表
-            const mangas = state.tree.filter(n => !n.isBypass);
+            html = `<div class="u-header">L0 Specifications</div>`;
+            html += `<div class="u-btn" onclick="window.UI.renderSidebar(1)">📂 Root <span style="color:#666">❯</span></div>`;
+            html += `<div class="u-btn" style="color:#ff9800" onclick="window.MirrorRacer.showStatsPanel()">⚙ 系统概览 (Debug)</div>`;
+        } 
+        
+        // --- LEVEL 1: 书库 (第一本漫画, apocrypha) ---
+        else if (level === 1) {
+            const rootNode = state.tree[0];
+            const mangas = rootNode.children || [];
+            html = `<div class="u-header">L1 ${rootNode.title}</div>`;
+            html += `<div class="u-btn" style="color:#2196F3" onclick="window.UI.renderSidebar(0)">❮ 返回 Root</div>`;
             html += `<div class="u-grid">`;
-            mangas.forEach((m, i) => {
-                const cover = URLFactory.generate(state.activeMirror, "01", "1", state.rules.volReg, state.rules.pageReg);
+            mangas.forEach((m, mIdx) => {
+                // 封面逻辑：取该漫画下第一个有效卷的补正页
+                const firstVol = m.children?.find(c => c.isMenuNode !== false);
+                const meta = firstVol ? this.getMeta(firstVol) : {cover: "1"};
+                const coverUrl = URLFactory.generate(state.activeMirror, "01", meta.cover, state.rules.volReg, state.rules.pageReg);
+                
                 html += `
-                    <div class="u-card" onclick="window.UI.renderSidebar(1, {mIdx: ${state.tree.indexOf(m)}})">
-                        <div class="u-thumb" style="background-image: url('${cover}')"></div>
+                    <div class="u-card" onclick="window.UI.renderSidebar(2, {mIdx: ${mIdx}, title: '${m.title}'})">
+                        <div class="u-thumb" style="background-image: url('${coverUrl}')"></div>
                         <div class="u-label">${m.title}</div>
                     </div>`;
             });
             html += `</div>`;
-            // 负1屏特殊功能：Debug
-            html += `<div class="u-debug-btn" onclick="MirrorRacer.showStatsPanel()">⚙ 系统概览 (Debug Mode)</div>`;
-        } 
-        else if (level === 1) {
-            // Level 2: 卷列表
-            const manga = state.tree[params.mIdx];
-            html += `<div style="padding:10px; color:#2196F3; cursor:pointer;" onclick="window.UI.renderSidebar(0)">❮ 返回库</div>`;
+        }
+
+        // --- LEVEL 2: 19卷数字目录 (过滤非菜单节点) ---
+        else if (level === 2) {
+            const mangaNode = state.tree[0].children[params.mIdx];
+            // 过滤掉 isMenuNode 为 false 的数据目录
+            const vols = (mangaNode.children || []).filter(c => c.isMenuNode !== false);
+            
+            html = `<div class="u-header">L2 ${params.title}</div>`;
+            html += `<div class="u-btn" style="color:#2196F3" onclick="window.UI.renderSidebar(1)">❮ 返回书库</div>`;
             html += `<div class="u-grid">`;
-            manga.children.forEach((vol, vIdx) => {
+            vols.forEach((vol) => {
+                // 在 mangaNode.children 中的原始索引
+                const originalVIdx = mangaNode.children.indexOf(vol);
+                const meta = this.getMeta(vol);
                 const volNum = vol.title.match(/\d+/)?.[0] || "01";
-                const cover = URLFactory.generate(state.activeMirror, volNum, "1", state.rules.volReg, state.rules.pageReg);
+                const coverUrl = URLFactory.generate(state.activeMirror, volNum, meta.cover, state.rules.volReg, state.rules.pageReg);
+                
                 html += `
-                    <div class="u-card" onclick="window.UI.renderSidebar(2, {mIdx: ${params.mIdx}, vIdx: ${vIdx}})">
-                        <div class="u-thumb" style="background-image: url('${cover}')"></div>
+                    <div class="u-card" onclick="window.UI.handleVolClick(${params.mIdx}, ${originalVIdx})">
+                        <div class="u-thumb" style="background-image: url('${coverUrl}')"></div>
                         <div class="u-label">${vol.title}</div>
                     </div>`;
             });
             html += `</div>`;
         }
-        else if (level === 2 && state.isMobile) {
-            // Level 3: 移动端缩略图流 (1行2张)
-            html += `<div style="padding:10px; color:#2196F3; cursor:pointer;" onclick="window.UI.renderSidebar(1, {mIdx: ${params.mIdx}})">❮ 返回卷</div>`;
-            const vol = state.tree[params.mIdx].children[params.vIdx];
-            const urls = this.generateUrls(vol);
+
+        // --- LEVEL 3: 卷内图片流 (移动端) ---
+        else if (level === 3) {
+            const vol = state.tree[0].children[params.mIdx].children[params.vIdx];
+            html = `<div class="u-header">L3 ${vol.title} (${this.getMeta(vol).last}P)</div>`;
+            html += `<div class="u-btn" style="color:#2196F3" onclick="window.UI.renderSidebar(2, {mIdx: ${params.mIdx}, title: '卷列表'})">❮ 返回卷列表</div>`;
+            const urls = this.generateUrlArray(vol);
             html += `<div class="u-grid">`;
-            urls.forEach((url, index) => {
+            urls.forEach((url, i) => {
                 html += `
-                    <div class="u-card" onclick="window.UI.openFancy(${JSON.stringify(urls)}, ${index})">
+                    <div class="u-card" onclick="window.UI.openGallery(${params.mIdx}, ${params.vIdx}, ${i})">
                         <img src="${url}" style="width:100%; display:block;" loading="lazy">
-                        <div class="u-label">P.${index+1}</div>
+                        <div class="u-label">P.${i+1}</div>
                     </div>`;
             });
             html += `</div>`;
         }
 
         sidebar.innerHTML = html;
-        
-        // 桌面模式点击卷直接出容器，不走 Level 2 -> Level 3 侧边栏切换
-        if (level === 2 && !state.isMobile) {
-            this.launchDesktopReader(params.mIdx, params.vIdx);
+        sidebar.scrollTop = 0;
+    },
+
+    handleVolClick(mIdx, vIdx) {
+        if (state.isMobile) {
+            this.renderSidebar(3, { mIdx, vIdx });
+        } else {
+            this.launchDesktopReader(mIdx, vIdx);
         }
     },
 
-    // 生成 URL 数组
-    generateUrls(volNode) {
+    generateUrlArray(volNode) {
+        const meta = this.getMeta(volNode);
         const volNum = volNode.title.match(/\d+/)?.[0] || "01";
-        return Array.from({length: 20}, (_, i) => 
+        // 自动生成从 1 到 lastPic 的数组
+        return Array.from({ length: meta.last }, (_, i) => 
             URLFactory.generate(state.activeMirror, volNum, String(i+1), state.rules.volReg, state.rules.pageReg)
         );
     },
 
-    // 桌面端图片容器
     launchDesktopReader(mIdx, vIdx) {
-        const vol = state.tree[mIdx].children[vIdx];
-        const urls = this.generateUrls(vol);
+        const vol = state.tree[0].children[mIdx].children[vIdx];
+        const urls = this.generateUrlArray(vol);
         const gridHtml = `
-            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(120px, 1fr)); gap:10px; padding:15px; background:#000;">
+            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(110px, 1fr)); gap:10px; padding:15px; background:#000; min-height:100%;">
                 ${urls.map((u, i) => `
-                    <div class="u-card" onclick="window.UI.openFancy(${JSON.stringify(urls)}, ${i})">
+                    <div class="u-card" onclick="window.UI.openGallery(${mIdx}, ${vIdx}, ${i})">
                         <img src="${u}" style="width:100%; display:block;" loading="lazy">
                         <div class="u-label">P.${i+1}</div>
                     </div>
                 `).join('')}
             </div>`;
-
-        jsPanel.create({
-            headerTitle: vol.title,
-            contentSize: '850 600',
-            theme: 'dark',
-            content: gridHtml
-        });
+        
+        jsPanel.create({ headerTitle: vol.title, contentSize: '800 600', theme: 'dark', content: gridHtml });
         this.toggleDrawer(false);
     },
 
-    // 启动 Fancybox (复刻 0.82 索引算法)
-    openFancy(urls, index) {
-        if (!window.Fancybox) return;
-        const items = urls.map(u => ({ src: u, type: "image" }));
-        Fancybox.show(items, {
-            startIndex: index, // 定位到点击的那张
-            infinite: false,
-            // 可以在此加入 0.82 的自定义工具栏
-        });
+    openGallery(mIdx, vIdx, index) {
+        const vol = state.tree[0].children[mIdx].children[vIdx];
+        const urls = this.generateUrlArray(vol);
+        if (window.Fancybox) {
+            window.Fancybox.show(urls.map(src => ({ src, type: "image" })), { startIndex: index, infinite: false });
+        }
     },
 
     toggleDrawer(force) {
-        const sidebar = document.querySelector('.md-sidebar');
-        const backdrop = document.querySelector('.md-backdrop');
-        const isOpen = force ?? !sidebar.classList.contains('active');
-        sidebar.classList.toggle('active', isOpen);
-        backdrop.classList.toggle('active', isOpen);
+        const isOpen = force ?? !document.querySelector('.md-sidebar').classList.contains('active');
+        document.querySelector('.md-sidebar').classList.toggle('active', isOpen);
+        document.querySelector('.md-backdrop').classList.toggle('active', isOpen);
     },
 
     init() {
         window.UI = this;
+        window.MirrorRacer = MirrorRacer;
         this.injectStyles();
-        
-        const backdrop = document.createElement('div');
-        backdrop.className = 'md-backdrop';
-        backdrop.onclick = () => this.toggleDrawer(false);
-        
-        const sidebar = document.createElement('div');
-        sidebar.className = 'md-sidebar';
-        
-        const orb = document.createElement('div');
-        orb.id = 'h-orb'; orb.innerHTML = '⚙';
-        orb.onclick = () => this.toggleDrawer();
-
-        document.body.append(backdrop, sidebar, orb);
+        const bd = document.createElement('div'); bd.className = 'md-backdrop'; bd.onclick = () => this.toggleDrawer(false);
+        const sb = document.createElement('div'); sb.className = 'md-sidebar';
+        const orb = document.createElement('div'); orb.id = 'h-orb'; orb.innerHTML = '⚙'; orb.onclick = () => this.toggleDrawer();
+        document.body.append(bd, sb, orb);
         this.renderSidebar(0);
     }
 };
@@ -633,14 +628,13 @@ const URLFactory = {
             // 最终展现：确保 jsPanel 真的存在
             if (window.jsPanel) {
                 console.log("[hLog] 所有竞速完成，弹出全量仪表盘。");
-                MirrorRacer.showStatsPanel();
             } else {
                 // 如果 jsPanel 没出来，至少在控制台给你看结果
                 console.table(state.allStats);
             }
 
             UI.init();
-            
+
         } catch (err) {
             if (err.message.includes('shutting down')) return; // 忽略静默错误
             console.error("[hLog] 启动过程中断:", err);
