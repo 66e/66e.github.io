@@ -39,7 +39,7 @@
 
 # galleryData
 ## #YggdrAML
-- Root #?<coverPic=1 &autoNavTo=1 &jspTheme=primary
+- Root #?<coverPic=1 &autoNavTo=1-1 &jspTheme=primary
   - ゆうゆうはくしょ #?<bookPicFromVol=1 &genSeqPics=true
     - default #?<isMenuNode=false
       - volume #?<padStart=2 &regExp=\/(\d{1,3})\/[^\/]*$
