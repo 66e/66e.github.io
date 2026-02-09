@@ -402,7 +402,46 @@ const URLFactory = {
     }
 };
 
-    const UI = {
+    const EventManager = {
+    init() {
+        const sidebar = document.querySelector('.md-sidebar');
+        if (!sidebar) return;
+
+        // 卸载旧监听器（防止 SPA 重复绑定）
+        sidebar.removeEventListener('click', this.handleClick);
+        // 绑定新监听器
+        sidebar.addEventListener('click', this.handleClick.bind(this));
+    },
+
+    handleClick(e) {
+        // 向上寻找最近的带有 data-action 的节点
+        const target = e.target.closest('[data-action]');
+        if (!target) return;
+
+        const { action, midx, vidx, page, title } = target.dataset;
+        const m = parseInt(midx);
+        const v = parseInt(vidx);
+        const p = parseInt(page);
+
+        // 路由分发
+        switch (action) {
+            case 'nav-level': // 对应原来的 renderSidebar(n)
+                window.UI.renderSidebar(p, { mIdx: m, title: title });
+                break;
+            case 'open-vol': // 对应原来的 handleVolClick
+                window.UI.handleVolClick(m, v);
+                break;
+            case 'zoom-img': // 对应原来的 openGallery
+                window.UI.openGallery(m, v, p);
+                break;
+            case 'back-root':
+                window.UI.renderSidebar(0);
+                break;
+        }
+    }
+};
+
+const UI = {
         panel: null,
     
     injectStyles() {
@@ -477,14 +516,19 @@ const URLFactory = {
             html = `<div class="u-header">L2 ${params.title}</div>`;
             html += `<div class="u-btn" style="color:#2196F3" onclick="window.UI.renderSidebar(1)">❮ 返回书库</div>`;
             html += `<div class="u-grid">`;
+            // 修改 renderSidebar 内部的循环模板部分 (以 L2 为例)
             vols.forEach((vol) => {
                 const originalVIdx = mangaNode.children.indexOf(vol);
                 const meta = this.getMeta(vol);
                 const volNum = vol.title.match(/\d+/)?.[0] || "01";
                 const coverUrl = URLFactory.generate(state.activeMirror, volNum, meta.cover, state.rules.volReg, state.rules.pageReg);
                 
+                // 移除 onclick，改用 data- 属性
                 html += `
-                    <div class="u-card" onclick="window.UI.handleVolClick(${params.mIdx}, ${originalVIdx})">
+                    <div class="u-card" 
+                        data-action="open-vol" 
+                        data-midx="${params.mIdx}" 
+                        data-vidx="${originalVIdx}">
                         <div class="u-thumb" style="background-image: url('${coverUrl}')"></div>
                         <div class="u-label">${vol.title}</div>
                     </div>`;
@@ -500,9 +544,14 @@ const URLFactory = {
             html += `<div class="u-btn" style="color:#2196F3" onclick="window.UI.renderSidebar(2, {mIdx: ${params.mIdx}, title: '卷列表'})">❮ 返回卷列表</div>`;
             const urls = this.generateUrlArray(vol);
             html += `<div class="u-grid">`;
+            // L3 图片流部分同理
             urls.forEach((url, i) => {
                 html += `
-                    <div class="u-card" onclick="window.UI.openGallery(${params.mIdx}, ${params.vIdx}, ${i})">
+                    <div class="u-card" 
+                        data-action="zoom-img" 
+                        data-midx="${params.mIdx}" 
+                        data-vidx="${params.vIdx}" 
+                        data-page="${i}">
                         <img src="${url}" style="width:100%; display:block;" loading="lazy">
                         <div class="u-label">P.${i+1}</div>
                     </div>`;
@@ -574,6 +623,9 @@ const URLFactory = {
         const sb = document.createElement('div'); sb.className = 'md-sidebar';
         const orb = document.createElement('div'); orb.id = 'h-orb'; orb.innerHTML = '⚙'; orb.onclick = () => this.toggleDrawer();
         document.body.append(bd, sb, orb);
+
+        // 关键点：在 DOM 插入后立即启动事件管理
+        EventManager.init();
         this.renderSidebar(0);
         
         // 启动跳转逻辑
