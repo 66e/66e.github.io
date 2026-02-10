@@ -581,16 +581,12 @@ const URLFactory = {
                 // 2. 针对 Fancybox 5 的渲染补丁：
                 // 强制当前活动的 Panzoom 实例重新计算尺寸
                 const slide = instance.getSlide();
-                if (slide && slide.Fancybox) {
-                    slide.Fancybox.updateMetrics();
-                }
+                slide.Fancybox.updateMetrics();
             },
             done: (instance, slide) => {
                 // 当每一张图片加载完成并显示时触发
                 // 如果发现图片还是不显示，执行一次位置校正
-                if (slide.Fancybox) {
-                    slide.Fancybox.resize();
-                }
+                slide.Fancybox.resize();
             }
         }
     });
