@@ -566,27 +566,33 @@ const URLFactory = {
         // --- 功能函数：启动 Fancybox (补全缺失函数) ---
         launchFancybox(node, startIndex) {
     const urls = this.generateUrlArray(node);
-    if (!window.Fancybox) return console.error("Fancybox 未加载");
+    if (!window.Fancybox) return;
 
     window.Fancybox.show(urls.map(src => ({ src, type: "image" })), {
         startIndex: startIndex,
         infinite: false,
-        // 配置生命周期钩子
+        // Fancybox 5 的配置项
         on: {
-            // 当灯箱容器加载并显示在 DOM 中时触发
-            ready: (fancybox) => {
-                console.log("[hLog] Fancybox Ready - 触发强制刷新");
-                // 1. 触发原生 resize 事件，让浏览器重新计算视口
+            ready: (instance) => {
+                
+                // 1. 触发系统级 resize 信号
                 window.dispatchEvent(new Event('resize'));
-                // 2. 调用 Fancybox 实例的 update 方法重新校准图片位置
-                fancybox.updateMetrics();
+                
+                // 2. 针对 Fancybox 5 的渲染补丁：
+                // 强制当前活动的 Panzoom 实例重新计算尺寸
+                const slide = instance.getSlide();
+                console.log(slide);
+                if (slide && slide.panzoom) {
+                    slide.panzoom.updateMetrics();
+                }
             },
-            // 每次切换图片时再次确认
-            "Carousel.change": (fancybox) => {
-                // 解决某些 SPA 场景下“下一张图片存在但不可见”的问题
-                setTimeout(() => {
-                    fancybox.updateMetrics();
-                }, 10); // 微小延迟确保图片容器已切换
+            done: (instance, slide) => {
+                // 当每一张图片加载完成并显示时触发
+                // 如果发现图片还是不显示，执行一次位置校正
+                console.log(slide.panzoom);
+                if (slide.panzoom) {
+                    slide.panzoom.resize();
+                }
             }
         }
     });
