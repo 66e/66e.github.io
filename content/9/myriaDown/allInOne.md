@@ -40,7 +40,7 @@
 # galleryData
 ## #YggdrAML
 - Root #?<coverPic=1 &redirectToBook=1 &jspTheme=primary
-  - ゆうゆうはくしょ #?<bookPicFromVol=1 &genSeqPics=true
+  - 幽遊白書 #?<bookPicFromVol=1 &genSeqPics=true
     - default #?<isMenuNode=false
       - volume #?<padStart=2 &regExp=\/(\d{1,3})\/[^\/]*$
       - page #?<regExp=\/(\d{1,4})\.(?:jpg|png|webp|jpeg)

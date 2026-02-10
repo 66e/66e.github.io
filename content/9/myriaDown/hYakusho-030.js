@@ -402,246 +402,264 @@ const URLFactory = {
     }
 };
 
+    // --- 事件监听补全 ---
     const EventManager = {
-    init() {
-        const sidebar = document.querySelector('.md-sidebar');
-        if (!sidebar) return;
+        init() {
+            const sb = document.querySelector('.md-sidebar');
+            if (!sb) return;
+            sb.onclick = (e) => {
+                const target = e.target.closest('[data-action]');
+                if (!target) return;
 
-        // 卸载旧监听器（防止 SPA 重复绑定）
-        sidebar.removeEventListener('click', this.handleClick);
-        // 绑定新监听器
-        sidebar.addEventListener('click', this.handleClick.bind(this));
-    },
+                const { action, index } = target.dataset;
+                const idx = parseInt(index);
 
-    handleClick(e) {
-        // 向上寻找最近的带有 data-action 的节点
-        const target = e.target.closest('[data-action]');
-        if (!target) return;
-
-        const { action, midx, vidx, page, title } = target.dataset;
-        const m = parseInt(midx);
-        const v = parseInt(vidx);
-        const p = parseInt(page);
-
-        // 路由分发
-        switch (action) {
-            case 'nav-level': // 对应原来的 renderSidebar(n)
-                window.UI.renderSidebar(p, { mIdx: m, title: title });
-                break;
-            case 'open-vol': // 对应原来的 handleVolClick
-                window.UI.handleVolClick(m, v);
-                break;
-            case 'zoom-img': // 对应原来的 openGallery
-                window.UI.openGallery(m, v, p);
-                break;
-            case 'back-root':
-                window.UI.renderSidebar(0);
-                break;
+                switch (action) {
+                    case 'nav':  window.UI.navigateDown(idx); break;
+                    case 'back': window.UI.navigateUp(); break;
+                    case 'zoom': 
+                        const node = window.UI.getCurrentNode();
+                        window.UI.launchFancybox(node, idx); 
+                        break;
+                }
+            };
         }
-    }
-};
-
-const UI = {
+    };
+    
+    const UI = {
         panel: null,
     
-    injectStyles() {
-        const css = `
-            #h-orb { position: fixed; right: 20px; bottom: 20px; width: 48px; height: 48px; border-radius: 50%; background: rgba(80, 80, 80, 0.6); color: white; z-index: 1049; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; backdrop-filter: blur(4px); }
-            .md-sidebar { position: fixed; top: 0; right: 0; bottom: 0; width: 320px; background: #121212; z-index: 19; transform: translateX(100%); transition: transform 0.3s ease; overflow-y: auto; color: #eee; border-left: 1px solid #333; font-family: sans-serif; }
-            .md-sidebar.active { transform: translateX(0); }
-            .md-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 18; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
-            .md-backdrop.active { opacity: 1; pointer-events: auto; }
-            .u-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
-            .u-card { background: #1e1e1e; border: 1px solid #333; text-align: center; cursor: pointer; overflow: hidden; }
-            .u-thumb { width: 100%; aspect-ratio: 3/4; background-size: cover; background-position: center; background-color: #222; }
-            .u-label { font-size: 11px; padding: 6px; color: #bbb; }
-            .u-btn { padding: 14px 18px; border-bottom: 1px solid #333; cursor: pointer; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
-            .u-header { padding: 15px; background: #1a1a1a; font-weight: bold; border-bottom: 1px solid #333; color: #ea580c; }
-        `;
-        const style = document.createElement('style');
-        style.innerHTML = css;
-        document.head.appendChild(style);
-    },
-    // 1. 统一取数接口：直接对接 Parser 生成的 tags
-    getMeta(node) {
-        const t = node.tags || {};
-        return {
-            // 确保输出为数字，若无则使用默认值
-            last: parseInt(t.lastPic) || 20,
-            cover: String(t.coverPic || "1"),
-            isMenu: t.isMenuNode !== 'false' // Parser 存的是字符串 'false'
-        };
-    },
+        injectStyles() {
+            const css = `
+                #h-orb { position: fixed; right: 20px; bottom: 20px; width: 48px; height: 48px; border-radius: 50%; background: rgba(80, 80, 80, 0.6); color: white; z-index: 1049; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; backdrop-filter: blur(4px); }
+                .md-sidebar { position: fixed; top: 0; right: 0; bottom: 0; width: 320px; background: #121212; z-index: 19; transform: translateX(100%); transition: transform 0.3s ease; overflow-y: auto; color: #eee; border-left: 1px solid #333; font-family: sans-serif; }
+                .md-sidebar.active { transform: translateX(0); }
+                .md-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 18; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+                .md-backdrop.active { opacity: 1; pointer-events: auto; }
+                .u-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
+                .u-card { background: #1e1e1e; border: 1px solid #333; text-align: center; cursor: pointer; overflow: hidden; }
+                .u-thumb { width: 100%; aspect-ratio: 3/4; background-size: cover; background-position: center; background-color: #222; }
+                .u-label { font-size: 11px; padding: 6px; color: #bbb; }
+                .u-btn { padding: 14px 18px; border-bottom: 1px solid #333; cursor: pointer; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+                .u-header { padding: 15px; background: #1a1a1a; font-weight: bold; border-bottom: 1px solid #333; color: #ea580c; }
+            `;
+            const style = document.createElement('style');
+            style.innerHTML = css;
+            document.head.appendChild(style);
+        },
+        currentPath: [], // [mIdx, vIdx]
 
-    // 2. 核心渲染函数
-    renderSidebar(level = 0, params = {}) {
-        const sidebar = document.querySelector('.md-sidebar');
-        let html = '';
+        // --- 核心工具：获取当前节点 ---
+        getCurrentNode() {
+            let node = { title: "Root", children: state.tree, tags: {} };
+            for (const index of this.currentPath) {
+                if (!node.children || !node.children[index]) break;
+                node = node.children[index];
+            }
+            return node;
+        },
 
-        // --- L0: Root 入口 ---
-        if (level === 0) {
-            html = `<div class="u-header">L0 Specifications</div>`;
-            html += `<div class="u-btn" onclick="window.UI.renderSidebar(1)">📂 Root <span style="color:#666">❯</span></div>`;
-            html += `<div class="u-btn" style="color:#ff9800" onclick="window.MirrorRacer.showStatsPanel()">⚙ 系统概览 (Debug)</div>`;
-        } 
-        
-        // --- L1: 书库 (第一本漫画, apocrypha) ---
-        else if (level === 1) {
-            const rootNode = state.tree[0] || { children: [] };
-            const mangas = rootNode.children || [];
-            html = `<div class="u-header">L1 ${rootNode.title}</div>`;
-            html += `<div class="u-btn" style="color:#2196F3" onclick="window.UI.renderSidebar(0)">❮ 返回 Root</div>`;
-            html += `<div class="u-grid">`;
+        // --- 核心工具：获取 Meta ---
+        getMeta(node) {
+            const t = node.tags || {};
+            return {
+                last: parseInt(t.lastPic) || 0,
+                cover: String(t.coverPic || "1"),
+                isMenu: t.isMenuNode !== 'false'
+            };
+        },
+
+        // --- 渲染引擎 ---
+        render() {
+            const sidebar = document.querySelector('.md-sidebar');
+            if (!sidebar) return;
+
+            const node = this.getCurrentNode();
+            const isRoot = this.currentPath.length === 0;
+            const meta = this.getMeta(node);
             
-            mangas.forEach((m, mIdx) => {
-                // 自动寻找第一个有效卷作为封面参考
-                const firstVol = (m.children || []).find(c => this.getMeta(c).isMenu);
-                const meta = firstVol ? this.getMeta(firstVol) : { cover: "1" };
-                const coverUrl = URLFactory.generate(state.activeMirror, "01", meta.cover, state.rules.volReg, state.rules.pageReg);
-                
+            // 1. 头部与返回按钮
+            let html = `<div class="u-header">${node.title}</div>`;
+            if (!isRoot) {
+                html += `<div class="u-btn" style="color:#2196F3" data-action="back">❮ 返回上级</div>`;
+            } else {
+                html += `<div class="u-btn" style="color:#ff9800" onclick="window.MirrorRacer.showStatsPanel()">⚙ 系统概览</div>`;
+            }
+
+            // 2. 内容判断：是卷(Volume)还是目录(Folder)
+            // 逻辑：如果有 lastPic 且没有子节点，视为卷
+            const isVolume = meta.last > 0 && (!node.children || node.children.length === 0);
+
+            if (isVolume) {
+                html += this._renderImageGrid(node, meta);
+            } else {
+                html += this._renderMenuGrid(node.children || []);
+            }
+
+            sidebar.innerHTML = html;
+            sidebar.scrollTop = 0;
+        },
+
+        // --- 内部私有渲染：菜单 ---
+        _renderMenuGrid(children) {
+            let html = `<div class="u-grid">`;
+            children.forEach((child, index) => {
+                const childMeta = this.getMeta(child);
+                if (!childMeta.isMenu) return;
+
+                // 封面解析
+                const coverUrl = this.resolveCover(child);
+
                 html += `
-                    <div class="u-card" onclick="window.UI.renderSidebar(2, {mIdx: ${mIdx}, title: '${m.title}'})">
+                    <div class="u-card" data-action="nav" data-index="${index}">
                         <div class="u-thumb" style="background-image: url('${coverUrl}')"></div>
-                        <div class="u-label">${m.title}</div>
+                        <div class="u-label">${child.title}</div>
                     </div>`;
             });
             html += `</div>`;
-        }
+            return html;
+        },
 
-        // --- L2: 卷目录 ---
-        else if (level === 2) {
-            const mangaNode = state.tree[0].children[params.mIdx];
-            const vols = (mangaNode.children || []).filter(c => this.getMeta(c).isMenu);
-            
-            html = `<div class="u-header">L2 ${params.title}</div>`;
-            html += `<div class="u-btn" style="color:#2196F3" onclick="window.UI.renderSidebar(1)">❮ 返回书库</div>`;
-            html += `<div class="u-grid">`;
-            // 修改 renderSidebar 内部的循环模板部分 (以 L2 为例)
-            vols.forEach((vol) => {
-                const originalVIdx = mangaNode.children.indexOf(vol);
-                const meta = this.getMeta(vol);
-                const volNum = vol.title.match(/\d+/)?.[0] || "01";
-                const coverUrl = URLFactory.generate(state.activeMirror, volNum, meta.cover, state.rules.volReg, state.rules.pageReg);
-                
-                // 移除 onclick，改用 data- 属性
-                html += `
-                    <div class="u-card" 
-                        data-action="open-vol" 
-                        data-midx="${params.mIdx}" 
-                        data-vidx="${originalVIdx}">
-                        <div class="u-thumb" style="background-image: url('${coverUrl}')"></div>
-                        <div class="u-label">${vol.title}</div>
-                    </div>`;
-            });
-            html += `</div>`;
-        }
-
-        // --- L3: 移动端图片列表 ---
-        else if (level === 3) {
-            const vol = state.tree[0].children[params.mIdx].children[params.vIdx];
-            const meta = this.getMeta(vol);
-            html = `<div class="u-header">L3 ${vol.title} (${meta.last}P)</div>`;
-            html += `<div class="u-btn" style="color:#2196F3" onclick="window.UI.renderSidebar(2, {mIdx: ${params.mIdx}, title: '卷列表'})">❮ 返回卷列表</div>`;
-            const urls = this.generateUrlArray(vol);
-            html += `<div class="u-grid">`;
-            // L3 图片流部分同理
+        // --- 内部私有渲染：图片流 ---
+        _renderImageGrid(node, meta) {
+            const urls = this.generateUrlArray(node);
+            let html = `<div class="u-grid">`;
             urls.forEach((url, i) => {
                 html += `
-                    <div class="u-card" 
-                        data-action="zoom-img" 
-                        data-midx="${params.mIdx}" 
-                        data-vidx="${params.vIdx}" 
-                        data-page="${i}">
+                    <div class="u-card" data-action="zoom" data-index="${i}">
                         <img src="${url}" style="width:100%; display:block;" loading="lazy">
                         <div class="u-label">P.${i+1}</div>
                     </div>`;
             });
             html += `</div>`;
+            return html;
+        },
+
+        // --- 功能函数：生成图片数组 ---
+        generateUrlArray(node) {
+            const meta = this.getMeta(node);
+            const volNum = node.title.match(/\d+/)?.[0] || "01";
+            return Array.from({ length: meta.last }, (_, i) => 
+                URLFactory.generate(state.activeMirror, volNum, String(i+1), state.rules.volReg, state.rules.pageReg)
+            );
+        },
+
+        // --- 功能函数：解析封面 ---
+        resolveCover(node) {
+            const meta = this.getMeta(node);
+            let targetNode = node;
+            let targetMeta = meta;
+
+            // 如果是中间目录，尝试找第一个子节点作为封面参考
+            if (meta.last === 0 && node.children && node.children.length > 0) {
+                const firstChild = node.children.find(c => this.getMeta(c).isMenu);
+                if (firstChild) {
+                    targetNode = firstChild;
+                    targetMeta = this.getMeta(firstChild);
+                }
+            }
+
+            const volNum = targetNode.title.match(/\d+/)?.[0] || "01";
+            return URLFactory.generate(state.activeMirror, volNum, targetMeta.cover, state.rules.volReg, state.rules.pageReg);
+        },
+
+        // --- 功能函数：启动 Fancybox (补全缺失函数) ---
+        launchFancybox(node, startIndex) {
+    const urls = this.generateUrlArray(node);
+    if (!window.Fancybox) return;
+
+    window.Fancybox.show(urls.map(src => ({ src, type: "image" })), {
+        startIndex: startIndex,
+        infinite: false,
+        // Fancybox 5 的配置项
+        on: {
+            ready: (instance) => {
+                console.log("[hLog] Fancybox 5 就绪");
+                // 1. 触发系统级 resize 信号
+                window.dispatchEvent(new Event('resize'));
+                
+                // 2. 针对 Fancybox 5 的渲染补丁：
+                // 强制当前活动的 Panzoom 实例重新计算尺寸
+                const slide = instance.getSlide();
+                if (slide && slide.panzoom) {
+                    slide.panzoom.updateMetrics();
+                }
+            },
+            done: (instance, slide) => {
+                // 当每一张图片加载完成并显示时触发
+                // 如果发现图片还是不显示，执行一次位置校正
+                if (slide.panzoom) {
+                    slide.panzoom.resize();
+                }
+            }
         }
+    });
+},
 
-        sidebar.innerHTML = html;
-        sidebar.scrollTop = 0;
-    },
+        // --- 导航控制 API ---
+        navigateTo(path) {
+            this.currentPath = [...path];
+            this.render();
+        },
 
-    // 3. 辅助函数
-    handleVolClick(mIdx, vIdx) {
-        if (state.isMobile) {
-            this.renderSidebar(3, { mIdx, vIdx });
-        } else {
-            this.launchDesktopReader(mIdx, vIdx);
+        navigateUp() {
+            if (this.currentPath.length > 0) {
+                this.currentPath.pop();
+                this.render();
+            }
+        },
+
+        navigateDown(index) {
+            this.currentPath.push(index);
+            this.render();
+        },
+
+        toggleDrawer(force) {
+            const el = document.querySelector('.md-sidebar');
+            const bk = document.querySelector('.md-backdrop');
+            if (!el || !bk) return;
+            const isOpen = force ?? !el.classList.contains('active');
+            el.classList.toggle('active', isOpen);
+            bk.classList.toggle('active', isOpen);
+        },
+
+        // --- 初始化 ---
+        init() {
+            window.UI = this;
+            window.MirrorRacer = MirrorRacer;
+            this.injectStyles();
+            const bd = document.createElement('div'); bd.className = 'md-backdrop'; bd.onclick = () => this.toggleDrawer(false);
+            const sb = document.createElement('div'); sb.className = 'md-sidebar';
+            const orb = document.createElement('div'); orb.id = 'h-orb'; orb.innerHTML = '⚙'; orb.onclick = () => this.toggleDrawer();
+            document.body.append(bd, sb, orb);
+            // 注意：这里需要确保 EventManager.init() 在此处之后执行
+            EventManager.init(); // 绑定事件
+
+            // 2. 获取根节点元数据 (假设 state.tree[0] 是 Root)
+            const rootNode = state.tree[0] || { tags: {} };
+
+            // 3. 执行分流跳转
+            // 情况 A: 显式指定跳转到第一本书 (L2)
+            if (rootNode.tags.redirectToBook == 1) {
+                console.log("[hLog] 触发指令：直接进入第一本漫画");
+                this.navigateTo([0, 0]); 
+            } 
+            // 情况 B: 默认行为，进入书库 (L1)
+            else {
+                console.log("[hLog] 默认行为：进入书库列表");
+                this.navigateTo([0]); 
+            }
+
+            this.toggleDrawer();
         }
-    },
-
-    generateUrlArray(volNode) {
-        const meta = this.getMeta(volNode);
-        const volNum = volNode.title.match(/\d+/)?.[0] || "01";
-        return Array.from({ length: meta.last }, (_, i) => 
-            URLFactory.generate(state.activeMirror, volNum, String(i+1), state.rules.volReg, state.rules.pageReg)
-        );
-    },
-
-    launchDesktopReader(mIdx, vIdx) {
-        const vol = state.tree[0].children[mIdx].children[vIdx];
-        const urls = this.generateUrlArray(vol);
-        const gridHtml = `
-            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(110px, 1fr)); gap:10px; padding:15px; background:#000; min-height:100%;">
-                ${urls.map((u, i) => `
-                    <div class="u-card" onclick="window.UI.openGallery(${mIdx}, ${vIdx}, ${i})">
-                        <img src="${u}" style="width:100%; display:block;" loading="lazy">
-                        <div class="u-label">P.${i+1}</div>
-                    </div>
-                `).join('')}
-            </div>`;
-        jsPanel.create({ headerTitle: vol.title, contentSize: '800 600', theme: 'dark', content: gridHtml });
-        this.toggleDrawer(false);
-    },
-
-    openGallery(mIdx, vIdx, index) {
-        const vol = state.tree[0].children[mIdx].children[vIdx];
-        const urls = this.generateUrlArray(vol);
-        if (window.Fancybox) {
-            window.Fancybox.show(urls.map(src => ({ src, type: "image" })), { startIndex: index, infinite: false });
-        }
-    },
-
-    toggleDrawer(force) {
-        const el = document.querySelector('.md-sidebar');
-        const bk = document.querySelector('.md-backdrop');
-        const isOpen = force ?? !el.classList.contains('active');
-        el.classList.toggle('active', isOpen);
-        bk.classList.toggle('active', isOpen);
-    },
-
-    // 4. 初始化与启动跳转
-    init() {
-        window.UI = this;
-        // 样式注入、DOM 创建等逻辑保持不变...
-        // ... (此处省略重复的 injectStyles 和 append DOM 代码)
-        window.MirrorRacer = MirrorRacer;
-        this.injectStyles();
-        const bd = document.createElement('div'); bd.className = 'md-backdrop'; bd.onclick = () => this.toggleDrawer(false);
-        const sb = document.createElement('div'); sb.className = 'md-sidebar';
-        const orb = document.createElement('div'); orb.id = 'h-orb'; orb.innerHTML = '⚙'; orb.onclick = () => this.toggleDrawer();
-        document.body.append(bd, sb, orb);
-
-        // 关键点：在 DOM 插入后立即启动事件管理
-        EventManager.init();
-        this.renderSidebar(0);
-        
-        // 启动跳转逻辑
-        const rootTags = state.tree[0]?.tags || {};
-        if (rootTags.redirectToBook === '1') {
-            console.log("[hLog] 检测到 redirectToBook，自动进入 L1");
-            this.renderSidebar(1);
-        }
-    }
-};
+    };
 
     const Core = {
     async boot() {
         const mdMirrors = [
-            `https://gcore.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/myriaDown/allInOne.md`,
-            `https://qqvvv.github.io/9/myriaDown/allInOne.txt`,
+            `https://gcore.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/myriaDown/allIn1.md`,
+            `https://testingcf.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/myriaDown/allIn1.md`,
+            `https://qqvvv.github.io/9/myriaDown/allIn1.txt`,
         ];
 
         try {
