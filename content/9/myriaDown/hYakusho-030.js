@@ -578,7 +578,7 @@ const URLFactory = {
                 // 延迟 50ms 避开 Quartz SPA 可能存在的 DOM 抖动
                 setTimeout(() => {
                     window.dispatchEvent(new Event('resize'));
-                }, 10);
+                }, 100);
             },
             // 切换图片后触发 (处理下一张不显示的问题)
             "Carousel.ready": () => {
