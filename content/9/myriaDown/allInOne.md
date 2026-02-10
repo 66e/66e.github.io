@@ -2,7 +2,7 @@
 ## #matrixDice
 | dimension   | key     | value   | alternate |
 | ---         | ---     | ---     | --- |
-| #myriaDown  | version | 1.06    | lines: 78 |
+| #myriaDown  | version | 1.07    | lines: 78 |
 | ---         | ---     | ---     | --- |
 | hYakusho    | book    | 2       | |
 
@@ -45,8 +45,8 @@
       - volume #?<padStart=2 &regExp=\/(\d{1,3})\/[^\/]*$
       - page #?<regExp=\/(\d{1,4})\.(?:jpg|png|webp|jpeg)
     - mirrors #?<isMenuNode=false
-      - https://i1.wp.com/6cc.github.io/c/m/y/19/97.jpg
       - https://gcore.jsdelivr.net/gh/6cc/c/m/y/19/97.jpg
+      - https://testingcf.jsdelivr.net/gh/6cc/c/m/y/19/97.jpg
       - https://6cc.github.io/c/m/y/19/97.jpg
 
     - 01 #?<lastPic=102
