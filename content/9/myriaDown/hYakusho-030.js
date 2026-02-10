@@ -566,23 +566,27 @@ const URLFactory = {
         // --- 功能函数：启动 Fancybox (补全缺失函数) ---
         launchFancybox(node, startIndex) {
     const urls = this.generateUrlArray(node);
-    if (!window.Fancybox) return;
+    if (!window.Fancybox) return console.error("Fancybox 未加载");
 
     window.Fancybox.show(urls.map(src => ({ src, type: "image" })), {
         startIndex: startIndex,
         infinite: false,
+        // 配置生命周期钩子
         on: {
-            // 就绪时触发
-            ready: () => {
-                console.log("[hLog] Fancybox 5 就绪 - 模拟视口校准");
-                // 延迟 50ms 避开 Quartz SPA 可能存在的 DOM 抖动
+            // 当灯箱容器加载并显示在 DOM 中时触发
+            ready: (fancybox) => {
+                console.log("[hLog] Fancybox Ready - 触发强制刷新");
+                // 1. 触发原生 resize 事件，让浏览器重新计算视口
+                window.dispatchEvent(new Event('resize'));
+                // 2. 调用 Fancybox 实例的 update 方法重新校准图片位置
+
+            },
+            // 每次切换图片时再次确认
+            "Carousel.change": (fancybox) => {
+                // 解决某些 SPA 场景下“下一张图片存在但不可见”的问题
                 setTimeout(() => {
                     window.dispatchEvent(new Event('resize'));
-                }, 100);
-            },
-            // 切换图片后触发 (处理下一张不显示的问题)
-            "Carousel.ready": () => {
-                window.dispatchEvent(new Event('resize'));
+                }, 500); // 微小延迟确保图片容器已切换
             }
         }
     });
