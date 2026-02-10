@@ -571,28 +571,18 @@ const URLFactory = {
     window.Fancybox.show(urls.map(src => ({ src, type: "image" })), {
         startIndex: startIndex,
         infinite: false,
-        // Fancybox 5 的配置项
         on: {
-            ready: (instance) => {
-                
-                // 1. 触发系统级 resize 信号
-                window.dispatchEvent(new Event('resize'));
-                
-                // 2. 针对 Fancybox 5 的渲染补丁：
-                // 强制当前活动的 Panzoom 实例重新计算尺寸
-                const slide = instance.getSlide();
-                console.log(slide);
-                if (slide && slide.panzoom) {
-                    slide.panzoom.updateMetrics();
-                }
+            // 就绪时触发
+            ready: () => {
+                console.log("[hLog] Fancybox 5 就绪 - 模拟视口校准");
+                // 延迟 50ms 避开 Quartz SPA 可能存在的 DOM 抖动
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                }, 10);
             },
-            done: (instance, slide) => {
-                // 当每一张图片加载完成并显示时触发
-                // 如果发现图片还是不显示，执行一次位置校正
-                console.log(slide.panzoom);
-                if (slide.panzoom) {
-                    slide.panzoom.resize();
-                }
+            // 切换图片后触发 (处理下一张不显示的问题)
+            "Carousel.ready": () => {
+                window.dispatchEvent(new Event('resize'));
             }
         }
     });
