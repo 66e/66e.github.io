@@ -649,17 +649,15 @@ const URLFactory = {
                 console.log("[hLog] 默认行为：进入书库列表");
                 this.navigateTo([0]); 
             }
-
-            this.toggleDrawer();
         }
     };
 
     const Core = {
     async boot() {
         const mdMirrors = [
-            `https://gcore.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/myriaDown/allIn1.md`,
-            `https://testingcf.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/myriaDown/allIn1.md`,
-            `https://qqvvv.github.io/9/myriaDown/allIn1.txt`,
+            `https://gcore.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/myriaDown/allInOne.md`,
+            `https://testingcf.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/myriaDown/allInOne.md`,
+            `https://qqvvv.github.io/9/myriaDown/allInOne.txt`,
         ];
 
         try {
@@ -715,6 +713,7 @@ const URLFactory = {
             }
 
             UI.init();
+            UI.toggleDrawer ();
 
         } catch (err) {
             if (err.message.includes('shutting down')) return; // 忽略静默错误
