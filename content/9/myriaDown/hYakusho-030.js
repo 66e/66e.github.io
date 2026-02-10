@@ -566,27 +566,41 @@ const URLFactory = {
         // --- 功能函数：启动 Fancybox (补全缺失函数) ---
         launchFancybox(node, startIndex) {
     const urls = this.generateUrlArray(node);
-    if (!window.Fancybox) return console.error("Fancybox 未加载");
+    if (!window.Fancybox) return;
 
     window.Fancybox.show(urls.map(src => ({ src, type: "image" })), {
         startIndex: startIndex,
         infinite: false,
-        // 配置生命周期钩子
+        // 关键配置：禁用某些可能导致 SPA 冲突的优化
+        dragToClose: false, 
         on: {
-            // 当灯箱容器加载并显示在 DOM 中时触发
-            ready: (fancybox) => {
-                console.log("[hLog] Fancybox Ready - 触发强制刷新");
-                // 1. 触发原生 resize 事件，让浏览器重新计算视口
-                window.dispatchEvent(new Event('resize'));
-                // 2. 调用 Fancybox 实例的 update 方法重新校准图片位置
-
+            // 每次内容就绪（包括切换后）
+            "Carousel.ready": (instance) => {
+                // 方案 A: 强制所有幻灯片可见
+                // 解决“下一张存在但不显示”的顽疾
+                const container = instance.getLayout().container;
+                if (container) {
+                    const style = document.createElement('style');
+                    style.id = 'fb-fix';
+                    style.innerHTML = `
+                        .f-carousel__slide { opacity: 1 !important; visibility: visible !important; }
+                        .is-loading .f-spinner { display: block !important; }
+                    `;
+                    container.appendChild(style);
+                }
             },
-            // 每次切换图片时再次确认
-            "Carousel.change": (fancybox) => {
-                // 解决某些 SPA 场景下“下一张图片存在但不可见”的问题
+            // 每次切换图片时，强制触发一次重绘
+            change: (instance) => {
+                const slide = instance.getSlide();
+                // 方案 B: 动态触发重绘
                 setTimeout(() => {
+                    if (slide.el) {
+                        slide.el.style.display = 'none';
+                        slide.el.offsetHeight; // 触发强制重排 (Reflow)
+                        slide.el.style.display = 'block';
+                    }
                     window.dispatchEvent(new Event('resize'));
-                }, 500); // 微小延迟确保图片容器已切换
+                }, 50);
             }
         }
     });
