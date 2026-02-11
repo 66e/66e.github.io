@@ -441,7 +441,7 @@ const EventManager = {
             }
             state.abortController = new AbortController();
             return state.abortController.signal;
-        }
+        },
 
         stopPrevious() {
             if (this.currentTask) {
@@ -457,7 +457,8 @@ const EventManager = {
             }
             this.currentTask = new AbortController();
             return this.currentTask.signal;
-        }
+        },
+        
         // 每次开始加载新的一组图片前调用
         resetController() {
             if (state.imgController) {
