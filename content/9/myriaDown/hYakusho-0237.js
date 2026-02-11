@@ -106,7 +106,7 @@ const hYakusho = (function() {
             if (node.title === 'mirrors' || tags.isMirrorNode === 'true') {
                 state.rules.templates = node.children
                     .filter(c => c.title.startsWith('http'))
-                    .map(c => c.title.replace('/master', '')); // 自动移除 /master
+                    .map(c => c.title); // 自动移除 /master
             }
 
             // 3. 处理 Alias (锚点继承)
@@ -573,7 +573,7 @@ const EventManager = {
                 // 解决你提到的 SPA 刷新 Bug 的潜在补丁
                 on: {
                     ready: () => {
-                        window.dispatchEvent(new Event('resize'));
+                        console.log( "Fancybox ready" );
                     }
                 }
             });
@@ -678,7 +678,6 @@ const EventManager = {
             // 最终汇报
             console.group("--- hYakusho 系统概览 ---");
                 console.table(state.allStats);
-                console.log("正则规则:", state.rules);
                 console.log("画廊结构:", state.tree);
             console.groupEnd();
 
@@ -699,6 +698,7 @@ const EventManager = {
             }
 
             UI.init();
+            UI.toggleDrawer ();
 
         } catch (err) {
             if (err.message.includes('shutting down')) return; // 忽略静默错误
