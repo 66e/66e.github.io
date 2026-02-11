@@ -415,11 +415,14 @@ const URLFactory = {
                 const idx = parseInt(index);
 
                 switch (action) {
-                    case 'nav':  window.UI.navigateDown(idx); break;
-                    case 'back': window.UI.navigateUp(); break;
+                    case 'nav':  UI.navigateDown(idx); break;
+                    case 'back': UI.navigateUp(); break;
                     case 'zoom': 
-                        const node = window.UI.getCurrentNode();
-                        window.UI.launchFancybox(node, idx); 
+                        const node = UI.getCurrentNode();
+                        const urls = UI.generateUrlArray(node);
+            Fancybox.show(urls.map(src => ({ src, type: "image" })), {
+              startIndex: idx,
+            });
                         break;
                 }
             };
