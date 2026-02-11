@@ -619,15 +619,22 @@ const EventManager = {
         const orb = document.createElement('div'); orb.id = 'h-orb'; orb.innerHTML = '⚙'; orb.onclick = () => this.toggleDrawer();
         document.body.append(bd, sb, orb);
         // 注意：这里需要确保 EventManager.init() 在此处之后执行
-        window.EventManager.init();
+        EventManager.init(); // 绑定事件0.35
 
-        // 默认渲染或根据标签跳转
-        const rootNode = state.tree[0] || { tags: {} };
-        if (rootNode && rootNode.tags && rootNode.tags.redirectToBook === 1) {
-            this.navigateTo([0]);
-        } else {
-            this.render();
-        }
+        // 2. 获取根节点元数据 (假设 state.tree[0] 是 Root)
+            const rootNode = state.tree[0] || { tags: {} };
+
+            // 3. 执行分流跳转
+            // 情况 A: 显式指定跳转到第一本书 (L2)
+            if (rootNode.tags.redirectToBook == 1) {
+                console.log("[hLog] 触发指令：直接进入第一本漫画");
+                this.navigateTo([0, 0]); 
+            } 
+            // 情况 B: 默认行为，进入书库 (L1)
+            else {
+                console.log("[hLog] 默认行为：进入书库列表");
+                this.navigateTo([0]); 
+            }
     }
 };
 
@@ -635,6 +642,7 @@ const EventManager = {
     async boot() {
         const mdMirrors = [
             `https://gcore.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/myriaDown/allInOne.md`,
+            `https://testingcf.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/myriaDown/allInOne.md`,
             `https://qqvvv.github.io/9/myriaDown/allInOne.txt`,
         ];
 
