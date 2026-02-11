@@ -7,7 +7,7 @@ const hYakusho = (function() {
         allStats: [], // 汇总所有竞速结果的数组
         anchors: {},
         isMobile: window.innerWidth <= 768,
-        imgController: null,
+        abortController: null,
         libs: {},
         rawMD: "",
         rules: { volReg: "", pageReg: "", templates: [] },
@@ -427,47 +427,31 @@ const EventManager = {
     }
 };
     // --- 1. 扩展全局状态 ---
-    state.abortController = null;
     // --- AbortController 基础架构 ---
+    // --- 整合后的图片加载控制器 ---
     const ImageLoader = {
-        // 信号记录
-        currentTask: null,
-
-        // 每次进入新卷时，重置“任务信号”
-        prepareNewTask() {
+        // 启动新任务并终止前序任务
+        prepare() {
+            // 1. 发射信号中断
             if (state.abortController) {
-                console.log("[hLog] 发现并发冲突：正在中断前一个加载任务");
-                state.abortController.abort(); // 触发中断信号
+                console.log("[hLog] 发现并发，正在中止旧任务...");
+                state.abortController.abort();
             }
-            state.abortController = new AbortController();
-            return state.abortController.signal;
-        },
-
-        stopPrevious() {
-            if (this.currentTask) {
-                console.log("[hLog] 中断前浪：清空旧图片请求");
-                // 1. 发出中断信号 (供后续 fetch 改造使用)
-                this.currentTask.abort();
-                
-                // 2. 物理中断：找到所有还在下载的旧图片，断开连接
-                document.querySelectorAll('.md-sidebar .lazy-img').forEach(img => {
-                    img.src = ''; // 清空 src 会立即停止该图片的下载
-                    img.remove(); // 从 DOM 移除，彻底释放
+            
+            // 2. 物理层面的彻底清理
+            // 必须在 signal 重置前清空 DOM 里的 src，否则浏览器会继续偷偷下载
+            const sidebar = document.querySelector('.md-sidebar');
+            if (sidebar) {
+                const activeImgs = sidebar.querySelectorAll('.lazy-img');
+                activeImgs.forEach(img => {
+                    img.src = ''; // 强制断开连接
+                    img.remove(); // 移除 DOM 节点
                 });
             }
-            this.currentTask = new AbortController();
-            return this.currentTask.signal;
-        },
-        
-        // 每次开始加载新的一组图片前调用
-        resetController() {
-            if (state.imgController) {
-                console.log("[hLog] 发现旧请求，执行 Abort 操作。");
-                state.imgController.abort(); // 掐断所有关联的 HTTP 请求
-            }
-            // 创建新的控制器
-            state.imgController = new AbortController();
-            return state.imgController.signal;
+
+            // 3. 生成新的控制器
+            state.abortController = new AbortController();
+            return state.abortController.signal;
         }
     };
 
@@ -570,7 +554,7 @@ const EventManager = {
         // 启动新控制器并获取信号
         // 调用物理中断
         // A. 开启新任务，获取本次渲染的唯一信号
-        const signal = ImageLoader.prepareNewTask();
+        const signal = ImageLoader.prepare(); // 获取唯一信号
         
         // B. 清空旧视图 (物理层面的中断：移除旧 img 节点，停止它们的下载)
         const sidebar = document.querySelector('.md-sidebar');
@@ -597,7 +581,6 @@ const EventManager = {
 
         // C. 检查信号：如果在生成 HTML 期间任务已被中止，则不进行 DOM 写入
         if (signal.aborted) return ''; 
-        
         return html;
     },
 
