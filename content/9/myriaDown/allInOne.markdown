@@ -70,9 +70,9 @@
     - 19 #?<lastPic=97
     
   - apocrypha #?<bookPicFromVol=1 &comment=伪书
-    - 01 #?<anchor=a1
-      - https://s2.loli.net/2026/01/16/wGzRlFP3I1KrqaM.jpg
+    - 01 #?<endArray &simpleAnchor=a1
+      - https://s2.loli.net/2023/03/01/dYQMrXeK8GVihP3.jpg
       - https://i.ibb.co/xSt0Rdk/95433208113.jpg
       - https://i.postimg.cc/ppCsnWdr/Windows-booting.png
-    - 02 #?<alias=a1
+    - 02 #?<endArray &simpleAlias=a1
       - https://i.loli.net/2018/05/08/5af11396cf460.gif
