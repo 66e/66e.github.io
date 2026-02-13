@@ -47,7 +47,7 @@
     - mirrors #?<isMenuNode=false
       - https://gcore.jsdelivr.net/gh/6cc/c/m/y/19/97.jpg
       - https://testingcf.jsdelivr.net/gh/6cc/c/m/y/19/97.jpg
-      - https://6cc.github.io/c/m/y/19/97.jpg
+      - https://slack-imgs.com/?url=https://6cc.github.io/c/m/y/19/97.jpg
 
     - 01 #?<lastPic=102
     - 02 #?<lastPic=98

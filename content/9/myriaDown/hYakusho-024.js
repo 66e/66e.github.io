@@ -94,49 +94,61 @@ const hYakusho = (function() {
         if (depth > 10) return nodes;
 
         return nodes.map(node => {
+            // 1. 继承父级标签（如 genSeqPics）
             let tags = { ...parentTags, ...node.tags };
 
-            // 1. [0.238原版] 规则捕获
+            // 2. 捕获规则与镜像 (0.238 稳定逻辑)
             if (tags.regExp) {
                 if (node.title === 'volume') state.rules.volReg = tags.regExp;
                 if (node.title === 'page') state.rules.pageReg = tags.regExp;
             }
-            
-            // 2. [0.238原版] 镜像捕获
             if (node.title === 'mirrors' || tags.isMirrorNode === 'true') {
                 state.rules.templates = node.children
                     .filter(c => c.title.startsWith('http'))
                     .map(c => c.title);
             }
 
-            // 3. [新增] simpleAlias 处理 (来自 0.2381 的核心增强)
+            // --- 3. [核心增强] simpleAnchor & simpleAlias 处理 ---
+            
+            // A. 记录锚点：如果当前节点带有 simpleAnchor 标签，将其引用存入全局索引
+            // 即使它没有子节点，我们也要记录它，以便后续查找
+            if (node.tags.simpleAnchor) {
+                state.anchors[node.tags.simpleAnchor] = node;
+            }
+
+            // B. 执行别名引用：追加数据数组
             if (node.tags.simpleAlias && state.anchors[node.tags.simpleAlias]) {
                 const src = state.anchors[node.tags.simpleAlias];
+                
+                // 深度克隆源节点的子项，避免引用关联
                 const inherited = JSON.parse(JSON.stringify(src.children));
                 
-                // 标记继承来的图片节点为需要溶解的数据
+                // 标记继承来的图片节点为需要溶解的数据(isImageData)，防止它们出现在菜单里
                 inherited.forEach(c => {
                     c.tags = { ...c.tags, isImageData: true }; 
                     c.children = [];
                 });
 
+                // 【关键点】追加到原有数组之后：[原有内容, ...克隆内容]
                 node.children = [...node.children, ...inherited];
+                
+                // 消耗掉此标签，防止在后续可能的递归中重复触发
                 delete node.tags.simpleAlias;
             }
 
-            // 4. [增强] 溶解逻辑 (Bypass)
-            // 既包含 0.238 的菜单隐藏，也包含 endCluster 下的图片隐藏
+            // --- 4. 溶解判定 (Bypass) ---
             let shouldBypass = node.title === 'default' || node.title === 'mirrors' || tags.isMenuNode === 'false';
             
-            // 如果父级是 endCluster，或者自己是 inherited 图片数据，则溶解
+            // 终端簇下的内容或通过 Alias 注入的内容，都不应该作为菜单项显示
             if (parentTags.endCluster === 'true' || parentTags.endCluster === true || node.tags.isImageData) {
                 shouldBypass = true;
             }
             node.isBypass = shouldBypass;
 
-            // 5. [增强] 递归保护
+            // --- 5. 递归处理 ---
             if (node.children && node.children.length > 0) {
-                // 只有当自己不是 endCluster 时才递归 (保护第二本漫画的图片地址不被解析)
+                // 只有当自己不是 endCluster 时才递归处理子项的标签
+                // 这保护了第二本漫画中作为子项的图片 URL 不会被误解析
                 if (node.tags.endCluster !== 'true' && node.tags.endCluster !== true) {
                     node.children = this.activate(node.children, tags, depth + 1);
                 }
