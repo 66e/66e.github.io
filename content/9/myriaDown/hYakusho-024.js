@@ -7,6 +7,7 @@ const hYakusho = (function() {
         allStats: [], // 汇总所有竞速结果的数组
         anchors: {},
         isMobile: window.innerWidth <= 768,
+        abortController: null,
         libs: {},
         rawMD: "",
         rules: { volReg: "", pageReg: "", templates: [] },
@@ -88,45 +89,57 @@ const hYakusho = (function() {
     },
 
     // 修复栈溢出的核心：activate
+    // 基于 0.238 稳定版，注入 simpleAlias 支持
     activate(nodes, parentTags = {}, depth = 0) {
-        // 防止意外的深度递归
-        if (depth > 10) return nodes; 
+        if (depth > 10) return nodes;
 
         return nodes.map(node => {
             let tags = { ...parentTags, ...node.tags };
-            
-            // 1. 捕获正则 (存入 state.rules)
+
+            // 1. [0.238原版] 规则捕获
             if (tags.regExp) {
-    // 只要看到标签里有 regExp，就根据 node.title 存入 rules
-    if (node.title === 'volume') state.rules.volReg = tags.regExp;
-    if (node.title === 'page') state.rules.pageReg = tags.regExp;
-}
+                if (node.title === 'volume') state.rules.volReg = tags.regExp;
+                if (node.title === 'page') state.rules.pageReg = tags.regExp;
+            }
             
-            // 2. 捕获镜像模板
+            // 2. [0.238原版] 镜像捕获
             if (node.title === 'mirrors' || tags.isMirrorNode === 'true') {
                 state.rules.templates = node.children
                     .filter(c => c.title.startsWith('http'))
-                    .map(c => c.title.replace('/master', '')); // 自动移除 /master
+                    .map(c => c.title);
             }
 
-            // 3. 处理 Alias (锚点继承)
-            if (tags.alias && state.anchors[tags.alias]) {
-                const src = state.anchors[tags.alias];
-                // 仅在子节点为空时继承，防止死循环
-                if (node.children.length === 0) {
-                    node.children = JSON.parse(JSON.stringify(src.children));
-                }
+            // 3. [新增] simpleAlias 处理 (来自 0.2381 的核心增强)
+            if (node.tags.simpleAlias && state.anchors[node.tags.simpleAlias]) {
+                const src = state.anchors[node.tags.simpleAlias];
+                const inherited = JSON.parse(JSON.stringify(src.children));
+                
+                // 标记继承来的图片节点为需要溶解的数据
+                inherited.forEach(c => {
+                    c.tags = { ...c.tags, isImageData: true }; 
+                    c.children = [];
+                });
+
+                node.children = [...node.children, ...inherited];
+                delete node.tags.simpleAlias;
             }
 
-            // 4. 判定 Bypass (溶解逻辑)
-            // 如果节点名为 default/mirrors 或标记了 isMenuNode=false，则标记为待溶解
-            if (node.title === 'default' || node.title === 'mirrors' || tags.isMenuNode === 'false') {
-                node.isBypass = true;
+            // 4. [增强] 溶解逻辑 (Bypass)
+            // 既包含 0.238 的菜单隐藏，也包含 endCluster 下的图片隐藏
+            let shouldBypass = node.title === 'default' || node.title === 'mirrors' || tags.isMenuNode === 'false';
+            
+            // 如果父级是 endCluster，或者自己是 inherited 图片数据，则溶解
+            if (parentTags.endCluster === 'true' || parentTags.endCluster === true || node.tags.isImageData) {
+                shouldBypass = true;
             }
+            node.isBypass = shouldBypass;
 
-            // 5. 递归处理子节点
+            // 5. [增强] 递归保护
             if (node.children && node.children.length > 0) {
-                node.children = this.activate(node.children, tags, depth + 1);
+                // 只有当自己不是 endCluster 时才递归 (保护第二本漫画的图片地址不被解析)
+                if (node.tags.endCluster !== 'true' && node.tags.endCluster !== true) {
+                    node.children = this.activate(node.children, tags, depth + 1);
+                }
             }
 
             return node;
@@ -403,226 +416,301 @@ const URLFactory = {
 };
 
     // --- 事件监听补全 ---
-    const EventManager = {
-        init() {
-            const sb = document.querySelector('.md-sidebar');
-            if (!sb) return;
-            sb.onclick = (e) => {
-                const target = e.target.closest('[data-action]');
-                if (!target) return;
+const EventManager = {
+    init() {
+        const sb = document.querySelector('.md-sidebar');
+        if (!sb) return;
+        sb.onclick = (e) => {
+            const target = e.target.closest('[data-action]');
+            if (!target) return;
 
-                const { action, index } = target.dataset;
-                const idx = parseInt(index);
+            const { action, index } = target.dataset;
+            const idx = parseInt(index);
 
-                switch (action) {
-                    case 'nav':  window.UI.navigateDown(idx); break;
-                    case 'back': window.UI.navigateUp(); break;
-                    case 'zoom': 
-                        const node = window.UI.getCurrentNode();
-                        window.UI.launchFancybox(node, idx); 
-                        break;
-                }
-            };
+            switch (action) {
+                case 'nav':  window.UI.navigateDown(idx); break;
+                case 'back': window.UI.navigateUp(); break;
+                case 'zoom': 
+                    const node = window.UI.getCurrentNode();
+                    window.UI.launchFancybox(node, idx); 
+                    break;
+            }
+        };
+    }
+};
+    // --- 1. 扩展全局状态 ---
+    // --- AbortController 基础架构 ---
+    // --- 整合后的图片加载控制器 ---
+    const ImageLoader = {
+        // 启动新任务并终止前序任务
+        prepare() {
+            // 1. 发射信号中断
+            if (state.abortController) {
+                console.log("[hLog] 发现并发，正在中止旧任务...");
+                state.abortController.abort();
+            }
+            
+            // 2. 物理层面的彻底清理
+            // 必须在 signal 重置前清空 DOM 里的 src，否则浏览器会继续偷偷下载
+            const sidebar = document.querySelector('.md-sidebar');
+            if (sidebar) {
+                const activeImgs = sidebar.querySelectorAll('.lazy-img');
+                activeImgs.forEach(img => {
+                    img.src = ''; // 强制断开连接
+                    img.remove(); // 移除 DOM 节点
+                });
+            }
+
+            // 3. 生成新的控制器
+            state.abortController = new AbortController();
+            return state.abortController.signal;
         }
     };
-    
+
     const UI = {
         panel: null,
     
-        injectStyles() {
-            const css = `
-                #h-orb { position: fixed; right: 20px; bottom: 20px; width: 48px; height: 48px; border-radius: 50%; background: rgba(80, 80, 80, 0.6); color: white; z-index: 1049; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; backdrop-filter: blur(4px); }
-                .md-sidebar { position: fixed; top: 0; right: 0; bottom: 0; width: 320px; background: #121212; z-index: 19; transform: translateX(100%); transition: transform 0.3s ease; overflow-y: auto; color: #eee; border-left: 1px solid #333; font-family: sans-serif; }
-                .md-sidebar.active { transform: translateX(0); }
-                .md-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 18; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
-                .md-backdrop.active { opacity: 1; pointer-events: auto; }
-                .u-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
-                .u-card { background: #1e1e1e; border: 1px solid #333; text-align: center; cursor: pointer; overflow: hidden; }
-                .u-thumb { width: 100%; aspect-ratio: 3/4; background-size: cover; background-position: center; background-color: #222; }
-                .u-label { font-size: 11px; padding: 6px; color: #bbb; }
-                .u-btn { padding: 14px 18px; border-bottom: 1px solid #333; cursor: pointer; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
-                .u-header { padding: 15px; background: #1a1a1a; font-weight: bold; border-bottom: 1px solid #333; color: #ea580c; }
-            `;
-            const style = document.createElement('style');
-            style.innerHTML = css;
-            document.head.appendChild(style);
-        },
-        currentPath: [], // [mIdx, vIdx]
+    injectStyles() {
+        const css = `
+            #h-orb { position: fixed; right: 20px; bottom: 20px; width: 48px; height: 48px; border-radius: 50%; background: rgba(80, 80, 80, 0.6); color: white; z-index: 1049; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; backdrop-filter: blur(4px); }
+            .md-sidebar { position: fixed; top: 0; right: 0; bottom: 0; width: 320px; background: #121212; z-index: 19; transform: translateX(100%); transition: transform 0.3s ease; overflow-y: auto; color: #eee; border-left: 1px solid #333; font-family: sans-serif; }
+            .md-sidebar.active { transform: translateX(0); }
+            .md-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 18; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+            .md-backdrop.active { opacity: 1; pointer-events: auto; }
+            .u-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
+            .u-card { background: #1e1e1e; border: 1px solid #333; text-align: center; cursor: pointer; overflow: hidden; }
+            .u-thumb { width: 100%; aspect-ratio: 3/4; background-size: cover; background-position: center; background-color: #222; }
+            .u-label { font-size: 11px; padding: 6px; color: #bbb; }
+            .u-btn { padding: 14px 18px; border-bottom: 1px solid #333; cursor: pointer; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+            .u-header { padding: 15px; background: #1a1a1a; font-weight: bold; border-bottom: 1px solid #333; color: #ea580c; }
+        `;
+        const style = document.createElement('style');
+        style.innerHTML = css;
+        document.head.appendChild(style);
+    },
+    currentPath: [], // [mIdx, vIdx]
 
-        // --- 核心工具：获取当前节点 ---
-        getCurrentNode() {
-            let node = { title: "Root", children: state.tree, tags: {} };
-            for (const index of this.currentPath) {
-                if (!node.children || !node.children[index]) break;
-                node = node.children[index];
+    // --- 核心工具：获取当前节点 ---
+    getCurrentNode() {
+        let node = { title: "Root", children: state.tree, tags: {} };
+        for (const index of this.currentPath) {
+            if (!node.children || !node.children[index]) break;
+            node = node.children[index];
+        }
+        return node;
+    },
+
+    // --- 核心工具：获取 Meta ---
+    getMeta(node) {
+        const t = node.tags || {};
+        return {
+            last: parseInt(t.lastPic) || 0,
+            cover: String(t.coverPic || "1"),
+            isMenu: t.isMenuNode !== 'false'
+        };
+    },
+
+    // --- 渲染引擎 ---
+    render() {
+        const sidebar = document.querySelector('.md-sidebar');
+        if (!sidebar) return;
+
+        const node = this.getCurrentNode();
+        const isRoot = this.currentPath.length === 0;
+        const meta = this.getMeta(node);
+        
+        // 1. 头部与返回按钮
+        let html = `<div class="u-header">${node.title}</div>`;
+        if (!isRoot) {
+            html += `<div class="u-btn" style="color:#2196F3" data-action="back">❮ 返回上级</div>`;
+        } else {
+            html += `<div class="u-btn" style="color:#ff9800" onclick="window.MirrorRacer.showStatsPanel()">⚙ 系统概览</div>`;
+        }
+
+        // --- 整合修正后的 isVolume ---
+        // 1. 如果有 endCluster 标签，直接视为卷 (第二本漫画)
+        // 2. 如果没有子菜单项(children为0) 且 有页数统计(meta.last>0)，视为卷 (第一本漫画)
+        // 注意：移除了对 node.tags.genSeqPics 的直接判断，防止误伤第一本漫画的目录层
+        const isVolume = (node.tags.endCluster === 'true' || node.tags.endCluster === true) || 
+                        (node.children.length === 0 && meta.last > 0);
+
+        if (isVolume) {
+            html += this._renderImageGrid(node, meta);
+        } else {
+            html += this._renderMenuGrid(node.children || []);
+        }
+
+        sidebar.innerHTML = html;
+        sidebar.scrollTop = 0;
+    },
+
+    // --- 内部私有渲染：菜单 ---
+    _renderMenuGrid(children) {
+        let html = `<div class="u-grid">`;
+        children.forEach((child, index) => {
+            const childMeta = this.getMeta(child);
+            if (!childMeta.isMenu) return;
+
+            // 封面解析
+            const coverUrl = this.resolveCover(child);
+
+            html += `
+                <div class="u-card" data-action="nav" data-index="${index}">
+                    <div class="u-thumb" style="background-image: url('${coverUrl}')"></div>
+                    <div class="u-label">${child.title}</div>
+                </div>`;
+        });
+        html += `</div>`;
+        return html;
+    },
+
+    // --- 内部私有渲染：图片流 ---
+    _renderImageGrid(node, meta) {
+        // 启动新控制器并获取信号
+        // 调用物理中断
+        // A. 开启新任务，获取本次渲染的唯一信号
+        const signal = ImageLoader.prepare(); // 获取唯一信号
+        
+        // B. 清空旧视图 (物理层面的中断：移除旧 img 节点，停止它们的下载)
+        const sidebar = document.querySelector('.md-sidebar');
+        const oldImages = sidebar.querySelectorAll('.lazy-img');
+        oldImages.forEach(img => {
+            img.src = ''; 
+            img.remove();
+        });
+
+        const urls = this.generateUrlArray(node);
+        let html = `<div class="u-grid">`;
+        
+        urls.forEach((url, i) => {
+            html += `
+                <div class="u-card" data-action="zoom" data-index="${i}">
+                    <img src="${url}" 
+                        class="lazy-img"
+                        style="width:100%; min-height:100px; display:block; background:#222;" 
+                        loading="lazy">
+                    <div class="u-label">P.${i+1}</div>
+                </div>`;
+        });
+        html += `</div>`;
+
+        // C. 检查信号：如果在生成 HTML 期间任务已被中止，则不进行 DOM 写入
+        if (signal.aborted) return ''; 
+        return html;
+    },
+
+    // --- 功能函数：生成图片数组 ---
+    // 直接使用你刚才提供的 0.2381 版本
+    generateUrlArray(node) {
+        if (!node) return [];
+        
+        // console.log(`[Debug] 节点: ${node.title}`, "标签:", node.tags); // 调试可注释掉
+
+        let urls = [];
+        const nodeTags = node.tags || {};
+        const meta = this.getMeta(node);
+
+        // 逻辑A：endCluster (第二本漫画)
+        if (nodeTags.endCluster === 'true' || nodeTags.endCluster === true) {
+            if (node.children && node.children.length > 0) {
+                urls = node.children.map(c => (typeof c === 'string' ? c : c.title).trim());
             }
-            return node;
-        },
-
-        // --- 核心工具：获取 Meta ---
-        getMeta(node) {
-            const t = node.tags || {};
-            return {
-                last: parseInt(t.lastPic) || 0,
-                cover: String(t.coverPic || "1"),
-                isMenu: t.isMenuNode !== 'false'
-            };
-        },
-
-        // --- 渲染引擎 ---
-        render() {
-            const sidebar = document.querySelector('.md-sidebar');
-            if (!sidebar) return;
-
-            const node = this.getCurrentNode();
-            const isRoot = this.currentPath.length === 0;
-            const meta = this.getMeta(node);
-            
-            // 1. 头部与返回按钮
-            let html = `<div class="u-header">${node.title}</div>`;
-            if (!isRoot) {
-                html += `<div class="u-btn" style="color:#2196F3" data-action="back">❮ 返回上级</div>`;
-            } else {
-                html += `<div class="u-btn" style="color:#ff9800" onclick="window.MirrorRacer.showStatsPanel()">⚙ 系统概览</div>`;
-            }
-
-            // 2. 内容判断：是卷(Volume)还是目录(Folder)
-            // 逻辑：如果有 lastPic 且没有子节点，视为卷
-            const isVolume = meta.last > 0 && (!node.children || node.children.length === 0);
-
-            if (isVolume) {
-                html += this._renderImageGrid(node, meta);
-            } else {
-                html += this._renderMenuGrid(node.children || []);
-            }
-
-            sidebar.innerHTML = html;
-            sidebar.scrollTop = 0;
-        },
-
-        // --- 内部私有渲染：菜单 ---
-        _renderMenuGrid(children) {
-            let html = `<div class="u-grid">`;
-            children.forEach((child, index) => {
-                const childMeta = this.getMeta(child);
-                if (!childMeta.isMenu) return;
-
-                // 封面解析
-                const coverUrl = this.resolveCover(child);
-
-                html += `
-                    <div class="u-card" data-action="nav" data-index="${index}">
-                        <div class="u-thumb" style="background-image: url('${coverUrl}')"></div>
-                        <div class="u-label">${child.title}</div>
-                    </div>`;
-            });
-            html += `</div>`;
-            return html;
-        },
-
-        // --- 内部私有渲染：图片流 ---
-        _renderImageGrid(node, meta) {
-            const urls = this.generateUrlArray(node);
-            let html = `<div class="u-grid">`;
-            urls.forEach((url, i) => {
-                html += `
-                    <div class="u-card" data-action="zoom" data-index="${i}">
-                        <img src="${url}" style="width:100%; display:block;" loading="lazy">
-                        <div class="u-label">P.${i+1}</div>
-                    </div>`;
-            });
-            html += `</div>`;
-            return html;
-        },
-
-        // --- 功能函数：生成图片数组 ---
-        generateUrlArray(node) {
-            const meta = this.getMeta(node);
+        } 
+        // 逻辑B：序列模式 (第一本漫画)
+        else if (nodeTags.genSeqPics || state.rules.volReg) {
             const volNum = node.title.match(/\d+/)?.[0] || "01";
-            return Array.from({ length: meta.last }, (_, i) => 
-                URLFactory.generate(state.activeMirror, volNum, String(i+1), state.rules.volReg, state.rules.pageReg)
-            );
-        },
-
-        // --- 功能函数：解析封面 ---
-        resolveCover(node) {
-            const meta = this.getMeta(node);
-            let targetNode = node;
-            let targetMeta = meta;
-
-            // 如果是中间目录，尝试找第一个子节点作为封面参考
-            if (meta.last === 0 && node.children && node.children.length > 0) {
-                const firstChild = node.children.find(c => this.getMeta(c).isMenu);
-                if (firstChild) {
-                    targetNode = firstChild;
-                    targetMeta = this.getMeta(firstChild);
+            if (meta.last > 0) {
+                for (let i = 1; i <= meta.last; i++) {
+                    urls.push(URLFactory.generate(state.activeMirror, volNum, i.toString(), state.rules.volReg, state.rules.pageReg));
                 }
             }
+        }
 
-            const volNum = targetNode.title.match(/\d+/)?.[0] || "01";
-            return URLFactory.generate(state.activeMirror, volNum, targetMeta.cover, state.rules.volReg, state.rules.pageReg);
-        },
+        return urls;
+    },
 
-        // --- 功能函数：启动 Fancybox (补全缺失函数) ---
-        launchFancybox(node, startIndex) {
-            const urls = this.generateUrlArray(node);
-            if (window.Fancybox) {
-                window.Fancybox.show(urls.map(src => ({ src, type: "image" })), {
-                    startIndex: startIndex,
-                    infinite: false,
-                    // 解决你提到的 SPA 刷新 Bug 的潜在补丁
-                    on: {
-                        ready: () => {
-                            window.dispatchEvent(new Event('resize'));
-                        }
+    // --- 功能函数：解析封面 ---
+    resolveCover(node) {
+        const meta = this.getMeta(node);
+        let targetNode = node;
+        let targetMeta = meta;
+
+        // 如果是中间目录，尝试找第一个子节点作为封面参考
+        if (meta.last === 0 && node.children && node.children.length > 0) {
+            const firstChild = node.children.find(c => this.getMeta(c).isMenu);
+            if (firstChild) {
+                targetNode = firstChild;
+                targetMeta = this.getMeta(firstChild);
+            }
+        }
+
+        const volNum = targetNode.title.match(/\d+/)?.[0] || "01";
+        return URLFactory.generate(state.activeMirror, volNum, targetMeta.cover, state.rules.volReg, state.rules.pageReg);
+    },
+
+    // --- 功能函数：启动 Fancybox (补全缺失函数) ---
+    launchFancybox(node, startIndex) {
+        const urls = this.generateUrlArray(node);
+        if (window.Fancybox) {
+            window.Fancybox.show(urls.map(src => ({ src, type: "image" })), {
+                startIndex: startIndex,
+                infinite: false,
+                // 解决你提到的 SPA 刷新 Bug 的潜在补丁
+                on: {
+                    ready: () => {
+                        console.log( "Fancybox ready" );
                     }
-                });
-            } else {
-                console.error("Fancybox 未加载");
-            }
-        },
+                }
+            });
+        } else {
+            console.error("Fancybox 未加载");
+        }
+    },
 
-        // --- 导航控制 API ---
-        navigateTo(path) {
-            this.currentPath = [...path];
+    // --- 导航控制 API ---
+    navigateTo(path) {
+        this.currentPath = [...path];
+        this.render();
+    },
+
+    navigateUp() {
+        if (this.currentPath.length > 0) {
+            this.currentPath.pop();
             this.render();
-        },
+        }
+    },
 
-        navigateUp() {
-            if (this.currentPath.length > 0) {
-                this.currentPath.pop();
-                this.render();
-            }
-        },
+    navigateDown(index) {
+        if (this.navController) this.navController.abort();
+        this.navController = new AbortController();
 
-        navigateDown(index) {
-            this.currentPath.push(index);
-            this.render();
-        },
+        this.currentPath.push(index);
+        this.render();
+    },
 
-        toggleDrawer(force) {
-            const el = document.querySelector('.md-sidebar');
-            const bk = document.querySelector('.md-backdrop');
-            if (!el || !bk) return;
-            const isOpen = force ?? !el.classList.contains('active');
-            el.classList.toggle('active', isOpen);
-            bk.classList.toggle('active', isOpen);
-        },
+    toggleDrawer(force) {
+        const el = document.querySelector('.md-sidebar');
+        const bk = document.querySelector('.md-backdrop');
+        if (!el || !bk) return;
+        const isOpen = force ?? !el.classList.contains('active');
+        el.classList.toggle('active', isOpen);
+        bk.classList.toggle('active', isOpen);
+    },
 
-        // --- 初始化 ---
-        init() {
-            window.UI = this;
-            window.MirrorRacer = MirrorRacer;
-            this.injectStyles();
-            const bd = document.createElement('div'); bd.className = 'md-backdrop'; bd.onclick = () => this.toggleDrawer(false);
-            const sb = document.createElement('div'); sb.className = 'md-sidebar';
-            const orb = document.createElement('div'); orb.id = 'h-orb'; orb.innerHTML = '⚙'; orb.onclick = () => this.toggleDrawer();
-            document.body.append(bd, sb, orb);
-            // 注意：这里需要确保 EventManager.init() 在此处之后执行
-            EventManager.init(); // 绑定事件
+    // --- 初始化 ---
+    init() {
+        window.UI = this;
+        window.MirrorRacer = MirrorRacer;
+        this.injectStyles();
+        const bd = document.createElement('div'); bd.className = 'md-backdrop'; bd.onclick = () => this.toggleDrawer(false);
+        const sb = document.createElement('div'); sb.className = 'md-sidebar';
+        const orb = document.createElement('div'); orb.id = 'h-orb'; orb.innerHTML = '⚙'; orb.onclick = () => this.toggleDrawer();
+        document.body.append(bd, sb, orb);
+        // 注意：这里需要确保 EventManager.init() 在此处之后执行
+        EventManager.init(); // 绑定事件0.35
 
-            // 2. 获取根节点元数据 (假设 state.tree[0] 是 Root)
-            const rootNode = state.tree[0];
+        // 2. 获取根节点元数据 (假设 state.tree[0] 是 Root)
+            const rootNode = state.tree[0] || { tags: {} };
 
             // 3. 执行分流跳转
             // 情况 A: 显式指定跳转到第一本书 (L2)
@@ -635,15 +723,15 @@ const URLFactory = {
                 console.log("[hLog] 默认行为：进入书库列表");
                 this.navigateTo([0]); 
             }
-        }
-    };
+    }
+};
 
     const Core = {
     async boot() {
         const mdMirrors = [
-            `https://gcore.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/myriaDown/allIn1.md`,
-            `https://testingcf.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/myriaDown/allIn1.md`,
-            `https://qqvvv.github.io/9/myriaDown/allIn1.txt`,
+            `https://gcore.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/myriaDown/allInOne.markdown`,
+            `https://testingcf.jsdelivr.net/gh/qqvvv/qqvvv.github.io/content/9/myriaDown/allInOne.markdown`,
+            `https://qqvvv.github.io/9/myriaDown/allInOne.markdown`,
         ];
 
         try {
@@ -678,7 +766,6 @@ const URLFactory = {
             // 最终汇报
             console.group("--- hYakusho 系统概览 ---");
                 console.table(state.allStats);
-                console.log("正则规则:", state.rules);
                 console.log("画廊结构:", state.tree);
             console.groupEnd();
 
@@ -699,6 +786,7 @@ const URLFactory = {
             }
 
             UI.init();
+            UI.toggleDrawer ();
 
         } catch (err) {
             if (err.message.includes('shutting down')) return; // 忽略静默错误
