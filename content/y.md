@@ -1,1 +1,1 @@
-<meta http-equiv="refresh" content="0;url=https://qqvvv.github.io/9/myriaDown/hYakusho-030_JS9" />
+<meta http-equiv="refresh" content="0;url=https://qqvvv.github.io/9/myriaDown/hYakusho-025_JS9" />
