@@ -7,12 +7,11 @@ document.addEventListener("prenav", () => {
     }
 });
 
-document.addEventListener("nav", async ( e ) => {
-    const slug = e.detail.url;
+document.addEventListener("nav", async () => {
+    const slug = window.location.href;
     if ( ! slug.endsWith( "_JS9" ) ) return;
 
-    const moduleUrl = new URL("../" + slug.slice(0, -4) + ".js", 
-    window.location.href).href;
+    const moduleUrl = slug.slice(0, -4) + ".js";
     const module = await import ( moduleUrl );
 
     if (typeof module.initModule !== "function") {
