@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pure CSS Sliding Menu</title>
+    <style>
+        :root {
+            --menu-width: 300px;
+            --menu-height: 400px;
+            --primary-color: #3498db;
+            --bg-color: #f4f7f6;
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* --- 隐藏控制器 --- */
+        #menu-toggle, .sub-controller { display: none; }
+
+        /* --- 右下角触发按钮 --- */
+        .menu-btn {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            font-size: 24px;
+            transition: transform 0.3s;
+        }
+        #menu-toggle:checked ~ .menu-btn { transform: rotate(45deg); background: #e74c3c; }
+
+        /* --- 菜单容器 --- */
+        .menu-wrapper {
+            position: fixed;
+            right: 30px;
+            bottom: 100px;
+            width: var(--menu-width);
+            height: var(--menu-height);
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            overflow: hidden; /* 关键：隐藏溢出的层级 */
+            opacity: 0;
+            transform: translateY(20px) scale(0.9);
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #menu-toggle:checked ~ .menu-wrapper {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        /* --- 滑动轨道 (所有的级联都在这里横向排布) --- */
+        .menu-track {
+            display: flex;
+            width: 400%; /* 支持4层深度 */
+            height: 100%;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        /* --- 每一层级列表 --- */
+        .menu-level {
+            width: var(--menu-width);
+            height: 100%;
+            flex-shrink: 0;
+            overflow-y: auto;
+        }
+
+        .menu-level h3 {
+            padding: 15px 20px;
+            margin: 0;
+            background: #fafafa;
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* 返回按钮样式 */
+        .back-btn {
+            cursor: pointer;
+            margin-right: 10px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            color: #333;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .menu-item:hover { background: #f9f9f9; }
+        .menu-item::after { content: '›'; color: #ccc; font-size: 18px; }
+        .menu-item.no-child::after { content: ''; }
+
+        /* --- 核心逻辑：根据选择器位移轨道 --- */
+        
+        /* 进到第二层: Other Projects */
+        #go-other:checked ~ .menu-wrapper .menu-track { transform: translateX(-25%); }
+        
+        /* 进到第三层: Project Example */
+        #go-example:checked ~ .menu-wrapper .menu-track { transform: translateX(-50%); }
+
+        /* 进到第三层: 二层 */
+        #go-level2:checked ~ .menu-wrapper .menu-track { transform: translateX(-50%); }
+
+    </style>
+</head>
+<body>
+
+    <input type="checkbox" id="menu-toggle">
+    
+    <input type="radio" name="nav" id="go-root" class="sub-controller" checked>
+    <input type="radio" name="nav" id="go-other" class="sub-controller">
+    <input type="radio" name="nav" id="go-example" class="sub-controller">
+    <input type="radio" name="nav" id="go-level2" class="sub-controller">
+
+    <label for="menu-toggle" class="menu-btn">＋</label>
+
+    <div class="menu-wrapper">
+        <div class="menu-track">
+            
+            <div class="menu-level">
+                <h3>Main Menu</h3>
+                <a href="#" class="menu-item no-child">All Projects</a>
+                <label for="go-other" class="menu-item">Other projects</label>
+                <a href="#" class="menu-item no-child">Settings</a>
+            </div>
+
+            <div class="menu-level">
+                <h3><label for="go-root" class="back-btn">‹</label> Other projects</h3>
+                <label for="go-example" class="menu-item">Project Example</label>
+                <label for="go-level2" class="menu-item">二层</label>
+            </div>
+
+            <div class="menu-level">
+                <h3><label for="go-other" class="back-btn">‹</label> Project Example</h3>
+                <a href="#" class="menu-item no-child">Idan Vector</a>
+                <a href="#" class="menu-item no-child">Testings</a>
+                <a href="#" class="menu-item no-child">Features_120</a>
+                <a href="#" class="menu-item no-child">Aggregators</a>
+            </div>
+
+            <div class="menu-level">
+                <h3><label for="go-other" class="back-btn">‹</label> 二层</h3>
+                <a href="#" class="menu-item no-child">dan</a>
+                <a href="#" class="menu-item no-child">estings</a>
+                <a href="#" class="menu-item no-child">eatures</a>
+                <a href="#" class="menu-item no-child">三层</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
