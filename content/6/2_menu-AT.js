@@ -10,10 +10,10 @@
 // inspired by alvarotrigo https://codepen.io/alvarotrigo/pen/mdXPawB
 
 export const implantContainer = () => {
-  console.assert(0)
+  console.info(document.readyState);
 };
 
-export function renderMenu ( text ) {
+export function renderMenu ( text, containerId ) {
     const ROOT_ID = 'menu-panel-root';
     const lines = text.split('\n').filter(l => l.trim());
     const tree = { id: ROOT_ID, name: 'Root', children: [], indent: -1, parentId: null };
@@ -76,8 +76,8 @@ export function renderMenu ( text ) {
                 item.onclick = (e) => {
                     e.stopPropagation();
                     // 统一调用底座 Actions 模块
-                    if (typeof MenuActions !== 'undefined' && MenuActions[child.name]) {
-                        MenuActions[child.name]();
+                    if (typeof menuActions !== 'undefined' && menuActions[child.name]) {
+                        menuActions[child.name]();
                     } else {
                         console.log("执行默认功能:", child.name);
                     }
@@ -108,10 +108,8 @@ export function renderMenu ( text ) {
     renderNode(tree, true);
     flexDiv.appendChild(btn);
     flexDiv.appendChild(wrapper);
-
     const container = document.createElement("div");
     container.appendChild(flexDiv);
-
     document.body.appendChild(container);
     // 注入调整后的样式
 }
