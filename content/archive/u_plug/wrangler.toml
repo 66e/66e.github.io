@@ -1,0 +1,13 @@
+[env.production]
+vars = { PROXY_URL = "example.com", WORKER_URL = "your-worker.pages.dev" }
+
+[build]
+command = "npm install"
+
+# 添加这个配置可以减少被识别为代理的风险
+[env.production.routes]
+pattern = "your-worker.pages.dev/*"
+zone_name = "your-zone.dev"
+
+# 关闭某些 Cloudflare 功能
+[env.production.triggers]
